@@ -331,7 +331,7 @@
         box-shadow: 
             0 1px 2px rgba(0, 0, 0, 0.04),
             0 4px 8px rgba(0, 0, 0, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.8);
+        /* border removed */
     }
     
     /* ENHANCED: AI message with premium glass effect */
@@ -345,7 +345,7 @@
         );
         color: white;
         border-block-end-inline-end-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        /* border removed */
         /* Simple shadow without inset or glow */
         box-shadow: 
             0 2px 4px rgba(0, 0, 0, 0.1),
@@ -413,7 +413,7 @@
         content: '|';
         margin-inline-start: 2px;
         opacity: 1;
-        animation: blink 1s infinite;
+        /* animation: blink 1s infinite; DISABLED */
         color: currentColor;
         font-weight: 300;
     }
@@ -447,29 +447,17 @@
         box-shadow: 0 0 2px rgba(255, 0, 136, 0.2);
     }
     
+    /* DISABLED typing animations to prevent shimmer */
     .typing-indicator span:nth-child(1) {
-        animation: dotPulse1 var(--typing-cycle-duration) infinite;
+        /* animation removed */
     }
     
     .typing-indicator span:nth-child(2) {
-        animation: dotPulse1 var(--typing-cycle-duration) infinite;
-        animation-delay: 0.15s;
+        /* animation removed */
     }
     
     .typing-indicator span:nth-child(3) {
-        animation: dotPulse1 var(--typing-cycle-duration) infinite;
-        animation-delay: 0.3s;
-    }
-    
-    @keyframes dotPulse1 {
-        0%, 80%, 100% { 
-            opacity: 0.5; 
-            transform: scale(0.8) translateY(0);
-        }
-        30% { 
-            opacity: 1; 
-            transform: scale(1.4) translateY(-4px);
-        }
+        /* animation removed */
     }
     
     /* ===== CHATBOT RESPONSIVE ADJUSTMENTS ===== */
