@@ -448,16 +448,13 @@
     
     /* ENHANCED: AI message with premium glass effect */
     .chat-message.from-ai p {
-        /* ENHANCED2: Animated gradient background */
+        /* ENHANCED2: Static gradient background */
         background: linear-gradient(
             135deg, 
             var(--color-ai-gradient-light) 0%,
             var(--color-ai-gradient-mid) 60%,
             var(--color-ai-gradient-dark) 100%
         );
-        background-size: 150% 150%;
-        background-position: 0% 0%;
-        background-repeat: no-repeat;
         color: white;
         border-block-end-inline-end-radius: 8px;
         border: 1px solid rgba(255, 255, 255, 0.3);
@@ -476,22 +473,15 @@
         text-rendering: optimizeLegibility;
         position: relative;
         overflow: hidden;
-        /* ENHANCED2: Gradient animation */
-        animation: gradientShift 8s ease-in-out infinite;
     }
     
-    /* ENHANCED2: Gradient animation for AI messages */
-    @keyframes gradientShift {
-        0%, 100% { background-position: 0% 0%; }
-        50% { background-position: 100% 100%; }
-    }
     
     /* ENHANCED3: REMOVED shimmer effect that was causing white box issue */
     /* The ::before pseudo-element with shimmer animation has been completely removed */
     
     /* ENHANCED3: SUBTLE glow pulse for AI messages */
     .chat-message.from-ai.visible p {
-        animation: aiGlowPulseSoft 0.8s ease-out forwards, gradientShift 8s ease-in-out infinite;
+        animation: aiGlowPulseSoft 0.8s ease-out forwards;
     }
     
     /* ENHANCED3: Much softer glow pulse animation */
@@ -572,8 +562,6 @@
             inset 0 1px 0 rgba(255, 255, 255, 0.4),
             inset 0 -1px 0 rgba(0, 0, 0, 0.15);
         transform: translateY(-2px) scale(1.02);
-        /* Speed up gradient animation on hover */
-        animation: gradientShift 3s ease-in-out infinite;
     }
     
     /* ===== TYPING INDICATORS ===== */
@@ -756,10 +744,6 @@
             opacity: 0.05;
         }
         
-        /* Disable gradient animation */
-        .chat-message.from-ai p {
-            animation: none !important;
-        }
         
         /* Simplify message animations */
         .chat-message,

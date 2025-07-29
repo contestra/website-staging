@@ -364,15 +364,6 @@ class ChatbotAnimation {
         // The CSS animation will handle the pop effect
         // We just need to ensure it's triggered by adding/removing classes if needed
         element.classList.add('message-popped');
-        
-        // For AI messages, also trigger the glow pulse
-        const parentMessage = element.closest('.chat-message');
-        if (parentMessage && parentMessage.classList.contains('from-ai')) {
-            // Force reflow to restart animation
-            element.style.animation = 'none';
-            element.offsetHeight; // Trigger reflow
-            element.style.animation = '';
-        }
     }
     
     /**
