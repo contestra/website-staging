@@ -156,8 +156,8 @@
         --spring-easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
         --smooth-easing: cubic-bezier(0.4, 0, 0.2, 1);
         --bounce-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        /* ENHANCED2: Elastic easing for message pop */
-        --elastic-easing: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        /* ENHANCED2: Elastic easing replaced with smooth to prevent wobble */
+        --elastic-easing: cubic-bezier(0.4, 0, 0.2, 1);
         
         /* Typing indicator */
         --typing-dot-size: 5px;
@@ -186,17 +186,8 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        background: linear-gradient(
-            135deg,
-            rgba(255, 252, 249, 0.3) 0%,       /* Warm cream with transparency */
-            rgba(255, 255, 249, 0.3) 25%,      /* Light yellow with transparency */
-            rgba(255, 249, 242, 0.3) 50%,      /* Warm peach with transparency */
-            rgba(255, 242, 249, 0.3) 75%,      /* Warm pink with transparency */
-            rgba(255, 252, 249, 0.3) 100%      /* Loop back to cream */
-        );
-        background-size: 200% 200%;
-        background-position: 0% 0%;
-        border: 1px solid rgba(255,255,255,0.3);  /* ENHANCED: Lighter border */
+        background: rgba(255, 252, 249, 0.1);  /* Very subtle tint */
+        border: 1px solid rgba(255,255,255,0.2);  /* ENHANCED: Lighter border */
         /* ENHANCED: Multi-layered shadow for depth */
         box-shadow: 
             0 2px 4px rgba(0, 0, 0, 0.02),      /* Subtle close shadow */
@@ -212,54 +203,19 @@
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
         /* ENHANCED: Better glass effect */
-        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-        -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+        /* Removed backdrop filter to eliminate white box */
         transform: translateZ(0);               /* Force GPU acceleration */
         will-change: transform, box-shadow;
     }
     
-    /* ENHANCED: Noise texture overlay for realistic glass */
+    /* ENHANCED: Noise texture overlay - DISABLED */
     .chatbot-container::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        opacity: var(--glass-noise-opacity);
-        background-image: 
-            repeating-conic-gradient(
-                from 0deg at 50% 50%,
-                rgba(255,255,255,0) 0deg,
-                rgba(255,255,255,0.1) 1deg,
-                rgba(255,255,255,0) 2deg
-            );
-        background-size: 60px 60px;
-        pointer-events: none;
-        mix-blend-mode: overlay;
-        border-radius: 24px;
-        z-index: 1;
+        display: none;
     }
     
-    /* ENHANCED: Moving rainbow reflection for glass effect */
+    /* ENHANCED: Moving rainbow reflection - DISABLED */
     .chatbot-container::before {
-        content: '';
-        position: absolute;
-        inset-block-start: -50%;
-        inset-inline-start: -50%;
-        inline-size: 200%;
-        block-size: 200%;
-        background: conic-gradient(
-            from 0deg at 50% 50%,
-            transparent,
-            rgba(255, 0, 136, var(--glass-reflection-opacity)),
-            rgba(0, 255, 255, var(--glass-reflection-opacity)),
-            rgba(255, 255, 0, var(--glass-reflection-opacity)),
-            transparent
-        );
-        /* Removed glass reflection animation */
-        pointer-events: none;
-        mix-blend-mode: soft-light;
-        opacity: 0.3;
-        filter: blur(60px);
-        z-index: 0;
+        display: none;
     }
     
     /* ENHANCED: Glass reflection animation - disabled to prevent wobbling */
@@ -498,12 +454,8 @@
     
     @keyframes messagePopLeft {
         0%   { 
-            transform: scale(0.94) translateY(3px) translateX(-20px);
+            transform: scale(0.95) translateY(10px) translateX(-15px);
             opacity: 0;
-        }
-        60%  { 
-            transform: scale(1.02) translateY(-1px) translateX(1px);
-            opacity: 1;
         }
         100% { 
             transform: scale(1) translateY(0) translateX(0);
@@ -513,12 +465,8 @@
     
     @keyframes messagePopRight {
         0%   { 
-            transform: scale(0.94) translateY(3px) translateX(20px);
+            transform: scale(0.95) translateY(10px) translateX(15px);
             opacity: 0;
-        }
-        60%  { 
-            transform: scale(1.02) translateY(-1px) translateX(-1px);
-            opacity: 1;
         }
         100% { 
             transform: scale(1) translateY(0) translateX(0);
