@@ -75,8 +75,8 @@
         width: clamp(190px, 23vw, 365px); 
         height: clamp(190px, 23vw, 365px); 
         color: var(--color-sparkle-pink); 
-        animation: edgeMove2 70s infinite linear;
-        animation-delay: -8s; 
+        /* animation: edgeMove2 70s infinite linear; DISABLED */
+        /* animation-delay: -8s; */ 
     }
     
     /* Bottom-left sparkle - figure-8 pattern */
@@ -84,15 +84,15 @@
         width: clamp(370px, 40vw, 700px);
         height: clamp(370px, 40vw, 700px);
         color: var(--color-sparkle-pink);
-        animation: bottomLeftMove 31s infinite linear;
-        animation-delay: -4s;
+        /* animation: bottomLeftMove 31s infinite linear; DISABLED */
+        /* animation-delay: -4s; */
     }
     
     /* Counter-rotation for sparkle elements */
     .sparkle-2::before,
     .sparkle-2::after {
-        animation-direction: reverse;
-        animation-duration: 30s;
+        /* animation-direction: reverse; DISABLED */
+        /* animation-duration: 30s; */
     }
     
     /* ===== SPARKLE KEYFRAME ANIMATIONS ===== */
@@ -177,6 +177,14 @@
         --glass-reflection-opacity: 0.1;
     }
     
+    /* Remove any styling from parent elements */
+    .hero-animation,
+    .animation-placeholder {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
     /* ENHANCED: Chatbot container with professional glass morphism */
     .chatbot-container {
         position: relative;
@@ -190,8 +198,8 @@
         border: none;  /* Remove border */
         /* Removed box-shadow to eliminate white frame */
         box-shadow: none;
-        overflow: hidden;
-        border-radius: 24px;
+        overflow: visible;
+        /* border-radius: 24px; REMOVED to eliminate white edge */
         /* Removed gradient animation to prevent wobbling */
         max-block-size: 100%;
         min-block-size: 100%;                   /* FIXED: Set min-height to 100% to prevent container from expanding */
