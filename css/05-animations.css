@@ -188,11 +188,11 @@
         justify-content: flex-start;
         background: linear-gradient(
             135deg,
-            #FFFCF9 0%,                         /* Warm cream */
-            #FFFFF9 25%,                        /* Light yellow */
-            #FFF9F2 50%,                        /* Warm peach */
-            #FFF2F9 75%,                        /* Warm pink */
-            #FFFCF9 100%                        /* Loop back to cream */
+            rgba(255, 252, 249, 0.3) 0%,       /* Warm cream with transparency */
+            rgba(255, 255, 249, 0.3) 25%,      /* Light yellow with transparency */
+            rgba(255, 249, 242, 0.3) 50%,      /* Warm peach with transparency */
+            rgba(255, 242, 249, 0.3) 75%,      /* Warm pink with transparency */
+            rgba(255, 252, 249, 0.3) 100%      /* Loop back to cream */
         );
         background-size: 200% 200%;
         background-position: 0% 0%;
@@ -206,7 +206,7 @@
             inset 0 -1px 2px rgba(0,0,0,0.02);  /* Subtle inner shadow at bottom */
         overflow: hidden;
         border-radius: 24px;
-        animation: chatbotGradientShift 30s ease-in-out infinite;
+        /* Removed gradient animation to prevent wobbling */
         max-block-size: 100%;
         min-block-size: 100%;                   /* FIXED: Set min-height to 100% to prevent container from expanding */
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
@@ -254,7 +254,7 @@
             rgba(255, 255, 0, var(--glass-reflection-opacity)),
             transparent
         );
-        animation: glassReflection 20s linear infinite;
+        /* Removed glass reflection animation */
         pointer-events: none;
         mix-blend-mode: soft-light;
         opacity: 0.3;
@@ -262,10 +262,10 @@
         z-index: 0;
     }
     
-    /* ENHANCED: Glass reflection animation */
+    /* ENHANCED: Glass reflection animation - disabled to prevent wobbling */
     @keyframes glassReflection {
         0% { transform: rotate(0deg) translateZ(0); }
-        100% { transform: rotate(360deg) translateZ(0); }
+        100% { transform: rotate(0deg) translateZ(0); }
     }
     
     /* Chrome, Safari and Opera - hide scrollbar */
@@ -275,14 +275,6 @@
         display: none;
     }
     
-    /* Chatbot background gradient animation */
-    @keyframes chatbotGradientShift {
-        0%   { background-position: 0% 0%; }
-        25%  { background-position: 100% 0%; }
-        50%  { background-position: 100% 100%; }
-        75%  { background-position: 0% 100%; }
-        100% { background-position: 0% 0%; }
-    }
     
     /* ENHANCED: Professional hover state with depth */
     .chatbot-container:hover {
@@ -298,30 +290,9 @@
     
     /* ENHANCED: Active state for interactivity */
     .chatbot-container.chat-active {
-        animation: chatbotPulse 2s ease-in-out infinite, chatbotGradientShift 30s ease-in-out infinite;
+        /* Removed animations to prevent wobbling */
     }
     
-    /* ENHANCED: Subtle pulse animation */
-    @keyframes chatbotPulse {
-        0%, 100% { 
-            box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.02),
-                0 8px 16px rgba(0, 0, 0, 0.04),
-                0 24px 48px rgba(0, 0, 0, 0.06),
-                0 0 0 0 rgba(255, 0, 136, 0),
-                inset 0 0 0 1px rgba(255,255,255,0.5),
-                inset 0 -1px 2px rgba(0,0,0,0.02);
-        }
-        50% { 
-            box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.02),
-                0 8px 16px rgba(0, 0, 0, 0.04),
-                0 24px 48px rgba(0, 0, 0, 0.06),
-                0 0 20px 5px rgba(255, 0, 136, 0.1),
-                inset 0 0 0 1px rgba(255,255,255,0.5),
-                inset 0 -1px 2px rgba(0,0,0,0.02);
-        }
-    }
     
     /* ===== CHAT MESSAGE ANIMATIONS ===== */
     
@@ -378,12 +349,9 @@
         inline-size: 100%;
         overflow: visible;
         padding: 2px 0;
-        will-change: transform, opacity;
-        --initial-y: 20px;
-        --initial-x: 0;
-        transform: translateY(var(--initial-y)) translateX(var(--initial-x));
-        /* ENHANCED2: Using elastic easing for message appearance */
-        transition: all 0.5s var(--elastic-easing);
+        will-change: opacity;
+        /* Only animate opacity on parent, let child handle transform */
+        transition: opacity 0.5s var(--elastic-easing);
         position: relative;                     /* Ensure messages stay above gradient */
         z-index: 1;
     }
@@ -396,19 +364,16 @@
     /* Message positioning and entry animations */
     .chat-message.from-user {
         justify-content: flex-start;
-        --initial-x: -20px;
         padding-inline-end: 0;                  /* No extra padding - uses container padding */
     }
     
     .chat-message.from-ai {
         justify-content: flex-end;
-        --initial-x: 20px;
         padding-inline-start: 0;                /* No extra padding - uses container padding */
     }
     
     .chat-message.visible {
         opacity: 1;
-        transform: translateY(0) translateX(0);
     }
     
     /* ===== ENHANCED MESSAGE BUBBLE STYLING ===== */
@@ -421,10 +386,9 @@
         max-inline-size: min(380px, 85%);
         inline-size: fit-content;
         font-weight: 400;
-        transform: scale(0.94) translateY(3px);
+        /* Initial state handled by animation */
         opacity: 0;
-        /* ENHANCED2: Smoother transition with elastic easing */
-        transition: all 0.3s var(--elastic-easing);
+        /* Removed transition to prevent conflict with animation */
         overflow: visible;
         word-wrap: break-word;
         word-break: normal;
@@ -482,9 +446,9 @@
     /* ENHANCED3: REMOVED shimmer effect that was causing white box issue */
     /* The ::before pseudo-element with shimmer animation has been completely removed */
     
-    /* ENHANCED3: SUBTLE glow pulse for AI messages */
+    /* ENHANCED3: No animation to prevent wobbling */
     .chat-message.from-ai.visible p {
-        animation: aiGlowPulseSoft 0.8s ease-out forwards;
+        /* Removed glow pulse animation */
     }
     
     /* ENHANCED3: Much softer glow pulse animation */
@@ -518,35 +482,57 @@
     
     /* Message appearance animation */
     .chat-message.visible p {
-        transform: scale(1) translateY(0);
+        transform: scale(1) translateY(0) translateX(0);
         opacity: 1;
         overflow: hidden;
     }
     
     /* ENHANCED2: Message pop effect with elastic bounce */
-    .chat-message.visible p {
-        animation: messagePop 0.5s var(--elastic-easing) forwards;
+    .chat-message.from-user.visible p {
+        animation: messagePopLeft 0.5s var(--elastic-easing) forwards;
     }
     
-    @keyframes messagePop {
+    .chat-message.from-ai.visible p {
+        animation: messagePopRight 0.5s var(--elastic-easing) forwards;
+    }
+    
+    @keyframes messagePopLeft {
         0%   { 
-            transform: scale(0.94) translateY(3px);
+            transform: scale(0.94) translateY(3px) translateX(-20px);
             opacity: 0;
         }
         60%  { 
-            transform: scale(1.02) translateY(-1px);
+            transform: scale(1.02) translateY(-1px) translateX(1px);
             opacity: 1;
         }
         100% { 
-            transform: scale(1) translateY(0);
+            transform: scale(1) translateY(0) translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes messagePopRight {
+        0%   { 
+            transform: scale(0.94) translateY(3px) translateX(20px);
+            opacity: 0;
+        }
+        60%  { 
+            transform: scale(1.02) translateY(-1px) translateX(-1px);
+            opacity: 1;
+        }
+        100% { 
+            transform: scale(1) translateY(0) translateX(0);
             opacity: 1;
         }
     }
     
     /* ENHANCED: Micro-interactions with depth */
+    .chat-message p {
+        transition: transform 0.2s var(--smooth-easing), box-shadow 0.2s var(--smooth-easing);
+    }
+    
     .chat-message p:hover {
         transform: translateY(-2px);
-        transition: all 0.2s var(--smooth-easing);
     }
     
     .chat-message.from-user p:hover {
