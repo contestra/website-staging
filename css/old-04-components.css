@@ -1,0 +1,820 @@
+/*
+ * css/04-components.css - Reusable UI Components
+ * 
+ * Purpose: Buttons, cards, carousel controls, and other reusable interface elements
+ * Used by: All sections that need interactive components
+ * Dependencies: 00-variables.css, 01-reset.css, 02-layout.css
+ * Related: 03-sections.css (sections use these components), 05-animations.css (component animations)
+ * 
+ * LLM Working Notes:
+ * - Component-first approach for maintainable CSS
+ * - All components are self-contained and reusable
+ * - Responsive design built into each component
+ * - Modern CSS features: custom properties, logical properties, container queries
+ * 
+ * Component Categories:
+ * - Button system: Primary, secondary, and icon variations
+ * - Card system: Flippable cards with consistent styling
+ * - Carousel system: Navigation arrows, dots, viewport
+ * - Marquee system: Logo scrolling animation
+ * - Deployment cards: Hover effects and gradient strips
+ * - Animation placeholder: Chatbot container styling
+ * - Utility classes: Text colors, gradients, underlines
+ */
+
+/* ===== BUTTON SYSTEM ===== */
+@layer components {
+    /* Base button styles - foundation for all button variants */
+    .btn {
+        font-family: 'Suisse Intl Mono', monospace;
+        display: inline-flex;
+        align-items: center;
+        padding: 1rem 2.2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 400;
+        transition: all var(--transition-slow);
+        border: 1px solid rgba(0,0,0,0.06);
+        cursor: pointer;
+        font-size: 1.4rem;
+        white-space: nowrap;
+        transform: scale(1);
+        letter-spacing: 0.02em;
+        line-height: 1.4;
+        block-size: 4rem;
+        transform-origin: center center;
+    }
+    
+    /* Primary black button - main CTA style */
+    .btn--primary-black {
+        background: var(--nav-color);
+        color: var(--color-light);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .btn--primary-black:hover {
+        transform: translateY(-2px) scale(1);
+        box-shadow: var(--shadow-lg);
+        opacity: 0.9;
+    }
+    
+    /* Primary gradient button - secondary CTA style */
+    .btn--primary {
+        background: var(--gradient-spectrum);
+        color: var(--color-light);
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Gradient button hover overlay */
+    .btn--primary::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: white;
+        border-radius: 50px;
+        opacity: 0;
+        transition: opacity var(--transition-base);
+        z-index: -1;
+    }
+    
+    .btn--primary:hover::before {
+        opacity: 0.1;
+    }
+    
+    .btn--primary:hover {
+        transform: translateY(-2px) scale(1);
+    }
+    
+    /* Button with arrow icon */
+    .btn-arrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    
+    .btn-arrow-icon {
+        inline-size: 1.2rem;
+        block-size: 1.2rem;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
+        transition: transform var(--transition-base);
+    }
+    
+    .btn-arrow:hover .btn-arrow-icon {
+        transform: translateX(3px);
+    }
+    
+    /* Hero section buttons - slightly larger */
+    .hero-content .btn {
+        block-size: 4.2rem;
+    }
+    
+    /* ===== BUTTON RESPONSIVE ADJUSTMENTS ===== */
+    /* Header button sizing based on scroll state */
+    #site-header.scrolled .btn {
+        padding: 1rem 2rem;
+        font-size: 1.3rem;
+        block-size: 3.5rem;
+    }
+    
+    #site-header.scrolled .header__options .btn {
+        padding: 0.9rem 1.8rem;
+        font-size: 1.25rem;
+        transform: scale(0.96);
+        border-radius: 40px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1.3;
+    }
+    
+    #site-header.scrolling-up .btn {
+        padding: 1rem 2.2rem;
+        font-size: 1.4rem;
+        block-size: 4rem;
+    }
+    
+    /* Scroll-specific button shadows */
+    #site-header.scrolled .btn--primary-black {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    #site-header.scrolling-up .btn--primary-black {
+        box-shadow: var(--shadow-md);
+    }
+    
+    #site-header.scrolled .btn--primary-black:hover {
+        transform: translateY(-2px) scale(0.96);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    
+    #site-header.scrolling-up .btn--primary-black:hover {
+        transform: translateY(-2px) scale(1);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    /* Button responsiveness for different screen sizes */
+    @media (width <= 1200px) {
+        .btn {
+            font-size: 1.3rem;
+            padding: 1rem 2rem;
+            block-size: 3.8rem;
+        }
+    }
+    
+    /* Button icon with directional arrow transformation */
+    .btn__icon,
+    .btn svg {
+        width: 1em;
+        height: 1em;
+        stroke-width: 0.08em;
+        transform-origin: center;
+        transform: rotate(-45deg);              /* Initial diagonal position */
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .btn:hover .btn__icon,
+    .btn:focus-visible .btn__icon,
+    .btn:hover svg,
+    .btn:focus-visible svg {
+        transform: rotate(0deg);                /* Straighten on hover */
+    }
+}
+
+/* ===== CARD SYSTEM - SCALE AI CAROUSEL CARDS ===== */
+@layer components {
+    /* Carousel container with overflow management */
+    .scale-ai-carousel {
+        position: relative;
+        inline-size: 100%;
+        margin-inline-start: 0;
+        padding-block: 1.5rem;                  /* Account for hover lift */
+        margin-block: -1.5rem;
+        box-sizing: border-box;
+        padding-inline-end: 0;
+    }
+    
+    /* Carousel viewport - allows vertical overflow for animations */
+    .carousel-viewport {
+        overflow-x: hidden;
+        overflow-y: visible;
+        position: relative;
+        inline-size: 100%;
+    }
+    
+    /* Cards container - CSS Grid for precise 2-card display */
+    .b-section[data-id="scale-ai"] .scale-ai-cards {
+        display: grid;
+        grid-template-columns: repeat(3, calc(50% - var(--carousel-gap) / 2));
+        gap: var(--carousel-gap);
+        inline-size: 100%;
+        box-sizing: border-box;
+        transition: transform var(--transition-slow);
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Individual card styling */
+    .b-section[data-id="scale-ai"] .b-link {
+        display: flex;
+        flex-direction: column;
+        min-block-size: clamp(40rem, 54vw, 48rem);
+        padding: var(--gap-4);
+        box-sizing: border-box;
+        user-select: none;
+        position: relative;
+        background: var(--color-gray-100);
+        border-radius: 16px;
+        text-decoration: none;
+        color: inherit;
+        transition: all var(--transition-base);
+        overflow: hidden;
+        z-index: 1;
+        perspective: 1000px;                    /* 3D perspective for card flip */
+    }
+    
+    /* Card gradient strip - hidden by default on desktop */
+    .b-section[data-id="scale-ai"] .b-link::before {
+        content: '';
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline: 0;
+        block-size: 4px;
+        background: var(--gradient-spectrum-90);
+        transform: translateX(-100%);           /* Hidden by default */
+        transition: transform var(--transition-base);
+    }
+    
+    /* Desktop hover effects */
+    .b-section[data-id="scale-ai"] .b-link:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+        background: var(--gradient-spectrum-97-5);
+        z-index: 10;
+        cursor: pointer;
+    }
+    
+    /* Disable hover effects on touch devices */
+    @media (hover: none) {
+        .b-section[data-id="scale-ai"] .b-link:hover {
+            transform: none;
+            box-shadow: var(--shadow-md);
+            background: var(--color-gray-100);
+            z-index: 1;
+        }
+        
+        /* Show gradient strip on touch devices */
+        .b-section[data-id="scale-ai"] .b-link:hover::before {
+            transform: translateX(0);
+        }
+        
+        /* Subtle touch feedback */
+        .b-section[data-id="scale-ai"] .b-link:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
+        }
+    }
+    
+    /* ===== CARD FLIP ANIMATION SYSTEM ===== */
+    
+    /* Card flip container with 3D transforms */
+    .b-section[data-id="scale-ai"] .card-flip-container {
+        position: relative;
+        inline-size: 100%;
+        block-size: 100%;
+        transform-style: preserve-3d;
+        transition: transform var(--transition-slow);
+    }
+    
+    /* Card faces - front and back */
+    .b-section[data-id="scale-ai"] .card-face {
+        position: absolute;
+        inset: 0;
+        inline-size: 100%;
+        block-size: 100%;
+        backface-visibility: hidden;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    
+    /* Front face - default visible state */
+    .b-section[data-id="scale-ai"] .card-front {
+        background: transparent;
+        z-index: 2;
+    }
+    
+    /* Back face - initially hidden, rotated 180 degrees */
+    .b-section[data-id="scale-ai"] .card-back {
+        background: var(--color-gray-300);
+        transform: rotateY(180deg);
+        z-index: 1;
+    }
+    
+    /* Flipped state */
+    .b-section[data-id="scale-ai"] .b-link.flipped .card-flip-container {
+        transform: rotateY(180deg);
+    }
+    
+    /* Back face hover effect */
+    .b-section[data-id="scale-ai"] .b-link:hover .card-back {
+        background: var(--gradient-spectrum-97-5);
+    }
+    
+    /* Card content containers */
+    .b-section[data-id="scale-ai"] .card-face .block-container-link {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 0;
+        block-size: 100%;
+    }
+    
+    /* Push content to bottom */
+    .b-section[data-id="scale-ai"] .card-face .card__description {
+        margin-block-start: auto;
+    }
+    
+    .b-section[data-id="scale-ai"] .card-face .card__cta {
+        margin-block-start: var(--gap-2);
+    }
+    
+    /* Back face content styling */
+    .b-section[data-id="scale-ai"] .card-back .block-container-link {
+        justify-content: center;
+        text-align: center;
+        padding: var(--gap-5);
+    }
+    
+    .b-section[data-id="scale-ai"] .card-back .card__description {
+        margin-block-start: 0;
+        font-size: 1.7rem;
+        line-height: 1.6;
+    }
+    
+    /* ===== CARD CONTENT STYLING ===== */
+    .b-section[data-id="scale-ai"] .card__title {
+        font-size: 2.8rem;
+        font-weight: 600;
+        margin-block-end: 1.5rem;
+        color: var(--color-text-primary);
+    }
+    
+    .b-section[data-id="scale-ai"] .card__description {
+        font-size: 1.8rem;
+        line-height: 1.5;
+        color: var(--color-text-primary);
+        opacity: 0.7;
+        margin-block-end: 2rem;
+    }
+    
+    .b-section[data-id="scale-ai"] .card__cta {
+        color: var(--color-accent);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    /* CTA arrow animation */
+    .b-section[data-id="scale-ai"] .card__cta::after {
+        content: '→';
+        margin-inline-start: 0.5rem;
+        transition: transform var(--transition-base);
+    }
+    
+    .b-section[data-id="scale-ai"] .b-link:hover .card__cta::after {
+        transform: translateX(5px);
+    }
+    
+    /* ===== CAROUSEL SLIDE POSITIONS ===== */
+    .b-section[data-id="scale-ai"] .scale-ai-cards[data-slide="0"] {
+        transform: translateX(0);               /* Show cards 1-2 */
+    }
+    
+    .b-section[data-id="scale-ai"] .scale-ai-cards[data-slide="1"] {
+        transform: translateX(calc(-50% - var(--carousel-gap))); /* Show cards 2-3 */
+    }
+    
+    /* ===== MOBILE CARD ADJUSTMENTS ===== */
+    @media (width <= 768px) {
+        /* Reset carousel on mobile - show all cards stacked */
+        .carousel-viewport {
+            overflow: visible;
+        }
+        
+        .b-section[data-id="scale-ai"] .scale-ai-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-3);
+            transform: none !important;        /* Disable carousel transforms */
+            transition: none;
+        }
+        
+        /* Show all cards on mobile */
+        .b-section[data-id="scale-ai"] .b-link {
+            display: flex !important;
+            text-align: center;
+            background: var(--color-gray-100);
+            box-shadow: var(--shadow-md);
+            min-block-size: auto;
+        }
+        
+        /* Disable card flip on mobile */
+        .b-section[data-id="scale-ai"] .card-flip-container {
+            transform: none !important;
+            position: static;
+        }
+        
+        .b-section[data-id="scale-ai"] .card-back {
+            display: none;                      /* Hide back face on mobile */
+        }
+        
+        .b-section[data-id="scale-ai"] .card-front {
+            position: static;
+            inline-size: 100%;
+            block-size: 100%;
+        }
+        
+        /* Show gradient strip on mobile */
+        .b-section[data-id="scale-ai"] .b-link::before {
+            transform: translateX(0);
+        }
+        
+        /* Center mobile text */
+        .b-section[data-id="scale-ai"] .card-front .card__title,
+        .b-section[data-id="scale-ai"] .card-front .card__description,
+        .b-section[data-id="scale-ai"] .card-front .card__cta {
+            text-align: center;
+        }
+    }
+}
+
+/* ===== CAROUSEL CONTROLS ===== */
+@layer components {
+    /* Carousel controls container */
+    .carousel-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--gap-3);
+        margin-block-start: calc(var(--gap-4) + 2rem);
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Carousel navigation arrows */
+    .carousel-arrow {
+        inline-size: 3.6rem;
+        block-size: 3.6rem;
+        border-radius: 50%;
+        background: var(--color-light);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all var(--transition-base);
+        padding: 0;
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .carousel-arrow:hover:not(:disabled) {
+        background: var(--gradient-spectrum-97-5);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .carousel-arrow:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+    
+    .carousel-arrow svg {
+        inline-size: 1.2rem;
+        block-size: 1.2rem;
+        stroke: var(--nav-color);
+    }
+    
+    /* Carousel dots/indicators */
+    .carousel-dots {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-1);
+    }
+    
+    .carousel-dot {
+        inline-size: 0.8rem;
+        block-size: 0.8rem;
+        border-radius: 50%;
+        background: rgba(26, 30, 34, 0.2);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: all var(--transition-base);
+    }
+    
+    .carousel-dot:hover {
+        background: rgba(26, 30, 34, 0.4);
+    }
+    
+    .carousel-dot.active {
+        background: var(--nav-color);
+        inline-size: 1rem;
+        block-size: 1rem;
+    }
+    
+    /* Hide carousel controls on mobile */
+    @media (width <= 768px) {
+        .carousel-controls {
+            display: none;
+        }
+    }
+}
+
+/* ===== MARQUEE SYSTEM ===== */
+@layer components {
+    /* Marquee container */
+    .b-marquee {
+        display: flex;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    /* Marquee track with animation */
+    .marquee__track {
+        display: flex;
+        animation: marquee var(--marquee-duration) linear infinite;
+        will-change: transform;
+        transform: translateZ(0);               /* Hardware acceleration */
+        backface-visibility: hidden;
+    }
+    
+    /* Individual marquee items */
+    .marquee__item {
+        flex: 0 0 auto;
+        margin-inline-end: var(--logo-gap);
+        opacity: 0.7;
+        transition: opacity var(--transition-base);
+    }
+    
+    .marquee__item:nth-of-type(4n) {
+        margin-inline-end: 0;                   /* No margin after every 4th item */
+    }
+    
+    .marquee__item:hover {
+        opacity: 1;
+    }
+    
+    /* Marquee logo styling */
+    .marquee__item img {
+        block-size: var(--logo-height);
+        inline-size: auto;
+        filter: brightness(0) invert(1);        /* White logos on dark background */
+    }
+}
+
+/* ===== DEPLOYMENT CARDS ===== */
+@layer components {
+    /* Individual deployment card */
+    .deployment-card {
+        padding: 3rem;
+        background: white;
+        border: 1px solid rgba(0,0,0,0.06);
+        border-radius: 16px;
+        transition: all var(--transition-base);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Gradient strip animation */
+    .deployment-card::before {
+        content: '';
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline: 0;
+        block-size: 4px;
+        background: var(--gradient-spectrum-90);
+        transform: translateX(-100%);
+        transition: transform var(--transition-base);
+    }
+    
+    .deployment-card:hover {
+        border-color: rgba(0,0,0,0.06);
+        background: var(--gradient-spectrum-97-5);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .deployment-card:hover::before {
+        transform: translateX(0);
+    }
+    
+    .deployment-card h3 {
+        font-size: 2.4rem;
+        margin-block-end: 1.5rem;
+        color: var(--color-text-primary);
+    }
+    
+    .deployment-card p {
+        font-size: 1.6rem;
+        line-height: 1.6;
+        color: var(--color-text-primary);
+        opacity: 0.7;
+    }
+}
+
+/* ===== ANIMATION PLACEHOLDER COMPONENT ===== */
+@layer components {
+    /* Animation placeholder container - for chatbot demo */
+    .animation-placeholder {
+        position: relative;
+        inline-size: 100%;
+        block-size: 100%;
+        min-block-size: 38.6rem;
+        max-block-size: 48rem;
+        background: 
+            linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+        backdrop-filter: blur(14px) saturate(170%);
+        -webkit-backdrop-filter: blur(14px) saturate(170%);
+        border-radius: 24px;
+        border: 1px solid rgba(0,0,0,0.06);
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.1),
+            inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-slow);
+        z-index: 10;
+        scrollbar-width: none;                  /* Firefox - hide scrollbar */
+        -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
+    }
+    
+    /* Chrome, Safari and Opera - hide scrollbar */
+    .animation-placeholder::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+    
+    /* Subtle gradient overlays */
+    .animation-placeholder::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: 
+            radial-gradient(
+                circle at 20% 80%,
+                rgba(0, 255, 255, 0.1) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                circle at 80% 20%,
+                rgba(255, 0, 136, 0.1) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                circle at 50% 50%,
+                rgba(255, 255, 0, 0.05) 0%,
+                transparent 70%
+            );
+        opacity: 0.6;
+        pointer-events: none;
+    }
+    
+    .animation-placeholder:hover {
+        transform: translateY(-5px);
+        box-shadow: 
+            0 30px 80px rgba(0, 0, 0, 0.15),
+            inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    }
+    
+    @media (width <= 768px) {
+        .animation-placeholder {
+            min-block-size: 28.6rem;
+        }
+    }
+    
+    /* Placeholder content styling */
+    .placeholder-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 3rem;
+    }
+    
+    .placeholder-content span {
+        display: inline-block;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: var(--color-text-primary);
+        opacity: 0.4;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.70);
+        border-radius: 100px;
+        backdrop-filter: blur(14px) saturate(170%);
+        -webkit-backdrop-filter: blur(14px) saturate(170%);
+    }
+    
+    /* Chatbot active state */
+    .animation-placeholder.chat-active {
+        box-shadow: 
+            0 25px 70px rgba(0, 0, 0, 0.12),
+            inset 0 1px 1px rgba(255, 255, 255, 0.4),
+            0 0 40px rgba(127, 255, 255, 0.1);
+    }
+}
+
+/* ===== UTILITY CLASSES ===== */
+@layer utilities {
+    /* Text color utilities */
+    .text-accent {
+        color: var(--color-accent);
+    }
+
+    .text-highlight-purple {
+        color: var(--color-highlight-purple);
+    }
+    
+    .text-highlight-yellow {
+        color: var(--color-highlight-yellow);
+    }
+    
+    /* Gradient text effect */
+    .text-gradient {
+        background: var(--gradient-spectrum);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* ===== SUBTLE UNDERLINE SYSTEM ===== */
+    /* Subtle underline for key phrases in descriptions */
+    .text-underline-subtle {
+        position: relative;
+        display: inline;
+        border-bottom: 1px solid rgba(26, 30, 34, 0.2);
+        padding-bottom: 0.1em;
+    }
+    
+    /* Modern browsers enhancement */
+    @supports (text-decoration-thickness: 1px) {
+        .text-underline-subtle {
+            border-bottom: none;
+            padding-bottom: 0;
+            text-decoration: underline;
+            text-decoration-color: rgba(26, 30, 34, 0.2);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.3em;
+            text-decoration-skip-ink: auto;
+        }
+    }
+    
+    /* Accent underline variant */
+    .text-underline-accent {
+        position: relative;
+        display: inline;
+        border-bottom: 1px solid rgba(255, 0, 136, 0.3);
+        padding-bottom: 0.1em;
+    }
+    
+    @supports (text-decoration-thickness: 1px) {
+        .text-underline-accent {
+            border-bottom: none;
+            padding-bottom: 0;
+            text-decoration: underline;
+            text-decoration-color: rgba(255, 0, 136, 0.3);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.3em;
+            text-decoration-skip-ink: auto;
+        }
+    }
+    
+    /* Dashed underline variant */
+    .text-underline-dashed {
+        position: relative;
+        display: inline;
+        border-bottom: 1px dashed rgba(26, 30, 34, 0.3);
+        padding-bottom: 0.1em;
+    }
+    
+    @supports (text-decoration-style: dashed) {
+        .text-underline-dashed {
+            border-bottom: none;
+            padding-bottom: 0;
+            text-decoration: underline;
+            text-decoration-style: dashed;
+            text-decoration-color: rgba(26, 30, 34, 0.3);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.3em;
+            text-decoration-skip-ink: auto;
+        }
+    }
+}
