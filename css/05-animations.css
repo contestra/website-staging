@@ -36,6 +36,8 @@
         overflow: hidden;
         pointer-events: none;
         z-index: 1;                             /* Below content but above gradient */
+        transform: translateZ(0);               /* Create new layer */
+        will-change: contents;                  /* Isolate repaints */
     }
     
     /* Base sparkle styling */
@@ -43,6 +45,8 @@
         position: absolute;
         filter: blur(15px);
         opacity: 0.7;
+        will-change: transform;                 /* Optimize transforms */
+        transform: translateZ(0);               /* Force GPU layer */
     }
     
     /* Sparkle cross pattern using pseudo-elements */

@@ -42,7 +42,7 @@
             ),
             var(--gradient-spectrum);
         
-        /* background-attachment: fixed; REMOVED - causes shimmer */
+        background-attachment: fixed;
         background-size: 100% 100%;
         background-position: 0 0;
         isolation: isolate;                     /* Create stacking context */
