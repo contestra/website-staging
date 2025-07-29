@@ -199,8 +199,7 @@
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
         /* ENHANCED: Better glass effect */
         /* Removed backdrop filter to eliminate white box */
-        transform: translateZ(0);               /* Force GPU acceleration */
-        will-change: transform, box-shadow;
+        /* Removed transform and will-change to prevent shimmer */
     }
     
     /* ENHANCED: Noise texture overlay - DISABLED */
@@ -281,8 +280,7 @@
         inline-size: 100%;
         overflow: visible;
         padding: 2px 0;
-        /* Simple fade in only */
-        transition: opacity 0.3s ease-in-out;
+        /* No transition - prevents shimmer */
         position: relative;                     /* Ensure messages stay above gradient */
         z-index: 1;
     }
@@ -332,8 +330,7 @@
     /* ENHANCED: User message with subtle depth */
     .chat-message.from-user p {
         background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        /* Removed backdrop-filter to prevent shimmer */
         color: var(--color-text-primary);
         border-block-end-inline-start-radius: 8px;
         /* ENHANCED: Subtle layered shadow for depth */
@@ -382,34 +379,7 @@
         /* Removed glow pulse animation */
     }
     
-    /* ENHANCED3: Much softer glow pulse animation */
-    @keyframes aiGlowPulseSoft {
-        0% { 
-            box-shadow: 
-                0 2px 4px rgba(255, 0, 136, 0.1),
-                0 8px 16px rgba(255, 0, 136, 0.2),
-                0 16px 32px rgba(255, 0, 136, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-        }
-        50% { 
-            box-shadow: 
-                0 2px 4px rgba(255, 0, 136, 0.1),
-                0 8px 16px rgba(255, 0, 136, 0.2),
-                0 16px 32px rgba(255, 0, 136, 0.15),
-                0 0 12px 4px rgba(255, 0, 136, 0.15),  /* REDUCED from 20px 10px 0.3 */
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-        }
-        100% { 
-            box-shadow: 
-                0 2px 4px rgba(255, 0, 136, 0.1),
-                0 8px 16px rgba(255, 0, 136, 0.2),
-                0 16px 32px rgba(255, 0, 136, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-        }
-    }
+    /* REMOVED - glow pulse animation */
     
     /* Message appearance - simple opacity only */
     .chat-message.visible p {
@@ -425,27 +395,7 @@
         /* animation removed */
     }
     
-    @keyframes messagePopLeft {
-        0%   { 
-            transform: scale(0.95) translateY(10px) translateX(-15px);
-            opacity: 0;
-        }
-        100% { 
-            transform: scale(1) translateY(0) translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes messagePopRight {
-        0%   { 
-            transform: scale(0.95) translateY(10px) translateX(15px);
-            opacity: 0;
-        }
-        100% { 
-            transform: scale(1) translateY(0) translateX(0);
-            opacity: 1;
-        }
-    }
+    /* REMOVED - message pop animations */
     
     /* Hover states - disabled to prevent wobble */
     .chat-message p {
@@ -584,17 +534,7 @@
             margin-block-end: 15px;
         }
         
-        /* Reduce animation intensity on mobile */
-        @keyframes messagePop {
-            0%   { 
-                transform: scale(0.96) translateY(2px);
-                opacity: 0;
-            }
-            100% { 
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
-        }
+        /* REMOVED - animation on mobile */
     }
     
     /* Ensure text is always contained within bubbles */
