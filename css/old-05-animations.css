@@ -1,0 +1,450 @@
+/* File: css/05-animations.css */
+/*
+ * css/05-animations.css - Working Animations with Performance Fixes
+ * 
+ * Purpose: All animations restored and optimized for performance
+ * Fixed:
+ * - Restored all animations but optimized them
+ * - Fixed sparkle visibility
+ * - Fixed chat bubble animations
+ * - Removed stuttering with better performance
+ */
+
+/* ===== SPARKLE BACKGROUND SYSTEM (WORKING) ===== */
+@layer animations {
+    /* Sparkles container */
+    .sparkles-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    /* Base sparkle styling */
+    .sparkle {
+        position: absolute;
+        filter: blur(15px);
+        opacity: 0.7;
+    }
+    
+    /* Sparkle cross pattern using pseudo-elements */
+    .sparkle::before,
+    .sparkle::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(ellipse at center, currentColor 0%, currentColor 40%, transparent 70%);
+    }
+    
+    /* Horizontal bar of sparkle cross */
+    .sparkle::before { 
+        width: 100%; 
+        height: 40%; 
+    }
+    
+    /* Vertical bar of sparkle cross */
+    .sparkle::after { 
+        width: 40%; 
+        height: 100%; 
+    }
+    
+    /* Edge-moving sparkle - VISIBLE AND OPTIMIZED */
+    .sparkle-2 { 
+        width: clamp(190px, 23vw, 365px); 
+        height: clamp(190px, 23vw, 365px); 
+        color: var(--color-sparkle-pink); 
+        animation: edgeMove2 90s infinite linear;
+        animation-delay: -8s;
+        position: absolute;
+        top: -150px;
+        right: -150px;
+    }
+    
+    /* Bottom-left sparkle - VISIBLE AND OPTIMIZED */
+    .sparkle-bottom-left {
+        width: clamp(370px, 40vw, 700px);
+        height: clamp(370px, 40vw, 700px);
+        color: var(--color-sparkle-pink);
+        animation: bottomLeftMove 45s infinite linear;
+        animation-delay: -4s;
+        position: absolute;
+        bottom: 10%;
+        left: -5%;
+    }
+    
+    /* OPTIMIZED SPARKLE ANIMATIONS */
+    @keyframes edgeMove2 {
+        0%   { transform: translate3d(0, 0, 0) rotate(0deg); } 
+        25%  { transform: translate3d(0, calc(100vh - 20px), 0) rotate(90deg); } 
+        50%  { transform: translate3d(calc(-100vw + 370px), calc(100vh - 20px), 0) rotate(180deg); } 
+        75%  { transform: translate3d(calc(-100vw + 370px), 0, 0) rotate(270deg); } 
+        100% { transform: translate3d(0, 0, 0) rotate(360deg); } 
+    }
+    
+    @keyframes bottomLeftMove {
+        0%   { transform: rotate(-45deg); opacity: 0.5; }
+        25%  { transform: rotate(-135deg); opacity: 0.8; }
+        50%  { transform: rotate(-225deg); opacity: 0.6; }
+        75%  { transform: rotate(-315deg); opacity: 0.9; }
+        100% { transform: rotate(-405deg); opacity: 0.5; }
+    }
+    
+    /* Mobile adjustments */
+    @media (width <= 768px) {
+        .sparkle { 
+            filter: blur(10px);
+        }
+        
+        .sparkle-2 { 
+            width: 190px; 
+            height: 190px; 
+        }
+        
+        .sparkle-bottom-left { 
+            width: 370px; 
+            height: 370px; 
+        }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+        .sparkle {
+            animation: none !important;
+            opacity: 0.3;
+        }
+    }
+}
+
+/* ===== CHATBOT ANIMATION SYSTEM (WORKING) ===== */
+@layer animations {
+    /* Animation timing variables */
+    :root {
+        --smooth-easing: cubic-bezier(0.4, 0, 0.2, 1);
+        --elastic-easing: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        
+        /* Typing indicator */
+        --typing-dot-size: 5px;
+        --typing-dot-gap: 6px;
+        --typing-cycle-duration: 1.8s;
+        
+        /* AI message gradient colors */
+        --color-ai-gradient-light: #ff5cad;
+        --color-ai-gradient-mid: #ff0088;
+        --color-ai-gradient-dark: #d90070;
+        
+        /* Sparkle colors - ensure they're defined */
+        --color-sparkle-pink: #FFE6F3;
+    }
+    
+    /* Chatbot container with SLOW gradient animation */
+    .chatbot-container {
+        position: relative;
+        inline-size: 100%;
+        block-size: 100%;
+        padding: clamp(2rem, 4vw, 3rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background: linear-gradient(
+            135deg,
+            #FFFCF9 0%,
+            #FFFFF9 25%,
+            #FFF9F2 50%,
+            #FFF2F9 75%,
+            #FFFCF9 100%
+        );
+        background-size: 200% 200%;
+        background-position: 0% 0%;
+        border: 1px solid rgba(255,255,255,0.3);
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.02),
+            0 8px 16px rgba(0, 0, 0, 0.04),
+            0 24px 48px rgba(0, 0, 0, 0.06),
+            inset 0 0 0 1px rgba(255,255,255,0.5);
+        overflow: hidden;
+        border-radius: 24px;
+        /* SLOW animation for performance */
+        animation: chatbotGradientShift 60s ease-in-out infinite;
+        max-block-size: 100%;
+        min-block-size: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        transform: translateZ(0);
+    }
+    
+    /* Hide scrollbar */
+    .chatbot-container::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+    
+    /* SLOW gradient animation */
+    @keyframes chatbotGradientShift {
+        0%, 100% { background-position: 0% 0%; }
+        50% { background-position: 100% 100%; }
+    }
+    
+    /* Simple hover state */
+    .chatbot-container:hover {
+        transform: translateY(-2px);
+        transition: transform 0.3s ease;
+    }
+    
+    /* Chat messages container */
+    .chat-messages {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 30px 20px 30px 20px;
+        justify-content: flex-start;
+        scroll-behavior: auto;
+        box-sizing: border-box;
+        max-block-size: 100%;
+        min-block-size: 0;
+        position: relative;
+    }
+    
+    /* Hide scrollbar */
+    .chat-messages::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+    
+    /* Chat message bubbles */
+    .chat-message {
+        opacity: 0;
+        display: flex;
+        align-items: flex-end;
+        max-inline-size: 100%;
+        inline-size: 100%;
+        overflow: visible;
+        padding: 2px 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Message positioning */
+    .chat-message.from-user {
+        justify-content: flex-start;
+    }
+    
+    .chat-message.from-ai {
+        justify-content: flex-end;
+    }
+    
+    /* Visible state */
+    .chat-message.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Message bubble styling */
+    .chat-message p {
+        padding: 24px 28px 26px;
+        border-radius: 28px;
+        font-size: 20px;
+        line-height: 1.6;
+        position: relative;
+        max-inline-size: min(380px, 85%);
+        inline-size: fit-content;
+        font-weight: 400;
+        opacity: 1;
+        word-wrap: break-word;
+        word-break: normal;
+        white-space: normal;
+        display: inline-block;
+        box-sizing: border-box;
+        min-block-size: 1em;
+        transition: transform 0.2s ease;
+    }
+    
+    /* User message styling */
+    .chat-message.from-user p {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        color: var(--color-text-primary);
+        border-block-end-inline-start-radius: 8px;
+        box-shadow: 
+            0 1px 2px rgba(0, 0, 0, 0.04),
+            0 4px 8px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    
+    /* AI message with SLOW gradient animation */
+    .chat-message.from-ai p {
+        background: linear-gradient(
+            135deg, 
+            var(--color-ai-gradient-light) 0%,
+            var(--color-ai-gradient-mid) 60%,
+            var(--color-ai-gradient-dark) 100%
+        );
+        background-size: 150% 150%;
+        background-position: 0% 0%;
+        color: white;
+        border-block-end-inline-end-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 
+            0 2px 4px rgba(255, 0, 136, 0.1),
+            0 8px 16px rgba(255, 0, 136, 0.2);
+        /* SLOW gradient animation */
+        animation: aiGradientShift 20s ease-in-out infinite;
+    }
+    
+    /* SLOW gradient shift for AI messages */
+    @keyframes aiGradientShift {
+        0%, 100% { background-position: 0% 0%; }
+        50% { background-position: 100% 100%; }
+    }
+    
+    /* Simple hover effects */
+    .chat-message p:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* Typing cursor */
+    .chat-message p.typing-cursor::after {
+        content: '|';
+        margin-inline-start: 2px;
+        opacity: 1;
+        animation: blink 1s infinite;
+        color: currentColor;
+        font-weight: 300;
+    }
+    
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+    
+    /* Typing indicator dots */
+    .typing-indicator {
+        display: inline-flex;
+        gap: var(--typing-dot-gap);
+        padding-inline: 8px;
+        align-items: center;
+        position: relative;
+        min-block-size: 20px;
+        vertical-align: middle;
+    }
+    
+    .typing-indicator span {
+        position: relative;
+        inline-size: var(--typing-dot-size);
+        block-size: var(--typing-dot-size);
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        opacity: 0.5;
+        transform: scale(0.8);
+        animation: dotPulse 1.8s infinite ease-in-out;
+    }
+    
+    .typing-indicator span:nth-child(2) {
+        animation-delay: 0.15s;
+    }
+    
+    .typing-indicator span:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+    
+    @keyframes dotPulse {
+        0%, 80%, 100% { 
+            opacity: 0.5; 
+            transform: scale(0.8);
+        }
+        40% { 
+            opacity: 1; 
+            transform: scale(1.2);
+        }
+    }
+    
+    /* Mobile adjustments */
+    @media (width <= 768px) {
+        .chatbot-container {
+            padding: 2rem;
+        }
+        
+        .chat-messages {
+            gap: 16px;
+            padding: 20px 15px;
+        }
+        
+        .chat-message p {
+            font-size: 18px;
+            padding: 22px 24px 24px;
+            max-inline-size: 90%;
+        }
+    }
+}
+
+/* ===== MARQUEE ANIMATION ===== */
+@layer animations {
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+    
+    .marquee__track {
+        animation: marquee 60s linear infinite;
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+        .marquee__track {
+            animation-duration: 300s;
+        }
+    }
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+@layer animations {
+    /* Slightly reduce animations on low-performance devices */
+    body.reduce-animations .sparkle {
+        animation-duration: 120s !important;
+    }
+    
+    body.reduce-animations .chatbot-container {
+        animation-duration: 90s !important;
+    }
+    
+    body.reduce-animations .chat-message.from-ai p {
+        animation-duration: 30s !important;
+    }
+    
+    body.reduce-animations .marquee__track {
+        animation-duration: 90s !important;
+    }
+    
+    /* Only disable on VERY low performance or reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation: none !important;
+            transition: opacity 0.3s ease !important;
+        }
+    }
+}
+
+/* ===== FOCUS ACCESSIBILITY ===== */
+@layer animations {
+    :focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}

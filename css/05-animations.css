@@ -194,13 +194,13 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        background: transparent;  /* Fully transparent */
-        border: none;  /* Remove border */
-        /* Proper visible shadow */
+        background: transparent;  /* No gradient */
+        border: 1px solid rgba(255,255,255,0.3);
         box-shadow: 
-            0 4px 8px rgba(0, 0, 0, 0.1),
-            0 12px 24px rgba(0, 0, 0, 0.15),
-            0 32px 64px rgba(0, 0, 0, 0.2);
+            0 2px 4px rgba(0, 0, 0, 0.02),
+            0 8px 16px rgba(0, 0, 0, 0.04),
+            0 24px 48px rgba(0, 0, 0, 0.06),
+            inset 0 0 0 1px rgba(255,255,255,0.5);
         overflow: hidden;
         border-radius: 24px;
         /* Removed gradient animation to prevent wobbling */
@@ -267,7 +267,6 @@
         max-block-size: 100%;
         min-block-size: 0;
         position: relative;                     /* For gradient overlay positioning */
-        z-index: 2;                             /* Ensure messages are above pseudo elements */
     }
     
     /* Bottom gradient overlay - DISABLED */
@@ -291,7 +290,6 @@
         overflow: visible;
         padding: 2px 0;
         position: relative;                     /* Ensure messages stay above gradient */
-        z-index: 1;
     }
     
     /* Special handling for last message to ensure visibility */
@@ -338,10 +336,8 @@
         /* Removed backdrop-filter to prevent shimmer */
         color: var(--color-text-primary);
         border-block-end-inline-start-radius: 8px;
-        /* Simple shadow without inset */
-        box-shadow: 
-            0 1px 2px rgba(0, 0, 0, 0.04),
-            0 4px 8px rgba(0, 0, 0, 0.06);
+        /* Single shadow to prevent repaints */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         /* border removed */
     }
     
@@ -352,16 +348,13 @@
         color: white;
         border-block-end-inline-end-radius: 8px;
         /* border removed */
-        /* Simple shadow without inset or glow */
-        box-shadow: 
-            0 2px 4px rgba(0, 0, 0, 0.1),
-            0 8px 16px rgba(0, 0, 0, 0.15);
+        /* Single shadow to prevent repaints */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         min-block-size: fit-content;
         overflow-wrap: break-word;
         /* hyphens removed - can cause text reflow */
         /* text-rendering: optimizeLegibility; REMOVED - can cause shimmer */
         position: relative;
-        overflow: hidden;
     }
     
     
