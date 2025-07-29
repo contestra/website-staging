@@ -178,8 +178,7 @@
     }
     
     /* Remove any styling from parent elements */
-    .hero-animation,
-    .animation-placeholder {
+    .hero-animation {
         background: transparent !important;
     }
 
