@@ -75,8 +75,8 @@
         width: clamp(190px, 23vw, 365px); 
         height: clamp(190px, 23vw, 365px); 
         color: var(--color-sparkle-pink); 
-        /* animation: edgeMove2 70s infinite linear; DISABLED */
-        /* animation-delay: -8s; */ 
+        animation: edgeMove2 70s infinite linear;
+        animation-delay: -8s; 
     }
     
     /* Bottom-left sparkle - figure-8 pattern */
@@ -84,15 +84,15 @@
         width: clamp(370px, 40vw, 700px);
         height: clamp(370px, 40vw, 700px);
         color: var(--color-sparkle-pink);
-        /* animation: bottomLeftMove 31s infinite linear; DISABLED */
-        /* animation-delay: -4s; */
+        animation: bottomLeftMove 31s infinite linear;
+        animation-delay: -4s;
     }
     
     /* Counter-rotation for sparkle elements */
     .sparkle-2::before,
     .sparkle-2::after {
-        /* animation-direction: reverse; DISABLED */
-        /* animation-duration: 30s; */
+        animation-direction: reverse;
+        animation-duration: 30s;
     }
     
     /* ===== SPARKLE KEYFRAME ANIMATIONS ===== */
@@ -196,8 +196,11 @@
         justify-content: flex-start;
         background: transparent;  /* Fully transparent */
         border: none;  /* Remove border */
-        /* Removed box-shadow to eliminate white frame */
-        box-shadow: none;
+        /* Restored shadow */
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.02),
+            0 8px 16px rgba(0, 0, 0, 0.04),
+            0 24px 48px rgba(0, 0, 0, 0.06);
         overflow: visible;
         /* border-radius: 24px; REMOVED to eliminate white edge */
         /* Removed gradient animation to prevent wobbling */
@@ -344,13 +347,8 @@
     
     /* ENHANCED: AI message with premium glass effect */
     .chat-message.from-ai p {
-        /* ENHANCED2: Static gradient background */
-        background: linear-gradient(
-            135deg, 
-            var(--color-ai-gradient-light) 0%,
-            var(--color-ai-gradient-mid) 60%,
-            var(--color-ai-gradient-dark) 100%
-        );
+        /* Solid color instead of gradient to prevent shimmer */
+        background: var(--color-ai-gradient-mid);
         color: white;
         border-block-end-inline-end-radius: 8px;
         /* border removed */
@@ -363,7 +361,7 @@
         hyphens: auto;
         -webkit-hyphens: auto;
         -moz-hyphens: auto;
-        text-rendering: optimizeLegibility;
+        /* text-rendering: optimizeLegibility; REMOVED - can cause shimmer */
         position: relative;
         overflow: hidden;
     }
