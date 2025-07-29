@@ -738,23 +738,13 @@
     
     /* ENHANCED: Professional hover state with 3D lift */
     .animation-placeholder:hover {
-        transform: translateY(-4px) translateZ(10px) rotateX(1deg);
-        box-shadow: 
-            /* Close shadow moves down on hover */
-            0 6px 12px rgba(0, 0, 0, 0.05),
-            /* Mid shadow expands */
-            0 20px 40px rgba(0, 0, 0, 0.1),
-            /* Large ambient shadow */
-            0 50px 100px rgba(0, 0, 0, 0.15),
-            /* Inner highlights remain */
-            inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-            inset 0 1px 2px rgba(255, 255, 255, 0.9),
-            inset 0 -1px 1px rgba(0, 0, 0, 0.05);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
     }
     
     /* ENHANCED: Active state for click feedback */
     .animation-placeholder:active {
-        transform: translateY(-2px) translateZ(5px);
+        transform: translateY(-2px);
         transition-duration: 0.1s;
     }
     
