@@ -652,12 +652,10 @@
         border: 1px solid rgba(255,255,255,0.4);
         /* ENHANCED: Professional multi-layer shadow system */
         box-shadow: 
-            /* Deep blue drop shadow */
-            0 25px 70px hsla(200, 100%, 50%, 0.18),
-            /* Outer cyan glow */
-            0 0 60px 20px hsla(192, 100%, 70%, 0.25),
-            /* Deeper drop shadow */
-            0 45px 110px rgba(0, 0, 0, 0.12),
+            /* Subtle drop shadow */
+            0 10px 30px rgba(0, 0, 0, 0.1),
+            /* Outer cyan glow - reduced */
+            0 0 30px 10px hsla(192, 100%, 70%, 0.15),
             /* Inner light edge */
             inset 0 0 0 1px rgba(255, 255, 255, 0.6);
         overflow: hidden;
