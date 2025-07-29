@@ -196,13 +196,13 @@
         justify-content: flex-start;
         background: transparent;  /* Fully transparent */
         border: none;  /* Remove border */
-        /* Restored shadow */
+        /* Proper visible shadow */
         box-shadow: 
-            0 2px 4px rgba(0, 0, 0, 0.02),
-            0 8px 16px rgba(0, 0, 0, 0.04),
-            0 24px 48px rgba(0, 0, 0, 0.06);
-        overflow: visible;
-        /* border-radius: 24px; REMOVED to eliminate white edge */
+            0 4px 8px rgba(0, 0, 0, 0.1),
+            0 12px 24px rgba(0, 0, 0, 0.15),
+            0 32px 64px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        border-radius: 24px;
         /* Removed gradient animation to prevent wobbling */
         max-block-size: 100%;
         min-block-size: 100%;                   /* FIXED: Set min-height to 100% to prevent container from expanding */
@@ -262,7 +262,7 @@
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
         padding: 30px 20px 80px 20px;           /* INCREASED bottom padding from 50px to 80px */
         justify-content: flex-start;
-        scroll-behavior: smooth;
+        /* scroll-behavior: smooth; REMOVED - can cause shimmer */
         box-sizing: border-box;
         max-block-size: 100%;
         min-block-size: 0;
@@ -358,9 +358,7 @@
             0 8px 16px rgba(0, 0, 0, 0.15);
         min-block-size: fit-content;
         overflow-wrap: break-word;
-        hyphens: auto;
-        -webkit-hyphens: auto;
-        -moz-hyphens: auto;
+        /* hyphens removed - can cause text reflow */
         /* text-rendering: optimizeLegibility; REMOVED - can cause shimmer */
         position: relative;
         overflow: hidden;
