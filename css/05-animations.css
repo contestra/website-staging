@@ -75,7 +75,7 @@
         width: clamp(190px, 23vw, 365px); 
         height: clamp(190px, 23vw, 365px); 
         color: var(--color-sparkle-pink); 
-        /* animation: edgeMove2 70s infinite linear; DISABLED to test shimmer */
+        animation: edgeMove2 70s infinite linear;
         animation-delay: -8s; 
     }
     
@@ -84,7 +84,7 @@
         width: clamp(370px, 40vw, 700px);
         height: clamp(370px, 40vw, 700px);
         color: var(--color-sparkle-pink);
-        /* animation: bottomLeftMove 31s infinite linear; DISABLED to test shimmer */
+        animation: bottomLeftMove 31s infinite linear;
         animation-delay: -4s;
     }
     

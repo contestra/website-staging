@@ -793,7 +793,7 @@
     
     /* ENHANCED: Chatbot active state with breathing effect */
     .animation-placeholder.chat-active {
-        animation: placeholderBreathing 4s ease-in-out infinite;
+        /* animation: placeholderBreathing 4s ease-in-out infinite; DISABLED - causes circular movement */
     }
     
     /* ENHANCED: Subtle breathing animation */
