@@ -1,0 +1,465 @@
+/*
+ * css/02-layout.css - Core Layout Systems
+ * 
+ * Purpose: Container system, navigation header, and fundamental layout structures
+ * Used by: All page sections and components
+ * Dependencies: 00-variables.css, 01-reset.css
+ * Related: 03-sections.css (uses these layout foundations)
+ * 
+ * LLM Working Notes:
+ * - AI21.com-inspired container system with consistent max-width and padding
+ * - Position-aware navigation with gradient background that adapts to underlying content
+ * - Responsive header that "squashes" on scroll for mobile-friendly UX
+ * - Modern CSS techniques: container queries, logical properties, CSS layers
+ * 
+ * Layout Architecture:
+ * - Container system: Consistent width constraints and responsive padding
+ * - Header navigation: Fixed position with scroll-aware behavior
+ * - Section base: Foundation for all page sections
+ * - Grid systems: Hero layout and other structural grids
+ * 
+ * Responsive Strategy:
+ * - Mobile-first approach with progressive enhancement
+ * - Breakpoints: 576px (small mobile), 768px (tablet), 1024px, 1200px
+ * - Container queries where supported for component-level responsiveness
+ */
+
+/* ===== CONTAINER SYSTEM (AI21-INSPIRED) ===== */
+@layer base {
+    /* Central container system - used throughout the site */
+    .container,
+    .block-container {
+        max-width: var(--container-max);        /* 1440px maximum width */
+        margin-inline: auto;                    /* Center horizontally */
+        padding-inline: var(--container-padding); /* 50px horizontal padding */
+        container-type: inline-size;            /* Enable container queries */
+    }
+    
+    /* Mobile container adjustments */
+    @media (width <= 576px) {
+        .container,
+        .block-container {
+            padding-inline: var(--container-padding-mobile); /* 15px on mobile */
+        }
+    }
+    
+    /* Special full-width container for sections like marquee */
+    .block-container-section {
+        max-inline-size: 100%;
+        padding-inline: 0;
+    }
+}
+
+/* ===== SECTION BASE STRUCTURE ===== */
+@layer base {
+    /* Base section wrapper - provides consistent structure */
+    .b-section {
+        position: relative;
+        overflow: hidden;                       /* Contain decorative elements */
+    }
+}
+
+/* ===== POSITION-AWARE NAVIGATION HEADER ===== */
+@layer layout {
+    /* Fixed header with adaptive background */
+    #site-header {
+        position: fixed;
+        inset-block-start: 0;
+        inset-inline: 0;
+        block-size: var(--nav-height);          /* 70px default height */
+        z-index: 1000;                          /* Above all content */
+        transition: all var(--transition-slow);
+        overflow: hidden;
+        contain: layout style paint;            /* Performance optimization */
+        padding-block: 1.3rem 1.1rem;          /* Visual centering */
+    }
+    
+    /* Header container */
+    #site-header .container {
+        block-size: 100%;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* ===== POSITION-AWARE GRADIENT BACKGROUND ===== */
+    .header-bg {
+        position: absolute;
+        inset: 0;
+        
+        /* Sophisticated gradient that adapts opacity based on underlying content */
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.7) 0%,       /* Higher opacity over cyan */
+            rgba(255, 255, 255, 0.45) 10%,     /* Lower opacity in transitions */
+            rgba(255, 255, 255, 0.7) 15%,
+            rgba(255, 255, 255, 0.55) 25%,
+            rgba(255, 255, 255, 0.6) 30%,
+            rgba(255, 255, 255, 0.65) 40%,     /* Higher opacity over yellow */
+            rgba(255, 255, 255, 0.7) 45%,
+            rgba(255, 255, 255, 0.7) 55%,
+            rgba(255, 255, 255, 0.65) 60%,
+            rgba(255, 255, 255, 0.6) 70%,
+            rgba(255, 255, 255, 0.55) 80%,
+            rgba(255, 255, 255, 0.7) 90%,
+            rgba(255, 255, 255, 0.45) 100%     /* Lower opacity over pink */
+        );
+        
+        backdrop-filter: blur(14px) saturate(170%);
+        -webkit-backdrop-filter: blur(14px) saturate(170%); /* Safari support */
+        transition: all var(--transition-slow);
+        pointer-events: none;
+        will-change: background;                /* Optimize for animations */
+    }
+    
+    /* ===== SCROLLED STATE - COMPACT HEADER ===== */
+    #site-header.scrolled {
+        block-size: var(--nav-height-scrolled); /* 54px compact height */
+        padding-block: 0.8rem 0.6rem;
+    }
+    
+    /* Fully opaque background when scrolled */
+    #site-header.scrolled .header-bg {
+        background: rgba(255, 255, 255, 1);     /* Full opacity */
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(14px) saturate(170%);
+    }
+    
+    /* Subtle shadow when scrolling up */
+    #site-header.scrolling-up .header-bg {
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* ===== NAVIGATION INNER STRUCTURE ===== */
+    .header__in {
+        position: relative;
+        inline-size: 100%;
+        block-size: 100%;
+        display: flex;
+        align-items: center;
+        z-index: 1;
+    }
+    
+    .main-navigation {
+        inline-size: 100%;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        transition: gap var(--transition-slow);
+        block-size: 100%;
+    }
+    
+    /* ===== LOGO STYLING ===== */
+    .site-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        margin-inline-end: 9rem;                /* Generous spacing from menu */
+        position: relative;
+        z-index: 10;
+        transition: all var(--transition-slow);
+    }
+    
+    .site-logo img {
+        block-size: 3.4rem;                     /* Logo height */
+        inline-size: auto;
+        transition: block-size var(--transition-base);
+    }
+    
+    /* Logo adjustments when header is scrolled */
+    #site-header.scrolled .site-logo {
+        margin-inline-end: 6rem;
+    }
+    
+    #site-header.scrolled .site-logo img {
+        block-size: 2.7rem;                     /* Smaller logo when scrolled */
+    }
+    
+    /* Logo adjustments when scrolling up */
+    #site-header.scrolling-up .site-logo {
+        margin-inline-end: 9rem;
+    }
+    
+    #site-header.scrolling-up .site-logo img {
+        block-size: 3.4rem;
+    }
+    
+    /* Subtle hover effect */
+    .site-logo:hover {
+        transform: translateY(-1px);
+    }
+    
+    /* ===== MAIN MENU LAYOUT ===== */
+    .main-menu-wrap {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;                /* Center the navigation */
+    }
+    
+    .main-menu {
+        display: flex;
+        list-style: none;
+        gap: var(--gap-5);                      /* 40px between items */
+        align-items: center;
+        transition: gap var(--transition-slow);
+        block-size: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Menu spacing adjustments when scrolled */
+    #site-header.scrolled .main-menu {
+        gap: 3rem;
+    }
+    
+    #site-header.scrolling-up .main-menu {
+        gap: var(--gap-5);
+    }
+    
+    .main-menu li {
+        display: flex;
+        align-items: center;
+        block-size: 100%;
+    }
+    
+    /* ===== MENU LINK STYLING ===== */
+    .main-menu a {
+        color: var(--nav-color);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        transition: opacity var(--transition-base), font-size var(--transition-slow);
+        line-height: 1.2;
+        padding-block: 0.5rem;
+    }
+    
+    /* Font size adjustments when scrolled */
+    #site-header.scrolled .main-menu a {
+        font-size: 1.4rem;
+    }
+    
+    #site-header.scrolling-up .main-menu a {
+        font-size: 1.5rem;
+    }
+    
+    /* Modern underline hover effect */
+    .main-menu a::after {
+        content: '';
+        position: absolute;
+        inset-block-end: -4px;
+        inset-inline-start: 0;
+        inline-size: 0;
+        block-size: 2px;
+        background: currentColor;
+        transition: inline-size var(--transition-base);
+    }
+    
+    .main-menu a:hover {
+        opacity: 0.7;
+    }
+    
+    .main-menu a:hover::after {
+        inline-size: 100%;
+    }
+    
+    /* ===== HEADER OPTIONS (CTA BUTTON AREA) ===== */
+    .header__options {
+        margin-inline-start: auto;              /* Push to right edge */
+    }
+    
+    /* ===== MOBILE MENU BUTTON ===== */
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: 1px solid rgba(0,0,0,0.06);
+        cursor: pointer;
+        padding: 0.5rem;
+        transition: transform var(--transition-slow);
+        transform-origin: center center;
+    }
+    
+    /* Mobile menu button hamburger lines */
+    .mobile-menu-btn span {
+        display: block;
+        inline-size: 25px;
+        block-size: 2px;
+        background: var(--nav-color);
+        margin-block: 5px;
+        transition: all var(--transition-base);
+    }
+    
+    /* Mobile menu button scaling when scrolled */
+    #site-header.scrolled .mobile-menu-btn {
+        transform: scale(0.9);
+    }
+    
+    #site-header.scrolled .mobile-menu-btn span {
+        margin-block: 4px;
+    }
+    
+    #site-header.scrolling-up .mobile-menu-btn span {
+        margin-block: 5px;
+    }
+    
+    /* Mobile navigation spacing adjustments */
+    #site-header.scrolled .main-navigation {
+        gap: 1.5rem;
+    }
+    
+    #site-header.scrolling-up .main-navigation {
+        gap: 2rem;
+    }
+}
+
+/* ===== RESPONSIVE LAYOUT ADJUSTMENTS ===== */
+@layer layout {
+    /* Large desktop adjustments */
+    @media (width <= 1200px) {
+        .site-logo {
+            margin-inline-end: 6rem;
+        }
+        
+        #site-header.scrolled .site-logo {
+            margin-inline-end: 4rem;
+        }
+        
+        #site-header.scrolling-up .site-logo {
+            margin-inline-end: 6rem;
+        }
+        
+        .main-menu {
+            gap: 3rem;
+        }
+    }
+    
+    /* Tablet adjustments */
+    @media (width <= 1024px) {
+        .site-logo {
+            margin-inline-end: 4rem;
+        }
+        
+        #site-header.scrolled .site-logo {
+            margin-inline-end: 2rem;
+        }
+        
+        #site-header.scrolling-up .site-logo {
+            margin-inline-end: 4rem;
+        }
+        
+        .main-menu {
+            gap: 2.5rem;
+        }
+    }
+    
+    /* ===== MOBILE LAYOUT (768px and below) ===== */
+    @media (width <= 768px) {
+        /* Show mobile menu button */
+        .mobile-menu-btn {
+            display: block;
+        }
+        
+        /* Logo adjustments for mobile */
+        .site-logo {
+            margin-inline-end: auto;
+            font-size: 2rem;
+        }
+        
+        .site-logo img {
+            block-size: 3rem;
+        }
+        
+        #site-header.scrolled .site-logo img {
+            block-size: 2.4rem;
+        }
+        
+        #site-header.scrolling-up .site-logo img {
+            block-size: 3rem;
+        }
+        
+        /* Mobile navigation layout */
+        .main-navigation {
+            gap: 0;
+            justify-content: space-between;
+            inline-size: 100%;
+        }
+        
+        /* Hide desktop menu elements */
+        .main-menu-wrap {
+            display: none;
+        }
+        
+        .header__options {
+            display: none;
+        }
+        
+        /* ===== MOBILE MENU OVERLAY ===== */
+        .main-menu {
+            position: fixed;
+            inset-block-start: var(--nav-height);
+            inset-inline-start: 0;
+            inset-inline-end: 0;
+            background: rgba(255, 255, 255, 0.70);
+            flex-direction: column;
+            padding: 2rem;
+            gap: 1.5rem;
+            transform: translateX(-100%);       /* Hidden by default */
+            transition: transform var(--transition-base), inset-block-start var(--transition-slow);
+            box-shadow: var(--shadow-xl);
+            block-size: auto;
+        }
+        
+        .main-menu li {
+            block-size: auto;
+        }
+        
+        .main-menu a {
+            padding-block: 1rem;
+            position: relative;
+        }
+        
+        .main-menu a::after {
+            inset-block-end: 0.5rem;
+        }
+        
+        /* Mobile menu position adjustments for scrolled state */
+        #site-header.scrolled .main-menu {
+            inset-block-start: var(--nav-height-scrolled);
+        }
+        
+        #site-header.scrolling-up .main-menu {
+            inset-block-start: var(--nav-height);
+        }
+        
+        /* Show mobile menu when active */
+        .main-menu.active {
+            transform: translateX(0);
+        }
+    }
+    
+    /* Small mobile adjustments */
+    @media (width <= 400px) {
+        .container,
+        .block-container {
+            padding-inline: 1rem;
+        }
+        
+        .site-logo {
+            font-size: 1.8rem;
+        }
+        
+        .site-logo img {
+            block-size: 2.6rem;
+        }
+        
+        #site-header.scrolled .site-logo img {
+            block-size: 2.2rem;
+        }
+        
+        #site-header.scrolling-up .site-logo img {
+            block-size: 2.6rem;
+        }
+    }
+}

@@ -1,0 +1,799 @@
+/*
+ * css/enhanced3 05-animations.css - Animations & Effects with Refined Message Animations
+ * 
+ * Purpose: All animations, keyframes, transitions, and visual effects with refined message animations
+ * Used by: Hero sparkles, chatbot animation, marquee, hover effects
+ * Dependencies: 00-variables.css (animation timing variables)
+ * Related: 03-sections.css (hero section), 04-components.css (component animations)
+ * 
+ * LLM Working Notes:
+ * - ENHANCED: Subtle depth and layering effects added
+ * - ENHANCED: Professional glass morphism with noise texture and reflections
+ * - ENHANCED2: Message pop effects with elastic easing
+ * - ENHANCED2: Glow pulse animations for AI messages
+ * - ENHANCED2: Gradient animations on message bubbles
+ * - ENHANCED3: REMOVED shimmer effect (white box issue)
+ * - ENHANCED3: REDUCED glow pulse intensity for subtlety
+ * - All animations are performance-optimized with transform and opacity
+ * - Respects user's reduced motion preferences
+ * - Hardware acceleration enabled where beneficial
+ * - Complex animations are contained within their sections for maintainability
+ * 
+ * Animation Categories:
+ * - Sparkle system: Background decorative animations for hero section
+ * - Chatbot animations: Typing effects and message appearance
+ * - Marquee animation: Logo scrolling system
+ * - Micro-interactions: Button hovers, card lifts, transitions
+ * - Accessibility: Reduced motion support throughout
+ */
+
+/* ===== SPARKLE BACKGROUND SYSTEM ===== */
+@layer animations {
+    /* Sparkles container - positioned behind hero content */
+    .sparkles-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 1;                             /* Below content but above gradient */
+    }
+    
+    /* Base sparkle styling */
+    .sparkle {
+        position: absolute;
+        filter: blur(15px);
+        opacity: 0.7;
+    }
+    
+    /* Sparkle cross pattern using pseudo-elements */
+    .sparkle::before,
+    .sparkle::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(ellipse at center, currentColor 0%, currentColor 40%, transparent 70%);
+    }
+    
+    /* Horizontal bar of sparkle cross */
+    .sparkle::before { 
+        width: 100%; 
+        height: 40%; 
+    }
+    
+    /* Vertical bar of sparkle cross */
+    .sparkle::after { 
+        width: 40%; 
+        height: 100%; 
+    }
+    
+    /* ===== INDIVIDUAL SPARKLE CONFIGURATIONS ===== */
+    
+    /* Edge-moving sparkle - travels around screen perimeter */
+    .sparkle-2 { 
+        width: clamp(190px, 23vw, 365px); 
+        height: clamp(190px, 23vw, 365px); 
+        color: var(--color-sparkle-pink); 
+        animation: edgeMove2 70s infinite linear;
+        animation-delay: -8s; 
+    }
+    
+    /* Bottom-left sparkle - figure-8 pattern */
+    .sparkle-bottom-left {
+        width: clamp(370px, 40vw, 700px);
+        height: clamp(370px, 40vw, 700px);
+        color: var(--color-sparkle-pink);
+        animation: bottomLeftMove 31s infinite linear;
+        animation-delay: -4s;
+    }
+    
+    /* Counter-rotation for sparkle elements */
+    .sparkle-2::before,
+    .sparkle-2::after {
+        animation-direction: reverse;
+        animation-duration: 30s;
+    }
+    
+    /* ===== SPARKLE KEYFRAME ANIMATIONS ===== */
+    
+    /* Edge movement - travels around screen perimeter with rotation */
+    @keyframes edgeMove2 {
+        0%   { top: -150px; right: -150px; transform: rotate(0deg); } 
+        25%  { top: calc(100% - 170px); right: -150px; transform: rotate(-90deg); } 
+        50%  { top: calc(100% - 170px); right: calc(100% - 170px); transform: rotate(-180deg); } 
+        75%  { top: -150px; right: calc(100% - 170px); transform: rotate(-270deg); } 
+        100% { top: -150px; right: -150px; transform: rotate(-360deg); } 
+    }
+    
+    /* Bottom-left movement - organic flowing pattern */
+    @keyframes bottomLeftMove {
+        0%   { top: 100%; left: -5%; transform: rotate(-45deg); opacity: 0.5; }
+        25%  { top: 50%;  left: 20%; transform: rotate(-135deg); opacity: 0.8; }
+        50%  { top: 80%;  left: 15%; transform: rotate(-225deg); opacity: 0.6; }
+        75%  { top: 60%;  left: -2%; transform: rotate(-315deg); opacity: 0.9; }
+        100% { top: 100%; left: -5%; transform: rotate(-405deg); opacity: 0.5; }
+    }
+    
+    /* ===== SPARKLE RESPONSIVE ADJUSTMENTS ===== */
+    @media (width <= 768px) {
+        .sparkle { 
+            filter: blur(10px);                 /* Less blur on mobile */
+        }
+        
+        .sparkle-2 { 
+            width: 190px; 
+            height: 190px; 
+        }
+        
+        .sparkle-bottom-left { 
+            width: 370px; 
+            height: 370px; 
+        }
+    }
+    
+    /* Large screens */
+    @media (width >= 100em) {
+        .sparkle-2 { 
+            width: 448px; 
+            height: 448px; 
+        }
+    }
+    
+    /* ===== REDUCED MOTION SUPPORT FOR SPARKLES ===== */
+    @media (prefers-reduced-motion: reduce) {
+        .sparkle {
+            animation: none !important;
+            opacity: 0.3;                       /* Static, dimmed sparkles */
+        }
+    }
+}
+
+/* ===== ENHANCED CHATBOT ANIMATION SYSTEM ===== */
+@layer animations {
+    /* Enhanced animation timing variables */
+    :root {
+        --spring-easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        --smooth-easing: cubic-bezier(0.4, 0, 0.2, 1);
+        --bounce-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* ENHANCED2: Elastic easing for message pop */
+        --elastic-easing: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        
+        /* Typing indicator */
+        --typing-dot-size: 5px;
+        --typing-dot-gap: 6px;
+                    --typing-cycle-duration: 1.8s;
+        --typing-glow-color: rgba(255, 255, 255, 0.4);
+        
+        /* AI message gradient colors - Brand pink variations */
+        --color-ai-gradient-light: #ff5cad;    /* Bright coral pink */
+        --color-ai-gradient-mid: #ff0088;      /* Brand pink */
+        --color-ai-gradient-dark: #d90070;     /* Rich magenta */
+        
+        /* ENHANCED: Glass morphism variables */
+        --glass-blur: 20px;
+        --glass-saturation: 180%;
+        --glass-noise-opacity: 0.02;
+        --glass-reflection-opacity: 0.1;
+    }
+    
+    /* ENHANCED: Chatbot container with professional glass morphism */
+    .chatbot-container {
+        position: relative;
+        inline-size: 100%;
+        block-size: 100%;
+        padding: clamp(2rem, 4vw, 3rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background: linear-gradient(
+            135deg,
+            #FFFCF9 0%,                         /* Warm cream */
+            #FFFFF9 25%,                        /* Light yellow */
+            #FFF9F2 50%,                        /* Warm peach */
+            #FFF2F9 75%,                        /* Warm pink */
+            #FFFCF9 100%                        /* Loop back to cream */
+        );
+        background-size: 200% 200%;
+        background-position: 0% 0%;
+        border: 1px solid rgba(255,255,255,0.3);  /* ENHANCED: Lighter border */
+        /* ENHANCED: Multi-layered shadow for depth */
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.02),      /* Subtle close shadow */
+            0 8px 16px rgba(0, 0, 0, 0.04),     /* Mid shadow */
+            0 24px 48px rgba(0, 0, 0, 0.06),    /* Soft ambient shadow */
+            inset 0 0 0 1px rgba(255,255,255,0.5), /* Inner light edge */
+            inset 0 -1px 2px rgba(0,0,0,0.02);  /* Subtle inner shadow at bottom */
+        overflow: hidden;
+        border-radius: 24px;
+        animation: chatbotGradientShift 30s ease-in-out infinite;
+        max-block-size: 100%;
+        min-block-size: 100%;                   /* FIXED: Set min-height to 100% to prevent container from expanding */
+        scrollbar-width: none;                  /* Firefox - hide scrollbar */
+        -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
+        /* ENHANCED: Better glass effect */
+        backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+        -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+        transform: translateZ(0);               /* Force GPU acceleration */
+        will-change: transform, box-shadow;
+    }
+    
+    /* ENHANCED: Noise texture overlay for realistic glass */
+    .chatbot-container::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: var(--glass-noise-opacity);
+        background-image: 
+            repeating-conic-gradient(
+                from 0deg at 50% 50%,
+                rgba(255,255,255,0) 0deg,
+                rgba(255,255,255,0.1) 1deg,
+                rgba(255,255,255,0) 2deg
+            );
+        background-size: 60px 60px;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+        border-radius: 24px;
+    }
+    
+    /* ENHANCED: Moving rainbow reflection for glass effect */
+    .chatbot-container::before {
+        content: '';
+        position: absolute;
+        inset-block-start: -50%;
+        inset-inline-start: -50%;
+        inline-size: 200%;
+        block-size: 200%;
+        background: conic-gradient(
+            from 0deg at 50% 50%,
+            transparent,
+            rgba(255, 0, 136, var(--glass-reflection-opacity)),
+            rgba(0, 255, 255, var(--glass-reflection-opacity)),
+            rgba(255, 255, 0, var(--glass-reflection-opacity)),
+            transparent
+        );
+        animation: glassReflection 20s linear infinite;
+        pointer-events: none;
+        mix-blend-mode: soft-light;
+        opacity: 0.5;
+        filter: blur(40px);
+    }
+    
+    /* ENHANCED: Glass reflection animation */
+    @keyframes glassReflection {
+        0% { transform: rotate(0deg) translateZ(0); }
+        100% { transform: rotate(360deg) translateZ(0); }
+    }
+    
+    /* Chrome, Safari and Opera - hide scrollbar */
+    .chatbot-container::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+    
+    /* Chatbot background gradient animation */
+    @keyframes chatbotGradientShift {
+        0%   { background-position: 0% 0%; }
+        25%  { background-position: 100% 0%; }
+        50%  { background-position: 100% 100%; }
+        75%  { background-position: 0% 100%; }
+        100% { background-position: 0% 0%; }
+    }
+    
+    /* ENHANCED: Professional hover state with depth */
+    .chatbot-container:hover {
+        transform: translateY(-2px) scale(1.005);
+        box-shadow: 
+            0 4px 8px rgba(0, 0, 0, 0.04),
+            0 12px 24px rgba(0, 0, 0, 0.06),
+            0 32px 64px rgba(0, 0, 0, 0.08),
+            inset 0 0 0 1px rgba(255,255,255,0.6),
+            inset 0 -1px 2px rgba(0,0,0,0.03);
+        transition: all 0.4s var(--smooth-easing);
+    }
+    
+    /* ENHANCED: Active state for interactivity */
+    .chatbot-container.chat-active {
+        animation: chatbotPulse 2s ease-in-out infinite, chatbotGradientShift 30s ease-in-out infinite;
+    }
+    
+    /* ENHANCED: Subtle pulse animation */
+    @keyframes chatbotPulse {
+        0%, 100% { 
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.02),
+                0 8px 16px rgba(0, 0, 0, 0.04),
+                0 24px 48px rgba(0, 0, 0, 0.06),
+                0 0 0 0 rgba(255, 0, 136, 0),
+                inset 0 0 0 1px rgba(255,255,255,0.5),
+                inset 0 -1px 2px rgba(0,0,0,0.02);
+        }
+        50% { 
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.02),
+                0 8px 16px rgba(0, 0, 0, 0.04),
+                0 24px 48px rgba(0, 0, 0, 0.06),
+                0 0 20px 5px rgba(255, 0, 136, 0.1),
+                inset 0 0 0 1px rgba(255,255,255,0.5),
+                inset 0 -1px 2px rgba(0,0,0,0.02);
+        }
+    }
+    
+    /* ===== CHAT MESSAGE ANIMATIONS ===== */
+    
+    /* Chat messages container */
+    .chat-messages {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow-y: auto;
+        overflow-x: hidden !important;
+        scrollbar-width: none;                  /* Firefox - hide scrollbar */
+        -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
+        padding: 30px 20px 80px 20px;           /* INCREASED bottom padding from 50px to 80px */
+        justify-content: flex-start;
+        scroll-behavior: smooth;
+        box-sizing: border-box;
+        max-block-size: 100%;
+        min-block-size: 0;
+        position: relative;                     /* For gradient overlay positioning */
+    }
+    
+    /* Bottom gradient overlay to ensure last message is visible */
+    .chat-messages::after {
+        content: '';
+        position: absolute;
+        inset-block-end: 0;
+        inset-inline: 0;
+        block-size: 60px;                       /* Height of fade area */
+        background: linear-gradient(
+            to top,
+            rgba(255, 252, 249, 1) 0%,
+            rgba(255, 252, 249, 0.8) 20%,
+            rgba(255, 252, 249, 0) 60%
+        );
+        pointer-events: none;
+        z-index: 5;
+    }
+    
+    /* Chrome, Safari and Opera - hide scrollbar */
+    .chat-messages::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+    
+    /* Enhanced individual chat message bubbles */
+    .chat-message {
+        opacity: 0;
+        display: flex;
+        align-items: flex-end;
+        max-inline-size: 100%;
+        inline-size: 100%;
+        overflow: visible;
+        padding: 2px 0;
+        will-change: transform, opacity;
+        --initial-y: 20px;
+        --initial-x: 0;
+        transform: translateY(var(--initial-y)) translateX(var(--initial-x));
+        /* ENHANCED2: Using elastic easing for message appearance */
+        transition: all 0.5s var(--elastic-easing);
+        position: relative;                     /* Ensure messages stay above gradient */
+        z-index: 1;
+    }
+    
+    /* Special handling for last message to ensure visibility */
+    .chat-message:last-child {
+        margin-block-end: 20px;                 /* Extra margin to keep above gradient */
+    }
+    
+    /* Message positioning and entry animations */
+    .chat-message.from-user {
+        justify-content: flex-start;
+        --initial-x: -20px;
+        padding-inline-end: 0;                  /* No extra padding - uses container padding */
+    }
+    
+    .chat-message.from-ai {
+        justify-content: flex-end;
+        --initial-x: 20px;
+        padding-inline-start: 0;                /* No extra padding - uses container padding */
+    }
+    
+    .chat-message.visible {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+    
+    /* ===== ENHANCED MESSAGE BUBBLE STYLING ===== */
+    .chat-message p {
+        padding: 24px 28px 26px;
+        border-radius: 28px;
+        font-size: 20px;
+        line-height: 1.6;
+        position: relative;
+        max-inline-size: min(380px, 85%);
+        inline-size: fit-content;
+        font-weight: 400;
+        transform: scale(0.94) translateY(3px);
+        opacity: 0;
+        /* ENHANCED2: Smoother transition with elastic easing */
+        transition: all 0.3s var(--elastic-easing);
+        overflow: visible;
+        word-wrap: break-word;
+        word-break: normal;
+        white-space: normal;
+        display: inline-block;
+        box-sizing: border-box;
+        min-block-size: 1em;
+    }
+    
+    /* ENHANCED: User message with subtle depth */
+    .chat-message.from-user p {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        color: var(--color-text-primary);
+        border-block-end-inline-start-radius: 8px;
+        /* ENHANCED: Subtle layered shadow for depth */
+        box-shadow: 
+            0 1px 2px rgba(0, 0, 0, 0.04),
+            0 4px 8px rgba(0, 0, 0, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    
+    /* ENHANCED: AI message with premium glass effect */
+    .chat-message.from-ai p {
+        /* ENHANCED2: Animated gradient background */
+        background: linear-gradient(
+            135deg, 
+            var(--color-ai-gradient-light) 0%,
+            var(--color-ai-gradient-mid) 60%,
+            var(--color-ai-gradient-dark) 100%
+        );
+        background-size: 150% 150%;
+        background-position: 0% 0%;
+        background-repeat: no-repeat;
+        color: white;
+        border-block-end-inline-end-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        /* ENHANCED: Premium shadow with glow */
+        box-shadow: 
+            0 2px 4px rgba(255, 0, 136, 0.1),
+            0 8px 16px rgba(255, 0, 136, 0.2),
+            0 16px 32px rgba(255, 0, 136, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        min-block-size: fit-content;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        text-rendering: optimizeLegibility;
+        position: relative;
+        overflow: hidden;
+        /* ENHANCED2: Gradient animation */
+        animation: gradientShift 8s ease-in-out infinite;
+    }
+    
+    /* ENHANCED2: Gradient animation for AI messages */
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 0%; }
+        50% { background-position: 100% 100%; }
+    }
+    
+    /* ENHANCED3: REMOVED shimmer effect that was causing white box issue */
+    /* The ::before pseudo-element with shimmer animation has been completely removed */
+    
+    /* ENHANCED3: SUBTLE glow pulse for AI messages */
+    .chat-message.from-ai.visible p {
+        animation: aiGlowPulseSoft 0.8s ease-out forwards, gradientShift 8s ease-in-out infinite;
+    }
+    
+    /* ENHANCED3: Much softer glow pulse animation */
+    @keyframes aiGlowPulseSoft {
+        0% { 
+            box-shadow: 
+                0 2px 4px rgba(255, 0, 136, 0.1),
+                0 8px 16px rgba(255, 0, 136, 0.2),
+                0 16px 32px rgba(255, 0, 136, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+        50% { 
+            box-shadow: 
+                0 2px 4px rgba(255, 0, 136, 0.1),
+                0 8px 16px rgba(255, 0, 136, 0.2),
+                0 16px 32px rgba(255, 0, 136, 0.15),
+                0 0 12px 4px rgba(255, 0, 136, 0.15),  /* REDUCED from 20px 10px 0.3 */
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+        100% { 
+            box-shadow: 
+                0 2px 4px rgba(255, 0, 136, 0.1),
+                0 8px 16px rgba(255, 0, 136, 0.2),
+                0 16px 32px rgba(255, 0, 136, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+    }
+    
+    /* Message appearance animation */
+    .chat-message.visible p {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        overflow: hidden;
+    }
+    
+    /* ENHANCED2: Message pop effect with elastic bounce */
+    .chat-message.visible p {
+        animation: messagePop 0.5s var(--elastic-easing) forwards;
+    }
+    
+    @keyframes messagePop {
+        0%   { 
+            transform: scale(0.94) translateY(3px);
+            opacity: 0;
+        }
+        60%  { 
+            transform: scale(1.02) translateY(-1px);
+            opacity: 1;
+        }
+        100% { 
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    /* ENHANCED: Micro-interactions with depth */
+    .chat-message p:hover {
+        transform: translateY(-2px);
+        transition: all 0.2s var(--smooth-easing);
+    }
+    
+    .chat-message.from-user p:hover {
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.06),
+            0 8px 16px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+    
+    /* AI message hover gets enhanced pink glow */
+    .chat-message.from-ai p:hover {
+        box-shadow: 
+            0 4px 8px rgba(255, 0, 136, 0.2),
+            0 12px 24px rgba(255, 0, 136, 0.3),
+            0 20px 40px rgba(255, 0, 136, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px) scale(1.02);
+        /* Speed up gradient animation on hover */
+        animation: gradientShift 3s ease-in-out infinite;
+    }
+    
+    /* ===== TYPING INDICATORS ===== */
+    
+    /* Typing cursor animation */
+    .chat-message p.typing-cursor {
+        min-block-size: 1.5em;
+    }
+    
+    .chat-message p.typing-cursor::after {
+        content: '|';
+        margin-inline-start: 2px;
+        opacity: 1;
+        animation: blink 1s infinite;
+        color: currentColor;
+        font-weight: 300;
+    }
+    
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+    
+    /* Enhanced three dots typing indicator */
+    .typing-indicator {
+        display: inline-flex;
+        gap: var(--typing-dot-gap);
+        padding-inline: 8px;
+        align-items: center;
+        position: relative;
+        min-block-size: 20px;
+        vertical-align: middle;
+    }
+    
+    .typing-indicator span {
+        position: relative;
+        inline-size: var(--typing-dot-size);
+        block-size: var(--typing-dot-size);
+        background: rgba(255, 255, 255, 0.9);   /* White dots on pink background */
+        border-radius: 50%;
+        opacity: 0.5;
+        transform: scale(0.8);
+        will-change: transform, opacity;
+        box-shadow: 0 0 4px rgba(255, 0, 136, 0.3);
+    }
+    
+    .typing-indicator span:nth-child(1) {
+        animation: dotPulse1 var(--typing-cycle-duration) infinite;
+    }
+    
+    .typing-indicator span:nth-child(2) {
+        animation: dotPulse1 var(--typing-cycle-duration) infinite;
+        animation-delay: 0.15s;
+    }
+    
+    .typing-indicator span:nth-child(3) {
+        animation: dotPulse1 var(--typing-cycle-duration) infinite;
+        animation-delay: 0.3s;
+    }
+    
+    @keyframes dotPulse1 {
+        0%, 80%, 100% { 
+            opacity: 0.5; 
+            transform: scale(0.8) translateY(0);
+        }
+        30% { 
+            opacity: 1; 
+            transform: scale(1.4) translateY(-4px);
+        }
+    }
+    
+    /* ===== CHATBOT RESPONSIVE ADJUSTMENTS ===== */
+    @media (width <= 768px) {
+        .chatbot-container {
+            padding: 2rem;
+            min-block-size: 100%;               /* Ensure fixed height on mobile */
+        }
+        
+        /* Reduce glass morphism intensity on mobile for performance */
+        .chatbot-container {
+            --glass-blur: 14px;
+            --glass-saturation: 160%;
+        }
+        
+        .chat-messages {
+            gap: 16px;
+            padding: 20px 15px 60px 15px;       /* Adjusted bottom padding for mobile */
+        }
+        
+        /* Reduce gradient overlay height on mobile */
+        .chat-messages::after {
+            block-size: 40px;
+        }
+        
+        .chat-message p {
+            font-size: 18px;
+            padding: 22px 24px 24px;
+            border-radius: 24px;
+            max-inline-size: 90%;
+        }
+        
+        /* Ensure proper text sizing on mobile */
+        .chat-message.from-user p {
+            font-size: 18px;
+        }
+        
+        .chat-message.from-ai p {
+            font-size: 18px;
+        }
+        
+        /* Specific handling for the longest message on mobile */
+        .chat-message[data-message="2"] p {
+            max-inline-size: min(320px, 90%);
+        }
+        
+        /* Ensure last message stays visible on mobile */
+        .chat-message:last-child {
+            margin-block-end: 15px;
+        }
+        
+        /* Reduce animation intensity on mobile */
+        @keyframes messagePop {
+            0%   { 
+                transform: scale(0.96) translateY(2px);
+                opacity: 0;
+            }
+            100% { 
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+    }
+    
+    /* Ensure text is always contained within bubbles */
+    .chat-message p {
+        overflow: hidden;
+        text-overflow: clip;
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Specific handling for the longest message */
+    .chat-message[data-message="2"] p {
+        max-inline-size: min(380px, 85%);
+    }
+}
+
+/* ===== MARQUEE ANIMATION SYSTEM ===== */
+@layer animations {
+    /* Base marquee animation - moves logos smoothly left */
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);        /* Move exactly half width for seamless loop */
+        }
+    }
+    
+    /* Reduced motion support for marquee */
+    @media (prefers-reduced-motion: reduce) {
+        .marquee__track {
+            animation-duration: 300s;           /* Much slower animation */
+        }
+    }
+}
+
+/* ===== ACCESSIBILITY - REDUCED MOTION SUPPORT ===== */
+@layer animations {
+    /* Global reduced motion overrides */
+    @media (prefers-reduced-motion: reduce) {
+        /* Disable chatbot background animation */
+        .chatbot-container {
+            animation: none;
+        }
+        
+        /* Disable glass reflection */
+        .chatbot-container::before {
+            animation: none;
+            opacity: 0.05;
+        }
+        
+        /* Disable gradient animation */
+        .chat-message.from-ai p {
+            animation: none !important;
+        }
+        
+        /* Simplify message animations */
+        .chat-message,
+        .chat-message.from-ai::before {
+            transition-duration: 0.01ms;
+        }
+        
+        /* Disable pop effect */
+        @keyframes messagePop {
+            to { 
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Disable glow pulse */
+        @keyframes aiGlowPulseSoft {
+            to { /* no animation */ }
+        }
+        
+        /* Static typing cursor */
+        @keyframes blink {
+            to { opacity: 1; }
+        }
+        
+        /* Disable sparkle animations (handled in sparkle section) */
+    }
+}
+
+/* ===== FOCUS ACCESSIBILITY ===== */
+@layer animations {
+    /* Modern focus indicators for interactive elements */
+    :focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}

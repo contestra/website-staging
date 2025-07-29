@@ -1,0 +1,46 @@
+/*
+ * main.css - CSS Import Hub with Enhanced Message Animations
+ * 
+ * Purpose: Single entry point that imports all CSS files in proper dependency order (including enhanced2 versions)
+ * Used by: enhanced2 index.html <link rel="stylesheet" href="main.css">
+ * Dependencies: All files in css/ directory including enhanced2 versions
+ * 
+ * Import Order Explanation:
+ * 1. Variables - Must be first (used by all other files)
+ * 2. Reset - Foundation styles and font declarations
+ * 3. Layout - Core layout systems (containers, grid, header)
+ * 4. Sections - Individual page sections 
+ * 5. Components - Reusable UI components (ENHANCED with glass morphism)
+ * 6. Animations - All animations and transitions (ENHANCED2 with message pop effects)
+ * 
+ * LLM Working Notes:
+ * - This enhanced2 version imports the enhanced2 CSS files for message animations
+ * - Message pop effects with elastic easing
+ * - Glow pulse animations for AI messages
+ * - Gradient animations on message bubbles
+ * - Subtle depth and layering effects maintained
+ * - Enhanced glass morphism with noise texture and reflections
+ * - Length-based typing indicator duration for natural feel
+ * - Files are organized from general to specific
+ * - All paths are relative to project root (css/ directory)
+ */
+
+/* ===== IMPORT ALL CSS FILES IN DEPENDENCY ORDER ===== */
+
+/* Foundation: Variables and tokens - MUST BE FIRST */
+@import url('css/00-variables.css');
+
+/* Foundation: Reset, base styles, fonts - SECOND */
+@import url('css/01-reset.css');
+
+/* Layout: Containers, grid systems, header - THIRD */
+@import url('css/02-layout.css');
+
+/* Content: Individual page sections - FOURTH */
+@import url('css/03-sections.css');
+
+/* UI: Reusable components and widgets - FIFTH (ENHANCED VERSION) */
+@import url('css/04-components.css');
+
+/* Effects: Animations, transitions, keyframes - LAST (ENHANCED2 VERSION) */
+@import url('css/05-animations.css');
