@@ -235,6 +235,7 @@
         pointer-events: none;
         mix-blend-mode: overlay;
         border-radius: 24px;
+        z-index: 1;
     }
     
     /* ENHANCED: Moving rainbow reflection for glass effect */
@@ -256,8 +257,9 @@
         animation: glassReflection 20s linear infinite;
         pointer-events: none;
         mix-blend-mode: soft-light;
-        opacity: 0.5;
-        filter: blur(40px);
+        opacity: 0.3;
+        filter: blur(60px);
+        z-index: 0;
     }
     
     /* ENHANCED: Glass reflection animation */
@@ -340,6 +342,7 @@
         max-block-size: 100%;
         min-block-size: 0;
         position: relative;                     /* For gradient overlay positioning */
+        z-index: 2;                             /* Ensure messages are above pseudo elements */
     }
     
     /* Bottom gradient overlay to ensure last message is visible */
@@ -594,18 +597,19 @@
         position: relative;
         min-block-size: 20px;
         vertical-align: middle;
+        background: transparent;
     }
     
     .typing-indicator span {
         position: relative;
         inline-size: var(--typing-dot-size);
         block-size: var(--typing-dot-size);
-        background: rgba(255, 255, 255, 0.9);   /* White dots on pink background */
+        background: rgba(255, 255, 255, 0.8);   /* White dots on pink background */
         border-radius: 50%;
         opacity: 0.5;
         transform: scale(0.8);
         will-change: transform, opacity;
-        box-shadow: 0 0 4px rgba(255, 0, 136, 0.3);
+        box-shadow: 0 0 2px rgba(255, 0, 136, 0.2);
     }
     
     .typing-indicator span:nth-child(1) {
