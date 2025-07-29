@@ -273,14 +273,12 @@
     
     /* Enhanced individual chat message bubbles */
     .chat-message {
-        opacity: 0;
         display: flex;
         align-items: flex-end;
         max-inline-size: 100%;
         inline-size: 100%;
         overflow: visible;
         padding: 2px 0;
-        /* No transition - prevents shimmer */
         position: relative;                     /* Ensure messages stay above gradient */
         z-index: 1;
     }
@@ -301,9 +299,7 @@
         padding-inline-start: 0;                /* No extra padding - uses container padding */
     }
     
-    .chat-message.visible {
-        opacity: 1;
-    }
+    /* Removed visible class - not needed */
     
     /* ===== ENHANCED MESSAGE BUBBLE STYLING ===== */
     .chat-message p {
@@ -315,9 +311,7 @@
         max-inline-size: min(380px, 85%);
         inline-size: fit-content;
         font-weight: 400;
-        /* Initial state handled by animation */
-        opacity: 0;
-        /* Removed transition to prevent conflict with animation */
+        /* Static display - no opacity changes */
         overflow: visible;
         word-wrap: break-word;
         word-break: normal;
@@ -333,11 +327,10 @@
         /* Removed backdrop-filter to prevent shimmer */
         color: var(--color-text-primary);
         border-block-end-inline-start-radius: 8px;
-        /* ENHANCED: Subtle layered shadow for depth */
+        /* Simple shadow without inset */
         box-shadow: 
             0 1px 2px rgba(0, 0, 0, 0.04),
-            0 4px 8px rgba(0, 0, 0, 0.06),
-            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            0 4px 8px rgba(0, 0, 0, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.8);
     }
     
@@ -353,13 +346,10 @@
         color: white;
         border-block-end-inline-end-radius: 8px;
         border: 1px solid rgba(255, 255, 255, 0.3);
-        /* ENHANCED: Premium shadow with glow */
+        /* Simple shadow without inset or glow */
         box-shadow: 
-            0 2px 4px rgba(255, 0, 136, 0.1),
-            0 8px 16px rgba(255, 0, 136, 0.2),
-            0 16px 32px rgba(255, 0, 136, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3),
-            inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            0 2px 4px rgba(0, 0, 0, 0.1),
+            0 8px 16px rgba(0, 0, 0, 0.15);
         min-block-size: fit-content;
         overflow-wrap: break-word;
         hyphens: auto;
@@ -381,10 +371,7 @@
     
     /* REMOVED - glow pulse animation */
     
-    /* Message appearance - simple opacity only */
-    .chat-message.visible p {
-        opacity: 1;
-    }
+    /* Message appearance - static display */
     
     /* REMOVED animations to stop wobbling */
     .chat-message.from-user.visible p {
