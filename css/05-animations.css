@@ -186,15 +186,10 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        background: rgba(255, 252, 249, 0.1);  /* Very subtle tint */
-        border: 1px solid rgba(255,255,255,0.2);  /* ENHANCED: Lighter border */
-        /* ENHANCED: Multi-layered shadow for depth */
-        box-shadow: 
-            0 2px 4px rgba(0, 0, 0, 0.02),      /* Subtle close shadow */
-            0 8px 16px rgba(0, 0, 0, 0.04),     /* Mid shadow */
-            0 24px 48px rgba(0, 0, 0, 0.06),    /* Soft ambient shadow */
-            inset 0 0 0 1px rgba(255,255,255,0.5), /* Inner light edge */
-            inset 0 -1px 2px rgba(0,0,0,0.02);  /* Subtle inner shadow at bottom */
+        background: transparent;  /* Fully transparent */
+        border: none;  /* Remove border */
+        /* Removed box-shadow to eliminate white frame */
+        box-shadow: none;
         overflow: hidden;
         border-radius: 24px;
         /* Removed gradient animation to prevent wobbling */
@@ -232,16 +227,9 @@
     }
     
     
-    /* ENHANCED: Professional hover state with depth */
+    /* Hover state - disabled to prevent frame */
     .chatbot-container:hover {
-        transform: translateY(-2px) scale(1.005);
-        box-shadow: 
-            0 4px 8px rgba(0, 0, 0, 0.04),
-            0 12px 24px rgba(0, 0, 0, 0.06),
-            0 32px 64px rgba(0, 0, 0, 0.08),
-            inset 0 0 0 1px rgba(255,255,255,0.6),
-            inset 0 -1px 2px rgba(0,0,0,0.03);
-        transition: all 0.4s var(--smooth-easing);
+        /* No hover effects */
     }
     
     /* ENHANCED: Active state for interactivity */
@@ -272,21 +260,9 @@
         z-index: 2;                             /* Ensure messages are above pseudo elements */
     }
     
-    /* Bottom gradient overlay to ensure last message is visible */
+    /* Bottom gradient overlay - DISABLED */
     .chat-messages::after {
-        content: '';
-        position: absolute;
-        inset-block-end: 0;
-        inset-inline: 0;
-        block-size: 60px;                       /* Height of fade area */
-        background: linear-gradient(
-            to top,
-            rgba(255, 252, 249, 1) 0%,
-            rgba(255, 252, 249, 0.8) 20%,
-            rgba(255, 252, 249, 0) 60%
-        );
-        pointer-events: none;
-        z-index: 5;
+        display: none;
     }
     
     /* Chrome, Safari and Opera - hide scrollbar */
@@ -305,9 +281,8 @@
         inline-size: 100%;
         overflow: visible;
         padding: 2px 0;
-        will-change: opacity;
-        /* Only animate opacity on parent, let child handle transform */
-        transition: opacity 0.5s var(--elastic-easing);
+        /* Simple fade in only */
+        transition: opacity 0.3s ease-in-out;
         position: relative;                     /* Ensure messages stay above gradient */
         z-index: 1;
     }
@@ -436,20 +411,18 @@
         }
     }
     
-    /* Message appearance animation */
+    /* Message appearance - simple opacity only */
     .chat-message.visible p {
-        transform: scale(1) translateY(0) translateX(0);
         opacity: 1;
-        overflow: hidden;
     }
     
-    /* ENHANCED2: Message pop effect with elastic bounce */
+    /* REMOVED animations to stop wobbling */
     .chat-message.from-user.visible p {
-        animation: messagePopLeft 0.5s var(--elastic-easing) forwards;
+        /* animation removed */
     }
     
     .chat-message.from-ai.visible p {
-        animation: messagePopRight 0.5s var(--elastic-easing) forwards;
+        /* animation removed */
     }
     
     @keyframes messagePopLeft {
@@ -474,31 +447,22 @@
         }
     }
     
-    /* ENHANCED: Micro-interactions with depth */
+    /* Hover states - disabled to prevent wobble */
     .chat-message p {
-        transition: transform 0.2s var(--smooth-easing), box-shadow 0.2s var(--smooth-easing);
+        /* No transition to prevent wobble */
     }
     
     .chat-message p:hover {
-        transform: translateY(-2px);
+        /* No transform on hover */
     }
     
     .chat-message.from-user p:hover {
-        box-shadow: 
-            0 2px 4px rgba(0, 0, 0, 0.06),
-            0 8px 16px rgba(0, 0, 0, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        /* No hover effects - removed to prevent errors */
     }
     
-    /* AI message hover gets enhanced pink glow */
+    /* AI message hover - removed */
     .chat-message.from-ai p:hover {
-        box-shadow: 
-            0 4px 8px rgba(255, 0, 136, 0.2),
-            0 12px 24px rgba(255, 0, 136, 0.3),
-            0 20px 40px rgba(255, 0, 136, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4),
-            inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-        transform: translateY(-2px) scale(1.02);
+        /* No hover effects - removed to prevent errors */
     }
     
     /* ===== TYPING INDICATORS ===== */
@@ -542,7 +506,7 @@
         border-radius: 50%;
         opacity: 0.5;
         transform: scale(0.8);
-        will-change: transform, opacity;
+        /* Removed will-change to prevent issues */
         box-shadow: 0 0 2px rgba(255, 0, 136, 0.2);
     }
     
