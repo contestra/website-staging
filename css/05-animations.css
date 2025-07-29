@@ -36,8 +36,6 @@
         overflow: hidden;
         pointer-events: none;
         z-index: 1;                             /* Below content but above gradient */
-        transform: translateZ(0);               /* Create new layer */
-        will-change: contents;                  /* Isolate repaints */
     }
     
     /* Base sparkle styling */
@@ -45,8 +43,6 @@
         position: absolute;
         filter: blur(15px);
         opacity: 0.7;
-        will-change: transform;                 /* Optimize transforms */
-        transform: translateZ(0);               /* Force GPU layer */
     }
     
     /* Sparkle cross pattern using pseudo-elements */
@@ -79,7 +75,7 @@
         width: clamp(190px, 23vw, 365px); 
         height: clamp(190px, 23vw, 365px); 
         color: var(--color-sparkle-pink); 
-        animation: edgeMove2 70s infinite linear;
+        /* animation: edgeMove2 70s infinite linear; DISABLED to test shimmer */
         animation-delay: -8s; 
     }
     
@@ -88,7 +84,7 @@
         width: clamp(370px, 40vw, 700px);
         height: clamp(370px, 40vw, 700px);
         color: var(--color-sparkle-pink);
-        animation: bottomLeftMove 31s infinite linear;
+        /* animation: bottomLeftMove 31s infinite linear; DISABLED to test shimmer */
         animation-delay: -4s;
     }
     
