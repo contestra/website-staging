@@ -337,7 +337,7 @@
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: 20px 20px 120px 20px; /* Adjusted for new structure */
+        padding: 20px 20px 200px 20px; /* Much more bottom padding to prevent clipping */
         margin: 0;
         /* Messages should not have their own border radius */
         border-radius: 10px; /* Match gradient radius */
@@ -359,10 +359,7 @@
         pointer-events: auto;
     }
     
-    /* Bottom gradient overlay - DISABLED */
-    .chat-messages::after {
-        display: none;
-    }
+    /* Spacer is defined elsewhere, remove this conflicting rule */
     
     /* Chrome, Safari and Opera - hide scrollbar */
     .chat-messages::-webkit-scrollbar {
@@ -745,9 +742,8 @@
         
         /* Maintain device frame adjustments on mobile */
         .chatbot-container.device-frame .chat-messages {
-            padding: 30px 30px 80px 30px; /* Increased padding to stay within gradient on mobile */
+            padding: 20px 20px 140px 20px; /* Much more bottom padding on mobile */
             margin: 0;
-            padding-bottom: max(80px, 20%);
         }
         
         /* Reduce gradient overlay height on mobile */
@@ -800,20 +796,17 @@
     
     /* Ensure AI message that contains the clipping text has enough space */
     .chat-message[data-message="4"] p {
-        padding: 24px 28px 35px; /* More bottom padding */
-        line-height: 1.75; /* Increased line height */
-        max-inline-size: min(340px, 75%); /* Even narrower to force better wrapping */
-        word-spacing: 0.1em; /* Add slight word spacing */
+        padding: 24px 28px 30px; /* Balanced padding */
+        line-height: 1.65; /* Good line height for readability */
+        max-inline-size: min(350px, 80%); /* Slightly wider for better text flow */
     }
     
-    /* Force proper wrapping for elasticity message */
-    .chat-message[data-message="4"] {
-        margin-block-end: 20px; /* More margin to ensure spacing */
-    }
-    
-    /* Ensure last visible message has space */
-    .chat-message[data-message="4"]:last-of-type {
-        padding-bottom: 40px; /* Extra padding at bottom */
+    /* Add invisible spacer after last message to prevent clipping */
+    .chat-messages::after {
+        content: '';
+        display: block;
+        height: 100px; /* Spacer to ensure last message is visible */
+        flex-shrink: 0;
     }
 }
 
