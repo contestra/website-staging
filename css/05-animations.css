@@ -273,7 +273,7 @@
         overflow-x: hidden !important;
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
-        padding: 5px 20px 110px 20px;           /* Very minimal top padding for maximum space */
+        padding: 5px 20px 120px 20px;           /* Increased bottom padding to prevent clipping */
         justify-content: flex-start;
         /* scroll-behavior: smooth; REMOVED - can cause shimmer */
         box-sizing: border-box;
@@ -520,7 +520,7 @@
         
         .chat-messages {
             gap: 16px;
-            padding: 20px 15px 60px 15px;       /* Adjusted bottom padding for mobile */
+            padding: 20px 15px 140px 15px;       /* Much more bottom padding for mobile */
         }
         
         /* Reduce gradient overlay height on mobile */
@@ -533,6 +533,7 @@
             padding: 22px 24px 24px;
             border-radius: 24px;
             max-inline-size: 90%;
+            text-align: left !important;         /* Force left alignment on mobile */
         }
         
         /* Ensure proper text sizing on mobile */
