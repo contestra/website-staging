@@ -188,33 +188,24 @@
         position: relative;
         inline-size: 100%;
         block-size: 100%;
-        padding: clamp(2rem, 4vw, 3rem);
+        padding: 0; /* Remove default padding */
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        background: linear-gradient(
-            135deg,
-            #FFFCF9 0%,
-            #FFFFF9 25%,
-            #FFF9F2 50%,
-            #FFF2F9 75%,
-            #FFFCF9 100%
-        );
-        background-size: 200% 200%;
-        background-position: 0% 0%;
+        background: transparent; /* Move gradient to inner div */
         border: none;
         box-shadow: none;
         overflow: hidden;
-        border-radius: 4px; /* Inner radius when using device frame (24px - 20px border) */
-        /* Subtle gradient animation */
-        animation: chatbotGradientShift 20s ease-in-out infinite;
+        border-radius: 24px; /* Match outer radius initially */
         max-block-size: 100%;
-        min-block-size: 100%;                   /* FIXED: Set min-height to 100% to prevent container from expanding */
-        scrollbar-width: none;                  /* Firefox - hide scrollbar */
-        -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
-        /* ENHANCED: Better glass effect */
-        /* Removed backdrop filter to eliminate white box */
-        /* Removed transform and will-change to prevent shimmer */
+        min-block-size: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    /* Remove gradient from pseudo-element approach */
+    .chatbot-container::after {
+        display: none; /* Disable this approach */
     }
     
     /* DEVICE FRAME EFFECT - Easily reversible by commenting out this block */
@@ -226,43 +217,30 @@
         box-shadow: none; /* Remove shadow to simplify */
         overflow: hidden;
         position: relative;
-        /* Ensure gradient background has rounded corners */
-        background-clip: padding-box;
+        /* Apply gradient directly to container */
+        background: linear-gradient(
+            135deg,
+            #FFFCF9 0%,
+            #FFFFF9 25%,
+            #FFF9F2 50%,
+            #FFF2F9 75%,
+            #FFFCF9 100%
+        );
+        background-size: 200% 200%;
+        background-position: 0% 0%;
+        animation: chatbotGradientShift 20s ease-in-out infinite;
+        /* Ensure gradient is clipped to content box */
+        background-clip: content-box;
+        background-origin: content-box;
     }
     
-    /* Apply rounded corners to gradient when device frame is active */
-    .chatbot-container.device-frame {
-        border-radius: 24px !important;
-    }
-    
-    /* Ensure all pseudo-elements respect the rounded corners */
-    .chatbot-container.device-frame::before,
-    .chatbot-container.device-frame::after {
-        border-radius: 4px !important;
-    }
     /* END DEVICE FRAME EFFECT */
     
     /* RESTORED: Glass morphism effects */
     /* To revert: Change display back to 'none' in both pseudo-elements */
     
-    /* ENHANCED: Noise texture overlay for realistic glass */
-    .chatbot-container::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        opacity: 0.015;
-        background-image: 
-            repeating-conic-gradient(
-                from 0deg at 50% 50%,
-                rgba(0,0,0,0) 0deg,
-                rgba(0,0,0,0.05) 1deg,
-                rgba(0,0,0,0) 2deg
-            );
-        background-size: 40px 40px;
-        pointer-events: none;
-        mix-blend-mode: overlay;
-        border-radius: 4px; /* Match the container radius */
-    }
+    /* ENHANCED: Noise texture overlay - disabled due to gradient implementation */
+    /* Noise texture removed to simplify gradient rendering */
     
     /* ENHANCED: Moving rainbow reflection */
     .chatbot-container::before {
@@ -353,13 +331,16 @@
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: 20px 20px 80px 20px; /* Increased bottom padding for last message */
+        padding: 20px 20px 100px 20px; /* Further increased bottom padding for last message */
         margin: 0;
         /* Ensure rounded corners are respected */
         border-radius: 4px;
         overflow: hidden;
         /* Add invisible spacer to prevent last message from pushing too high */
-        padding-bottom: max(80px, 15%);
+        padding-bottom: max(100px, 20%);
+        /* Ensure messages don't get clipped */
+        min-height: 100%;
+        box-sizing: border-box;
     }
     
     /* Re-enable pointer events for child elements */
@@ -493,17 +474,19 @@
     
     /* Special handling for last message to ensure visibility */
     .chat-message:last-child {
-        margin-block-end: 40px;                 /* Extra margin to prevent clipping */
+        margin-block-end: 60px;                 /* Extra margin to prevent clipping */
     }
     
     /* Prevent last AI message from pushing too far up */
     .chat-message.from-ai:last-child {
-        margin-block-end: 80px;                 /* Increased space to prevent clipping */
+        margin-block-end: 100px;                /* Further increased space to prevent clipping */
     }
     
     /* Ensure the last message is always fully visible */
     .chat-message:last-of-type p {
-        margin-block-end: 20px;                 /* Extra margin on the bubble itself */
+        margin-block-end: 30px;                 /* Extra margin on the bubble itself */
+        /* Ensure text doesn't get cut off */
+        padding-bottom: 30px !important;
     }
     
     /* Message positioning and entry animations */
@@ -567,9 +550,12 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         min-block-size: fit-content;
         overflow-wrap: break-word;
+        word-break: break-word; /* Ensure long words break properly */
         /* hyphens removed - can cause text reflow */
         /* text-rendering: optimizeLegibility; REMOVED - can cause shimmer */
         position: relative;
+        /* Prevent text clipping */
+        overflow: visible !important;
     }
     
     /* RESTORED: Initial glow that fades for AI messages */
@@ -800,6 +786,12 @@
     /* Specific handling for the longest message */
     .chat-message[data-message="2"] p {
         max-inline-size: min(380px, 85%);
+    }
+    
+    /* Ensure AI message that contains the clipping text has enough space */
+    .chat-message[data-message="4"] p {
+        padding-bottom: 35px !important; /* Extra padding for the elasticity message */
+        line-height: 1.7; /* Slightly more line height for better text flow */
     }
 }
 
