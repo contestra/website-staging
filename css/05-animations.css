@@ -581,9 +581,10 @@
         box-shadow: 0 0 2px rgba(255, 0, 136, 0.2);
     }
     
-    /* Typing dot animations */
+    /* ENHANCED: Sophisticated staggered typing dots */
+    /* To revert: Replace this entire section with the original above */
     .typing-indicator span {
-        animation: dotPulse 1.8s infinite ease-in-out;
+        animation: dotWave 1.4s infinite ease-in-out, dotGlow 1.4s infinite ease-in-out;
     }
     
     .typing-indicator span:nth-child(1) {
@@ -591,23 +592,39 @@
     }
     
     .typing-indicator span:nth-child(2) {
-        animation-delay: 0.15s;
+        animation-delay: 0.12s;
     }
     
     .typing-indicator span:nth-child(3) {
-        animation-delay: 0.3s;
+        animation-delay: 0.24s;
     }
     
-    @keyframes dotPulse {
-        0%, 80%, 100% { 
-            opacity: 0.5; 
-            transform: scale(0.8);
+    @keyframes dotWave {
+        0%, 60%, 100% { 
+            opacity: 0.4; 
+            transform: scale(0.8) translateY(0);
         }
-        40% { 
+        30% { 
             opacity: 1; 
-            transform: scale(1.2);
+            transform: scale(1.1) translateY(-6px);
+            filter: brightness(1.2);
         }
     }
+    
+    /* Add subtle glow to active dot */
+    .typing-indicator span {
+        transition: box-shadow 0.3s ease;
+    }
+    
+    @keyframes dotGlow {
+        0%, 60%, 100% {
+            box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+        }
+        30% {
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+    }
+    /* END ENHANCED: Sophisticated staggered typing dots */
     
     /* ===== CHATBOT RESPONSIVE ADJUSTMENTS ===== */
     @media (width <= 768px) {
