@@ -268,12 +268,12 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;  /* Reduced gap to save vertical space */
         overflow-y: auto;
         overflow-x: hidden !important;
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
-        padding: 5px 20px 150px 20px;           /* Extra bottom padding to prevent desktop clipping */
+        padding: 5px 20px 160px 20px;           /* Increased bottom padding + reduced gap = more space */
         justify-content: flex-start;
         /* scroll-behavior: smooth; REMOVED - can cause shimmer */
         box-sizing: border-box;
