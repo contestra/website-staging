@@ -644,8 +644,8 @@
         box-shadow: 
             /* Subtle drop shadow */
             0 8px 20px rgba(0, 0, 0, 0.08),
-            /* Outer cyan glow - more subtle */
-            0 0 20px 5px hsla(192, 100%, 70%, 0.1),
+            /* Outer cyan glow - increased by 2px */
+            0 0 22px 7px hsla(192, 100%, 70%, 0.1),
             /* Inner light edge */
             inset 0 0 0 1px rgba(255, 255, 255, 0.6);
         overflow: hidden;
