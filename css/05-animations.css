@@ -216,15 +216,54 @@
         /* Removed transform and will-change to prevent shimmer */
     }
     
-    /* ENHANCED: Noise texture overlay - DISABLED */
+    /* RESTORED: Glass morphism effects */
+    /* To revert: Change display back to 'none' in both pseudo-elements */
+    
+    /* ENHANCED: Noise texture overlay for realistic glass */
     .chatbot-container::after {
-        display: none;
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0.015;
+        background-image: 
+            repeating-conic-gradient(
+                from 0deg at 50% 50%,
+                rgba(0,0,0,0) 0deg,
+                rgba(0,0,0,0.05) 1deg,
+                rgba(0,0,0,0) 2deg
+            );
+        background-size: 40px 40px;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+        border-radius: 24px;
     }
     
-    /* ENHANCED: Moving rainbow reflection - DISABLED */
+    /* ENHANCED: Moving rainbow reflection */
     .chatbot-container::before {
-        display: none;
+        content: '';
+        position: absolute;
+        inset: -50%;
+        background: 
+            conic-gradient(
+                from 0deg,
+                rgba(255, 0, 136, 0.1),
+                rgba(0, 255, 255, 0.1),
+                rgba(255, 255, 0, 0.1),
+                rgba(255, 0, 136, 0.1)
+            );
+        animation: rainbowRotate 20s linear infinite;
+        opacity: 0.5;
+        pointer-events: none;
+        border-radius: 50%;
+        filter: blur(60px);
+        z-index: -1;
     }
+    
+    @keyframes rainbowRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    /* END RESTORED: Glass morphism effects */
     
     /* ENHANCED: Glass reflection animation - disabled to prevent wobbling */
     @keyframes glassReflection {
@@ -326,6 +365,12 @@
     .chat-message.visible {
         opacity: 1;
         transform: translateY(0) translateX(0);  /* End at center position */
+    }
+    
+    /* ADDED: Fade out animation for smooth reset */
+    .chat-message.fade-out {
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
     }
     
     /* Special handling for last message to ensure visibility */

@@ -262,8 +262,8 @@ class ChatbotAnimation {
             // Wait before restarting the loop
             await this.delay(this.config.loopDelay);
             
-            // Reset and restart
-            this.resetAnimation();
+            // Reset and restart (now async)
+            await this.resetAnimation();
             
         } catch (error) {
             console.error('Error during animation:', error);
@@ -400,7 +400,7 @@ class ChatbotAnimation {
     /**
      * Reset animation to initial state
      */
-    resetAnimation() {
+    async resetAnimation() {
         console.log('Resetting chatbot animation');
         
         this.isAnimating = false;
@@ -421,6 +421,14 @@ class ChatbotAnimation {
             this.popTimeout = null;
         }
         
+        // Fade out all messages
+        this.elements.messages.forEach(message => {
+            message.classList.add('fade-out');
+        });
+        
+        // Wait for fade-out transition to complete (0.8s as defined in CSS)
+        await this.delay(800);
+        
         // Remove active class from placeholder
         if (this.elements.placeholder) {
             this.elements.placeholder.classList.remove('chat-active');
@@ -428,7 +436,7 @@ class ChatbotAnimation {
         
         // Reset all messages
         this.elements.messages.forEach(message => {
-            message.classList.remove('visible');
+            message.classList.remove('visible', 'fade-out');
             const p = message.querySelector('p');
             if (p) {
                 p.textContent = '';
@@ -442,6 +450,9 @@ class ChatbotAnimation {
         if (this.elements.container) {
             this.elements.container.scrollTop = 0;
         }
+        
+        // Small pause before restarting for visual clarity
+        await this.delay(500);
         
         // Schedule restart
         this.scheduleStart();
