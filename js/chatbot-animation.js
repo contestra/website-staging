@@ -93,7 +93,9 @@ class ChatbotAnimation {
                 { type: 'user', text: 'What are the best blood tests to check health?' },
                 { type: 'ai', text: 'Key tests include CBC, lipid panel, HbA1c, CRP, liver enzymes, vitamin D, and comprehensive metabolic panel.' },
                 { type: 'user', text: 'What are the benefits of testing ferritin, for a man?' },
-                { type: 'ai', text: 'High ferritin may signal inflammation or iron overload, increasing risks of heart disease, oxidative stress, and faster aging.' }
+                { type: 'ai', text: 'High ferritin may signal inflammation or iron overload, increasing risks of heart disease, oxidative stress, and faster aging.' },
+                { type: 'user', text: 'How to reduce cholesterol naturally?' },
+                { type: 'ai', text: 'Psyllium husk and red yeast rice are both used to naturally lower LDL cholesterol in diet-based approaches.' }
             ],
             // Conversation 3 - Functional medicine
             [
@@ -175,9 +177,16 @@ class ChatbotAnimation {
         
         this.elements.messages.forEach((message, index) => {
             const p = message.querySelector('p');
-            if (p && currentConvo[index]) {
-                // Update the text based on current conversation
-                p.dataset.originalText = currentConvo[index].text;
+            if (p) {
+                if (currentConvo[index]) {
+                    // Update the text based on current conversation
+                    p.dataset.originalText = currentConvo[index].text;
+                    message.style.display = ''; // Make sure it's visible
+                } else {
+                    // Hide messages not used in current conversation
+                    p.dataset.originalText = '';
+                    message.style.display = 'none';
+                }
                 
                 // Clear text content
                 p.textContent = '';
@@ -188,7 +197,9 @@ class ChatbotAnimation {
                 // ENHANCED2: Remove any lingering animation classes
                 p.classList.remove('message-popped');
                 
-                console.log(`Message ${index + 1} prepared: "${p.dataset.originalText}"`);
+                if (currentConvo[index]) {
+                    console.log(`Message ${index + 1} prepared: "${p.dataset.originalText}"`);
+                }
             }
         });
     }
@@ -243,9 +254,14 @@ class ChatbotAnimation {
         }
         
         try {
-            // Animate each message in sequence
-            for (let i = 0; i < this.elements.messages.length; i++) {
+            // Get current conversation to know how many messages to animate
+            const currentConvo = this.conversations[this.currentConversation];
+            
+            // Animate each message in sequence (only up to conversation length)
+            for (let i = 0; i < currentConvo.length; i++) {
                 const message = this.elements.messages[i];
+                if (!message) continue;
+                
                 const p = message.querySelector('p');
                 const text = p.dataset.originalText;
                 const isAIMessage = message.classList.contains('from-ai');
