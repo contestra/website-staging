@@ -107,6 +107,7 @@
         max-inline-size: 65rem;
         position: relative;
         z-index: 3;
+        align-self: start; /* Ensure content starts at top */
     }
     
     /* Mobile hero content centering */
@@ -218,20 +219,19 @@
     /* ===== HERO ANIMATION - RIGHT COLUMN ===== */
     .hero-animation {
         position: relative;
-        block-size: 100%;
+        block-size: auto; /* Change from 100% to auto */
         min-block-size: 43.6rem;
         display: flex;
-        align-items: center;
+        align-items: flex-start; /* Align to top instead of center */
         justify-content: center;
         z-index: 10;                            /* Highest z-index to stay above sparkles */
-        margin-block-start: -2rem; /* Offset to position above H1 baseline */
+        padding-block-start: 0; /* Remove any top padding */
     }
     
-    /* Maintain consistent offset on mid-size screens */
+    /* Maintain consistent height on mid-size screens */
     @media (width <= 1200px) and (width > 768px) {
         .hero-animation {
             min-block-size: 38rem; /* Slightly smaller for mid-size screens */
-            margin-block-start: -1.5rem; /* Slightly less offset on smaller screens */
         }
     }
     

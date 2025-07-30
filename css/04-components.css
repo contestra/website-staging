@@ -699,9 +699,9 @@
     .animation-placeholder {
         position: relative;
         inline-size: 100%;
-        block-size: 100%;
+        block-size: auto; /* Change to auto for consistent height */
         min-block-size: 38.6rem;
-        max-block-size: 48rem;
+        max-block-size: none; /* Remove max height constraint */
         /* ENHANCED: Transparent background */
         background: transparent;
         /* Backdrop filter removed - handled by chatbot-container */
