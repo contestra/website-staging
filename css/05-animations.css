@@ -219,15 +219,15 @@
     
     /* DEVICE FRAME EFFECT - Easily reversible by commenting out this block */
     .chatbot-container.device-frame {
-        /* Remove container padding to make content flush with frame */
-        padding: 0;
-        /* Light blue/grey inner frame color */
-        box-shadow: 
-            /* Main inner frame - single solid color */
-            inset 0 0 0 20px rgba(173, 181, 189, 0.18), /* Slightly lighter blue/grey */
-            /* Outer shadow */
-            0 8px 20px rgba(0, 0, 0, 0.08);
-        /* Removed border and bevel effects to eliminate outline */
+        /* Keep container padding for proper content spacing */
+        padding: 20px;
+        /* Use border instead of inset shadow to avoid gradient edges */
+        border: 20px solid rgba(173, 181, 189, 0.18);
+        /* Outer shadow only */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        /* Ensure content doesn't overflow the frame */
+        position: relative;
+        overflow: hidden;
     }
     /* END DEVICE FRAME EFFECT */
     
@@ -339,9 +339,9 @@
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: 20px 20px 140px 20px; /* Add padding to account for device frame */
-        margin: 0; /* Remove margin since padding handles spacing */
-        /* Messages will now be flush with the inner edge of the device frame */
+        padding: 0 20px 140px 20px; /* Remove top padding, keep sides */
+        margin: 0;
+        /* Messages will scroll behind frame naturally */
     }
     
     /* Re-enable pointer events for child elements */
@@ -694,7 +694,7 @@
         
         /* Maintain device frame adjustments on mobile */
         .chatbot-container.device-frame .chat-messages {
-            padding: 20px 20px 130px 20px;
+            padding: 0 15px 130px 15px; /* Remove top padding, keep sides on mobile */
             margin: 0;
         }
         
