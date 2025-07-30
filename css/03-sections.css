@@ -499,6 +499,8 @@
             justify-content: center;
             gap: var(--gap-3);
             margin-block-start: var(--gap-4);
+            margin-inline: auto; /* Center the navigation horizontally */
+            width: fit-content; /* Only take up needed width */
         }
     }
     
