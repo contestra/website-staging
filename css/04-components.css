@@ -440,6 +440,12 @@
         
         .b-section[data-id="scale-ai"] .card-front {
             display: block;
+            transition: opacity 0.3s ease-out;
+        }
+        
+        /* Fade out front when flipping */
+        .b-section[data-id="scale-ai"] .b-link.flipped .card-front {
+            opacity: 0;
         }
         
         .b-section[data-id="scale-ai"] .card-back {
@@ -455,6 +461,21 @@
         
         .b-section[data-id="scale-ai"] .b-link.flipped .card-back {
             display: block;
+            animation: fadeIn 0.4s ease-out;
+            animation-delay: 0.2s; /* Slight delay for smoother transition */
+            animation-fill-mode: both; /* Keep initial and final states */
+        }
+        
+        /* Fade in animation for mobile flip */
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* Add gradient background when flipped on mobile */
