@@ -364,6 +364,30 @@
     }
     /* END RESTORED: Side slide-in animations */
     
+    /* ENHANCEMENT: Professional scale and blur transitions */
+    /* To revert: Remove this entire section */
+    .chat-message p {
+        filter: blur(0);
+        transform: scale(1);
+        transition: 
+            filter 0.4s ease-out,
+            transform 0.5s var(--elastic-easing);
+    }
+    
+    /* Initial state - slightly blurred and scaled down */
+    .chat-message:not(.visible) p {
+        filter: blur(3px);
+        transform: scale(0.95);
+    }
+    
+    /* Enhance the visible state transition */
+    .chat-message.visible p {
+        filter: blur(0);
+        transform: scale(1);
+        transition-delay: 0.1s; /* Slight delay for smoother effect */
+    }
+    /* END ENHANCEMENT: Professional scale and blur transitions */
+    
     /* Make messages visible when animated - slides to center */
     .chat-message.visible {
         opacity: 1;
@@ -493,56 +517,6 @@
     .chat-message p:empty {
         display: none;
     }
-    
-    /* ENHANCEMENT: Message connection lines */
-    /* To revert: Remove this entire section */
-    .chat-message {
-        position: relative;
-    }
-    
-    /* Connection line from user to AI message */
-    .chat-message.from-ai::before {
-        content: '';
-        position: absolute;
-        width: 60px;
-        height: 30px;
-        top: -15px;
-        left: calc(100% - 80px);
-        opacity: 0;
-        transition: opacity 0.5s ease 0.3s;
-        pointer-events: none;
-        z-index: -1;
-    }
-    
-    /* Draw curved connection line */
-    .chat-message.from-ai.visible::before {
-        opacity: 1;
-        background: 
-            radial-gradient(circle at 0% 50%, transparent 28%, rgba(255, 0, 136, 0.1) 30%, rgba(255, 0, 136, 0.1) 32%, transparent 34%);
-        transform: rotate(-15deg);
-    }
-    
-    /* Alternate side for better flow */
-    .chat-message:nth-child(4n+2).from-ai::before {
-        left: auto;
-        right: calc(100% - 80px);
-        transform: rotate(15deg) scaleX(-1);
-    }
-    
-    /* Mobile adjustments */
-    @media (width <= 768px) {
-        .chat-message.from-ai::before {
-            width: 40px;
-            height: 20px;
-            top: -10px;
-            left: calc(100% - 60px);
-        }
-        
-        .chat-message:nth-child(4n+2).from-ai::before {
-            right: calc(100% - 60px);
-        }
-    }
-    /* END ENHANCEMENT: Message connection lines */
     
     
     /* ENHANCED3: REMOVED shimmer effect that was causing white box issue */
