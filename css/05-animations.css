@@ -518,44 +518,6 @@
         display: none;
     }
     
-    /* ENHANCEMENT: Read receipts for user messages */
-    /* To revert: Remove this entire section */
-    .chat-message.from-user {
-        position: relative;
-    }
-    
-    .chat-message.from-user::after {
-        content: '✓';
-        position: absolute;
-        right: -25px;
-        bottom: 8px;
-        font-size: 14px;
-        color: rgba(0, 0, 0, 0.3);
-        opacity: 0;
-        transform: scale(0.8);
-        transition: all 0.3s ease 0.5s;
-    }
-    
-    /* Show read receipt after AI starts responding */
-    .chat-message.from-user.read::after {
-        opacity: 1;
-        transform: scale(1);
-    }
-    
-    /* Double checkmark for second user message */
-    .chat-message.from-user:nth-child(3).read::after,
-    .chat-message.from-user:nth-child(5).read::after {
-        content: '✓✓';
-    }
-    
-    @media (width <= 768px) {
-        .chat-message.from-user::after {
-            right: -20px;
-            font-size: 12px;
-        }
-    }
-    /* END ENHANCEMENT: Read receipts */
-    
     
     /* ENHANCED3: REMOVED shimmer effect that was causing white box issue */
     /* The ::before pseudo-element with shimmer animation has been completely removed */

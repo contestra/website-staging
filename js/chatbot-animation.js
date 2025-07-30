@@ -319,16 +319,6 @@ class ChatbotAnimation {
                 // ENHANCED2: Trigger message pop effect after typing completes
                 this.triggerMessagePop(p);
                 
-                // ENHANCEMENT: Add read receipt to previous user message when AI responds
-                // To revert: Remove these 4 lines
-                if (isAIMessage && i > 0) {
-                    const prevMessage = this.elements.messages[i - 1];
-                    if (prevMessage && prevMessage.classList.contains('from-user')) {
-                        prevMessage.classList.add('read');
-                    }
-                }
-                // END ENHANCEMENT
-                
                 // Final scroll to ensure message is fully visible
                 this.scrollToLatestMessage(i === currentConvo.length - 1);
                 
@@ -534,7 +524,7 @@ class ChatbotAnimation {
         
         // Reset all messages
         this.elements.messages.forEach(message => {
-            message.classList.remove('visible', 'fade-out', 'read'); // Also remove read class
+            message.classList.remove('visible', 'fade-out');
             const p = message.querySelector('p');
             if (p) {
                 p.textContent = '';
