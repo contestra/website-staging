@@ -293,11 +293,14 @@
         padding: 2px 0;
         position: relative;                     /* Ensure messages stay above gradient */
         opacity: 0;                             /* Initially hidden until animation */
+        transform: translateY(20px);            /* Start slightly lower */
+        transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     /* Make messages visible when animated */
     .chat-message.visible {
         opacity: 1;
+        transform: translateY(0);
     }
     
     /* Special handling for last message to ensure visibility */
