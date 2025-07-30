@@ -282,6 +282,31 @@ class ChatbotAnimation {
                 // Auto-scroll to latest message with improved logic
                 this.scrollToLatestMessage(i === this.elements.messages.length - 1);
                 
+                // ENHANCEMENT: Natural response delay before AI starts thinking
+                // To revert: Remove this entire if block
+                if (isAIMessage && i > 0) {
+                    // Calculate delay based on previous user message length
+                    const prevMessage = this.elements.messages[i - 1];
+                    if (prevMessage) {
+                        const prevP = prevMessage.querySelector('p');
+                        const prevText = prevP ? prevP.dataset.originalText : '';
+                        
+                        // Simulate "reading time" - longer messages take longer to read
+                        let readingDelay;
+                        if (prevText.length < 20) {
+                            readingDelay = 400 + Math.random() * 200; // 400-600ms
+                        } else if (prevText.length < 50) {
+                            readingDelay = 600 + Math.random() * 300; // 600-900ms
+                        } else {
+                            readingDelay = 800 + Math.random() * 400; // 800-1200ms
+                        }
+                        
+                        console.log(`AI reading delay for "${prevText.substring(0, 30)}..." (${prevText.length} chars): ${Math.round(readingDelay)}ms`);
+                        await this.delay(readingDelay);
+                    }
+                }
+                // END ENHANCEMENT
+                
                 // Show typing indicator for AI messages with dynamic duration
                 if (isAIMessage && this.config.enableTypingIndicator) {
                     const complexityDuration = this.calculateMessageComplexity(text);
@@ -294,8 +319,18 @@ class ChatbotAnimation {
                 // ENHANCED2: Trigger message pop effect after typing completes
                 this.triggerMessagePop(p);
                 
+                // ENHANCEMENT: Add read receipt to previous user message when AI responds
+                // To revert: Remove these 4 lines
+                if (isAIMessage && i > 0) {
+                    const prevMessage = this.elements.messages[i - 1];
+                    if (prevMessage && prevMessage.classList.contains('from-user')) {
+                        prevMessage.classList.add('read');
+                    }
+                }
+                // END ENHANCEMENT
+                
                 // Final scroll to ensure message is fully visible
-                this.scrollToLatestMessage(i === this.elements.messages.length - 1);
+                this.scrollToLatestMessage(i === currentConvo.length - 1);
                 
                 // Wait before next message (except for last message)
                 if (i < this.elements.messages.length - 1) {
@@ -366,6 +401,22 @@ class ChatbotAnimation {
             
             let currentIndex = 0;
             
+            // ENHANCEMENT: Variable typing speed based on message length
+            // To revert: Replace with: const baseSpeed = this.config.typingSpeed;
+            const messageLength = text.length;
+            let baseSpeed;
+            if (messageLength < 30) {
+                baseSpeed = 25; // Very fast for short messages
+            } else if (messageLength < 60) {
+                baseSpeed = 30; // Fast for medium messages
+            } else if (messageLength < 100) {
+                baseSpeed = 35; // Normal speed
+            } else {
+                baseSpeed = 40; // Slightly slower for long messages
+            }
+            console.log(`Typing speed for "${text.substring(0, 20)}..." (${messageLength} chars): ${baseSpeed}ms`);
+            // END ENHANCEMENT
+            
             const typeNextCharacter = () => {
                 if (currentIndex <= text.length && this.isAnimating) {
                     // Update text content
@@ -374,7 +425,6 @@ class ChatbotAnimation {
                     
                     if (currentIndex <= text.length) {
                         // Calculate next typing delay with variation
-                        const baseSpeed = this.config.typingSpeed;
                         const variation = (Math.random() - 0.5) * this.config.speedVariation;
                         const delay = Math.max(20, baseSpeed + variation);
                         
@@ -484,7 +534,7 @@ class ChatbotAnimation {
         
         // Reset all messages
         this.elements.messages.forEach(message => {
-            message.classList.remove('visible', 'fade-out');
+            message.classList.remove('visible', 'fade-out', 'read'); // Also remove read class
             const p = message.querySelector('p');
             if (p) {
                 p.textContent = '';
