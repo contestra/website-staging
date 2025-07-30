@@ -292,6 +292,12 @@
         overflow: visible;
         padding: 2px 0;
         position: relative;                     /* Ensure messages stay above gradient */
+        opacity: 0;                             /* Initially hidden until animation */
+    }
+    
+    /* Make messages visible when animated */
+    .chat-message.visible {
+        opacity: 1;
     }
     
     /* Special handling for last message to ensure visibility */
@@ -345,8 +351,13 @@
     
     /* ENHANCED: AI message with premium glass effect */
     .chat-message.from-ai p {
-        /* Solid color instead of gradient to prevent shimmer */
-        background: var(--color-ai-gradient-mid);
+        /* Gradient background restored */
+        background: linear-gradient(
+            135deg, 
+            var(--color-ai-gradient-light) 0%,
+            var(--color-ai-gradient-mid) 60%,
+            var(--color-ai-gradient-dark) 100%
+        );
         color: white;
         border-block-end-inline-end-radius: 8px;
         /* border removed */
