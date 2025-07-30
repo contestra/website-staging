@@ -251,7 +251,7 @@
 @layer sections {
     .b-section[data-id="customers"] {
         padding-block: 3rem 3.5rem;
-        background: var(--color-gray-800);      /* Dark background */
+        background: #212529;                    /* Updated to specific dark gray */
         position: relative;
         z-index: 2;
     }
@@ -769,7 +769,7 @@
     
     /* Pre-footer title - centered */
     .pre-footer-title {
-        font-size: 5rem;
+        font-size: 7rem; /* Increased from 5rem */
         font-weight: 200;
         margin-block-end: 0;
         letter-spacing: -0.03em;
@@ -780,7 +780,7 @@
     
     @media (width <= 768px) {
         .pre-footer-title {
-            font-size: 3.5rem;
+            font-size: 4.5rem; /* Increased from 3.5rem */
             text-align: center !important;
         }
     }
@@ -791,7 +791,7 @@
         overflow: hidden;
         border-radius: 16px;
         box-shadow: var(--shadow-xl);
-        max-inline-size: 90rem; /* Limit max width */
+        max-inline-size: none; /* Remove width limit to match container */
         inline-size: 100%;
     }
     
