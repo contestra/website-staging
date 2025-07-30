@@ -273,7 +273,7 @@
         overflow-x: hidden !important;
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
-        padding: 30px 20px 90px 20px;           /* Slightly increased bottom padding */
+        padding: 30px 20px 100px 20px;          /* Increased bottom padding for last message visibility */
         justify-content: flex-start;
         /* scroll-behavior: smooth; REMOVED - can cause shimmer */
         box-sizing: border-box;
@@ -316,7 +316,7 @@
     
     /* Special handling for last message to ensure visibility */
     .chat-message:last-child {
-        margin-block-end: 45px;                 /* Extra margin to prevent bottom clipping */
+        margin-block-end: 20px;                 /* Same as other messages */
     }
     
     /* Message positioning and entry animations */
