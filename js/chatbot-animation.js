@@ -38,7 +38,7 @@ class ChatbotAnimation {
         // Enhanced animation configuration
         this.config = {
             typingSpeed: 35,                    // Even faster base milliseconds per character
-            messageDelay: 1600,                 // Quick delay between messages
+            messageDelay: 3000,                 // Delay between messages (3 seconds to read)
             initialDelay: 1000,                 // Standard delay before starting first loop
             loopDelay: 3000,                    // Good delay before restarting loop
             speedVariation: 10,                 // Minimal variation in typing speed
