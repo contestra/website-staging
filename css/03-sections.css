@@ -236,8 +236,8 @@
     
     @media (width <= 768px) {
         .hero-animation {
-            min-block-size: 32.7rem; /* Increased by 4.1rem (41px) */
-            margin-block-start: -2.1rem; /* Reduced by 4.1rem to keep bottom fixed */
+            min-block-size: 32.7rem; /* Increased by 4.1rem (41px) - keeps bottom position fixed */
+            margin-block-start: -2.1rem; /* Reduced by 4.1rem to keep bottom fixed - extends upward */
         }
         
         .hero__meta-item {
