@@ -346,7 +346,7 @@
     .b-section[data-id="scale-ai"] .card-back .block-container-link {
         justify-content: flex-start;
         text-align: left;
-        padding: var(--gap-4);
+        padding: 0; /* Remove extra padding - card already has padding */
     }
     
     .b-section[data-id="scale-ai"] .card-back .card__description {
@@ -430,7 +430,7 @@
         /* Show both faces on mobile, toggle visibility */
         .b-section[data-id="scale-ai"] .card-face {
             position: relative;
-            transform: none;
+            transform: none !important; /* Ensure no rotation */
             backface-visibility: visible;
         }
         
@@ -441,6 +441,7 @@
         .b-section[data-id="scale-ai"] .card-back {
             display: none;
             background: transparent;
+            transform: none !important; /* Fix backwards text */
         }
         
         /* When flipped on mobile */
@@ -476,6 +477,18 @@
         .b-section[data-id="scale-ai"] .card-front .card__title,
         .b-section[data-id="scale-ai"] .card-front .card__description,
         .b-section[data-id="scale-ai"] .card-front .card__cta {
+            text-align: left;
+        }
+        
+        /* Disable ALL hover effects on mobile */
+        .b-section[data-id="scale-ai"] .b-link:hover {
+            background: var(--color-gray-100) !important; /* Stay gray */
+            transform: none !important;
+            box-shadow: var(--shadow-md) !important;
+        }
+        
+        /* Ensure back face text is left aligned on mobile */
+        .b-section[data-id="scale-ai"] .card-back .card__description {
             text-align: left;
         }
     }
