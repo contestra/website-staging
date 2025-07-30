@@ -219,8 +219,8 @@
     
     /* DEVICE FRAME EFFECT - Easily reversible by commenting out this block */
     .chatbot-container.device-frame {
-        /* Keep container padding for proper content spacing */
-        padding: 20px;
+        /* Remove container padding to prevent gaps */
+        padding: 0;
         /* Use opaque color for border to prevent transparency issues */
         border: 20px solid #DEE2E6; /* Solid light grey */
         /* Match border radius with inner content */
@@ -349,9 +349,9 @@
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: -20px 20px 140px 20px; /* Negative top padding to extend behind frame */
-        margin-top: 20px; /* Compensate for negative padding */
-        /* Messages will scroll fully behind frame */
+        padding: 20px 20px 140px 20px; /* Consistent padding all around */
+        margin: 0;
+        /* Messages naturally clip at container edge */
     }
     
     /* Re-enable pointer events for child elements */
@@ -727,8 +727,8 @@
         
         /* Maintain device frame adjustments on mobile */
         .chatbot-container.device-frame .chat-messages {
-            padding: -20px 15px 130px 15px; /* Negative top padding on mobile too */
-            margin-top: 20px;
+            padding: 20px 15px 130px 15px; /* Consistent padding on mobile */
+            margin: 0;
         }
         
         /* Reduce gradient overlay height on mobile */
