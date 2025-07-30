@@ -412,7 +412,7 @@
         content: '|';
         margin-inline-start: 2px;
         opacity: 1;
-        /* animation: blink 1s infinite; DISABLED */
+        animation: blink 1s infinite;
         color: currentColor;
         font-weight: 300;
     }
@@ -446,17 +446,32 @@
         box-shadow: 0 0 2px rgba(255, 0, 136, 0.2);
     }
     
-    /* DISABLED typing animations to prevent shimmer */
+    /* Typing dot animations */
+    .typing-indicator span {
+        animation: dotPulse 1.8s infinite ease-in-out;
+    }
+    
     .typing-indicator span:nth-child(1) {
-        /* animation removed */
+        animation-delay: 0s;
     }
     
     .typing-indicator span:nth-child(2) {
-        /* animation removed */
+        animation-delay: 0.15s;
     }
     
     .typing-indicator span:nth-child(3) {
-        /* animation removed */
+        animation-delay: 0.3s;
+    }
+    
+    @keyframes dotPulse {
+        0%, 80%, 100% { 
+            opacity: 0.5; 
+            transform: scale(0.8);
+        }
+        40% { 
+            opacity: 1; 
+            transform: scale(1.2);
+        }
     }
     
     /* ===== CHATBOT RESPONSIVE ADJUSTMENTS ===== */
