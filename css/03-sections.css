@@ -747,7 +747,7 @@
     .b-section[data-id="pre-footer"] {
         padding-block-start: 10rem;
         padding-block-end: 10rem;
-        background: var(--gradient-spectrum-97-5); /* 97.5% white mix for very subtle background */
+        background: var(--gradient-spectrum-70); /* 70% white mix for stronger color presence */
         position: relative;
         z-index: 2;
     }
@@ -764,7 +764,8 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 4rem;
+        gap: 3rem;
+        padding-block-start: 6rem; /* Space after image */
     }
     
     /* Pre-footer title - centered */
@@ -785,14 +786,15 @@
         }
     }
     
-    /* Image container - centered with max width */
+    /* Image container - full width */
     .pre-footer-image {
         position: relative;
         overflow: hidden;
-        border-radius: 16px;
-        box-shadow: var(--shadow-xl);
-        max-inline-size: 80rem; /* Limit image width */
-        inline-size: 100%;
+        border-radius: 0; /* Remove border radius for full width */
+        box-shadow: none; /* Remove shadow for full width */
+        max-inline-size: none; /* Remove width limit */
+        inline-size: 100vw; /* Full viewport width */
+        margin-block-end: 0; /* No gap between image and content */
     }
     
     .pre-footer-image img {
@@ -800,7 +802,8 @@
         block-size: auto;
         display: block;
         object-fit: cover;
-        aspect-ratio: 16/10; /* Maintain a consistent aspect ratio */
+        aspect-ratio: 21/9; /* Wider aspect ratio for full-width display */
+        max-block-size: 40rem; /* Limit height to prevent too tall images */
     }
     
     /* CTA button - centered */
