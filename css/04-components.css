@@ -234,6 +234,8 @@
         overflow: hidden;
         z-index: 1;
         perspective: 1000px;                    /* 3D perspective for card flip */
+        -webkit-tap-highlight-color: transparent; /* Remove blue tap highlight on mobile */
+        -webkit-touch-callout: none; /* Disable callout on long-press */
     }
     
     /* Card gradient strip - hidden by default on desktop */
@@ -808,7 +810,8 @@
     
     @media (width <= 768px) {
         .animation-placeholder {
-            block-size: 32rem;                  /* Fixed height on mobile */
+            block-size: 36.1rem;                  /* Fixed height on mobile - increased by 4.1rem (41px) */
+            min-block-size: 36.1rem;              /* Ensure minimum height matches */
             /* Reduce glass blur on mobile for performance */
             backdrop-filter: blur(14px) saturate(170%);
             -webkit-backdrop-filter: blur(14px) saturate(170%);
