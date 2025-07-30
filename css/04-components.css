@@ -376,6 +376,8 @@
         font-weight: 600;
         display: inline-flex;
         align-items: center;
+        line-height: 1.2; /* Prevent letter clipping */
+        padding-block: 2px; /* Small vertical padding to ensure no clipping */
     }
     
     /* CTA arrow animation */
