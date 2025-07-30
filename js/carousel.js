@@ -180,25 +180,29 @@ class ScaleAICarousel {
         const cards = this.carousel.querySelectorAll('.b-link');
         
         cards.forEach((card, index) => {
+            // Remove any existing listeners to prevent duplicates
+            const newCard = card.cloneNode(true);
+            card.parentNode.replaceChild(newCard, card);
+            
             // Handle clicks on the entire card
-            card.addEventListener('click', (e) => {
+            newCard.addEventListener('click', (e) => {
                 e.preventDefault(); // Prevent default link behavior
-                this.toggleCardFlip(card, index);
+                this.toggleCardFlip(newCard, index);
             });
             
             // Handle keyboard navigation for card flips
-            card.addEventListener('keydown', (e) => {
+            newCard.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    this.toggleCardFlip(card, index);
+                    this.toggleCardFlip(newCard, index);
                 }
             });
             
             // Add proper accessibility attributes
-            card.setAttribute('role', 'button');
-            card.setAttribute('tabindex', '0');
-            card.setAttribute('aria-pressed', 'false');
-            card.setAttribute('aria-label', `Card ${index + 1}: Click to flip and see more details`);
+            newCard.setAttribute('role', 'button');
+            newCard.setAttribute('tabindex', '0');
+            newCard.setAttribute('aria-pressed', 'false');
+            newCard.setAttribute('aria-label', `Card ${index + 1}: Click to flip and see more details`);
         });
         
         console.log(`Card flip functionality initialized for ${cards.length} cards`);
@@ -353,6 +357,12 @@ class ScaleAICarousel {
      * Reset carousel for desktop view
      */
     resetToDesktop() {
+        // Reset all cards to unflipped state first
+        const cards = this.carousel.querySelectorAll('.b-link');
+        cards.forEach((card) => {
+            card.classList.remove('flipped');
+        });
+        
         // Re-initialize card flips
         this.initCardFlips();
         
