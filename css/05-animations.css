@@ -304,14 +304,25 @@
         padding: 2px 0;
         position: relative;                     /* Ensure messages stay above gradient */
         opacity: 0;                             /* Initially hidden until animation */
-        transform: translateY(20px);            /* Start slightly lower */
+        /* Transform moved to specific message types below */
         transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    /* Make messages visible when animated */
+    /* RESTORED: Side slide-in animations for more dynamic entrance */
+    /* To revert: Remove this block and add back transform: translateY(20px) to .chat-message above */
+    .chat-message.from-user {
+        transform: translateY(20px) translateX(-15px);  /* Start left and down */
+    }
+    
+    .chat-message.from-ai {
+        transform: translateY(20px) translateX(15px);   /* Start right and down */
+    }
+    /* END RESTORED: Side slide-in animations */
+    
+    /* Make messages visible when animated - slides to center */
     .chat-message.visible {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) translateX(0);  /* End at center position */
     }
     
     /* Special handling for last message to ensure visibility */
