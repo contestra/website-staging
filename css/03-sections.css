@@ -608,10 +608,11 @@
     }
     
     .quote-icon img {
-        inline-size: 2.8rem;
-        block-size: 2.8rem;
+        inline-size: 3.2rem;
+        block-size: 3.2rem;
         filter: brightness(0) invert(1); /* Convert black to white */
         object-fit: contain;
+        display: block; /* Ensure proper centering */
     }
     
     /* Testimonial text */
@@ -628,11 +629,13 @@
     .testimonial-author {
         font-size: 1.6rem;
         font-weight: 600;
+        margin-block-end: 0; /* Remove bottom margin */
     }
     
     .testimonial-company {
         font-size: 1.4rem;
         opacity: 0.6;
+        margin-block-start: 0; /* Remove top margin */
     }
 }
 
