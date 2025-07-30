@@ -411,9 +411,16 @@
 @layer sections {
     .b-section[data-id="testimonials"] {
         position: relative;
-        padding-block-start: clamp(6rem, 8vw, 10rem);
-        padding-block-end: clamp(5rem, 6vw, 8rem);
+        padding-block-start: 7rem; /* Reduced padding to match other sections */
+        padding-block-end: 7rem;
         overflow: hidden;
+    }
+    
+    @media (width <= 768px) {
+        .b-section[data-id="testimonials"] {
+            padding-block-start: 5rem;
+            padding-block-end: 5rem;
+        }
     }
     
     /* Pastel gradient background */
@@ -430,7 +437,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: var(--gap-6);
-        align-items: center;
+        align-items: start; /* Change from center to start for top alignment */
         position: relative;
         z-index: 1;
     }
@@ -472,21 +479,24 @@
     }
     
     .nav-arrow {
-        inline-size: 3rem;
-        block-size: 3rem;
+        inline-size: 3.6rem; /* Match carousel arrow size */
+        block-size: 3.6rem;
         border-radius: 50%;
-        background: rgba(255,255,255,0.6);
-        border: 1px solid rgba(255,255,255,0.8);
+        background: var(--color-light);
+        border: 1px solid rgba(0, 0, 0, 0.06);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: all var(--transition-base);
+        padding: 0;
+        box-shadow: var(--shadow-sm);
     }
     
     .nav-arrow:hover {
-        background: rgba(255,255,255,0.8);
+        background: var(--gradient-spectrum-97-5);
         transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
     }
     
     .nav-arrow svg {
@@ -498,24 +508,28 @@
     .nav-dots {
         display: flex;
         align-items: center;
-        gap: var(--gap-2);
+        gap: var(--gap-1); /* Match carousel dot spacing */
     }
     
     .nav-dots span {
         inline-size: 0.8rem;
         block-size: 0.8rem;
         border-radius: 50%;
-        background: rgba(26,30,34,0.35);
-        transition: all var(--transition-base);
+        background: rgba(26, 30, 34, 0.2); /* Match carousel dots */
+        border: none;
+        padding: 0;
         cursor: pointer;
+        transition: all var(--transition-base);
     }
     
     .nav-dots span:hover {
-        background: rgba(26,30,34,0.5);
+        background: rgba(26, 30, 34, 0.4);
     }
     
     .nav-dots span.active {
-        background: var(--color-text-primary);
+        background: var(--nav-color);
+        inline-size: 1rem;
+        block-size: 1rem;
     }
     
     /* Testimonial slider - frosted glass card */
@@ -545,10 +559,13 @@
         justify-content: center;
     }
     
-    .quote-icon svg {
-        inline-size: 1.6rem;
-        block-size: 1.6rem;
-        fill: var(--color-light);
+    .quote-icon span {
+        font-size: 3rem;
+        font-weight: 600;
+        color: var(--color-light);
+        line-height: 1;
+        font-family: Georgia, serif;
+        transform: rotate(180deg); /* Rotate to make opening quote */
     }
     
     /* Testimonial text */
