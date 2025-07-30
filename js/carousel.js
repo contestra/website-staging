@@ -331,6 +331,12 @@ class ScaleAICarousel {
                 console.log('Switching to desktop view');
                 this.resetToDesktop();
             }
+            // Even if staying on same view, reinitialize to fix any issues
+            else if (this.isDesktop) {
+                console.log('Refreshing desktop view after resize');
+                // Remove and re-add flip functionality to ensure it works
+                this.initCardFlips();
+            }
         }, 250);
         
         window.addEventListener('resize', handleResize, { passive: true });
@@ -361,10 +367,14 @@ class ScaleAICarousel {
         const cards = this.carousel.querySelectorAll('.b-link');
         cards.forEach((card) => {
             card.classList.remove('flipped');
+            card.setAttribute('aria-pressed', 'false');
         });
         
-        // Re-initialize card flips
+        // Re-initialize card flips to ensure event listeners are properly attached
         this.initCardFlips();
+        
+        // Reset carousel to first slide
+        this.goToSlide(0);
         
         console.log('Carousel reset for desktop view');
     }
