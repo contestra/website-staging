@@ -708,8 +708,8 @@
         position: relative;
         inline-size: 100%;
         block-size: 100%;
-        min-block-size: 42.7rem;                /* Increased by 4.1rem (41px) on desktop */
-        max-block-size: 52.1rem;                /* Increased by 4.1rem to maintain proportions */
+        min-block-size: 41.6rem;                /* Increased by 3rem (30px) on desktop */
+        max-block-size: 51rem;                  /* Increased by 3rem to maintain proportions */
         /* ENHANCED: Transparent background */
         background: transparent;
         /* Backdrop filter removed - handled by chatbot-container */

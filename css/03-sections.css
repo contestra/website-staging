@@ -220,12 +220,12 @@
     .hero-animation {
         position: relative;
         block-size: 100%;
-        min-block-size: 47.7rem;                /* Increased by 4.1rem (41px) on desktop */
+        min-block-size: 46.6rem;                /* Increased by 3rem (30px) on desktop */
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 10;                            /* Highest z-index to stay above sparkles */
-        margin-block-start: -4.1rem;            /* Offset to keep bottom position fixed */
+        margin-block-start: -3rem;              /* Offset to keep bottom position fixed */
     }
     
     /* Maintain consistent height on mid-size screens */
@@ -758,7 +758,59 @@
         }
     }
     
-    /* Pre-footer content grid */
+    /* Pre-footer content - centered layout matching AI21 */
+    .pre-footer-content--centered {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 4rem;
+    }
+    
+    /* Pre-footer title - centered */
+    .pre-footer-title {
+        font-size: 5rem;
+        font-weight: 200;
+        margin-block-end: 0;
+        letter-spacing: -0.03em;
+        text-align: center;
+        color: var(--color-text-primary);
+        line-height: 1.1;
+    }
+    
+    @media (width <= 768px) {
+        .pre-footer-title {
+            font-size: 3.5rem;
+            text-align: center !important;
+        }
+    }
+    
+    /* Image container - centered with max width */
+    .pre-footer-image {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: var(--shadow-xl);
+        max-inline-size: 80rem; /* Limit image width */
+        inline-size: 100%;
+    }
+    
+    .pre-footer-image img {
+        inline-size: 100%;
+        block-size: auto;
+        display: block;
+        object-fit: cover;
+        aspect-ratio: 16/10; /* Maintain a consistent aspect ratio */
+    }
+    
+    /* CTA button - centered */
+    .pre-footer-content--centered .button-group {
+        justify-content: center;
+    }
+    
+    /* ===== ORIGINAL TWO-COLUMN LAYOUT (preserved for easy rollback) ===== */
+    /* To rollback: Remove --centered class from HTML and uncomment this block */
+    /*
     .pre-footer-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -773,7 +825,6 @@
         }
     }
     
-    /* Text content */
     .pre-footer-text {
         max-inline-size: 55rem;
     }
@@ -809,37 +860,20 @@
         }
     }
     
-    /* Image container */
-    .pre-footer-image {
-        position: relative;
-        overflow: hidden;
-        border-radius: 16px;
-        box-shadow: var(--shadow-xl);
-    }
-    
-    .pre-footer-image img {
-        inline-size: 100%;
-        block-size: auto;
-        display: block;
-        object-fit: cover;
-        aspect-ratio: 16/10; /* Maintain a consistent aspect ratio */
-    }
-    
-    /* CTA button alignment */
     .pre-footer-text .button-group {
         justify-content: flex-start;
     }
     
     @media (width <= 768px) {
         .pre-footer-text .button-group {
-            justify-content: flex-start; /* Keep left-aligned on mobile */
+            justify-content: flex-start;
         }
         
-        /* Stack image below text on mobile */
         .pre-footer-image {
             order: 2;
         }
     }
+    */
 }
 
 /* ===== FOOTER - SITE NAVIGATION ===== */
