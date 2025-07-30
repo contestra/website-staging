@@ -708,8 +708,8 @@
         position: relative;
         inline-size: 100%;
         block-size: 100%;
-        min-block-size: 38.6rem;
-        max-block-size: 48rem;
+        min-block-size: 42.7rem;                /* Increased by 4.1rem (41px) on desktop */
+        max-block-size: 52.1rem;                /* Increased by 4.1rem to maintain proportions */
         /* ENHANCED: Transparent background */
         background: transparent;
         /* Backdrop filter removed - handled by chatbot-container */
@@ -810,8 +810,8 @@
     
     @media (width <= 768px) {
         .animation-placeholder {
-            block-size: 36.1rem;                  /* Fixed height on mobile - increased by 4.1rem (41px) for taller box */
-            min-block-size: 36.1rem;              /* Ensure minimum height matches - maintains consistent height */
+            block-size: 32rem;                    /* Reverted to original mobile height */
+            min-block-size: 32rem;                /* Reverted to original mobile min-height */
             /* Reduce glass blur on mobile for performance */
             backdrop-filter: blur(14px) saturate(170%);
             -webkit-backdrop-filter: blur(14px) saturate(170%);
