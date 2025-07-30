@@ -578,10 +578,11 @@
         padding: 0.8rem;
     }
     
-    .quote-icon svg {
+    .quote-icon img {
         inline-size: 100%;
         block-size: 100%;
-        color: var(--color-light);
+        filter: brightness(0) invert(1); /* Convert black to white */
+        object-fit: contain;
     }
     
     /* Testimonial text */
