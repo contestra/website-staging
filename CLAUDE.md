@@ -104,3 +104,77 @@ Manual testing across devices and browsers:
 - Debounced resize handlers
 - Minimal JavaScript for core functionality
 - No external dependencies or frameworks
+
+## Chatbot Animation Layout Solution
+
+### Problem History
+The chatbot animation in the hero section had multiple issues:
+1. Multiple gradient boxes appearing with 90-degree corners instead of rounded corners
+2. AI chat messages clipping at the bottom (especially the "elasticity" message)
+3. When trying to fix clipping with excessive bottom padding (200px), messages were pushed too high, causing the first messages to be clipped at the top
+4. The oversized chatbot was affecting the logo marquee spacing below
+
+### Final Working Solution
+
+#### Structure
+```
+animation-placeholder (48rem max height)
+  └── chatbot-container (device-frame class)
+      ├── Gray frame: 20px padding with #DEE2E6 background
+      ├── Gradient background: ::after pseudo-element with 10px rounded corners
+      └── chat-messages container
+          └── Individual message bubbles
+```
+
+#### Key CSS Principles That Work
+
+1. **Device Frame Effect**
+   - Use `padding: 20px` instead of `border: 20px solid` for the frame
+   - Apply gray background color to create frame appearance
+   - Gradient goes on `::after` pseudo-element with `inset: 20px`
+
+2. **Message Container Layout**
+   ```css
+   .chat-messages {
+       display: flex;
+       flex-direction: column;
+       justify-content: flex-end; /* KEY: Push messages to bottom naturally */
+       padding: 30px 20px 30px 20px; /* Balanced padding, not excessive */
+       overflow-y: auto;
+       overflow-x: hidden;
+   }
+   ```
+
+3. **Proper Rounded Corners**
+   - Container: `border-radius: 24px`
+   - Gradient (::after): `border-radius: 10px` (not 4px - needs to be visible)
+   - Messages container: `border-radius: 10px` to match
+
+4. **Height Management**
+   - animation-placeholder: `max-block-size: 48rem` (not 56rem)
+   - Hero section: `padding-block-end: 15rem` for proper spacing
+   - Small 20px spacer after last message, not 100px+
+
+### What NOT to Do
+- Don't use excessive bottom padding (200px) to prevent clipping - it pushes everything up
+- Don't use `background-image: none !important` on all children - it removes AI message gradients
+- Don't make the animation-placeholder too tall - it affects page layout
+- Don't use multiple pseudo-elements for gradients - causes duplicate boxes
+- Don't use `overflow: visible` on containers that need rounded corners
+
+### Testing Checklist
+1. ✓ All 4 chat messages visible without clipping
+2. ✓ Messages start from bottom and build up
+3. ✓ Gradient background has visible rounded corners
+4. ✓ No duplicate gradient boxes
+5. ✓ Logo marquee not affected by chatbot height
+6. ✓ AI messages have pink gradient background
+7. ✓ Text wraps properly without cutting off
+
+### Future Modifications
+If message text changes and causes clipping:
+- Adjust the specific message's max-width slightly narrower
+- Add small margin-bottom to that specific message
+- Don't increase container padding excessively
+
+Remember: The solution is about proper flexbox layout with `justify-content: flex-end`, not about adding massive padding.

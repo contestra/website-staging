@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Sales - Spectrum AI</title>
+    
+    <!-- Font Preloads for Performance -->
+    <link rel="preload" href="fonts/SuisseScreen-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SuisseScreen-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SuisseIntl-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SuisseIntl-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/suisse-intl-mono.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SuisseIntl-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="main.css">
+    
+    <!-- Contact Page Specific Styles -->
+    <style>
+        /* Inner page specific styles */
+        .inner-hero {
+            padding-block-start: calc(var(--nav-height) + 10rem);
+            padding-block-end: 8rem;
+            background: white;
+            text-align: center;
+        }
+        
+        .inner-hero__title {
+            font-size: clamp(4rem, 6vw, 6rem);
+            line-height: 1.1;
+            font-weight: 200;
+            letter-spacing: -0.03em;
+            margin-block-end: 2rem;
+            color: var(--color-text-primary);
+            max-inline-size: 80rem;
+            margin-inline: auto;
+        }
+        
+        .inner-hero__subtitle {
+            font-size: 2rem;
+            line-height: 1.5;
+            color: var(--color-text-primary);
+            opacity: 0.7;
+            max-inline-size: 65rem;
+            margin-inline: auto;
+            margin-block-end: 5rem;
+        }
+        
+        /* Value props styling */
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+            gap: var(--gap-4);
+            max-inline-size: 90rem;
+            margin-inline: auto;
+            margin-block-end: 6rem;
+        }
+        
+        .value-prop {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--gap-2);
+            text-align: left;
+        }
+        
+        .value-prop__icon {
+            flex-shrink: 0;
+            inline-size: 2.4rem;
+            block-size: 2.4rem;
+            background: var(--gradient-spectrum);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .value-prop__icon svg {
+            inline-size: 1.4rem;
+            block-size: 1.4rem;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        .value-prop__text {
+            font-size: 1.6rem;
+            line-height: 1.5;
+            color: var(--color-text-primary);
+        }
+        
+        /* Form section styling */
+        .contact-form-section {
+            background: var(--gradient-spectrum-97-5);
+            padding-block: 8rem;
+            position: relative;
+        }
+        
+        .form-container {
+            max-inline-size: 60rem;
+            margin-inline: auto;
+            background: white;
+            padding: 5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .form-title {
+            font-size: 3.2rem;
+            font-weight: 300;
+            margin-block-end: 3rem;
+            text-align: center;
+            color: var(--color-text-primary);
+        }
+        
+        .form-grid {
+            display: grid;
+            gap: var(--gap-3);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--gap-3);
+        }
+        
+        @media (width <= 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 1.4rem 1.8rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 1.6rem;
+            font-family: inherit;
+            transition: all var(--transition-base);
+            background: white;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(255, 0, 136, 0.1);
+        }
+        
+        .form-textarea {
+            min-block-size: 12rem;
+            resize: vertical;
+        }
+        
+        .form-checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--gap-2);
+        }
+        
+        .form-checkbox {
+            margin-block-start: 0.3rem;
+            inline-size: 1.8rem;
+            block-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        .form-checkbox-label {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            opacity: 0.8;
+        }
+        
+        .form-checkbox-label a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+        
+        .form-checkbox-label a:hover {
+            text-decoration: underline;
+        }
+        
+        .form-submit {
+            margin-block-start: var(--gap-4);
+        }
+        
+        /* Customer logos section */
+        .customer-logos-section {
+            padding-block: 6rem;
+            background: white;
+        }
+        
+        .customer-logos-title {
+            font-size: 1.8rem;
+            text-align: center;
+            color: var(--color-text-primary);
+            opacity: 0.6;
+            margin-block-end: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .customer-logos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            max-inline-size: 100rem;
+            margin-inline: auto;
+        }
+        
+        .customer-logo {
+            opacity: 0.6;
+            transition: opacity var(--transition-base);
+            max-inline-size: 15rem;
+            block-size: auto;
+        }
+        
+        .customer-logo:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile adjustments */
+        @media (width <= 768px) {
+            .inner-hero {
+                padding-block-start: calc(var(--nav-height) + 6rem);
+                padding-block-end: 4rem;
+            }
+            
+            .inner-hero__title {
+                font-size: 3.5rem;
+            }
+            
+            .inner-hero__subtitle {
+                font-size: 1.8rem;
+            }
+            
+            .value-props {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 3rem 2rem;
+            }
+            
+            .customer-logos-grid {
+                gap: 3rem;
+            }
+            
+            .customer-logo {
+                max-inline-size: 12rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SITE HEADER - SAME AS HOMEPAGE ===== -->
+    <header id="site-header" class="">
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="header__in">
+                <nav class="main-navigation">
+                    <a href="/" aria-label="Contestra homepage" class="site-logo">
+                        <img src="images/logos/contestra-logo.svg" alt="Contestra">
+                    </a>
+                    <div class="main-menu-wrap">
+                        <ul class="main-menu" id="main-menu">
+                            <li><a href="#products">Products</a></li>
+                            <li><a href="#developers">Developers</a></li>
+                            <li><a href="#solutions">Solutions</a></li>
+                            <li><a href="#resources">Resources</a></li>
+                            <li><a href="#company">Company</a></li>
+                        </ul>
+                    </div>
+                    <div class="header__options">
+                        <a href="#demo" class="btn btn--primary-black btn-arrow">
+                            Let's Talk
+                            <svg class="btn-arrow-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                <polyline points="3 3 9 6 3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                    <button class="mobile-menu-btn" id="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== INNER PAGE HERO SECTION ===== -->
+    <section class="inner-hero">
+        <div class="container">
+            <h1 class="inner-hero__title">Building the Future of Health & Longevity AI</h1>
+            <p class="inner-hero__subtitle">
+                Dominate your brand's AI presence across every platform where customers discover health solutions. Enterprise-grade strategies you can trust and scale.
+            </p>
+            
+            <!-- Value Propositions -->
+            <div class="value-props">
+                <div class="value-prop">
+                    <div class="value-prop__icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" />
+                            <path d="M2 17L12 22L22 17" />
+                            <path d="M2 12L12 17L22 12" />
+                        </svg>
+                    </div>
+                    <div class="value-prop__text">Complete control over your brand representation in AI</div>
+                </div>
+                <div class="value-prop">
+                    <div class="value-prop__icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11L12 14L22 4" />
+                            <path d="M21 12V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H16" />
+                        </svg>
+                    </div>
+                    <div class="value-prop__text">Deliver measurable, auditable results monthly</div>
+                </div>
+                <div class="value-prop">
+                    <div class="value-prop__icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2V22" />
+                            <path d="M17 5H9.5C8.12 5 7 6.12 7 7.5S8.12 10 9.5 10H14.5C15.88 10 17 11.12 17 12.5S15.88 15 14.5 15H7" />
+                        </svg>
+                    </div>
+                    <div class="value-prop__text">Purpose-built to scale with your growth ambitions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT FORM SECTION ===== -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="form-title">Schedule Your AI Market Overview</h2>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-grid">
+                        <!-- Name Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Email and Company Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Work Email *</label>
+                                <input type="email" id="email" name="email" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company" class="form-label">Company *</label>
+                                <input type="text" id="company" name="company" class="form-input" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Phone and Role Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="role" class="form-label">Your Role *</label>
+                                <select id="role" name="role" class="form-select" required>
+                                    <option value="">Select your role</option>
+                                    <option value="ceo">CEO / Founder</option>
+                                    <option value="marketing">Marketing Executive</option>
+                                    <option value="product">Product Manager</option>
+                                    <option value="sales">Sales Executive</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Company Size -->
+                        <div class="form-group full-width">
+                            <label for="companySize" class="form-label">Company Size *</label>
+                            <select id="companySize" name="companySize" class="form-select" required>
+                                <option value="">Select company size</option>
+                                <option value="1-10">1-10 employees</option>
+                                <option value="11-50">11-50 employees</option>
+                                <option value="51-200">51-200 employees</option>
+                                <option value="201-500">201-500 employees</option>
+                                <option value="500+">500+ employees</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Message -->
+                        <div class="form-group full-width">
+                            <label for="message" class="form-label">Tell us about your AI goals</label>
+                            <textarea id="message" name="message" class="form-textarea" rows="4" placeholder="What are you looking to achieve with AI representation?"></textarea>
+                        </div>
+                        
+                        <!-- Privacy Consent -->
+                        <div class="form-group full-width">
+                            <div class="form-checkbox-group">
+                                <input type="checkbox" id="privacy" name="privacy" class="form-checkbox" required>
+                                <label for="privacy" class="form-checkbox-label">
+                                    I acknowledge and accept the terms of the <a href="/privacy">privacy policy</a>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="form-submit">
+                            <button type="submit" class="btn btn--primary-black btn-arrow" style="width: 100%;">
+                                Schedule Market Overview
+                                <svg class="btn-arrow-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                    <polyline points="3 3 9 6 3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CUSTOMER LOGOS SECTION ===== -->
+    <section class="customer-logos-section">
+        <div class="container">
+            <h3 class="customer-logos-title">Trusted by Leading Health & Longevity Brands</h3>
+            <div class="customer-logos-grid">
+                <img src="images/logos/customer-1.svg" alt="Customer 1" class="customer-logo">
+                <img src="images/logos/customer-2.svg" alt="Customer 2" class="customer-logo">
+                <img src="images/logos/customer-3.svg" alt="Customer 3" class="customer-logo">
+                <img src="images/logos/customer-4.svg" alt="Customer 4" class="customer-logo">
+                <img src="images/logos/customer-5.svg" alt="Customer 5" class="customer-logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER - SAME AS HOMEPAGE ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-nav">
+                        <li><a href="#">Foundation Models</a></li>
+                        <li><a href="#">Fine-tuning</a></li>
+                        <li><a href="#">RAG Platform</a></li>
+                        <li><a href="#">API Access</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Developers</h4>
+                    <ul class="footer-nav">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">SDKs</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-nav">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-nav">
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Whitepapers</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Trust Center</h4>
+                    <ul class="footer-nav">
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Compliance</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 SpectrumAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT FILES ===== -->
+    <script src="js/utilities.js"></script>
+    <script src="js/navigation.js"></script>
+    
+    <!-- Contact Form Handler -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would normally send the data to your server
+            console.log('Form submitted:', data);
+            
+            // Show success message (you can enhance this)
+            alert('Thank you for your interest! We\'ll be in touch within 24 hours.');
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
