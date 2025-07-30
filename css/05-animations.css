@@ -316,7 +316,7 @@
     
     /* Special handling for last message to ensure visibility */
     .chat-message:last-child {
-        margin-block-end: 35px;                 /* Extra margin to prevent bottom clipping */
+        margin-block-end: 45px;                 /* Extra margin to prevent bottom clipping */
     }
     
     /* Message positioning and entry animations */
