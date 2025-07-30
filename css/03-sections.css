@@ -251,7 +251,7 @@
 @layer sections {
     .b-section[data-id="customers"] {
         padding-block: 3rem 3.5rem;
-        background: #212529;                    /* Updated to specific dark gray */
+        background: #111315;                    /* Very dark gray background */
         position: relative;
         z-index: 2;
     }
