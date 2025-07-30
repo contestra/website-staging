@@ -709,7 +709,7 @@
         inline-size: 100%;
         block-size: 100%;
         min-block-size: 41.6rem;                /* Increased by 3rem (30px) on desktop */
-        max-block-size: 56rem;                  /* Increased to prevent message clipping */
+        max-block-size: 48rem;                  /* Reasonable height to prevent layout issues */
         /* ENHANCED: Transparent background */
         background: transparent;
         /* Backdrop filter removed - handled by chatbot-container */

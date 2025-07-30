@@ -29,7 +29,7 @@
         position: relative;
         z-index: 1;
         padding-block-start: calc(var(--nav-height) + 18rem); /* Account for fixed header */
-        padding-block-end: 12rem;
+        padding-block-end: 15rem; /* More space between hero and marquee */
         
         /* Gradient background with subtle white overlay for text readability */
         background: 
