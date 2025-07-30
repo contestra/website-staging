@@ -205,7 +205,8 @@
         box-shadow: none;
         overflow: hidden;
         border-radius: 24px;
-        /* Removed gradient animation to prevent wobbling */
+        /* Subtle gradient animation */
+        animation: chatbotGradientShift 20s ease-in-out infinite;
         max-block-size: 100%;
         min-block-size: 100%;                   /* FIXED: Set min-height to 100% to prevent container from expanding */
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
@@ -229,6 +230,16 @@
     @keyframes glassReflection {
         0% { transform: rotate(0deg) translateZ(0); }
         100% { transform: rotate(0deg) translateZ(0); }
+    }
+    
+    /* Subtle gradient shift animation */
+    @keyframes chatbotGradientShift {
+        0%, 100% { 
+            background-position: 0% 0%; 
+        }
+        50% { 
+            background-position: 100% 100%; 
+        }
     }
     
     /* Chrome, Safari and Opera - hide scrollbar */
