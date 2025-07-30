@@ -70,6 +70,7 @@ class ChatbotAnimation {
         // Animation state
         this.isAnimating = false;
         this.currentMessageIndex = 0;
+        this.currentConversation = 0;           // Track which conversation to show
         this.loopTimeout = null;
         this.typingTimeout = null;
         this.indicatorTimeout = null;
@@ -77,6 +78,24 @@ class ChatbotAnimation {
         
         // Check for reduced motion preference
         this.respectsReducedMotion = this.prefersReducedMotion();
+        
+        // Define two conversation sets
+        this.conversations = [
+            // Conversation 1 - Supplements
+            [
+                { type: 'user', text: 'Which longevity supplements have largest impact for a 50 year old woman?' },
+                { type: 'ai', text: 'Omega-3, Vitamin D3 + K2, NMN, Spermidine, and Magnesium show strong benefits for women\'s healthspan after 50.' },
+                { type: 'user', text: 'Does collagen work for skin?' },
+                { type: 'ai', text: 'Yes, studies show hydrolyzed collagen can improve skin elasticity, hydration, and reduce wrinkles over time.' }
+            ],
+            // Conversation 2 - Blood tests
+            [
+                { type: 'user', text: 'What are the best blood tests to check health?' },
+                { type: 'ai', text: 'Key tests include CBC, lipid panel, HbA1c, CRP, liver enzymes, vitamin D, and comprehensive metabolic panel.' },
+                { type: 'user', text: 'What are the benefits of testing ferritin, for a man?' },
+                { type: 'ai', text: 'Ferritin reveals iron storage levels—low suggests deficiency, high links to inflammation, metabolic issues, or hemochromatosis risk.' }
+            ]
+        ];
         
         if (this.elements.container) {
             console.log('Enhanced chatbot animation initializing...');
@@ -144,13 +163,14 @@ class ChatbotAnimation {
      * Store original text and set initial states
      */
     prepareMessages() {
+        // Get the current conversation
+        const currentConvo = this.conversations[this.currentConversation];
+        
         this.elements.messages.forEach((message, index) => {
             const p = message.querySelector('p');
-            if (p) {
-                // Store original text in data attribute
-                if (!p.dataset.originalText) {
-                    p.dataset.originalText = p.textContent.trim();
-                }
+            if (p && currentConvo[index]) {
+                // Update the text based on current conversation
+                p.dataset.originalText = currentConvo[index].text;
                 
                 // Clear text content
                 p.textContent = '';
@@ -458,6 +478,13 @@ class ChatbotAnimation {
         
         // Small pause before restarting for visual clarity
         await this.delay(500);
+        
+        // Switch to the next conversation
+        this.currentConversation = (this.currentConversation + 1) % this.conversations.length;
+        console.log(`Switching to conversation ${this.currentConversation + 1}`);
+        
+        // Prepare messages with new conversation
+        this.prepareMessages();
         
         // Schedule restart
         this.scheduleStart();
