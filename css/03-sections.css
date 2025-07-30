@@ -219,13 +219,12 @@
     /* ===== HERO ANIMATION - RIGHT COLUMN ===== */
     .hero-animation {
         position: relative;
-        block-size: auto; /* Change from 100% to auto */
+        block-size: 100%;
         min-block-size: 43.6rem;
         display: flex;
-        align-items: flex-start; /* Align to top instead of center */
+        align-items: center;
         justify-content: center;
         z-index: 10;                            /* Highest z-index to stay above sparkles */
-        padding-block-start: 0; /* Remove any top padding */
     }
     
     /* Maintain consistent height on mid-size screens */

@@ -18,7 +18,7 @@ class TestimonialCarousel {
         
         // Get carousel elements
         this.slides = this.container.querySelectorAll('.testimonial-slide');
-        this.dots = this.container.querySelectorAll('.nav-dots button');
+        this.dots = this.container.querySelectorAll('.nav-dots button'); // This gets ALL dots
         this.prevBtns = this.container.querySelectorAll('.nav-arrow--prev');
         this.nextBtns = this.container.querySelectorAll('.nav-arrow--next');
         
@@ -86,14 +86,22 @@ class TestimonialCarousel {
         
         // Remove active class from current slide
         this.slides[this.currentSlide].classList.remove('active');
-        this.dots[this.currentSlide].classList.remove('active');
+        
+        // Remove active from ALL dots
+        this.dots.forEach(dot => dot.classList.remove('active'));
         
         // Update current slide
         this.currentSlide = index;
         
         // Add active class to new slide
         this.slides[this.currentSlide].classList.add('active');
-        this.dots[this.currentSlide].classList.add('active');
+        
+        // Add active to corresponding dots (handles both desktop and mobile)
+        // Since we have 2 sets of dots (desktop and mobile), update both
+        const dotsPerSet = 4;
+        for (let i = this.currentSlide; i < this.dots.length; i += dotsPerSet) {
+            this.dots[i].classList.add('active');
+        }
         
         // Update button states
         this.updateButtons();
