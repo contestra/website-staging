@@ -177,12 +177,6 @@ class ScaleAICarousel {
      * Desktop: 3D flip animations, Mobile: Simple show/hide
      */
     initCardFlips() {
-        // Only enable card flips on desktop
-        if (!this.isDesktop) {
-            console.log('Mobile detected - card flips disabled');
-            return;
-        }
-        
         const cards = this.carousel.querySelectorAll('.b-link');
         
         cards.forEach((card, index) => {
