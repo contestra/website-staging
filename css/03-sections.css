@@ -89,6 +89,7 @@
     @media (width <= 1024px) {
         .hero-grid {
             gap: 4rem;
+            align-items: center; /* Ensure vertical centering on smaller desktops */
         }
     }
     
@@ -119,7 +120,7 @@
     
     .hero__title {
         font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 8rem;
+        font-size: 7.2rem; /* 72px */
         line-height: 1.05;
         font-weight: 400;
         letter-spacing: -0.04em;
@@ -223,6 +224,13 @@
         align-items: center;
         justify-content: center;
         z-index: 10;                            /* Highest z-index to stay above sparkles */
+    }
+    
+    /* Ensure vertical centering on mid-size screens */
+    @media (width <= 1200px) and (width > 768px) {
+        .hero-animation {
+            min-block-size: 38rem; /* Slightly smaller for mid-size screens */
+        }
     }
     
     @media (width <= 768px) {
@@ -466,12 +474,26 @@
     
     /* Mobile navigation - hidden on desktop */
     .testimonial-nav--mobile {
-        display: none;
+        display: none !important; /* Force hide on desktop */
+    }
+    
+    @media (width > 768px) {
+        .testimonial-nav--mobile {
+            display: none !important;
+            visibility: hidden !important;
+            position: absolute !important;
+            left: -9999px !important;
+        }
     }
     
     @media (width <= 768px) {
+        /* Center the testimonial slider on mobile */
+        .testimonial-slider {
+            margin-inline: auto;
+        }
+        
         .testimonial-nav--mobile {
-            display: flex;
+            display: flex !important;
             align-items: center;
             justify-content: center;
             gap: var(--gap-3);
