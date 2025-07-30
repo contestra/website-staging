@@ -348,7 +348,7 @@
     .b-section[data-id="scale-ai"] .card-back .block-container-link {
         justify-content: flex-start;
         text-align: left;
-        padding: 0; /* Remove extra padding - card already has padding */
+        padding: var(--gap-4); /* Same padding as front face */
     }
     
     .b-section[data-id="scale-ai"] .card-back .card__description {
