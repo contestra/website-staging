@@ -185,9 +185,9 @@
     /* ENHANCED: Chatbot container with professional glass morphism */
     .chatbot-container {
         position: relative;
-        margin: 6px;
-        inline-size: calc(100% - 12px);
-        block-size: calc(100% - 12px);
+        margin: 10px;
+        inline-size: calc(100% - 20px);
+        block-size: calc(100% - 20px);
         padding: clamp(2rem, 4vw, 3rem);
         display: flex;
         flex-direction: column;
