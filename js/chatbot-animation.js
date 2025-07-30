@@ -79,7 +79,7 @@ class ChatbotAnimation {
         // Check for reduced motion preference
         this.respectsReducedMotion = this.prefersReducedMotion();
         
-        // Define two conversation sets
+        // Define three conversation sets
         this.conversations = [
             // Conversation 1 - Supplements
             [
@@ -94,6 +94,13 @@ class ChatbotAnimation {
                 { type: 'ai', text: 'Key tests include CBC, lipid panel, HbA1c, CRP, liver enzymes, vitamin D, and comprehensive metabolic panel.' },
                 { type: 'user', text: 'What are the benefits of testing ferritin, for a man?' },
                 { type: 'ai', text: 'Ferritin reveals iron storage levels—low suggests deficiency, high links to inflammation, metabolic issues, or hemochromatosis risk.' }
+            ],
+            // Conversation 3 - Functional medicine
+            [
+                { type: 'user', text: 'What is functional medicine?' },
+                { type: 'ai', text: 'Functional medicine addresses root causes of illness using personalized, systems-based approaches focused on prevention, lifestyle, and nutrition.' },
+                { type: 'user', text: 'Does it cost a lot?' },
+                { type: 'ai', text: 'Yes, functional medicine can be costly, often not covered by insurance, but offers deeper, personalized health insights.' }
             ]
         ];
         
