@@ -326,7 +326,7 @@
 @layer sections {
     .b-section[data-id="enterprise-ai"] {
         padding-block: 11rem;
-        background: var(--gradient-spectrum-85); /* 85% white mix gradient */
+        background: var(--gradient-spectrum); /* 95% white mix gradient */
         position: relative;
         z-index: 2;
     }
