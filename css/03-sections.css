@@ -597,8 +597,17 @@
     .testimonial-card {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-3);
+        gap: 0;
         align-items: flex-start;
+    }
+    
+    /* Add specific gaps where needed */
+    .testimonial-card .quote-icon {
+        margin-block-end: var(--gap-3);
+    }
+    
+    .testimonial-card .testimonial-quote {
+        margin-block-end: var(--gap-3);
     }
     
     /* Quote icon */
@@ -623,10 +632,10 @@
     
     /* Testimonial text */
     .testimonial-quote {
-        font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
         font-size: 2.4rem;
         line-height: 1.4;
         max-inline-size: 60ch;
+        font-weight: 400; /* Regular weight */
     }
     
     .testimonial-quote strong {
@@ -635,20 +644,18 @@
     }
     
     .testimonial-author {
-        font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
         font-size: 1.6rem;
         font-weight: 500; /* Medium weight */
         margin: 0; /* Remove all margins */
-        line-height: 1.2; /* Tighter line height */
+        line-height: 1; /* Very tight line height */
     }
     
     .testimonial-company {
-        font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
         font-size: 1.4rem;
         font-weight: 400; /* Regular weight */
         opacity: 0.6;
         margin: 0; /* Remove all margins */
-        line-height: 1.2; /* Tighter line height */
+        line-height: 1; /* Very tight line height */
     }
 }
 
