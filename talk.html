@@ -152,10 +152,10 @@
         }
         
         .form-title {
-            font-size: 2.8rem;
-            font-weight: 300;
-            margin-block-end: 3rem;
-            text-align: center;
+            font-size: 3.2rem;
+            font-weight: 400;
+            margin-block-end: 3.5rem;
+            text-align: left;
             color: var(--color-text-primary);
             letter-spacing: -0.02em;
         }
@@ -165,9 +165,10 @@
             gap: 2.5rem;
         }
         
+        /* Form row - removed since we're using single column */
         .form-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 2rem;
         }
         
@@ -182,22 +183,24 @@
         }
         
         .form-label {
-            font-size: 1.4rem;
-            font-weight: 500;
+            font-size: 1.5rem;
+            font-weight: 400;
             color: var(--color-text-primary);
-            letter-spacing: 0.02em;
+            letter-spacing: 0;
+            margin-block-end: 0.8rem;
         }
         
         .form-input,
         .form-select,
         .form-textarea {
-            padding: 1.4rem 1.8rem;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            border-radius: 10px;
+            padding: 1.6rem 1.8rem;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 8px;
             font-size: 1.6rem;
             font-family: inherit;
             transition: all var(--transition-base);
-            background: rgba(255, 255, 255, 0.7);
+            background: white;
+            width: 100%;
         }
         
         .form-input:focus,
@@ -229,10 +232,10 @@
         }
         
         .form-checkbox-label {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             line-height: 1.6;
             color: var(--color-text-primary);
-            opacity: 0.8;
+            opacity: 0.9;
         }
         
         .form-checkbox-label a {
@@ -251,9 +254,10 @@
         .form-submit .btn {
             width: 100%;
             justify-content: center;
-            font-size: 1.5rem;
-            padding: 1.4rem 2.8rem;
-            block-size: 5rem;
+            font-size: 1.6rem;
+            padding: 1.6rem 3rem;
+            block-size: 5.2rem;
+            font-weight: 500;
         }
         
         /* Customer logos - part of left column */
@@ -357,7 +361,7 @@
         <div class="container">
             <div class="header__in">
                 <nav class="main-navigation">
-                    <a href="/" aria-label="Contestra homepage" class="site-logo">
+                    <a href="index.html" aria-label="Contestra homepage" class="site-logo">
                         <img src="images/logos/contestra-logo.svg" alt="Contestra">
                     </a>
                     <div class="main-menu-wrap">
@@ -613,8 +617,8 @@
             // Here you would normally send the data to your server
             console.log('Form submitted:', data);
             
-            // Show success message (you can enhance this)
-            alert('Thank you for your interest! We\'ll be in touch within 24 hours.');
+            // Show success message
+            alert('Thank you! We\'ll be in touch soon.');
             
             // Reset form
             this.reset();
