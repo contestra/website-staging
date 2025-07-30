@@ -219,25 +219,13 @@
     
     /* DEVICE FRAME EFFECT - Easily reversible by commenting out this block */
     .chatbot-container.device-frame {
-        /* Remove container padding to prevent gaps */
+        /* Simple solid frame approach */
         padding: 0;
-        /* Use opaque color for border to prevent transparency issues */
-        border: 20px solid #DEE2E6; /* Solid light grey */
-        /* Match border radius with inner content */
+        border: 20px solid #F8F9FA; /* Gray-100 color */
         border-radius: 24px;
-        /* Outer shadow only */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        /* Ensure content doesn't overflow the frame */
-        position: relative;
+        box-shadow: none; /* Remove shadow to simplify */
         overflow: hidden;
-        /* Force the border to stay on top */
-        z-index: 1;
-        isolation: isolate;
-    }
-    
-    /* Ensure the gradient background inside has matching rounded corners */
-    .chatbot-container.device-frame::before {
-        border-radius: 4px; /* Inner radius = outer radius - border width */
+        position: relative;
     }
     /* END DEVICE FRAME EFFECT */
     
@@ -337,7 +325,7 @@
         overflow-x: hidden !important;
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
-        padding: 5px 20px 160px 20px;           /* Increased bottom padding + reduced gap = more space */
+        padding: 5px 20px 40px 20px;            /* Reduced bottom padding to prevent excessive push up */
         justify-content: flex-start;
         /* REMOVED: Smooth scrolling since we're disabling scrolling */
         box-sizing: border-box;
@@ -349,9 +337,11 @@
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: 20px 20px 140px 20px; /* Consistent padding all around */
+        padding: 20px 20px 60px 20px; /* Reduced bottom padding to prevent over-scrolling */
         margin: 0;
         /* Messages naturally clip at container edge */
+        /* Add invisible spacer to prevent last message from pushing too high */
+        padding-bottom: max(60px, 15%);
     }
     
     /* Re-enable pointer events for child elements */
@@ -481,7 +471,12 @@
     
     /* Special handling for last message to ensure visibility */
     .chat-message:last-child {
-        margin-block-end: 20px;                 /* Same as other messages */
+        margin-block-end: 40px;                 /* Extra margin to prevent clipping */
+    }
+    
+    /* Prevent last AI message from pushing too far up */
+    .chat-message.from-ai:last-child {
+        margin-block-end: 60px;                 /* Even more space for last AI message */
     }
     
     /* Message positioning and entry animations */
@@ -727,8 +722,9 @@
         
         /* Maintain device frame adjustments on mobile */
         .chatbot-container.device-frame .chat-messages {
-            padding: 20px 15px 130px 15px; /* Consistent padding on mobile */
+            padding: 20px 15px 50px 15px; /* Reduced bottom padding on mobile */
             margin: 0;
+            padding-bottom: max(50px, 15%);
         }
         
         /* Reduce gradient overlay height on mobile */
