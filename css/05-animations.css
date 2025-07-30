@@ -195,7 +195,7 @@
         background: transparent; /* Move gradient to inner div */
         border: none;
         box-shadow: none;
-        overflow: hidden;
+        overflow: visible; /* Changed to visible to allow inner content */
         border-radius: 24px; /* Match outer radius initially */
         max-block-size: 100%;
         min-block-size: 100%;
@@ -215,9 +215,16 @@
         border: 20px solid #DEE2E6; /* Gray-300 color */
         border-radius: 24px;
         box-shadow: none; /* Remove shadow to simplify */
-        overflow: hidden;
+        overflow: hidden; /* Clip content to border */
         position: relative;
-        /* Apply gradient directly to container */
+        background: #DEE2E6; /* Match border color */
+    }
+    
+    /* Create a proper inner container for the gradient with rounded corners */
+    .chatbot-container.device-frame::before {
+        content: '';
+        position: absolute;
+        inset: 20px; /* Match border width */
         background: linear-gradient(
             135deg,
             #FFFCF9 0%,
@@ -229,9 +236,9 @@
         background-size: 200% 200%;
         background-position: 0% 0%;
         animation: chatbotGradientShift 20s ease-in-out infinite;
-        /* Ensure gradient is clipped to content box */
-        background-clip: content-box;
-        background-origin: content-box;
+        border-radius: 4px; /* Inner radius = outer radius - border width */
+        z-index: 0;
+        pointer-events: none;
     }
     
     /* END DEVICE FRAME EFFECT */
@@ -327,20 +334,24 @@
         min-block-size: 0;
         position: relative;                     /* For gradient overlay positioning */
         pointer-events: none; /* Disable all pointer interactions */
+        z-index: 1; /* Above the gradient background */
     }
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: 20px 20px 100px 20px; /* Further increased bottom padding for last message */
+        padding: 40px 40px 120px 40px; /* Increased all padding to stay within gradient */
         margin: 0;
-        /* Ensure rounded corners are respected */
-        border-radius: 4px;
-        overflow: hidden;
+        /* Messages should not have their own border radius */
+        border-radius: 0;
+        overflow: visible; /* Allow messages to render fully */
         /* Add invisible spacer to prevent last message from pushing too high */
-        padding-bottom: max(100px, 20%);
+        padding-bottom: max(120px, 25%);
         /* Ensure messages don't get clipped */
         min-height: 100%;
         box-sizing: border-box;
+        /* Ensure messages stay within the gradient area */
+        position: relative;
+        z-index: 1;
     }
     
     /* Re-enable pointer events for child elements */
@@ -474,19 +485,19 @@
     
     /* Special handling for last message to ensure visibility */
     .chat-message:last-child {
-        margin-block-end: 60px;                 /* Extra margin to prevent clipping */
+        margin-block-end: 20px;                 /* Reduced since we have more container padding */
     }
     
     /* Prevent last AI message from pushing too far up */
     .chat-message.from-ai:last-child {
-        margin-block-end: 100px;                /* Further increased space to prevent clipping */
+        margin-block-end: 30px;                /* Reduced since we have more container padding */
     }
     
     /* Ensure the last message is always fully visible */
     .chat-message:last-of-type p {
-        margin-block-end: 30px;                 /* Extra margin on the bubble itself */
+        margin-block-end: 0;                    /* Remove extra margin */
         /* Ensure text doesn't get cut off */
-        padding-bottom: 30px !important;
+        padding-bottom: 28px !important;
     }
     
     /* Message positioning and entry animations */
@@ -735,9 +746,9 @@
         
         /* Maintain device frame adjustments on mobile */
         .chatbot-container.device-frame .chat-messages {
-            padding: 20px 15px 50px 15px; /* Reduced bottom padding on mobile */
+            padding: 30px 30px 80px 30px; /* Increased padding to stay within gradient on mobile */
             margin: 0;
-            padding-bottom: max(50px, 15%);
+            padding-bottom: max(80px, 20%);
         }
         
         /* Reduce gradient overlay height on mobile */
@@ -790,8 +801,9 @@
     
     /* Ensure AI message that contains the clipping text has enough space */
     .chat-message[data-message="4"] p {
-        padding-bottom: 35px !important; /* Extra padding for the elasticity message */
-        line-height: 1.7; /* Slightly more line height for better text flow */
+        padding: 24px 28px 32px; /* Consistent padding with slightly more bottom */
+        line-height: 1.65; /* Balanced line height for better text flow */
+        word-spacing: 0.05em; /* Slight word spacing to prevent cramping */
     }
 }
 
