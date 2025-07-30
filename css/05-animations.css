@@ -226,24 +226,21 @@
     
     /* DEVICE FRAME EFFECT - Easily reversible by commenting out this block */
     .chatbot-container.device-frame {
-        /* Simple solid frame approach */
-        padding: 0;
-        border: 20px solid #DEE2E6; /* Gray-300 color */
+        /* Apply gradient with padding to create frame effect */
+        padding: 20px; /* This creates the frame width */
+        border: none;
         border-radius: 24px;
         box-shadow: none; /* Remove shadow to simplify */
         overflow: hidden; /* Clip content to border */
         position: relative;
-        background: transparent;
+        background: #DEE2E6; /* Gray frame color */
     }
     
-    /* Create single gradient for device frame - proper inner radius */
+    /* Create inner gradient container with proper rounded corners */
     .chatbot-container.device-frame::after {
         content: '';
         position: absolute;
-        top: 20px;
-        left: 20px;
-        right: 20px;
-        bottom: 20px;
+        inset: 20px; /* Matches padding to create inner area */
         background: linear-gradient(
             135deg,
             #FFFCF9 0%,
@@ -255,10 +252,9 @@
         background-size: 200% 200%;
         background-position: 0% 0%;
         animation: chatbotGradientShift 20s ease-in-out infinite;
-        border-radius: 8px; /* Slightly larger radius to ensure visibility */
+        border-radius: 10px; /* Visible rounded corners */
         z-index: 0;
         pointer-events: none;
-        overflow: hidden; /* Ensure gradient clips to border radius */
     }
     
     /* END DEVICE FRAME EFFECT */
@@ -269,22 +265,7 @@
     /* ENHANCED: Noise texture overlay - disabled due to gradient implementation */
     /* Noise texture removed to simplify gradient rendering */
     
-    /* Ensure no duplicate backgrounds on any child elements */
-    .chatbot-container * {
-        background-image: none !important; /* Remove any inherited gradients */
-    }
-    
-    /* Allow only the intended gradient */
-    .chatbot-container::after {
-        background-image: linear-gradient(
-            135deg,
-            #FFFCF9 0%,
-            #FFFFF9 25%,
-            #FFF9F2 50%,
-            #FFF2F9 75%,
-            #FFFCF9 100%
-        ) !important;
-    }
+    /* Remove this overly broad rule that was breaking AI message gradients */
     
     /* ENHANCED: Moving rainbow reflection - DISABLED to prevent multiple gradients */
     .chatbot-container::before {
@@ -356,11 +337,11 @@
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: 40px 40px 180px 40px; /* Much more bottom padding to prevent clipping */
+        padding: 20px 20px 120px 20px; /* Adjusted for new structure */
         margin: 0;
         /* Messages should not have their own border radius */
-        border-radius: 0;
-        overflow: visible; /* Changed to visible */
+        border-radius: 10px; /* Match gradient radius */
+        overflow: hidden; /* Clip to rounded corners */
         /* Ensure messages don't get clipped */
         min-height: 100%;
         max-height: 100%;
@@ -565,14 +546,14 @@
     
     /* ENHANCED: AI message with premium glass effect */
     .chat-message.from-ai p {
-        /* Gradient background restored */
+        /* Gradient background restored with !important to override any inheritance */
         background: linear-gradient(
             135deg, 
             var(--color-ai-gradient-light) 0%,
             var(--color-ai-gradient-mid) 60%,
             var(--color-ai-gradient-dark) 100%
-        );
-        color: white;
+        ) !important;
+        color: white !important;
         border-block-end-inline-end-radius: 8px;
         border: 1px solid rgba(255, 255, 255, 0.3);
         /* Single shadow to prevent repaints */
@@ -819,14 +800,20 @@
     
     /* Ensure AI message that contains the clipping text has enough space */
     .chat-message[data-message="4"] p {
-        padding: 24px 28px 32px; /* Consistent padding with slightly more bottom */
-        line-height: 1.7; /* More line height for better text flow */
-        max-inline-size: min(360px, 80%); /* Slightly narrower to ensure text wraps properly */
+        padding: 24px 28px 35px; /* More bottom padding */
+        line-height: 1.75; /* Increased line height */
+        max-inline-size: min(340px, 75%); /* Even narrower to force better wrapping */
+        word-spacing: 0.1em; /* Add slight word spacing */
     }
     
     /* Force proper wrapping for elasticity message */
     .chat-message[data-message="4"] {
-        margin-block-end: 10px; /* Small margin to ensure spacing */
+        margin-block-end: 20px; /* More margin to ensure spacing */
+    }
+    
+    /* Ensure last visible message has space */
+    .chat-message[data-message="4"]:last-of-type {
+        padding-bottom: 40px; /* Extra padding at bottom */
     }
 }
 
