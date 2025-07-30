@@ -273,7 +273,7 @@
         overflow-x: hidden !important;
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
-        padding: 30px 20px 80px 20px;           /* INCREASED bottom padding from 50px to 80px */
+        padding: 30px 20px 100px 20px;          /* INCREASED bottom padding to prevent cut-off */
         justify-content: flex-start;
         /* scroll-behavior: smooth; REMOVED - can cause shimmer */
         box-sizing: border-box;
