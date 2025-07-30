@@ -222,7 +222,9 @@
         /* Keep container padding for proper content spacing */
         padding: 20px;
         /* Use opaque color for border to prevent transparency issues */
-        border: 20px solid #d6dade; /* Solid light blue-grey */
+        border: 20px solid #DEE2E6; /* Solid light grey */
+        /* Match border radius with inner content */
+        border-radius: 24px;
         /* Outer shadow only */
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         /* Ensure content doesn't overflow the frame */
@@ -231,6 +233,11 @@
         /* Force the border to stay on top */
         z-index: 1;
         isolation: isolate;
+    }
+    
+    /* Ensure the gradient background inside has matching rounded corners */
+    .chatbot-container.device-frame::before {
+        border-radius: 4px; /* Inner radius = outer radius - border width */
     }
     /* END DEVICE FRAME EFFECT */
     
@@ -342,9 +349,9 @@
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: 0 20px 140px 20px; /* Remove top padding, keep sides */
-        margin: 0;
-        /* Messages will scroll behind frame naturally */
+        padding: -20px 20px 140px 20px; /* Negative top padding to extend behind frame */
+        margin-top: 20px; /* Compensate for negative padding */
+        /* Messages will scroll fully behind frame */
     }
     
     /* Re-enable pointer events for child elements */
@@ -383,11 +390,11 @@
     /* RESTORED: Side slide-in animations for more dynamic entrance */
     /* To revert: Remove this block and add back transform: translateY(20px) to .chat-message above */
     .chat-message.from-user {
-        transform: translateY(20px) translateX(-17px);  /* Start left and down */
+        transform: translateY(30px) translateX(-20px) scale(0.9);  /* Start smaller, left and down */
     }
     
     .chat-message.from-ai {
-        transform: translateY(20px) translateX(17px);   /* Start right and down */
+        transform: translateY(30px) translateX(20px) scale(0.9);   /* Start smaller, right and down */
     }
     /* END RESTORED: Side slide-in animations */
     
@@ -403,25 +410,34 @@
     
     /* Initial state - more dramatic scale for better pop effect */
     .chat-message:not(.visible) p {
-        filter: blur(4px);
-        transform: scale(0.85); /* Smaller initial scale for more dramatic pop */
+        filter: blur(6px);
+        transform: scale(0.7); /* Much smaller initial scale for dramatic pop */
+        opacity: 0;
     }
     
     /* Enhance the visible state transition */
     .chat-message.visible p {
         filter: blur(0);
         transform: scale(1);
-        transition-delay: 0.15s; /* Slight delay for smoother effect */
-        animation: bubblePop 0.6s var(--elastic-easing) forwards;
+        opacity: 1;
+        transition-delay: 0.1s; /* Slight delay for smoother effect */
+        animation: bubblePopEnhanced 0.7s var(--elastic-easing) forwards;
     }
     
-    /* Bubble pop animation for extra bounce */
-    @keyframes bubblePop {
+    /* Enhanced bubble pop animation with more dramatic bounce */
+    @keyframes bubblePopEnhanced {
         0% {
-            transform: scale(0.85);
+            transform: scale(0.7);
+            opacity: 0;
         }
-        60% {
-            transform: scale(1.05); /* Slight overshoot */
+        40% {
+            opacity: 1;
+        }
+        70% {
+            transform: scale(1.1); /* More pronounced overshoot */
+        }
+        85% {
+            transform: scale(0.95); /* Slight pullback */
         }
         100% {
             transform: scale(1);
@@ -432,7 +448,7 @@
     /* Make messages visible when animated - slides to center */
     .chat-message.visible {
         opacity: 1;
-        transform: translateY(0) translateX(0);  /* End at center position */
+        transform: translateY(0) translateX(0) scale(1);  /* End at center position and full size */
     }
     
     /* ENHANCEMENT: Subtle emphasis animation when message appears */
@@ -711,8 +727,8 @@
         
         /* Maintain device frame adjustments on mobile */
         .chatbot-container.device-frame .chat-messages {
-            padding: 0 15px 130px 15px; /* Remove top padding, keep sides on mobile */
-            margin: 0;
+            padding: -20px 15px 130px 15px; /* Negative top padding on mobile too */
+            margin-top: 20px;
         }
         
         /* Reduce gradient overlay height on mobile */
