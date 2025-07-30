@@ -282,18 +282,17 @@
         position: relative;                     /* For gradient overlay positioning */
     }
     
-    /* Top gradient overlay for fade effect */
+    /* Subtle top fade effect */
     .chat-messages::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 50px;
+        height: 30px;
         background: linear-gradient(
             to bottom,
-            rgba(255, 252, 249, 1) 0%,    /* Match chatbot container background */
-            rgba(255, 252, 249, 0.8) 50%,
+            rgba(255, 252, 249, 0.9) 0%,    /* Very subtle fade from background color */
             transparent 100%
         );
         pointer-events: none;

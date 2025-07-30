@@ -632,7 +632,9 @@
     .animation-placeholder {
         position: relative;
         inline-size: 100%;
-        block-size: 43.6rem;  /* Fixed height to prevent growing */
+        block-size: 100%;
+        min-block-size: 38.6rem;
+        max-block-size: 48rem;
         /* ENHANCED: Transparent background */
         background: transparent;
         /* Backdrop filter removed - handled by chatbot-container */
