@@ -228,6 +228,11 @@ class ChatbotAnimation {
                 // Show message container with entrance animation
                 message.classList.add('visible');
                 
+                // ENHANCEMENT: Add emphasis class for subtle highlight
+                // To revert: Remove these 2 lines
+                message.classList.add('message-emphasis');
+                setTimeout(() => message.classList.remove('message-emphasis'), 700);
+                
                 // ENHANCED2: Small delay for message entrance animation to start
                 await this.delay(this.config.messagePopTiming.delay);
                 
