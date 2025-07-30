@@ -35,6 +35,14 @@
         container-type: inline-size;            /* Enable container queries */
     }
     
+    /* Ensure padding on smaller desktop screens */
+    @media (width <= 1200px) {
+        .container,
+        .block-container {
+            padding-inline: 3rem; /* Maintain padding on smaller screens */
+        }
+    }
+    
     /* Mobile container adjustments */
     @media (width <= 576px) {
         .container,
