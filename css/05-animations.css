@@ -226,6 +226,19 @@
         box-shadow: none; /* Remove shadow to simplify */
         overflow: hidden;
         position: relative;
+        /* Ensure gradient background has rounded corners */
+        background-clip: padding-box;
+    }
+    
+    /* Apply rounded corners to gradient when device frame is active */
+    .chatbot-container.device-frame {
+        border-radius: 24px !important;
+    }
+    
+    /* Ensure all pseudo-elements respect the rounded corners */
+    .chatbot-container.device-frame::before,
+    .chatbot-container.device-frame::after {
+        border-radius: 4px !important;
     }
     /* END DEVICE FRAME EFFECT */
     
@@ -340,11 +353,13 @@
     
     /* Adjust padding when device frame is active */
     .chatbot-container.device-frame .chat-messages {
-        padding: 20px 20px 60px 20px; /* Reduced bottom padding to prevent over-scrolling */
+        padding: 20px 20px 80px 20px; /* Increased bottom padding for last message */
         margin: 0;
-        /* Messages naturally clip at container edge */
+        /* Ensure rounded corners are respected */
+        border-radius: 4px;
+        overflow: hidden;
         /* Add invisible spacer to prevent last message from pushing too high */
-        padding-bottom: max(60px, 15%);
+        padding-bottom: max(80px, 15%);
     }
     
     /* Re-enable pointer events for child elements */
@@ -483,7 +498,12 @@
     
     /* Prevent last AI message from pushing too far up */
     .chat-message.from-ai:last-child {
-        margin-block-end: 60px;                 /* Even more space for last AI message */
+        margin-block-end: 80px;                 /* Increased space to prevent clipping */
+    }
+    
+    /* Ensure the last message is always fully visible */
+    .chat-message:last-of-type p {
+        margin-block-end: 20px;                 /* Extra margin on the bubble itself */
     }
     
     /* Message positioning and entry animations */
