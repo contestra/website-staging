@@ -93,7 +93,7 @@ class ChatbotAnimation {
                 { type: 'user', text: 'What are the best blood tests to check health?' },
                 { type: 'ai', text: 'Key tests include CBC, lipid panel, HbA1c, CRP, liver enzymes, vitamin D, and comprehensive metabolic panel.' },
                 { type: 'user', text: 'What are the benefits of testing ferritin, for a man?' },
-                { type: 'ai', text: 'Ferritin reveals iron storage levels—low suggests deficiency, high links to inflammation, metabolic issues, or hemochromatosis risk.' }
+                { type: 'ai', text: 'High ferritin may signal inflammation or iron overload, increasing risks of heart disease, oxidative stress, and faster aging.' }
             ],
             // Conversation 3 - Functional medicine
             [

@@ -494,6 +494,56 @@
         display: none;
     }
     
+    /* ENHANCEMENT: Message connection lines */
+    /* To revert: Remove this entire section */
+    .chat-message {
+        position: relative;
+    }
+    
+    /* Connection line from user to AI message */
+    .chat-message.from-ai::before {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 30px;
+        top: -15px;
+        left: calc(100% - 80px);
+        opacity: 0;
+        transition: opacity 0.5s ease 0.3s;
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    /* Draw curved connection line */
+    .chat-message.from-ai.visible::before {
+        opacity: 1;
+        background: 
+            radial-gradient(circle at 0% 50%, transparent 28%, rgba(255, 0, 136, 0.1) 30%, rgba(255, 0, 136, 0.1) 32%, transparent 34%);
+        transform: rotate(-15deg);
+    }
+    
+    /* Alternate side for better flow */
+    .chat-message:nth-child(4n+2).from-ai::before {
+        left: auto;
+        right: calc(100% - 80px);
+        transform: rotate(15deg) scaleX(-1);
+    }
+    
+    /* Mobile adjustments */
+    @media (width <= 768px) {
+        .chat-message.from-ai::before {
+            width: 40px;
+            height: 20px;
+            top: -10px;
+            left: calc(100% - 60px);
+        }
+        
+        .chat-message:nth-child(4n+2).from-ai::before {
+            right: calc(100% - 60px);
+        }
+    }
+    /* END ENHANCEMENT: Message connection lines */
+    
     
     /* ENHANCED3: REMOVED shimmer effect that was causing white box issue */
     /* The ::before pseudo-element with shimmer animation has been completely removed */
