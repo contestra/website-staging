@@ -767,6 +767,11 @@
         gap: 4rem;
     }
     
+    /* Specific gap between image and title */
+    .pre-footer-content--centered .pre-footer-image {
+        margin-block-end: 2rem; /* Additional spacing after image */
+    }
+    
     /* Pre-footer title - centered */
     .pre-footer-title {
         font-size: 7rem; /* Increased from 5rem */
@@ -799,8 +804,8 @@
         inline-size: 100%;
         block-size: auto;
         display: block;
-        object-fit: cover;
-        aspect-ratio: 16/10; /* Standard aspect ratio */
+        object-fit: contain; /* Use natural dimensions without cropping */
+        /* Remove forced aspect ratio to use image's natural ratio */
     }
     
     /* CTA button - centered */
