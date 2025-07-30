@@ -372,9 +372,9 @@
     
     /* ENHANCED: User message with subtle depth */
     .chat-message.from-user p {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        background: rgba(255, 255, 255, 0.5);   /* Reduced opacity for more translucency */
+        backdrop-filter: blur(20px) saturate(120%);  /* Increased blur and added saturation */
+        -webkit-backdrop-filter: blur(20px) saturate(120%);
         color: var(--color-text-primary);
         border-block-end-inline-start-radius: 8px;
         /* Single shadow to prevent repaints */
