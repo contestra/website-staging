@@ -480,7 +480,7 @@
         
         /* Add gradient background when flipped on mobile */
         .b-section[data-id="scale-ai"] .b-link.flipped {
-            background: var(--gradient-spectrum-97-5);
+            background: var(--gradient-spectrum-97-5) !important;
         }
         
         /* Fade out gradient strip on mobile when flipped */
@@ -510,6 +510,12 @@
             background: var(--color-gray-100) !important; /* Stay gray */
             transform: none !important;
             box-shadow: var(--shadow-md) !important;
+            z-index: 1 !important;
+        }
+        
+        /* Ensure hover gradient strip stays hidden on mobile */
+        .b-section[data-id="scale-ai"] .b-link:hover::before {
+            transform: translateX(-100%) !important;
         }
         
         /* Ensure back face text is left aligned on mobile */
