@@ -361,7 +361,7 @@
         border-block-end-inline-start-radius: 8px;
         /* Single shadow to prevent repaints */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        /* border removed */
+        border: 1px solid rgba(255, 255, 255, 0.8);
     }
     
     /* ENHANCED: AI message with premium glass effect */
@@ -375,7 +375,7 @@
         );
         color: white;
         border-block-end-inline-end-radius: 8px;
-        /* border removed */
+        border: 1px solid rgba(255, 255, 255, 0.3);
         /* Single shadow to prevent repaints */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         min-block-size: fit-content;
