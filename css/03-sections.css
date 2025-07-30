@@ -315,9 +315,9 @@
             gap: var(--gap-4);
         }
         
-        /* Center description text on mobile */
+        /* Keep description text left-aligned on mobile */
         .wp-block-column p {
-            text-align: center;
+            text-align: left;
         }
     }
 }
@@ -448,18 +448,34 @@
             gap: var(--gap-4);
         }
         
-        /* Center align on mobile */
+        /* Left align text on mobile */
         .testimonial-header {
-            text-align: center;
+            text-align: left;
         }
         
         .testimonial-header h2,
         .testimonial-header p {
-            text-align: center !important;
+            text-align: left !important;
         }
         
-        .testimonial-nav {
+        /* Hide desktop navigation on mobile */
+        .testimonial-header .testimonial-nav {
+            display: none;
+        }
+    }
+    
+    /* Mobile navigation - hidden on desktop */
+    .testimonial-nav--mobile {
+        display: none;
+    }
+    
+    @media (width <= 768px) {
+        .testimonial-nav--mobile {
+            display: flex;
+            align-items: center;
             justify-content: center;
+            gap: var(--gap-3);
+            margin-block-start: var(--gap-4);
         }
     }
     
@@ -632,22 +648,24 @@
     
     /* Testimonial text */
     .testimonial-quote {
+        font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif !important;
         font-size: 2.4rem;
-        line-height: 1.4;
+        line-height: 1.3; /* Match standard body text line-height */
         max-inline-size: 60ch;
         font-weight: 400; /* Regular weight */
     }
     
     .testimonial-quote strong {
+        font-family: inherit !important;
         color: var(--color-accent);
-        font-weight: 500; /* Medium weight for better readability */
+        font-weight: 600; /* Use 600 weight (Suisse Screen Light mapped to 600) */
     }
     
     .testimonial-author {
         font-size: 1.6rem;
         font-weight: 500; /* Medium weight */
         margin: 0; /* Remove all margins */
-        line-height: 1; /* Very tight line height */
+        line-height: 1.3; /* Balanced line height */
     }
     
     .testimonial-company {
@@ -655,7 +673,8 @@
         font-weight: 400; /* Regular weight */
         opacity: 0.6;
         margin: 0; /* Remove all margins */
-        line-height: 1; /* Very tight line height */
+        line-height: 1.3; /* Balanced line height */
+        margin-block-start: 0.2rem; /* Small gap between name and company */
     }
 }
 

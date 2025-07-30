@@ -19,8 +19,8 @@ class TestimonialCarousel {
         // Get carousel elements
         this.slides = this.container.querySelectorAll('.testimonial-slide');
         this.dots = this.container.querySelectorAll('.nav-dots button');
-        this.prevBtn = this.container.querySelector('.nav-arrow--prev');
-        this.nextBtn = this.container.querySelector('.nav-arrow--next');
+        this.prevBtns = this.container.querySelectorAll('.nav-arrow--prev');
+        this.nextBtns = this.container.querySelectorAll('.nav-arrow--next');
         
         // State
         this.currentSlide = 0;
@@ -39,19 +39,19 @@ class TestimonialCarousel {
     }
     
     bindEvents() {
-        // Previous button
-        if (this.prevBtn) {
-            this.prevBtn.addEventListener('click', () => {
+        // Previous buttons (both desktop and mobile)
+        this.prevBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
                 this.goToSlide(this.currentSlide - 1);
             });
-        }
+        });
         
-        // Next button
-        if (this.nextBtn) {
-            this.nextBtn.addEventListener('click', () => {
+        // Next buttons (both desktop and mobile)
+        this.nextBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
                 this.goToSlide(this.currentSlide + 1);
             });
-        }
+        });
         
         // Dot navigation
         this.dots.forEach((dot, index) => {
@@ -102,15 +102,15 @@ class TestimonialCarousel {
     }
     
     updateButtons() {
-        // Update prev button
-        if (this.prevBtn) {
-            this.prevBtn.disabled = this.currentSlide === 0;
-        }
+        // Update all prev buttons
+        this.prevBtns.forEach(btn => {
+            btn.disabled = this.currentSlide === 0;
+        });
         
-        // Update next button
-        if (this.nextBtn) {
-            this.nextBtn.disabled = this.currentSlide === this.maxSlide;
-        }
+        // Update all next buttons
+        this.nextBtns.forEach(btn => {
+            btn.disabled = this.currentSlide === this.maxSlide;
+        });
     }
 }
 
