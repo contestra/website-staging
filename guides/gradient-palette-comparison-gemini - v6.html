@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Color Palettes Comparison</title>
+    <style>
+        :root {
+            font-size: 62.5%;
+            --color-text: #1A1E22;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f8f9fa;
+            padding: 2rem;
+            font-size: 1.6rem;
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 140rem;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .description {
+            text-align: center;
+            color: #666;
+            max-width: 80rem;
+            margin: 0 auto 4rem;
+        }
+        
+        .palette-section {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .palette-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .palette-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .palette-description {
+            color: #666;
+            font-size: 1.4rem;
+        }
+        
+        .gradient-preview {
+            height: 8rem;
+            border-radius: 0.8rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .color-card {
+            background: #f8f9fa;
+            border-radius: 0.8rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .color-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .color-swatch {
+            width: 100%;
+            height: 6rem;
+            border-radius: 0.6rem;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+        }
+        
+        .color-name {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .color-hex {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--color-text);
+            text-transform: uppercase;
+        }
+
+        .accents-section {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid #eee;
+        }
+
+        .accents-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        
+        /* Gradient previews */
+        .gradient-0 { background: linear-gradient(to right, #00ffff, #00ff88, #88ff00, #ffff00, #ff8800, #ff0088, #ff0044); }
+        .gradient-5 { background: linear-gradient(to right, #0dffff, #0dff8d, #8dff0d, #ffff0d, #ff8d0d, #ff0d8d, #ff0d51); }
+        .gradient-15 { background: linear-gradient(to right, #26ffff, #26ff9b, #9bff26, #ffff26, #ff9b26, #ff269b, #ff2665); }
+        .gradient-30 { background: linear-gradient(to right, #4dffff, #4dffac, #acff4d, #ffff4d, #ffac4d, #ff4dac, #ff4d82); }
+        .gradient-50 { background: linear-gradient(to right, #7fffff, #7fffc3, #c3ff7f, #ffff7f, #ffc37f, #ff7fc3, #ff7fa1); }
+        .gradient-60 { background: linear-gradient(to right, #99FFFF, #99FFCF, #CFFF99, #FFFF99, #FFCF99, #FF99CF, #FF99B4); }
+        .gradient-70 { background: linear-gradient(to right, #b3ffff, #b3ffdb, #dbffb3, #ffffb3, #ffdbb3, #ffb3db, #ffb3c7); }
+        .gradient-85 { background: linear-gradient(to right, #d9ffff, #d9ffed, #edffd9, #ffffd9, #ffedd9, #ffd9ed, #ffd9e3); }
+        .gradient-90 { background: linear-gradient(to right, #E6FFFF, #E6FFF3, #F3FFE6, #FFFFE6, #FFF3E6, #FFE6F3, #FFE6EC); }
+        .gradient-95 { background: linear-gradient(to right, #f2ffff, #f2fff9, #f9fff2, #fffff2, #fff9f2, #fff2f9, #fff2f6); }
+        .gradient-97-5 { background: linear-gradient(to right, #f9ffff, #f9fffc, #fcfff9, #fffff9, #fffcf9, #fff9fc, #fff9fa); }
+        
+        .formula-note {
+            background: #f0f8ff;
+            padding: 2rem;
+            border-radius: 0.8rem;
+            margin-bottom: 3rem;
+            border-left: 4px solid #4567ff;
+        }
+        
+        .formula-note h3 { margin-top: 0; color: #2a4d7f; }
+        .formula { font-family: monospace; font-size: 1.4rem; background: white; padding: 1rem; border-radius: 0.4rem; display: inline-block; }
+        .highlight-current { border: 3px solid #ff0088; }
+        
+        @media (width <= 768px) {
+            .color-grid { grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Complete Website Color System</h1>
+        <p class="description">
+            A complete color system including pastel gradients, computed accent colors, a neutral grayscale, and functional UI colors.
+        </p>
+        
+        <div class="formula-note">
+            <h3>Color Mixing & Accent Formula</h3>
+            <p>Each pastel color is calculated using: <span class="formula">New Color = Original × (1 - mixRatio) + White × mixRatio</span></p>
+            <p>Complementary accent colors are calculated by rotating the hue of the original (0% mix) colors by 180° on the color wheel and adjusting the lightness for strong contrast.</p>
+        </div>
+        
+        <div id="accent-palette" style="display: none;">
+            <div class="color-card">
+                <div class="color-swatch" style="background: #6633CC;"></div>
+                <div class="color-name">Purple</div>
+                <div class="color-hex">#6633CC</div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #3D70B8;"></div>
+                <div class="color-name">Lighter Blue</div>
+                <div class="color-hex">#3D70B8</div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #2585B8;"></div>
+                <div class="color-name">Cerulean Blue</div>
+                <div class="color-hex">#2585B8</div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #188582;"></div>
+                <div class="color-name">Teal</div>
+                <div class="color-hex">#188582</div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #2D8A2D;"></div>
+                <div class="color-name">Lime Green</div>
+                <div class="color-hex">#2D8A2D</div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #288A4C;"></div>
+                <div class="color-name">Grassy Green</div>
+                <div class="color-hex">#288A4C</div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #D96D14;"></div>
+                <div class="color-name">Burnt Orange</div>
+                <div class="color-hex">#D96D14</div>
+            </div>
+            <div class="color-card">
+                <div class="color-swatch" style="background: #B8256F;"></div>
+                <div class="color-name">Rose</div>
+                <div class="color-hex">#B8256F</div>
+            </div>
+        </div>
+
+        <div id="palette-container"></div>
+        
+        <div class="palette-section">
+            <div class="palette-header">
+                <div>
+                    <h2 class="palette-title">Neutral Grayscale Palette</h2>
+                    <p class="palette-description">For text, backgrounds, borders, and UI elements. These pure grays support the main color palettes without clashing.</p>
+                </div>
+            </div>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #FEFEFE;"></div>
+                    <div class="color-name">Gray-50</div>
+                    <div class="color-hex">#FEFEFE</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #FCFCFC;"></div>
+                    <div class="color-name">Gray-75</div>
+                    <div class="color-hex">#FCFCFC</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #F8F9FA;"></div>
+                    <div class="color-name">Gray-100</div>
+                    <div class="color-hex">#F8F9FA</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #DEE2E6;"></div>
+                    <div class="color-name">Gray-300</div>
+                    <div class="color-hex">#DEE2E6</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #ADB5BD;"></div>
+                    <div class="color-name">Gray-500</div>
+                    <div class="color-hex">#ADB5BD</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #495057;"></div>
+                    <div class="color-name">Gray-700</div>
+                    <div class="color-hex">#495057</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #212529;"></div>
+                    <div class="color-name">Gray-900</div>
+                    <div class="color-hex">#212529</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #1A1E22;"></div>
+                    <div class="color-name">Gray-950</div>
+                    <div class="color-hex">#1A1E22</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #111315;"></div>
+                    <div class="color-name">Gray-1000</div>
+                    <div class="color-hex">#111315</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #000000;"></div>
+                    <div class="color-name">Black</div>
+                    <div class="color-hex">#000000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="palette-section">
+            <div class="palette-header">
+                <div>
+                    <h2 class="palette-title">Functional (Semantic) Colors</h2>
+                    <p class="palette-description">For communicating status to the user, such as success messages, errors, and informational alerts.</p>
+                </div>
+            </div>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #2D8A2D;"></div>
+                    <div class="color-name">Success (Green)</div>
+                    <div class="color-hex">#2D8A2D</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #B8256F;"></div>
+                    <div class="color-name">Error (Rose)</div>
+                    <div class="color-hex">#B8256F</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #3D70B8;"></div>
+                    <div class="color-name">Info (Blue)</div>
+                    <div class="color-hex">#3D70B8</div>
+                </div>
+                 <div class="color-card">
+                    <div class="color-swatch" style="background: #D96D14;"></div>
+                    <div class="color-name">Warning (Orange)</div>
+                    <div class="color-hex">#D96D14</div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            const palettes = [
+                { name: 'Original Gradient (0% White Mix)', class: 'gradient-0', description: 'Full saturation - maximum vibrancy. Not currently used.' },
+                { name: '5% White Mix', class: 'gradient-5', description: 'Slightly softened - maintains high vibrancy. Not currently used.' },
+                { name: '15% White Mix', class: 'gradient-15', description: 'Noticeably softer - good balance of vibrancy and subtlety. Not currently used.' },
+                { name: '30% White Mix', class: 'gradient-30', description: 'Balanced softness - reduces contrast while maintaining color identity. Not currently used.' },
+                { name: '50% White Mix', class: 'gradient-50', description: '<strong>Used for:</strong> Testimonials section background (--gradient-testimonials)', highlight: true },
+                { name: '60% White Mix', class: 'gradient-60', description: 'A soft pastel, bridging the gap between full pastel and lighter tones. Not currently used.' },
+                { name: '70% White Mix', class: 'gradient-70', description: '<strong>Used for:</strong> Defined for hover states (--gradient-spectrum-70), but not actively implemented.' },
+                { name: '85% White Mix', class: 'gradient-85', description: 'Extremely subtle, approaching off-white. Not currently used.' },
+                { name: '90% White Mix', class: 'gradient-90', description: '<strong>Used for:</strong> Deployment card accent strip (--gradient-spectrum-90).' },
+                { name: '95% White Mix', class: 'gradient-95', description: '<strong>Primary Gradient. Used for:</strong> Hero background, Pre-footer background, Footer border, Primary buttons (--gradient-spectrum).' },
+                { name: '97.5% White Mix', class: 'gradient-97-5', description: '<strong>Used for:</strong> Subtle hover states on Scale AI & Deployment cards (--gradient-spectrum-97-5).' }
+            ];
+
+            const baseColors = [
+                { name: 'Cyan', hex: '#00ffff' }, { name: 'Green-Cyan', hex: '#00ff88' },
+                { name: 'Green', hex: '#88ff00' }, { name: 'Yellow', hex: '#ffff00' },
+                { name: 'Orange', hex: '#ff8800' }, { name: 'Pink', hex: '#ff0088' },
+                { name: 'Deep Pink', hex: '#ff0044' }
+            ];
+
+            function hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16)
+                } : null;
+            }
+
+            function rgbToHex(r, g, b) {
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+            }
+
+            function mixColor(hex, mixRatio) {
+                const base = hexToRgb(hex);
+                const r = Math.round(base.r * (1 - mixRatio) + 255 * mixRatio);
+                const g = Math.round(base.g * (1 - mixRatio) + 255 * mixRatio);
+                const b = Math.round(base.b * (1 - mixRatio) + 255 * mixRatio);
+                return rgbToHex(r, g, b);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const container = document.getElementById('palette-container');
+                const accentPaletteHTML = document.getElementById('accent-palette').innerHTML;
+
+                palettes.forEach((palette, index) => {
+                    const mixRatio = palette.name.includes('Original') ? 0 : parseFloat(palette.name) / 100;
+                    
+                    let colorGridHTML = '';
+                    baseColors.forEach(color => {
+                        const mixedHex = mixColor(color.hex, mixRatio);
+                        colorGridHTML += `
+                            <div class="color-card">
+                                <div class="color-swatch" style="background: ${mixedHex};"></div>
+                                <div class="color-name">${color.name}</div>
+                                <div class="color-hex">${mixedHex}</div>
+                            </div>
+                        `;
+                    });
+
+                    const section = document.createElement('div');
+                    section.className = 'palette-section' + (palette.highlight ? ' highlight-current' : '');
+                    section.innerHTML = `
+                        <div class="palette-header">
+                            <div>
+                                <h2 class="palette-title">${palette.name}</h2>
+                                <p class="palette-description">${palette.description}</p>
+                            </div>
+                        </div>
+                        <div class="gradient-preview ${palette.class}"></div>
+                        <div class="color-grid">${colorGridHTML}</div>
+                        <div class="accents-section">
+                            <h3 class="accents-title">Complementary Accents</h3>
+                            <div class="color-grid">${accentPaletteHTML}</div>
+                        </div>
+                    `;
+                    container.appendChild(section);
+                });
+            });
+        </script>
+        
+        <div style="background: white; padding: 2rem; border-radius: 1rem; margin-top: 3rem;">
+            <h3 style="margin-bottom: 1rem;">Summary</h3>
+            <ul style="line-height: 2;">
+                <li><strong>Pastel Palettes:</strong> Generated by mixing the original vibrant colors with different percentages of white. Higher percentages result in softer, more subtle tones.</li>
+                <li><strong>Complementary Accents:</strong> A single, high-contrast palette computed from the original colors. This palette is designed to work effectively with any of the pastel variations for elements like buttons, links, and highlights.</li>
+                <li><strong>Neutral Grays:</strong> A pure grayscale palette that provides a clean foundation for text, backgrounds, and borders without clashing with brand colors.</li>
+                <li><strong>Functional Colors:</strong> Specific colors assigned to communicate status to the user (e.g., success, error, info), ensuring consistent user feedback.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

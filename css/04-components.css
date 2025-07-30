@@ -222,7 +222,7 @@
         display: flex;
         flex-direction: column;
         min-block-size: clamp(40rem, 54vw, 48rem);
-        padding: var(--gap-4);
+        padding: 0; /* Remove padding - now on block-container-link */
         box-sizing: border-box;
         user-select: none;
         position: relative;
@@ -331,6 +331,8 @@
         position: relative;
         z-index: 0;
         block-size: 100%;
+        padding: var(--gap-4); /* Add padding to prevent text clipping */
+        box-sizing: border-box;
     }
     
     /* Push content to bottom */
@@ -376,8 +378,6 @@
         font-weight: 600;
         display: inline-flex;
         align-items: center;
-        line-height: 1.2; /* Prevent letter clipping */
-        padding-block: 2px; /* Small vertical padding to ensure no clipping */
     }
     
     /* CTA arrow animation */
@@ -427,6 +427,8 @@
         /* Enable card flip on mobile with different behavior */
         .b-section[data-id="scale-ai"] .card-flip-container {
             position: relative;
+            transform: none !important; /* Prevent any rotation */
+            transform-style: flat !important; /* Disable 3D transforms */
         }
         
         /* Show both faces on mobile, toggle visibility */
