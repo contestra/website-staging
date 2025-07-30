@@ -432,10 +432,10 @@
         z-index: 0;
     }
     
-    /* Two-column testimonial layout */
+    /* Two-column testimonial layout - matching scale-ai 35%/65% split */
     .b-testimonials {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 35% minmax(0, calc(100% - 35%));
         gap: var(--gap-6);
         align-items: start; /* Change from center to start for top alignment */
         position: relative;
@@ -446,6 +446,20 @@
         .b-testimonials {
             grid-template-columns: 1fr;
             gap: var(--gap-4);
+        }
+        
+        /* Center align on mobile */
+        .testimonial-header {
+            text-align: center;
+        }
+        
+        .testimonial-header h2,
+        .testimonial-header p {
+            text-align: center !important;
+        }
+        
+        .testimonial-nav {
+            justify-content: center;
         }
     }
     
@@ -465,9 +479,11 @@
     }
     
     .testimonial-header p {
-        font-size: 1.8rem;
-        opacity: 0.8;
-        max-inline-size: 40ch;
+        font-size: 2rem; /* Match scale-ai description size */
+        color: #1A1E22;
+        opacity: 0.7; /* Match scale-ai description opacity */
+        line-height: 1.6; /* Match scale-ai description line-height */
+        max-inline-size: none; /* Remove width restriction to fill column */
     }
     
     /* Testimonial navigation controls */
@@ -511,7 +527,7 @@
         gap: var(--gap-1); /* Match carousel dot spacing */
     }
     
-    .nav-dots span {
+    .nav-dots button {
         inline-size: 0.8rem;
         block-size: 0.8rem;
         border-radius: 50%;
@@ -522,11 +538,11 @@
         transition: all var(--transition-base);
     }
     
-    .nav-dots span:hover {
+    .nav-dots button:hover {
         background: rgba(26, 30, 34, 0.4);
     }
     
-    .nav-dots span.active {
+    .nav-dots button.active {
         background: var(--nav-color);
         inline-size: 1rem;
         block-size: 1rem;
@@ -539,6 +555,8 @@
         background: rgba(255,255,255,0.45);
         border: 1px solid rgba(255,255,255,0.5);
         backdrop-filter: blur(2rem);
+        inline-size: 100%; /* Take full width of the 65% column */
+        box-sizing: border-box;
     }
     
     .testimonial-card {
