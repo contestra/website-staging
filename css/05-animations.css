@@ -355,7 +355,8 @@
     /* ENHANCED: User message with subtle depth */
     .chat-message.from-user p {
         background: rgba(255, 255, 255, 0.7);
-        /* Removed backdrop-filter to prevent shimmer */
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
         color: var(--color-text-primary);
         border-block-end-inline-start-radius: 8px;
         /* Single shadow to prevent repaints */
