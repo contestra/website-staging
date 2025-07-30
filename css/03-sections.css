@@ -631,14 +631,15 @@
     
     .testimonial-quote strong {
         color: var(--color-accent);
-        font-weight: 400; /* Regular weight for Suisse Screen */
+        font-weight: 500; /* Medium weight for better readability */
     }
     
     .testimonial-author {
         font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
         font-size: 1.6rem;
         font-weight: 500; /* Medium weight */
-        margin-block-end: 0; /* Remove bottom margin */
+        margin: 0; /* Remove all margins */
+        line-height: 1.2; /* Tighter line height */
     }
     
     .testimonial-company {
@@ -646,7 +647,8 @@
         font-size: 1.4rem;
         font-weight: 400; /* Regular weight */
         opacity: 0.6;
-        margin-block-start: 0; /* Remove top margin */
+        margin: 0; /* Remove all margins */
+        line-height: 1.2; /* Tighter line height */
     }
 }
 
