@@ -156,8 +156,9 @@
         --spring-easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
         --smooth-easing: cubic-bezier(0.4, 0, 0.2, 1);
         --bounce-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        /* ENHANCED2: Elastic easing replaced with smooth to prevent wobble */
-        --elastic-easing: cubic-bezier(0.4, 0, 0.2, 1);
+        /* RESTORED: Elastic easing for more dynamic animations */
+        /* To revert: Change back to cubic-bezier(0.4, 0, 0.2, 1) */
+        --elastic-easing: cubic-bezier(0.68, -0.6, 0.32, 1.6);
         
         /* Typing indicator */
         --typing-dot-size: 5px;
@@ -347,7 +348,9 @@
         position: relative;                     /* Ensure messages stay above gradient */
         opacity: 0;                             /* Initially hidden until animation */
         /* Transform moved to specific message types below */
-        transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        /* RESTORED: Elastic easing for bouncier message entrance */
+        /* To revert: Change transform timing back to cubic-bezier(0.4, 0, 0.2, 1) */
+        transition: opacity 0.5s ease, transform 0.5s var(--elastic-easing);
     }
     
     /* RESTORED: Side slide-in animations for more dynamic entrance */
