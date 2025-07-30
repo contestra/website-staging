@@ -575,15 +575,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 0.8rem;
     }
     
-    .quote-icon span {
-        font-size: 3rem;
-        font-weight: 600;
+    .quote-icon svg {
+        inline-size: 100%;
+        block-size: 100%;
         color: var(--color-light);
-        line-height: 1;
-        font-family: Georgia, serif;
-        transform: rotate(180deg); /* Rotate to make opening quote */
     }
     
     /* Testimonial text */
