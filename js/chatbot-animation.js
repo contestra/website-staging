@@ -379,8 +379,8 @@ class ChatbotAnimation {
             
             // For the last message, ensure it's fully visible above the gradient
             if (isLastMessage) {
-                // Reduced offset - messages don't need to jump so high
-                const bottomOffset = 30;
+                // Minimal offset - just enough to ensure visibility
+                const bottomOffset = 15;
                 const targetScroll = scrollHeight - containerHeight + bottomOffset;
                 
                 // Only scroll if needed

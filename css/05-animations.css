@@ -399,25 +399,25 @@
         position: relative;
     }
     
-    /* RESTORED: Subtle pulsing glow for AI messages */
+    /* RESTORED: Initial glow that fades for AI messages */
     /* To revert: Remove this entire block */
     .chat-message.from-ai.visible p {
-        animation: aiGlowPulse 3s ease-in-out infinite;
+        animation: aiGlowFade 1.5s ease-out forwards;
+        animation-delay: 0.2s;  /* Small delay so glow appears after message slides in */
     }
     
-    @keyframes aiGlowPulse {
-        0%, 100% {
+    @keyframes aiGlowFade {
+        0% {
             box-shadow: 
                 0 2px 4px rgba(0, 0, 0, 0.1),
-                0 0 20px rgba(255, 0, 136, 0.15);  /* Subtle pink glow */
+                0 0 30px rgba(255, 0, 136, 0.3);  /* Start with pink glow */
         }
-        50% {
+        100% {
             box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.1),
-                0 0 30px rgba(255, 0, 136, 0.25);  /* Slightly stronger glow */
+                0 2px 4px rgba(0, 0, 0, 0.1);  /* End with just the base shadow */
         }
     }
-    /* END RESTORED: Subtle pulsing glow */
+    /* END RESTORED: Initial glow that fades */
     
     /* Hide empty message bubbles */
     .chat-message p:empty {
