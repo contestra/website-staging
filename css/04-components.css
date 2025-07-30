@@ -632,9 +632,7 @@
     .animation-placeholder {
         position: relative;
         inline-size: 100%;
-        block-size: 100%;
-        min-block-size: 38.6rem;
-        max-block-size: 48rem;
+        block-size: 43.6rem;  /* Fixed height to prevent growing */
         /* ENHANCED: Transparent background */
         background: transparent;
         /* Backdrop filter removed - handled by chatbot-container */
@@ -734,8 +732,7 @@
     
     @media (width <= 768px) {
         .animation-placeholder {
-            min-block-size: 28.6rem;
-            max-block-size: 38rem;              /* FIXED: Reduced max height on mobile */
+            block-size: 32rem;                  /* Fixed height on mobile */
             /* Reduce glass blur on mobile for performance */
             backdrop-filter: blur(14px) saturate(170%);
             -webkit-backdrop-filter: blur(14px) saturate(170%);
