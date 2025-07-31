@@ -23,6 +23,8 @@
             min-height: 100vh;
             padding-top: var(--nav-height);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden; /* Only prevent horizontal overflow */
+            margin-bottom: -1px; /* Eliminate gap with footer */
         }
         
         /* Container with standard padding */
@@ -56,18 +58,6 @@
             background: var(--gradient-spectrum-90);
             min-height: calc(100vh - var(--nav-height));
             align-self: stretch;
-        }
-        
-        /* Extend gradient past container padding */
-        .contact-hero__right::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: calc(-1 * var(--container-padding));
-            bottom: 0;
-            width: var(--container-padding);
-            background: #FFE6EC; /* Solid color matching the end of gradient-spectrum-90 */
-            z-index: -1;
         }
         
         .contact-hero__title {
