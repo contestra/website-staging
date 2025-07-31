@@ -34,12 +34,14 @@
             grid-template-columns: 1fr 1fr;
             gap: 6rem;
             min-height: calc(100vh - var(--nav-height));
-            align-items: center;
+            align-items: stretch;
         }
         
         /* Left side - content */
         .contact-hero__left {
             padding-right: 2rem;
+            display: flex;
+            align-items: center;
         }
         
         /* Right side - form with gradient */
@@ -50,6 +52,8 @@
             justify-content: center;
             padding: 4rem;
             background: var(--gradient-spectrum-90);
+            min-height: calc(100vh - var(--nav-height));
+            align-self: stretch;
         }
         
         /* Extend gradient to viewport edge */
@@ -60,7 +64,7 @@
             right: -50vw;
             bottom: 0;
             width: 50vw;
-            background: var(--gradient-spectrum-90);
+            background: #FFE6EC; /* Solid color matching the end of gradient-spectrum-90 */
             z-index: -1;
         }
         
