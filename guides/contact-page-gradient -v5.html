@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Page Gradient</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: 
+                /* Top half: smooth gradient */
+                linear-gradient(to right, 
+                    #7fffff 0%, 
+                    #7fffc3 16.66%, 
+                    #c3ff7f 33.33%, 
+                    #ffff7f 50%, 
+                    #ffc37f 66.66%, 
+                    #ff7fc3 83.33%, 
+                    #ff7fa1 100%
+                ) 0 0 / 100% 50% no-repeat,
+                
+                /* Bottom half: 7 equal color bars */
+                linear-gradient(to right,
+                    #00ffff 0% 14.3%,
+                    #00ff88 14.3% 28.6%,
+                    #88ff00 28.6% 42.9%,
+                    #ffff00 42.9% 57.2%,
+                    #ff8800 57.2% 71.5%,
+                    #ff0088 71.5% 85.8%,
+                    #ff0044 85.8% 100%
+                ) 0 50% / 100% 50% no-repeat;
+        }
+
+        /* Simple content to demonstrate the effect */
+        .content {
+            padding: 5rem;
+            max-width: 60rem;
+            margin: 10rem auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1.2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            font-family: system-ui, sans-serif;
+            font-size: 1.6rem;
+            color: #212529;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Contact Us</h1>
+        <p>Your content, forms, and other elements would go here, sitting on top of the gradient background.</p>
+    </div>
+</body>
+</html>

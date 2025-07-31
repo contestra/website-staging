@@ -1,0 +1,248 @@
+/*
+ * talk.css - Styles specifically for the talk (contact) page
+ *
+ * This stylesheet defines the layout and appearance of the talk page. It uses
+ * existing design tokens defined in 00-variables.css and follows the same
+ * responsive breakpoints and modern CSS practices as the rest of the site.
+ * All selectors are wrapped in the `sections` layer so they cascade
+ * alongside other section styles without interfering with global defaults.
+ */
+
+@layer sections {
+    /* Talk section base */
+    .b-section[data-id="talk"] {
+        position: relative;
+        z-index: 1;
+        padding-block-start: calc(var(--nav-height) + var(--gap-7) + var(--gap-6));
+        padding-block-end: var(--gap-7);
+        background:
+            radial-gradient(
+                ellipse at 30% 50%,
+                rgba(255, 255, 255, 0.35) 0%,
+                rgba(255, 255, 255, 0.15) 30%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 70%
+            ),
+            var(--gradient-spectrum);
+        isolation: isolate;
+    }
+
+    .talk-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap-7);
+        align-items: start;
+    }
+    @media (width <= 1024px) {
+        .talk-grid {
+            gap: var(--gap-5);
+        }
+    }
+    @media (width <= 768px) {
+        .talk-grid {
+            grid-template-columns: 1fr;
+            gap: var(--gap-6);
+        }
+    }
+
+    .talk-content {
+        max-inline-size: 65rem;
+    }
+    @media (width <= 768px) {
+        .talk-content {
+            max-inline-size: none;
+            margin-inline: auto;
+            text-align: center;
+        }
+    }
+    .talk__title {
+        font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 6.4rem;
+        line-height: 1.05;
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        color: var(--color-text-primary);
+        margin-block-end: var(--gap-3);
+    }
+    @media (width <= 768px) {
+        .talk__title {
+            font-size: 4.8rem;
+        }
+    }
+    .talk__subtitle {
+        font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 2rem;
+        line-height: 1.4;
+        color: var(--color-text-primary);
+        opacity: 0.85;
+        margin-block-end: var(--gap-4);
+    }
+    @media (width <= 768px) {
+        .talk__subtitle {
+            font-size: 1.8rem;
+            margin-inline: auto;
+        }
+    }
+
+    .talk-features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-3);
+        margin-block-end: var(--gap-5);
+    }
+    .talk-features li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--gap-2);
+        color: var(--color-text-primary);
+        font-size: 1.6rem;
+        line-height: 1.4;
+    }
+    .talk-feature-icon {
+        inline-size: 2rem;
+        block-size: 2rem;
+        flex-shrink: 0;
+        /* Use the smallest gap value for consistent corner rounding */
+        border-radius: var(--gap-1);
+        background: var(--gradient-spectrum-90);
+    }
+
+    .talk-logos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--gap-3);
+        margin-block-start: var(--gap-5);
+        align-items: center;
+    }
+    .talk-logos img {
+        block-size: var(--logo-height);
+        inline-size: auto;
+        filter: grayscale(100%);
+        opacity: 0.8;
+        mix-blend-mode: multiply;
+    }
+    @media (width <= 576px) {
+        .talk-logos img {
+            block-size: 3rem;
+        }
+    }
+
+    .talk-form-card {
+        position: relative;
+        background: var(--gradient-spectrum-97-5);
+        border-radius: var(--gap-3);
+        padding: var(--gap-5);
+        padding-block-end: calc(var(--gap-5) + var(--gap-7));
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+    @media (width <= 768px) {
+        .talk-form-card {
+            margin-block-start: var(--gap-6);
+        }
+    }
+    .talk-form-title {
+        font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 3.2rem;
+        line-height: 1.3;
+        font-weight: 500;
+        color: var(--color-text-primary);
+        margin-block-end: var(--gap-4);
+    }
+
+    .talk-form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-4);
+    }
+    .talk-form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--gap-3);
+    }
+    .form-field {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .form-field.full-width {
+        flex-basis: 100%;
+    }
+    .form-field label {
+        font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: var(--color-text-meta);
+        margin-block-end: var(--gap-1);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        background: transparent;
+        font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 1.6rem;
+        color: var(--color-text-primary);
+        padding-block: var(--gap-1);
+        padding-inline: 0;
+        width: 100%;
+        outline: none;
+        transition: border-color var(--transition-base);
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+        border-bottom-color: var(--color-accent);
+    }
+    .form-field textarea {
+        resize: vertical;
+        /* Use a calculated height from existing spacing variables to avoid magic numbers */
+        min-block-size: calc(var(--gap-7) + var(--gap-4));
+    }
+    .form-field select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpolyline points='1 1 6 6 11 1' fill='none' stroke='%231A1E22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: 1.2rem 0.8rem;
+        padding-inline-end: var(--gap-3);
+    }
+    .form-agreement {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--gap-2);
+        font-size: 1.2rem;
+        color: var(--color-text-meta);
+        line-height: 1.4;
+    }
+    .form-agreement a {
+        color: var(--color-accent);
+        text-decoration: underline;
+        text-underline-offset: 0.2rem;
+    }
+    .form-agreement input[type="checkbox"] {
+        inline-size: 1.6rem;
+        block-size: 1.6rem;
+        accent-color: var(--color-accent);
+        margin-block-start: 0.3rem;
+    }
+    .form-button-row {
+        margin-block-start: var(--gap-3);
+        display: flex;
+    }
+    .form-button-row .btn {
+        white-space: nowrap;
+    }
+    .talk-card-bars {
+        position: absolute;
+        inset-inline: 0;
+        inset-block-end: 0;
+        block-size: var(--gap-7);
+        background: var(--gradient-spectrum-70);
+        border-radius: 0 0 var(--gap-3) var(--gap-3);
+    }
+}
