@@ -926,13 +926,13 @@
     .status-indicator {
         width: 10px;
         height: 10px;
-        background-color: #4ade80;
-        border-radius: 50%;
+        background-color: #2E8B67;
+        border-radius: 2px;
     }
     
     .status-text {
         font-family: 'Suisse Intl Mono', monospace;
-        color: #4ade80;
+        color: #2E8B67;
         font-size: 1.4rem;
     }
     
