@@ -305,7 +305,7 @@
         /* Email validation error messages */
         .email-error-message {
             font-size: 1.3rem;
-            color: #dc2626;
+            color: #B8256F;
             margin-top: 0.5rem;
             display: none;
         }
@@ -315,11 +315,13 @@
         }
         
         .form-input.input-error {
-            border-bottom-color: #dc2626;
+            border-bottom-color: #B8256F;
         }
         
-        .form-input.input-success {
-            border-bottom-color: #16a34a;
+        .form-input.input-success,
+        .form-textarea.input-success,
+        .form-select.input-success {
+            border-bottom-color: #2D8A2D;
         }
         
         
@@ -713,6 +715,9 @@
                 // Add has-value class when country is selected
                 if (opt.value) {
                     countrySelect.classList.add('has-value');
+                    // Add success state to country field
+                    countrySelect.classList.add('input-success');
+                    clickArea.style.borderBottomColor = '#2D8A2D';
                 }
             });
             optionsContainer.appendChild(optionDiv);
@@ -763,12 +768,12 @@
         
         // Add hover effect only when dropdown is closed
         clickArea.addEventListener('mouseenter', () => {
-            if (customDropdown.style.display === 'none') {
+            if (customDropdown.style.display === 'none' && !countrySelect.classList.contains('has-value')) {
                 clickArea.style.borderBottomColor = 'var(--color-accent)';
             }
         });
         clickArea.addEventListener('mouseleave', () => {
-            if (customDropdown.style.display === 'none') {
+            if (customDropdown.style.display === 'none' && !countrySelect.classList.contains('has-value')) {
                 clickArea.style.borderBottomColor = '#d1d5db';
             }
         });
@@ -784,7 +789,12 @@
                 clickArea.style.borderBottomColor = 'var(--color-accent)';
                 countryGroup.classList.add('focused');
             } else {
-                clickArea.style.borderBottomColor = '#d1d5db';
+                // Keep green if a country is selected
+                if (countrySelect.classList.contains('has-value')) {
+                    clickArea.style.borderBottomColor = '#2D8A2D';
+                } else {
+                    clickArea.style.borderBottomColor = '#d1d5db';
+                }
                 countryGroup.classList.remove('focused');
             }
         });
@@ -806,7 +816,12 @@
         document.addEventListener('click', (e) => {
             if (!countryGroup.contains(e.target)) {
                 customDropdown.style.display = 'none';
-                clickArea.style.borderBottomColor = '#d1d5db';
+                // Keep green if a country is selected
+                if (countrySelect.classList.contains('has-value')) {
+                    clickArea.style.borderBottomColor = '#2D8A2D';
+                } else {
+                    clickArea.style.borderBottomColor = '#d1d5db';
+                }
                 countryGroup.classList.remove('focused');
             }
         });
@@ -858,6 +873,22 @@
         
         // Add blur event to validate email as user types
         document.getElementById('email').addEventListener('blur', validateEmail);
+        
+        // Add blur event to all other form inputs to show success state
+        const formInputs = document.querySelectorAll('.form-input:not(#email), .form-textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim() !== '') {
+                    this.classList.remove('input-error');
+                    this.classList.add('input-success');
+                } else if (this.hasAttribute('required')) {
+                    this.classList.remove('input-success');
+                    this.classList.add('input-error');
+                } else {
+                    this.classList.remove('input-error', 'input-success');
+                }
+            });
+        });
         
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
