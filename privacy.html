@@ -279,19 +279,34 @@
         .main-navigation {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             width: 100%;
         }
         
+        /* Group pricing and CTA together on the right */
         .main-menu-wrap {
-            margin-left: auto;
-        }
-        
-        .main-menu {
-            margin-right: 3rem;
+            margin-left: 0;
+            order: 2;
         }
         
         .header__options {
             margin-left: 0;
+            order: 3;
+        }
+        
+        .site-logo {
+            order: 1;
+        }
+        
+        /* Create a right-side container for menu and CTA */
+        .main-navigation::after {
+            content: '';
+            flex: 1;
+            order: 1.5;
+        }
+        
+        .main-menu {
+            margin-right: 2rem;
         }
     </style>
 </head>
