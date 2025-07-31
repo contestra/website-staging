@@ -60,39 +60,9 @@
             align-items: center;
             justify-content: center;
             padding: 6rem 4rem;
-            background: #f8f0f4;
+            background: var(--gradient-spectrum-90); /* 90% white mix for subtle gradient */
             position: relative;
             overflow: hidden;
-        }
-        
-        /* Gradient overlays for pink-purple effect */
-        .contact-hero__form::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(255, 192, 203, 0.3) 0%,    /* pink */
-                rgba(255, 182, 193, 0.2) 25%,   
-                rgba(221, 160, 221, 0.2) 50%,   /* plum */
-                rgba(186, 85, 211, 0.2) 100%    /* purple */
-            );
-            pointer-events: none;
-        }
-        
-        .contact-hero__form::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 50%;
-            background: linear-gradient(
-                to top,
-                rgba(186, 85, 211, 0.15) 0%,
-                transparent 100%
-            );
-            pointer-events: none;
         }
         
         .contact-hero__title {
@@ -130,7 +100,7 @@
             flex-shrink: 0;
             inline-size: 2rem;
             block-size: 2rem;
-            background: #9333ea;
+            background: var(--color-accent);
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -219,7 +189,7 @@
         .form-select:focus,
         .form-textarea:focus {
             outline: none;
-            border-bottom-color: #9333ea;
+            border-bottom-color: var(--color-accent);
         }
         
         .form-textarea {
@@ -278,7 +248,7 @@
         }
         
         .form-privacy a {
-            color: #9333ea;
+            color: var(--color-accent);
             text-decoration: underline;
             font-weight: 600;
         }
