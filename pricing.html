@@ -59,6 +59,10 @@
             justify-content: center;
             gap: 16px;
             margin-bottom: 48px;
+            position: relative;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .toggle-label {
@@ -74,6 +78,7 @@
         .toggle-container {
             position: relative;
             display: inline-block;
+            margin: 0 16px;
         }
         
         .toggle-switch {
@@ -113,12 +118,14 @@
             border-radius: 100px;
             font-size: 14px;
             font-weight: 500;
-            display: none;
-            margin-left: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            position: absolute;
+            right: 0;
         }
         
         .toggle-section.show-annual .savings-tag {
-            display: inline-block;
+            opacity: 1;
         }
         
         /* Pricing Cards Grid */
@@ -141,29 +148,27 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
         
+        .pricing-card:first-child {
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
         .pricing-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 24px rgba(0,0,0,0.08);
         }
         
         .pricing-card.popular {
-            border-color: #000;
             border-width: 2px;
-        }
-        
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #000;
-            color: white;
-            padding: 4px 16px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            border-image: linear-gradient(to right, 
+                #00ffff 0%,       /* Pure cyan */
+                #00ff7f 20%,      /* Pure green-cyan */
+                #7fff00 35%,      /* Pure green */
+                #ffff00 50%,      /* Pure yellow */
+                #ff7f00 65%,      /* Pure orange */
+                #ff007f 80%,      /* Pure pink */
+                #ff0040 100%      /* Pure deep pink */
+            ) 1;
         }
         
         .plan-name {
@@ -188,7 +193,6 @@
             display: flex;
             align-items: baseline;
             gap: 4px;
-            margin-bottom: 4px;
         }
         
         .price-currency {
@@ -208,6 +212,7 @@
             font-size: 16px;
             color: #666;
             font-weight: 400;
+            margin-left: 8px;
         }
         
         .price-detail {
@@ -377,7 +382,6 @@
 
             <!-- Toggle -->
             <div class="toggle-section" id="toggle-section">
-                <span class="toggle-label active" id="monthly-label">Monthly</span>
                 <div class="toggle-container" id="toggle-container">
                     <div class="toggle-switch" id="billing-toggle">
                         <div class="toggle-knob"></div>
@@ -390,8 +394,7 @@
             <!-- Pricing Cards -->
             <div class="pricing-grid">
                 <!-- Pro Plan -->
-                <div class="pricing-card popular">
-                    <span class="popular-badge">POPULAR</span>
+                <div class="pricing-card">
                     <h3 class="plan-name">Pro</h3>
                     <p class="plan-description">For professionals and small teams</p>
                     
@@ -399,17 +402,17 @@
                         <div class="monthly-price">
                             <div class="price-amount">
                                 <span class="price-currency">$</span>
-                                <span class="price-number">30</span>
+                                <span class="price-number">4990</span>
+                                <span class="price-period">/month</span>
                             </div>
-                            <div class="price-period">/month</div>
                         </div>
                         <div class="annual-price">
                             <div class="price-amount">
                                 <span class="price-currency">$</span>
-                                <span class="price-number">25</span>
+                                <span class="price-number">3992</span>
+                                <span class="price-period">/month</span>
                             </div>
-                            <div class="price-period">/month</div>
-                            <div class="price-detail">$300 billed annually</div>
+                            <div class="price-detail">$47,904 billed annually</div>
                         </div>
                     </div>
                     
@@ -476,7 +479,7 @@
                 </div>
 
                 <!-- Business Plan -->
-                <div class="pricing-card">
+                <div class="pricing-card popular">
                     <h3 class="plan-name">Business</h3>
                     <p class="plan-description">For growing companies</p>
                     
@@ -484,17 +487,17 @@
                         <div class="monthly-price">
                             <div class="price-amount">
                                 <span class="price-currency">$</span>
-                                <span class="price-number">60</span>
+                                <span class="price-number">7990</span>
+                                <span class="price-period">/month</span>
                             </div>
-                            <div class="price-period">/month</div>
                         </div>
                         <div class="annual-price">
                             <div class="price-amount">
                                 <span class="price-currency">$</span>
-                                <span class="price-number">50</span>
+                                <span class="price-number">6392</span>
+                                <span class="price-period">/month</span>
                             </div>
-                            <div class="price-period">/month</div>
-                            <div class="price-detail">$600 billed annually</div>
+                            <div class="price-detail">$76,704 billed annually</div>
                         </div>
                     </div>
                     
@@ -553,17 +556,17 @@
                         <div class="monthly-price">
                             <div class="price-amount">
                                 <span class="price-currency">$</span>
-                                <span class="price-number">99</span>
+                                <span class="price-number">19990</span>
+                                <span class="price-period">/month</span>
                             </div>
-                            <div class="price-period">/month</div>
                         </div>
                         <div class="annual-price">
                             <div class="price-amount">
                                 <span class="price-currency">$</span>
-                                <span class="price-number">79</span>
+                                <span class="price-number">15992</span>
+                                <span class="price-period">/month</span>
                             </div>
-                            <div class="price-period">/month</div>
-                            <div class="price-detail">$948 billed annually</div>
+                            <div class="price-detail">$191,904 billed annually</div>
                         </div>
                     </div>
                     
@@ -647,7 +650,6 @@
         // Annual/Monthly toggle functionality
         const toggleSwitch = document.getElementById('billing-toggle');
         const toggleSection = document.getElementById('toggle-section');
-        const monthlyLabel = document.getElementById('monthly-label');
         const annualLabel = document.getElementById('annual-label');
         const pricingCards = document.querySelectorAll('.pricing-card');
 
@@ -657,13 +659,11 @@
             if (this.classList.contains('active')) {
                 // Show annual
                 toggleSection.classList.add('show-annual');
-                monthlyLabel.classList.remove('active');
                 annualLabel.classList.add('active');
                 pricingCards.forEach(card => card.classList.add('show-annual'));
             } else {
                 // Show monthly
                 toggleSection.classList.remove('show-annual');
-                monthlyLabel.classList.add('active');
                 annualLabel.classList.remove('active');
                 pricingCards.forEach(card => card.classList.remove('show-annual'));
             }
