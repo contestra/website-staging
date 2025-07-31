@@ -28,18 +28,27 @@
         .main-navigation {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             width: 100%;
         }
 
         /* Keep logo on the left */
         .site-logo {
             margin-right: auto;
+            margin-inline-end: auto !important;
         }
 
         /* Group pricing and CTA together on the right */
         .main-menu-wrap {
+            display: flex;
+            align-items: center;
             margin-right: 2rem;
+            margin-left: auto;
+            justify-content: flex-end;
+            flex: none;
+        }
+
+        .main-menu {
+            justify-content: flex-end;
         }
 
         .header__options {

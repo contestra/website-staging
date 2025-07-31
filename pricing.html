@@ -58,7 +58,7 @@
         }
         
         .pricing-wrapper {
-            padding: 120px 0 80px;
+            padding: 160px 0 80px;
             min-height: calc(100vh - 200px);
         }
         
@@ -94,10 +94,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
             margin-bottom: 48px;
             position: relative;
-            width: 300px;
+            width: fit-content;
             margin-left: auto;
             margin-right: auto;
         }
@@ -115,7 +115,7 @@
         .toggle-container {
             position: relative;
             display: inline-block;
-            margin: 0 4px;
+            margin: 0;
         }
         
         .toggle-switch {
@@ -157,7 +157,7 @@
             font-weight: 500;
             opacity: 0;
             transition: opacity 0.3s;
-            margin-left: 16px;
+            margin-left: 0;
         }
         
         .toggle-section.show-annual .savings-tag {
@@ -356,7 +356,7 @@
         
         /* FAQ Section - Lovable.dev Style */
         .faq-section {
-            padding: 80px 0;
+            padding: 40px 0 80px;
             background: #fcfbf8;
         }
         
@@ -428,22 +428,25 @@
             color: #333;
         }
         
-        /* Simple chevron indicator */
+        /* Simple chevron indicator - perfectly symmetrical */
         .faq-question::after {
             content: '';
             position: absolute;
             right: 0;
             top: 50%;
-            transform: translateY(-50%) rotate(45deg);
-            width: 10px;
-            height: 10px;
-            border-right: 2px solid #666;
-            border-bottom: 2px solid #666;
+            width: 14px;
+            height: 8px;
+            transform: translateY(-50%);
             transition: transform 0.2s ease;
+            /* SVG chevron pointing down */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8"><path d="M1 1 L7 7 L13 1" stroke="%23666" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
         
         .faq-item.active .faq-question::after {
-            transform: translateY(-50%) rotate(-135deg);
+            transform: translateY(-50%) rotate(180deg);
         }
         
         .faq-answer {
@@ -490,7 +493,17 @@
             }
             
             .toggle-section {
-                flex-direction: column;
+                gap: 8px;
+                padding: 0 16px;
+            }
+            
+            .toggle-label {
+                font-size: 14px;
+            }
+            
+            .savings-tag {
+                font-size: 12px;
+                padding: 2px 8px;
             }
             
             .faq-grid {
@@ -544,6 +557,7 @@
 
             <!-- Toggle -->
             <div class="toggle-section" id="toggle-section">
+                <span class="toggle-label" id="monthly-label">Monthly</span>
                 <div class="toggle-container" id="toggle-container">
                     <div class="toggle-switch" id="billing-toggle">
                         <div class="toggle-knob"></div>
@@ -794,7 +808,6 @@
         <div class="faq-container">
             <div class="faq-header">
                 <h2 class="faq-title">Frequently asked questions</h2>
-                <p class="faq-subtitle">Everything you need to know about Contestra</p>
             </div>
             
             <div class="faq-list">
@@ -849,8 +862,12 @@
         // Annual/Monthly toggle functionality
         const toggleSwitch = document.getElementById('billing-toggle');
         const toggleSection = document.getElementById('toggle-section');
+        const monthlyLabel = document.getElementById('monthly-label');
         const annualLabel = document.getElementById('annual-label');
         const pricingCards = document.querySelectorAll('.pricing-card');
+
+        // Set initial state (monthly active)
+        monthlyLabel.classList.add('active');
 
         toggleSwitch.addEventListener('click', function() {
             this.classList.toggle('active');
@@ -859,11 +876,13 @@
                 // Show annual
                 toggleSection.classList.add('show-annual');
                 annualLabel.classList.add('active');
+                monthlyLabel.classList.remove('active');
                 pricingCards.forEach(card => card.classList.add('show-annual'));
             } else {
                 // Show monthly
                 toggleSection.classList.remove('show-annual');
                 annualLabel.classList.remove('active');
+                monthlyLabel.classList.add('active');
                 pricingCards.forEach(card => card.classList.remove('show-annual'));
             }
         });
