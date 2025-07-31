@@ -18,58 +18,50 @@
     
     <!-- Contact Page Specific Styles -->
     <style>
-        /* Contact page layout */
+        /* Two-column layout */
         .contact-hero {
             min-height: 100vh;
             padding-top: var(--nav-height);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
-            position: relative;
-            overflow: hidden;
         }
         
-        /* Gradient background - positioned absolutely */
-        .gradient-background {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            right: 0;
-            background: var(--gradient-spectrum-90);
-            z-index: 0;
-        }
-        
-        /* Main container with standard padding */
-        .contact-hero__container {
+        /* Container with standard padding */
+        .contact-hero__wrapper {
             max-width: var(--container-max);
             margin: 0 auto;
             padding: 0 var(--container-padding);
-            min-height: calc(100vh - var(--nav-height));
-            display: flex;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Grid wrapper for content */
-        .contact-hero__grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 6rem;
-            width: 100%;
+            min-height: calc(100vh - var(--nav-height));
             align-items: center;
         }
         
-        /* Left content column */
+        /* Left side - content */
         .contact-hero__left {
-            padding-right: 3rem;
+            padding-right: 2rem;
         }
         
-        /* Right form column */
+        /* Right side - form with gradient */
         .contact-hero__right {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem 0;
+            padding: 4rem;
+            background: var(--gradient-spectrum-90);
+        }
+        
+        /* Extend gradient to viewport edge */
+        .contact-hero__right::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50vw;
+            bottom: 0;
+            width: 50vw;
+            background: var(--gradient-spectrum-90);
+            z-index: -1;
         }
         
         .contact-hero__title {
@@ -427,14 +419,9 @@
 
     <!-- ===== TWO-COLUMN HERO SECTION ===== -->
     <section class="contact-hero">
-        <!-- Gradient background -->
-        <div class="gradient-background"></div>
-        
-        <!-- Content container -->
-        <div class="contact-hero__container">
-            <div class="contact-hero__grid">
-                <!-- Left column -->
-                <div class="contact-hero__left">
+        <div class="contact-hero__wrapper">
+            <!-- Left column -->
+            <div class="contact-hero__left">
                     <h1 class="contact-hero__title">Let's Talk Brand<br>Representation in AI</h1>
                     <p class="contact-hero__subtitle">
                         Control your brand's AI presence across every platform where customers discover health & longevity solutions.
@@ -475,6 +462,7 @@
                             <img src="images/logos/chatgpt-logo.svg" alt="Partner" class="partner-logo">
                         </div>
                     </div>
+                </div>
                 
                 <!-- Right column -->
                 <div class="contact-hero__right">
@@ -580,7 +568,6 @@
                     </form>
                     </div>
                 </div>
-            </div>
         </div>
     </section>
 
