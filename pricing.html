@@ -94,11 +94,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
             margin-bottom: 48px;
             position: relative;
             width: 100%;
-            text-align: center;
+        }
+        
+        /* Inner wrapper for centering just the toggle controls */
+        .toggle-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
         }
         
         .toggle-label {
@@ -162,7 +168,10 @@
             font-weight: 500;
             opacity: 0;
             transition: opacity 0.3s;
-            margin-left: 0;
+            position: absolute;
+            left: 100%;
+            margin-left: 12px;
+            white-space: nowrap;
         }
         
         .toggle-section.show-annual .savings-tag {
@@ -172,10 +181,10 @@
         /* Pricing Cards Grid */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(320px, 380px));
-            gap: 24px;
+            grid-template-columns: repeat(3, minmax(280px, 1fr));
+            gap: 32px;
             margin-bottom: 64px;
-            max-width: 1200px;
+            max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
             justify-content: center;
@@ -189,7 +198,6 @@
             position: relative;
             transition: transform 0.2s, box-shadow 0.2s;
             width: 100%;
-            max-width: 380px;
             margin: 0 auto;
         }
         
@@ -487,33 +495,33 @@
         /* Widescreen displays */
         @media (min-width: 1600px) {
             .pricing-grid {
-                gap: 32px;
-                max-width: 1280px;
+                gap: 40px;
+                max-width: 1100px;
             }
         }
         
-        @media (max-width: 1400px) {
+        /* Ensure 3 columns stay on desktop */
+        @media (min-width: 1280px) {
+            .pricing-container {
+                padding: 0 48px;
+            }
+        }
+        
+        @media (max-width: 1279px) {
             .pricing-grid {
-                max-width: 1050px;
-                gap: 20px;
-                grid-template-columns: repeat(3, minmax(300px, 340px));
+                max-width: 900px;
+                gap: 24px;
             }
             
             .pricing-card {
                 padding: 28px 20px;
-                max-width: 340px;
             }
         }
         
-        @media (max-width: 1300px) {
+        @media (max-width: 1100px) {
             .pricing-grid {
-                max-width: 960px;
-                gap: 16px;
-                grid-template-columns: repeat(3, minmax(280px, 310px));
-            }
-            
-            .pricing-card {
-                max-width: 310px;
+                max-width: 800px;
+                gap: 20px;
             }
             
             .price-number {
@@ -549,8 +557,11 @@
             }
             
             .toggle-section {
-                gap: 8px;
                 padding: 0 16px;
+            }
+            
+            .toggle-controls {
+                gap: 8px;
             }
             
             .toggle-label {
@@ -561,6 +572,9 @@
             .savings-tag {
                 font-size: 12px;
                 padding: 2px 8px;
+                position: absolute;
+                left: 100%;
+                margin-left: 8px;
             }
             
             .faq-grid {
@@ -614,21 +628,23 @@
 
             <!-- Toggle -->
             <div class="toggle-section" id="toggle-section">
-                <span class="toggle-label" id="monthly-label">Monthly</span>
-                <div class="toggle-container" id="toggle-container">
-                    <div class="toggle-switch" id="billing-toggle">
-                        <div class="toggle-knob"></div>
+                <div class="toggle-controls">
+                    <span class="toggle-label" id="monthly-label">Monthly</span>
+                    <div class="toggle-container" id="toggle-container">
+                        <div class="toggle-switch" id="billing-toggle">
+                            <div class="toggle-knob"></div>
+                        </div>
                     </div>
+                    <span class="toggle-label" id="annual-label">Annual</span>
+                    <span class="savings-tag">Save 20%</span>
                 </div>
-                <span class="toggle-label" id="annual-label">Annual</span>
-                <span class="savings-tag">Save 20%</span>
             </div>
 
             <!-- Pricing Cards -->
             <div class="pricing-grid">
-                <!-- Pro Plan -->
+                <!-- Essential Plan -->
                 <div class="pricing-card">
-                    <h3 class="plan-name">Pro</h3>
+                    <h3 class="plan-name">Essential</h3>
                     <p class="plan-description">For professionals and small teams</p>
                     
                     <div class="price-display">
@@ -743,7 +759,7 @@
                                     <path d="M13.5 4.5L6 12L2.5 8.5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </span>
-                            <span class="feature-text">Everything in Pro</span>
+                            <span class="feature-text">Everything in Essential</span>
                         </li>
                         <li class="feature-item">
                             <span class="feature-icon">
