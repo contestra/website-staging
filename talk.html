@@ -302,6 +302,26 @@
             font-weight: 600;
         }
         
+        /* Email validation error messages */
+        .email-error-message {
+            font-size: 1.3rem;
+            color: #dc2626;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .email-error-message:not(:empty) {
+            display: block;
+        }
+        
+        .form-input.input-error {
+            border-bottom-color: #dc2626;
+        }
+        
+        .form-input.input-success {
+            border-bottom-color: #16a34a;
+        }
+        
         
         /* Trusted partners section */
         .trusted-partners {
@@ -519,6 +539,7 @@
                             <div class="form-group full-width">
                                 <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
                                 <label for="email" class="form-label">Work email*</label>
+                                <div class="email-error-message" id="email-error-message"></div>
                             </div>
                             
                             <!-- Phone and Company Row -->
@@ -795,8 +816,57 @@
             e.stopPropagation();
         });
         
+        // Personal email domains list
+        const personalEmailDomains = [
+            'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'aol.com',
+            'icloud.com', 'mail.com', 'protonmail.com', 'zoho.com', 'yandex.com',
+            'gmx.com', 'live.com', 'msn.com', 'googlemail.com', 'me.com'
+        ];
+        
+        // Email validation function
+        function validateEmail() {
+            const emailInput = document.getElementById('email');
+            const errorMessage = document.getElementById('email-error-message');
+            const email = emailInput.value.trim();
+            const emailDomain = email.substring(email.lastIndexOf('@') + 1).toLowerCase();
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            emailInput.classList.remove('input-error', 'input-success');
+            
+            if (email === '') {
+                emailInput.classList.add('input-error');
+                errorMessage.textContent = 'Please complete this required field.';
+                return false;
+            }
+            
+            if (!emailRegex.test(email)) {
+                emailInput.classList.add('input-error');
+                errorMessage.textContent = 'Please enter a valid email format.';
+                return false;
+            }
+            
+            if (personalEmailDomains.includes(emailDomain)) {
+                emailInput.classList.add('input-error');
+                errorMessage.textContent = 'Please use a business email address.';
+                return false;
+            }
+            
+            emailInput.classList.add('input-success');
+            errorMessage.textContent = '';
+            return true;
+        }
+        
+        // Add blur event to validate email as user types
+        document.getElementById('email').addEventListener('blur', validateEmail);
+        
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Validate email before submission
+            if (!validateEmail()) {
+                document.getElementById('email').focus();
+                return;
+            }
             
             // Collect form data
             const formData = new FormData(this);
@@ -811,6 +881,10 @@
             // Reset form
             this.reset();
             updateDisplayValue();
+            
+            // Clear email validation states
+            document.getElementById('email').classList.remove('input-error', 'input-success');
+            document.getElementById('email-error-message').textContent = '';
         });
     </script>
 </body>
