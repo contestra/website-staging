@@ -145,8 +145,7 @@
             font-weight: 500;
             opacity: 0;
             transition: opacity 0.3s;
-            position: absolute;
-            right: 0;
+            margin-left: 16px;
         }
         
         .toggle-section.show-annual .savings-tag {
@@ -197,8 +196,7 @@
         }
         
         .pricing-card:last-child {
-            border-width: 2px;
-            border-image: linear-gradient(to right,
+            background: linear-gradient(to right,
                 #E6FFFF 0%,       /* Cyan with 90% white mix */
                 #E6FFF3 20%,      /* Green-cyan with 90% white mix */
                 #F3FFE6 35%,      /* Green with 90% white mix */
@@ -206,7 +204,8 @@
                 #FFF3E6 65%,      /* Orange with 90% white mix */
                 #FFE6F3 80%,      /* Pink with 90% white mix */
                 #FFE6EC 100%      /* Deep pink with 90% white mix */
-            ) 1;
+            );
+            border: 1px solid #e5e5e5;
         }
         
         .plan-name {
