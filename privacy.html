@@ -77,6 +77,11 @@
             border-left: 3px solid transparent;
         }
         
+        .side-nav li:not(.current-menu-item) a {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
         .side-nav a:hover {
             background: var(--gradient-spectrum-97-5);
             border-left-color: var(--color-accent);
@@ -347,9 +352,8 @@
                                     <li>When you subscribe to our distribution list(s) / newsletter(s)</li>
                                 </ol>
                             </li>
-                            <li>When you make use of the trust centers, documentation and status page (<a href="http://trust.contestra.com/" target="_blank" rel="noreferrer noopener">trust.contestra.com</a>, <a href="http://status.contestra.com/" target="_blank" rel="noreferrer noopener">status.contestra.com</a>, and/or <a href="https://docs.contestra.com/" target="_blank" rel="noreferrer noopener">https://docs.contestra.com/</a>) ("<strong>Trust Center</strong>")</li>
                             <li>When you download, access and/or make use of, or interact with our application programming interfaces, or associated software, websites, tools, developer services, data, UI and design or documentation (collectively, the "<strong>Services</strong>")
-                                <ol>
+                                <ol style="list-style-type:lower-alpha">
                                     <li>When you download and make use of the Services</li>
                                     <li>When you contact us</li>
                                 </ol>
