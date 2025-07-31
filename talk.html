@@ -25,6 +25,7 @@
             padding-block-start: var(--nav-height);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
             margin-bottom: -1px; /* Fix gradient gap */
+            overflow-x: hidden; /* Prevent horizontal scroll from extended backgrounds */
         }
         
         .contact-hero__wrapper {
@@ -43,6 +44,29 @@
             background: var(--gradient-spectrum-90);
             position: relative;
             overflow: hidden;
+        }
+        
+        /* Extend backgrounds beyond container */
+        .contact-hero__left::before {
+            content: '';
+            position: absolute;
+            left: -100vw;
+            top: 0;
+            bottom: 0;
+            width: 100vw;
+            background: white;
+            z-index: -1;
+        }
+        
+        .contact-hero__right::after {
+            content: '';
+            position: absolute;
+            right: -100vw;
+            top: 0;
+            bottom: 0;
+            width: 100vw;
+            background: var(--gradient-spectrum-90);
+            z-index: -1;
         }
         
         /* Extend backgrounds to viewport edges */
@@ -68,9 +92,10 @@
         .contact-hero__form {
             display: flex;
             align-items: center;
+            justify-content: center;
             min-height: calc(100vh - var(--nav-height));
             padding-block: 6rem;
-            padding-inline-start: 4rem;
+            padding-inline: 4rem;
         }
         
         .contact-hero__title {
