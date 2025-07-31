@@ -172,12 +172,13 @@
         /* Pricing Cards Grid */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(3, minmax(320px, 380px));
+            gap: 24px;
             margin-bottom: 64px;
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            justify-content: center;
         }
         
         .pricing-card {
@@ -188,6 +189,7 @@
             position: relative;
             transition: transform 0.2s, box-shadow 0.2s;
             width: 100%;
+            max-width: 380px;
             margin: 0 auto;
         }
         
@@ -482,20 +484,36 @@
         }
         
         /* Responsive */
+        /* Widescreen displays */
+        @media (min-width: 1600px) {
+            .pricing-grid {
+                gap: 32px;
+                max-width: 1280px;
+            }
+        }
+        
         @media (max-width: 1400px) {
             .pricing-grid {
                 max-width: 1050px;
-                gap: 12px;
+                gap: 20px;
+                grid-template-columns: repeat(3, minmax(300px, 340px));
             }
             
             .pricing-card {
                 padding: 28px 20px;
+                max-width: 340px;
             }
         }
         
         @media (max-width: 1300px) {
             .pricing-grid {
                 max-width: 960px;
+                gap: 16px;
+                grid-template-columns: repeat(3, minmax(280px, 310px));
+            }
+            
+            .pricing-card {
+                max-width: 310px;
             }
             
             .price-number {
