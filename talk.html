@@ -327,50 +327,80 @@
         
         /* Mobile adjustments */
         @media (width <= 768px) {
+            .contact-hero {
+                overflow-x: visible; /* Allow gradient to extend on mobile */
+            }
+            
             .contact-hero__wrapper {
                 grid-template-columns: 1fr;
-                width: 100%;
-                margin-left: 0;
+                gap: 4rem;
+                padding: 0 var(--container-padding-mobile); /* Use mobile padding: 15px */
             }
             
-            .contact-hero__left,
+            .contact-hero__left {
+                padding-right: 0;
+                text-align: center;
+            }
+            
             .contact-hero__right {
-                padding: 0 2rem;
-            }
-            
-            .contact-hero__content,
-            .contact-hero__form {
-                max-width: none;
-                padding: 4rem 0;
+                margin-left: calc(-1 * var(--container-padding-mobile));
+                margin-right: calc(-1 * var(--container-padding-mobile));
+                padding: 3rem var(--container-padding-mobile);
             }
             
             .contact-hero__title {
-                font-size: 3rem;
+                font-size: 3.5rem;
+                text-align: center;
             }
             
             .contact-hero__subtitle {
                 font-size: 1.8rem;
+                text-align: center;
+            }
+            
+            .value-props {
+                align-items: center;
+            }
+            
+            .value-prop {
+                max-width: 35rem;
             }
             
             .value-prop__text {
                 font-size: 1.6rem;
             }
             
+            .trusted-partners {
+                text-align: center;
+            }
+            
+            .partner-logos {
+                justify-content: center;
+            }
+            
             .form-container {
-                padding: 2rem 2.5rem;
+                padding: 2.5rem 2rem;
+                border-radius: 8px;
+                max-width: 100%;
+            }
+            
+            .form-title {
+                font-size: 2.4rem;
             }
             
             .form-row {
                 grid-template-columns: 1fr;
             }
             
-            .customer-logos-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem;
+            .form-footer {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
             }
             
-            .customer-logo {
-                max-inline-size: 10rem;
+            .form-privacy {
+                white-space: normal;
+                margin-bottom: 2rem;
             }
         }
     </style>
