@@ -21,10 +21,15 @@
         /* Two-column layout */
         .contact-hero {
             min-height: 100vh;
-            display: flex;
-            align-items: stretch;
             position: relative;
             padding-block-start: var(--nav-height);
+        }
+        
+        .contact-hero .container {
+            max-width: var(--container-width);
+            margin-inline: auto;
+            padding-inline: var(--container-padding);
+            height: 100%;
         }
         
         .contact-hero__grid {
@@ -32,6 +37,7 @@
             grid-template-columns: 1fr 1fr;
             width: 100%;
             min-height: calc(100vh - var(--nav-height));
+            margin-inline: calc(-1 * var(--container-padding));
         }
         
         /* Left column - content */
@@ -435,10 +441,11 @@
 
     <!-- ===== TWO-COLUMN HERO SECTION ===== -->
     <section class="contact-hero">
-        <div class="contact-hero__grid">
-            <!-- Left Column - Content -->
-            <div class="contact-hero__content">
-                <div class="contact-hero__content-inner">
+        <div class="container">
+            <div class="contact-hero__grid">
+                <!-- Left Column - Content -->
+                <div class="contact-hero__content">
+                    <div class="contact-hero__content-inner">
                     <h1 class="contact-hero__title">Building the Future<br>of Health & Longevity AI</h1>
                     <p class="contact-hero__subtitle">
                         Control your brand's AI presence across every platform where customers discover health & longevity solutions.
@@ -561,6 +568,7 @@
                     </form>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
