@@ -926,13 +926,13 @@
     .status-indicator {
         width: 10px;
         height: 10px;
-        background-color: #2E8B67;
+        background-color: #4ade80;
         border-radius: 2px;
     }
     
     .status-text {
         font-family: 'Suisse Intl Mono', monospace;
-        color: #2E8B67;
+        color: #4ade80;
         font-size: 1.4rem;
     }
     
@@ -963,14 +963,25 @@
     /* Mobile layout */
     @media (width <= 768px) {
         footer .container {
+            flex-direction: column;
             justify-content: center;
             text-align: center;
             gap: 2.5rem;
         }
         
-        .footer-copyright,
-        .footer-system-status,
+        .footer-copyright {
+            order: 3; /* Move to last position */
+            width: 100%;
+        }
+        
+        .footer-system-status {
+            order: 1; /* First position */
+            width: 100%;
+            justify-content: center;
+        }
+        
         .footer-socials {
+            order: 2; /* Second position */
             width: 100%;
             justify-content: center;
         }
