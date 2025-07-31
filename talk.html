@@ -181,14 +181,14 @@
             transform: translateY(-1.5rem) scale(0.75);
         }
         
-        /* Special handling for select - always show label above */
+        /* Special handling for select - always show label as placeholder */
         .form-group:has(.form-select) .form-label {
-            transform: translateY(-2rem) scale(0.85);
+            transform: none;
             color: #6b7280;
             opacity: 1;
-            background: #FEFEFE;
-            padding-inline: 0.2rem;
-            left: -0.2rem;
+            font-size: 1.6rem;
+            top: 0.4rem;
+            left: 0;
         }
         
         .form-select:focus + .form-label {
@@ -215,9 +215,9 @@
             width: 100%;
         }
         
-        /* Add top padding for select to accommodate label */
+        /* Remove extra top padding for select */
         .form-select {
-            padding-top: 1rem;
+            padding-top: 0.4rem;
         }
         
         .form-input:focus,
@@ -329,6 +329,7 @@
         @media (width <= 768px) {
             .contact-hero {
                 overflow-x: visible; /* Allow gradient to extend on mobile */
+                padding-top: calc(var(--nav-height) + 4rem); /* Add more space from nav */
             }
             
             .contact-hero__wrapper {
@@ -339,7 +340,6 @@
             
             .contact-hero__left {
                 padding-right: 0;
-                text-align: center;
             }
             
             .contact-hero__right {
@@ -350,20 +350,20 @@
             
             .contact-hero__title {
                 font-size: 3.5rem;
-                text-align: center;
+                text-align: left;
             }
             
             .contact-hero__subtitle {
                 font-size: 1.8rem;
-                text-align: center;
+                text-align: left;
             }
             
             .value-props {
-                align-items: center;
+                align-items: flex-start;
             }
             
             .value-prop {
-                max-width: 35rem;
+                max-width: none;
             }
             
             .value-prop__text {
@@ -371,11 +371,11 @@
             }
             
             .trusted-partners {
-                text-align: center;
+                text-align: left;
             }
             
             .partner-logos {
-                justify-content: center;
+                justify-content: flex-start;
             }
             
             .form-container {
