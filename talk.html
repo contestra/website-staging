@@ -25,15 +25,22 @@
             padding-block-start: var(--nav-height);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
             margin-bottom: -1px; /* Fix gradient gap with footer */
+            overflow: hidden;
         }
         
-        /* Full-width wrapper */
+        /* Container override to allow full-width backgrounds */
+        .contact-hero .container {
+            max-width: 100%;
+            padding: 0;
+        }
+        
+        /* Two-column grid wrapper */
         .contact-hero__wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
             min-height: calc(100vh - var(--nav-height));
+            margin-inline: calc(-50vw + 50%);
             width: 100vw;
-            margin-left: calc(-50vw + 50%);
         }
         
         /* Left column with white background */
@@ -42,7 +49,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding-right: 4rem;
+            padding-inline: 5rem;
         }
         
         /* Right column with gradient background */
@@ -51,16 +58,18 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            padding-left: 4rem;
+            padding-inline: 5rem;
         }
         
-        /* Constrain content width to match navigation */
+        /* Align content to create proper gutters on large screens */
         @media (min-width: 1540px) {
             .contact-hero__left {
-                padding-right: calc((100vw - 1440px) / 2 + 4rem);
+                padding-left: calc((100vw - 1440px) / 2 + 5rem);
+                justify-content: flex-end;
             }
             .contact-hero__right {
-                padding-left: calc((100vw - 1440px) / 2 + 4rem);
+                padding-right: calc((100vw - 1440px) / 2 + 5rem);
+                justify-content: flex-start;
             }
         }
         
@@ -68,18 +77,20 @@
         .contact-hero__content {
             padding-block: 6rem;
             width: 100%;
-            max-width: calc(720px - 4rem); /* Half container minus padding */
+            max-width: calc(720px - 10rem); /* Half container minus total padding */
         }
         
         .contact-hero__content-inner {
             max-width: 60rem;
         }
         
-        /* Form container centered in right column */
+        /* Form container */
         .contact-hero__form {
             padding-block: 6rem;
             width: 100%;
-            max-width: calc(720px - 4rem); /* Half container minus padding */
+            max-width: calc(720px - 10rem); /* Half container minus total padding */
+            display: flex;
+            justify-content: center;
         }
         
         .contact-hero__title {
@@ -437,7 +448,8 @@
 
     <!-- ===== TWO-COLUMN HERO SECTION ===== -->
     <section class="contact-hero">
-        <div class="contact-hero__wrapper">
+        <div class="container">
+            <div class="contact-hero__wrapper">
             <div class="contact-hero__left">
                 <div class="contact-hero__content">
                     <div class="contact-hero__content-inner">
@@ -589,6 +601,7 @@
                     </form>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </section>
