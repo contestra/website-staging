@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Contestra</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        /* Pricing Page Specific Styles */
+        .site-main {
+            padding-top: 80px; /* Account for fixed header */
+            min-height: 100vh;
+            background: #fcfbf8;
+        }
+        
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .pricing-header h1 {
+            font-size: 4.8rem;
+            font-weight: 500;
+            margin-bottom: 1.6rem;
+            color: var(--color-text-primary);
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .pricing-header p {
+            font-size: 1.8rem;
+            color: var(--color-text-meta);
+            font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Billing Toggle */
+        .billing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .billing-toggle label {
+            font-size: 1.6rem;
+            color: var(--color-text-meta);
+            cursor: pointer;
+            font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background: linear-gradient(135deg, #2D8A2D 0%, #236f23 100%);
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+        }
+        
+        /* Pricing Cards */
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .pricing-card.featured {
+            border-color: #2D8A2D;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2D8A2D;
+            color: white;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .plan-name {
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .plan-description {
+            color: var(--color-text-meta);
+            margin-bottom: 2.4rem;
+            font-size: 1.4rem;
+            line-height: 1.6;
+        }
+        
+        .plan-price {
+            font-size: 4.8rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-bottom: 0.8rem;
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .plan-price .currency {
+            font-size: 2.4rem;
+            vertical-align: super;
+            font-weight: 400;
+        }
+        
+        .plan-price .period {
+            font-size: 1.6rem;
+            color: var(--color-text-meta);
+            font-weight: 400;
+        }
+        
+        .annual-price {
+            display: none;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 1.2rem 0;
+            color: var(--color-text-meta);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .pricing-features li::before {
+            content: "✓";
+            color: #2D8A2D;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            width: 100%;
+            padding: 1.6rem 3rem;
+            background: linear-gradient(135deg, #2D8A2D 0%, #236f23 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+            font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: linear-gradient(135deg, #236f23 0%, #1a5a1a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 138, 45, 0.2);
+        }
+        
+        .pricing-card.featured .cta-button {
+            background: #2D8A2D;
+        }
+        
+        .pricing-card:not(.featured) .cta-button {
+            background: white;
+            color: #2D8A2D;
+            border: 2px solid #2D8A2D;
+            font-weight: 500;
+        }
+        
+        .pricing-card:not(.featured) .cta-button:hover {
+            background: linear-gradient(135deg, #2D8A2D 0%, #236f23 100%);
+            color: white;
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== SITE HEADER - POSITION AWARE NAVIGATION   ===== -->
+    <header id="site-header" class="">
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="header__in">
+                <nav class="main-navigation">
+                    <a href="index.html" aria-label="Contestra homepage" class="site-logo">
+                        <img src="images/logos/contestra-logo.svg" alt="Contestra">
+                    </a>
+                    <div class="main-menu-wrap">
+                        <ul class="main-menu" id="main-menu">
+                            <li><a href="index.html#products">Products</a></li>
+                            <li><a href="index.html#developers">Developers</a></li>
+                            <li><a href="index.html#solutions">Solutions</a></li>
+                            <li><a href="pricing.html" class="active">Pricing</a></li>
+                            <li><a href="index.html#company">Company</a></li>
+                        </ul>
+                    </div>
+                    <div class="header__options">
+                        <a href="talk.html" class="header__cta btn-primary">Contact Us</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="site-main">
+        <div class="pricing-container">
+        <div class="pricing-header">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>Choose the plan that's right for your business</p>
+        </div>
+
+        <div class="billing-toggle">
+            <label for="billing-toggle">Monthly</label>
+            <div class="toggle-switch" id="billing-toggle">
+                <div class="toggle-slider"></div>
+            </div>
+            <label for="billing-toggle">Annual <span style="color: #2D8A2D; font-size: 0.9rem;">(Save 20%)</span></label>
+        </div>
+
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3 class="plan-name">Starter</h3>
+                <p class="plan-description">Perfect for small teams getting started</p>
+                <div class="plan-price monthly-price">
+                    <span class="currency">$</span>19<span class="period">/month</span>
+                </div>
+                <div class="plan-price annual-price">
+                    <span class="currency">$</span>15<span class="period">/month</span>
+                </div>
+                <ul class="pricing-features">
+                    <li>Up to 5 team members</li>
+                    <li>10 GB storage</li>
+                    <li>Basic analytics</li>
+                    <li>Email support</li>
+                    <li>API access</li>
+                </ul>
+                <a href="talk.html" class="cta-button">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <h3 class="plan-name">Professional</h3>
+                <p class="plan-description">Most popular for growing businesses</p>
+                <div class="plan-price monthly-price">
+                    <span class="currency">$</span>49<span class="period">/month</span>
+                </div>
+                <div class="plan-price annual-price">
+                    <span class="currency">$</span>39<span class="period">/month</span>
+                </div>
+                <ul class="pricing-features">
+                    <li>Up to 20 team members</li>
+                    <li>100 GB storage</li>
+                    <li>Advanced analytics</li>
+                    <li>Priority email support</li>
+                    <li>API access</li>
+                    <li>Custom integrations</li>
+                    <li>Team collaboration tools</li>
+                </ul>
+                <a href="talk.html" class="cta-button">Get Started</a>
+            </div>
+
+            <div class="pricing-card">
+                <h3 class="plan-name">Enterprise</h3>
+                <p class="plan-description">For large organizations with custom needs</p>
+                <div class="plan-price monthly-price">
+                    <span class="currency">$</span>99<span class="period">/month</span>
+                </div>
+                <div class="plan-price annual-price">
+                    <span class="currency">$</span>79<span class="period">/month</span>
+                </div>
+                <ul class="pricing-features">
+                    <li>Unlimited team members</li>
+                    <li>Unlimited storage</li>
+                    <li>Advanced analytics & reporting</li>
+                    <li>24/7 phone & email support</li>
+                    <li>API access</li>
+                    <li>Custom integrations</li>
+                    <li>Dedicated account manager</li>
+                    <li>SLA guarantee</li>
+                </ul>
+                <a href="talk.html" class="cta-button">Contact Sales</a>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <script>
+        // Annual/Monthly toggle functionality
+        const toggleSwitch = document.getElementById('billing-toggle');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        const annualPrices = document.querySelectorAll('.annual-price');
+
+        toggleSwitch.addEventListener('click', function() {
+            this.classList.toggle('active');
+            
+            if (this.classList.contains('active')) {
+                // Show annual prices
+                monthlyPrices.forEach(price => price.style.display = 'none');
+                annualPrices.forEach(price => price.style.display = 'block');
+            } else {
+                // Show monthly prices
+                monthlyPrices.forEach(price => price.style.display = 'block');
+                annualPrices.forEach(price => price.style.display = 'none');
+            }
+        });
+    </script>
+
+    <!-- Simple Footer -->
+    <footer style="background: #1a1a1a; color: #999; padding: 40px 20px; text-align: center; font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <p style="margin: 0; font-size: 1.4rem;">&copy; 2024 Contestra. All rights reserved.</p>
+            <div style="margin-top: 20px;">
+                <a href="privacy.html" style="color: #999; text-decoration: none; margin: 0 15px; font-size: 1.4rem;">Privacy Policy</a>
+                <a href="talk.html" style="color: #999; text-decoration: none; margin: 0 15px; font-size: 1.4rem;">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
