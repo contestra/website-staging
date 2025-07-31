@@ -20,6 +20,16 @@
             background: #fcfbf8;
         }
         
+        /* Navigation adjustments for single menu item */
+        .main-menu-wrap {
+            margin-left: auto;
+            margin-right: 2rem;
+        }
+        
+        .header__options {
+            margin-left: 0;
+        }
+        
         .pricing-wrapper {
             padding: 120px 0 80px;
             min-height: calc(100vh - 200px);
@@ -78,7 +88,7 @@
         .toggle-container {
             position: relative;
             display: inline-block;
-            margin: 0 16px;
+            margin: 0 8px;
         }
         
         .toggle-switch {
@@ -168,6 +178,19 @@
                 #ff7f00 65%,      /* Pure orange */
                 #ff007f 80%,      /* Pure pink */
                 #ff0040 100%      /* Pure deep pink */
+            ) 1;
+        }
+        
+        .pricing-card:last-child {
+            border-width: 2px;
+            border-image: linear-gradient(to right,
+                #f9ffff 0%,       /* Cyan with 97.5% white mix */
+                #f9fffc 20%,      /* Green-cyan with 97.5% white mix */
+                #fcfff9 35%,      /* Green with 97.5% white mix */
+                #fffff9 50%,      /* Yellow with 97.5% white mix */
+                #fffcf9 65%,      /* Orange with 97.5% white mix */
+                #fff9fc 80%,      /* Pink with 97.5% white mix */
+                #fff9fa 100%      /* Deep pink with 97.5% white mix */
             ) 1;
         }
         
