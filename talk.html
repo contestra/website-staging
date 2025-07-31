@@ -18,84 +18,78 @@
     
     <!-- Contact Page Specific Styles -->
     <style>
-        /* Two-column layout */
+        /* Two-column layout - Clean implementation */
         .contact-hero {
-            min-height: 100vh;
             position: relative;
+            min-height: 100vh;
             padding-block-start: var(--nav-height);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
-            margin-bottom: -1px; /* Fix gradient gap */
-            overflow-x: hidden; /* Prevent horizontal scroll from extended backgrounds */
+            margin-bottom: -1px; /* Fix gradient gap with footer */
+        }
+        
+        /* Remove container wrapper to allow full-width backgrounds */
+        .contact-hero > .container {
+            max-width: none;
+            padding: 0;
         }
         
         .contact-hero__wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
             min-height: calc(100vh - var(--nav-height));
-            width: 100%;
         }
         
+        /* Left column with white background */
         .contact-hero__left {
             background: white;
             position: relative;
+            display: flex;
+            align-items: center;
         }
         
+        /* Right column with gradient background */
         .contact-hero__right {
             background: var(--gradient-spectrum-90);
             position: relative;
-            overflow: hidden;
-        }
-        
-        /* Extend backgrounds beyond container */
-        .contact-hero__left::before {
-            content: '';
-            position: absolute;
-            left: -100vw;
-            top: 0;
-            bottom: 0;
-            width: 100vw;
-            background: white;
-            z-index: -1;
-        }
-        
-        .contact-hero__right::after {
-            content: '';
-            position: absolute;
-            right: -100vw;
-            top: 0;
-            bottom: 0;
-            width: 100vw;
-            background: var(--gradient-spectrum-90);
-            z-index: -1;
-        }
-        
-        /* Extend backgrounds to viewport edges */
-        .contact-hero__wrapper {
-            margin-inline: calc(-1 * var(--container-padding));
-        }
-        
-        /* Left column - content */
-        .contact-hero__content {
             display: flex;
             align-items: center;
-            min-height: calc(100vh - var(--nav-height));
+        }
+        
+        /* Content alignment system to match navigation */
+        .contact-hero__left-inner,
+        .contact-hero__right-inner {
+            width: 100%;
+            max-width: calc(var(--container-max) / 2);
+        }
+        
+        /* Left column: content aligned to container edge */
+        .contact-hero__left-inner {
+            margin-inline-start: auto;
+            padding-inline-start: var(--container-padding);
+            padding-inline-end: 6rem;
+        }
+        
+        /* Right column: content aligned to container edge */
+        .contact-hero__right-inner {
+            margin-inline-end: auto;
+            padding-inline-start: 6rem;
+            padding-inline-end: var(--container-padding);
+        }
+        
+        /* Content styling */
+        .contact-hero__content {
             padding-block: 6rem;
-            padding-inline-end: 4rem;
         }
         
         .contact-hero__content-inner {
             max-width: 60rem;
-            width: 100%;
         }
         
-        /* Right column - form */
+        /* Form container centered in right column */
         .contact-hero__form {
             display: flex;
-            align-items: center;
             justify-content: center;
-            min-height: calc(100vh - var(--nav-height));
             padding-block: 6rem;
-            padding-inline: 4rem;
         }
         
         .contact-hero__title {
@@ -364,19 +358,18 @@
             opacity: 0.8;
         }
         
-        /* Tablet adjustments */
-        @media (width <= 1024px) {
-            /* Keep two columns on tablet */
-        }
-        
-        /* Mobile adjustments - only stack on mobile */
+        /* Mobile adjustments */
         @media (width <= 768px) {
             .contact-hero__wrapper {
                 grid-template-columns: 1fr;
-                min-height: auto;
-                margin-inline: 0;
-                padding-inline: 0;
             }
+            
+            .contact-hero__left-inner,
+            .contact-hero__right-inner {
+                max-width: none;
+                padding-inline: var(--container-padding-mobile);
+            }
+            
             .contact-hero__content,
             .contact-hero__form {
                 padding: 4rem 2rem;
@@ -455,8 +448,9 @@
         <div class="container">
             <div class="contact-hero__wrapper">
                 <div class="contact-hero__left">
-                    <div class="contact-hero__content">
-                        <div class="contact-hero__content-inner">
+                    <div class="contact-hero__left-inner">
+                        <div class="contact-hero__content">
+                            <div class="contact-hero__content-inner">
                     <h1 class="contact-hero__title">Let's Talk Brand<br>Representation in AI</h1>
                     <p class="contact-hero__subtitle">
                         Control your brand's AI presence across every platform where customers discover health & longevity solutions.
@@ -496,15 +490,16 @@
                         <div class="partner-logos">
                             <img src="images/logos/chatgpt-logo.svg" alt="Partner" class="partner-logo">
                         </div>
-                    </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Right Column - Form -->
-            <div class="contact-hero__right">
-                <div class="contact-hero__form">
-                    <div class="form-container">
+                
+                <!-- Right Column - Form -->
+                <div class="contact-hero__right">
+                    <div class="contact-hero__right-inner">
+                        <div class="contact-hero__form">
+                            <div class="form-container">
                     <h2 class="form-title">Request a free 30 minute chat</h2>
                     
                     <form class="contact-form" id="contactForm">
@@ -604,10 +599,11 @@
                             </div>
                         </div>
                     </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 
