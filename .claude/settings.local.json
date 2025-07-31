@@ -3,7 +3,9 @@
     "allow": [
       "WebFetch(domain:www.ai21.com)",
       "Bash(mv:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(find:*)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }
