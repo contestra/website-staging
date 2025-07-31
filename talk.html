@@ -27,58 +27,48 @@
             margin-bottom: -1px; /* Fix gradient gap with footer */
         }
         
-        /* Remove container wrapper to allow full-width backgrounds */
-        .contact-hero > .container {
-            max-width: none;
-            padding: 0;
-        }
-        
+        /* Full-width wrapper */
         .contact-hero__wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
             min-height: calc(100vh - var(--nav-height));
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
         }
         
         /* Left column with white background */
         .contact-hero__left {
             background: white;
-            position: relative;
             display: flex;
             align-items: center;
+            justify-content: flex-end;
+            padding-right: 4rem;
         }
         
         /* Right column with gradient background */
         .contact-hero__right {
             background: var(--gradient-spectrum-90);
-            position: relative;
             display: flex;
             align-items: center;
+            justify-content: flex-start;
+            padding-left: 4rem;
         }
         
-        /* Content alignment system to match navigation */
-        .contact-hero__left-inner,
-        .contact-hero__right-inner {
-            width: 100%;
-            max-width: calc(var(--container-max) / 2);
-        }
-        
-        /* Left column: content aligned to container edge */
-        .contact-hero__left-inner {
-            margin-inline-start: auto;
-            padding-inline-start: var(--container-padding);
-            padding-inline-end: 6rem;
-        }
-        
-        /* Right column: content aligned to container edge */
-        .contact-hero__right-inner {
-            margin-inline-end: auto;
-            padding-inline-start: 6rem;
-            padding-inline-end: var(--container-padding);
+        /* Constrain content width to match navigation */
+        @media (min-width: 1540px) {
+            .contact-hero__left {
+                padding-right: calc((100vw - 1440px) / 2 + 4rem);
+            }
+            .contact-hero__right {
+                padding-left: calc((100vw - 1440px) / 2 + 4rem);
+            }
         }
         
         /* Content styling */
         .contact-hero__content {
             padding-block: 6rem;
+            width: 100%;
+            max-width: calc(720px - 4rem); /* Half container minus padding */
         }
         
         .contact-hero__content-inner {
@@ -87,9 +77,9 @@
         
         /* Form container centered in right column */
         .contact-hero__form {
-            display: flex;
-            justify-content: center;
             padding-block: 6rem;
+            width: 100%;
+            max-width: calc(720px - 4rem); /* Half container minus padding */
         }
         
         .contact-hero__title {
@@ -362,17 +352,19 @@
         @media (width <= 768px) {
             .contact-hero__wrapper {
                 grid-template-columns: 1fr;
+                width: 100%;
+                margin-left: 0;
             }
             
-            .contact-hero__left-inner,
-            .contact-hero__right-inner {
-                max-width: none;
-                padding-inline: var(--container-padding-mobile);
+            .contact-hero__left,
+            .contact-hero__right {
+                padding: 0 2rem;
             }
             
             .contact-hero__content,
             .contact-hero__form {
-                padding: 4rem 2rem;
+                max-width: none;
+                padding: 4rem 0;
             }
             
             .contact-hero__title {
@@ -445,12 +437,10 @@
 
     <!-- ===== TWO-COLUMN HERO SECTION ===== -->
     <section class="contact-hero">
-        <div class="container">
-            <div class="contact-hero__wrapper">
-                <div class="contact-hero__left">
-                    <div class="contact-hero__left-inner">
-                        <div class="contact-hero__content">
-                            <div class="contact-hero__content-inner">
+        <div class="contact-hero__wrapper">
+            <div class="contact-hero__left">
+                <div class="contact-hero__content">
+                    <div class="contact-hero__content-inner">
                     <h1 class="contact-hero__title">Let's Talk Brand<br>Representation in AI</h1>
                     <p class="contact-hero__subtitle">
                         Control your brand's AI presence across every platform where customers discover health & longevity solutions.
@@ -490,16 +480,14 @@
                         <div class="partner-logos">
                             <img src="images/logos/chatgpt-logo.svg" alt="Partner" class="partner-logo">
                         </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                
-                <!-- Right Column - Form -->
-                <div class="contact-hero__right">
-                    <div class="contact-hero__right-inner">
-                        <div class="contact-hero__form">
-                            <div class="form-container">
+            </div>
+            
+            <!-- Right Column - Form -->
+            <div class="contact-hero__right">
+                <div class="contact-hero__form">
+                    <div class="form-container">
                     <h2 class="form-title">Request a free 30 minute chat</h2>
                     
                     <form class="contact-form" id="contactForm">
@@ -599,8 +587,6 @@
                             </div>
                         </div>
                     </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
