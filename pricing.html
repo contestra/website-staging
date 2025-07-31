@@ -310,6 +310,69 @@
             margin-left: 8px;
         }
         
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: #fcfbf8;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .faq-title {
+            font-size: 36px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        
+        .faq-subtitle {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px 64px;
+        }
+        
+        .faq-item {
+            text-align: left;
+        }
+        
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .faq-answer {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .faq-answer a {
+            color: #0284c7;
+            text-decoration: none;
+        }
+        
+        .faq-answer a:hover {
+            text-decoration: underline;
+        }
+        
         /* Responsive */
         @media (max-width: 1200px) {
             .pricing-grid {
@@ -331,6 +394,11 @@
             .toggle-section {
                 flex-direction: column;
             }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
         }
     </style>
 </head>
@@ -346,11 +414,7 @@
                     </a>
                     <div class="main-menu-wrap">
                         <ul class="main-menu" id="main-menu">
-                            <li><a href="index.html#products">Products</a></li>
-                            <li><a href="index.html#developers">Developers</a></li>
-                            <li><a href="index.html#solutions">Solutions</a></li>
                             <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="index.html#company">Company</a></li>
                         </ul>
                     </div>
                     <div class="header__options">
