@@ -18,79 +18,58 @@
     
     <!-- Contact Page Specific Styles -->
     <style>
-        /* Two-column layout - Clean implementation */
+        /* Contact page layout */
         .contact-hero {
-            position: relative;
             min-height: 100vh;
-            padding-block-start: var(--nav-height);
+            padding-top: var(--nav-height);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
-            margin-bottom: -1px; /* Fix gradient gap with footer */
+            position: relative;
             overflow: hidden;
         }
         
-        /* Container override to allow full-width backgrounds */
-        .contact-hero .container {
-            max-width: 100%;
-            padding: 0;
+        /* Gradient background - positioned absolutely */
+        .gradient-background {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            right: 0;
+            background: var(--gradient-spectrum-90);
+            z-index: 0;
         }
         
-        /* Two-column grid wrapper */
-        .contact-hero__wrapper {
+        /* Main container with standard padding */
+        .contact-hero__container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+            min-height: calc(100vh - var(--nav-height));
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Grid wrapper for content */
+        .contact-hero__grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            min-height: calc(100vh - var(--nav-height));
-            margin-inline: calc(-50vw + 50%);
-            width: 100vw;
+            gap: 6rem;
+            width: 100%;
+            align-items: center;
         }
         
-        /* Left column with white background */
+        /* Left content column */
         .contact-hero__left {
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-inline: 5rem;
+            padding-right: 3rem;
         }
         
-        /* Right column with gradient background */
+        /* Right form column */
         .contact-hero__right {
-            background: var(--gradient-spectrum-90);
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding-inline: 5rem;
-        }
-        
-        /* Align content to create proper gutters on large screens */
-        @media (min-width: 1540px) {
-            .contact-hero__left {
-                padding-left: calc((100vw - 1440px) / 2 + 5rem);
-                justify-content: flex-end;
-            }
-            .contact-hero__right {
-                padding-right: calc((100vw - 1440px) / 2 + 5rem);
-                justify-content: flex-start;
-            }
-        }
-        
-        /* Content styling */
-        .contact-hero__content {
-            padding-block: 6rem;
-            width: 100%;
-            max-width: calc(720px - 10rem); /* Half container minus total padding */
-        }
-        
-        .contact-hero__content-inner {
-            max-width: 60rem;
-        }
-        
-        /* Form container */
-        .contact-hero__form {
-            padding-block: 6rem;
-            width: 100%;
-            max-width: calc(720px - 10rem); /* Half container minus total padding */
-            display: flex;
             justify-content: center;
+            padding: 4rem 0;
         }
         
         .contact-hero__title {
@@ -448,11 +427,14 @@
 
     <!-- ===== TWO-COLUMN HERO SECTION ===== -->
     <section class="contact-hero">
-        <div class="container">
-            <div class="contact-hero__wrapper">
-            <div class="contact-hero__left">
-                <div class="contact-hero__content">
-                    <div class="contact-hero__content-inner">
+        <!-- Gradient background -->
+        <div class="gradient-background"></div>
+        
+        <!-- Content container -->
+        <div class="contact-hero__container">
+            <div class="contact-hero__grid">
+                <!-- Left column -->
+                <div class="contact-hero__left">
                     <h1 class="contact-hero__title">Let's Talk Brand<br>Representation in AI</h1>
                     <p class="contact-hero__subtitle">
                         Control your brand's AI presence across every platform where customers discover health & longevity solutions.
@@ -493,12 +475,9 @@
                             <img src="images/logos/chatgpt-logo.svg" alt="Partner" class="partner-logo">
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Right Column - Form -->
-            <div class="contact-hero__right">
-                <div class="contact-hero__form">
+                
+                <!-- Right column -->
+                <div class="contact-hero__right">
                     <div class="form-container">
                     <h2 class="form-title">Request a free 30 minute chat</h2>
                     
@@ -601,7 +580,6 @@
                     </form>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </section>
