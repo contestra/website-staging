@@ -192,15 +192,25 @@
         
         /* Hide label when input has value */
         .form-input:not(:placeholder-shown) + .form-label,
-        .form-select:not([value=""]) + .form-label,
         .form-textarea:not(:placeholder-shown) + .form-label {
             opacity: 0;
             transform: translateY(-1.5rem) scale(0.75);
         }
         
+        /* Special handling for select - always show label */
+        .form-select + .form-label {
+            transform: translateY(-2.2rem) scale(0.75);
+            color: #6b7280;
+            background: #FEFEFE;
+            padding-inline: 0.2rem;
+        }
+        
+        .form-select:focus + .form-label {
+            color: var(--color-accent);
+        }
+        
         /* Keep label visible on focus if no value */
         .form-input:focus:placeholder-shown + .form-label,
-        .form-select:focus + .form-label,
         .form-textarea:focus:placeholder-shown + .form-label {
             color: var(--color-accent);
         }
@@ -217,6 +227,11 @@
             transition: border-color 0.2s;
             background: transparent;
             width: 100%;
+        }
+        
+        /* Special padding for select to accommodate label */
+        .form-select {
+            padding-top: 1.2rem;
         }
         
         .form-input:focus,
@@ -628,15 +643,149 @@
     
     <!-- Contact Form Handler -->
     <script>
-        // Handle select dropdown label
-        document.getElementById('country').addEventListener('change', function() {
-            if (this.value) {
-                this.nextElementSibling.style.opacity = '0';
-                this.nextElementSibling.style.transform = 'translateY(-1.5rem) scale(0.75)';
-            } else {
-                this.nextElementSibling.style.opacity = '';
-                this.nextElementSibling.style.transform = '';
+        // Custom searchable dropdown functionality
+        const countrySelect = document.getElementById('country');
+        const countryGroup = countrySelect.closest('.form-group');
+        
+        // Create custom dropdown
+        const customDropdown = document.createElement('div');
+        customDropdown.className = 'custom-dropdown';
+        customDropdown.style.cssText = `
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-top: none;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        `;
+        
+        // Create search input
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.placeholder = 'Search countries...';
+        searchInput.style.cssText = `
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-bottom: 1px solid #d1d5db;
+            font-size: 1.4rem;
+            outline: none;
+        `;
+        
+        // Create options container
+        const optionsContainer = document.createElement('div');
+        optionsContainer.style.cssText = 'padding: 0.5rem 0;';
+        
+        // Get all options from select
+        const options = Array.from(countrySelect.options).filter(opt => opt.value && !opt.disabled);
+        
+        // Create option elements
+        options.forEach(opt => {
+            const optionDiv = document.createElement('div');
+            optionDiv.textContent = opt.textContent;
+            optionDiv.dataset.value = opt.value;
+            optionDiv.style.cssText = `
+                padding: 0.8rem 1rem;
+                cursor: pointer;
+                font-size: 1.4rem;
+                transition: background 0.2s;
+            `;
+            optionDiv.addEventListener('mouseover', () => {
+                optionDiv.style.background = '#f3f4f6';
+            });
+            optionDiv.addEventListener('mouseout', () => {
+                optionDiv.style.background = 'white';
+            });
+            optionDiv.addEventListener('click', () => {
+                countrySelect.value = opt.value;
+                countrySelect.dispatchEvent(new Event('change'));
+                customDropdown.style.display = 'none';
+                updateDisplayValue();
+            });
+            optionsContainer.appendChild(optionDiv);
+        });
+        
+        customDropdown.appendChild(searchInput);
+        customDropdown.appendChild(optionsContainer);
+        countryGroup.style.position = 'relative';
+        countryGroup.appendChild(customDropdown);
+        
+        // Create display value div
+        const displayValue = document.createElement('div');
+        displayValue.style.cssText = `
+            position: absolute;
+            left: 0;
+            top: 1.2rem;
+            right: 2rem;
+            pointer-events: none;
+            font-size: 1.6rem;
+            color: #111827;
+        `;
+        countryGroup.appendChild(displayValue);
+        
+        // Update display value
+        function updateDisplayValue() {
+            const selected = countrySelect.options[countrySelect.selectedIndex];
+            displayValue.textContent = selected && selected.value ? selected.textContent : '';
+        }
+        
+        // Hide actual select but keep it functional
+        countrySelect.style.opacity = '0';
+        countrySelect.style.position = 'absolute';
+        countrySelect.style.pointerEvents = 'none';
+        
+        // Create clickable area
+        const clickArea = document.createElement('div');
+        clickArea.style.cssText = `
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            cursor: pointer;
+        `;
+        countryGroup.appendChild(clickArea);
+        
+        // Toggle dropdown
+        clickArea.addEventListener('click', (e) => {
+            e.stopPropagation();
+            customDropdown.style.display = customDropdown.style.display === 'none' ? 'block' : 'none';
+            if (customDropdown.style.display === 'block') {
+                searchInput.focus();
+                searchInput.value = '';
+                filterOptions('');
             }
+        });
+        
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            filterOptions(e.target.value.toLowerCase());
+        });
+        
+        function filterOptions(searchTerm) {
+            const allOptions = optionsContainer.querySelectorAll('div');
+            allOptions.forEach(opt => {
+                const text = opt.textContent.toLowerCase();
+                opt.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!countryGroup.contains(e.target)) {
+                customDropdown.style.display = 'none';
+            }
+        });
+        
+        // Prevent search input from closing dropdown
+        searchInput.addEventListener('click', (e) => {
+            e.stopPropagation();
         });
         
         document.getElementById('contactForm').addEventListener('submit', function(e) {
@@ -654,9 +803,7 @@
             
             // Reset form
             this.reset();
-            // Reset select label
-            document.getElementById('country').nextElementSibling.style.opacity = '';
-            document.getElementById('country').nextElementSibling.style.transform = '';
+            updateDisplayValue();
         });
     </script>
 </body>
