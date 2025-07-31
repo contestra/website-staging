@@ -23,6 +23,7 @@
             min-height: 100vh;
             position: relative;
             padding-block-start: var(--nav-height);
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         .contact-hero .container {
@@ -127,8 +128,8 @@
             z-index: 1;
             max-inline-size: 48rem;
             width: 100%;
-            background: white;
-            padding: 4rem;
+            background: #FEFEFE;
+            padding: 3.5rem;
             border-radius: 12px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
@@ -136,7 +137,7 @@
         .form-title {
             font-size: 2.8rem;
             font-weight: 400;
-            margin-block-end: 4rem;
+            margin-block-end: 3rem;
             text-align: left;
             color: #111827;
             letter-spacing: -0.01em;
@@ -144,13 +145,13 @@
         
         .form-grid {
             display: grid;
-            gap: 2.8rem;
+            gap: 2rem;
         }
         
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2.4rem;
+            gap: 2rem;
         }
         
         .form-group {
@@ -163,12 +164,36 @@
             grid-column: 1 / -1;
         }
         
+        /* Floating label styles */
+        .form-group {
+            position: relative;
+        }
+        
         .form-label {
-            font-size: 1.4rem;
+            position: absolute;
+            left: 0;
+            top: 0.4rem;
+            font-size: 1.6rem;
             font-weight: 400;
             color: #6b7280;
-            margin-block-end: 0.4rem;
-            display: block;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            transform-origin: left top;
+        }
+        
+        /* Hide label when input has value */
+        .form-input:not(:placeholder-shown) + .form-label,
+        .form-select:not([value=""]) + .form-label,
+        .form-textarea:not(:placeholder-shown) + .form-label {
+            opacity: 0;
+            transform: translateY(-1.5rem) scale(0.75);
+        }
+        
+        /* Keep label visible on focus if no value */
+        .form-input:focus:placeholder-shown + .form-label,
+        .form-select:focus + .form-label,
+        .form-textarea:focus:placeholder-shown + .form-label {
+            color: var(--color-accent);
         }
         
         .form-input,
@@ -244,7 +269,7 @@
             font-size: 1.2rem;
             line-height: 1.5;
             color: #6b7280;
-            max-width: 20ch;
+            white-space: nowrap;
         }
         
         .form-privacy a {
@@ -469,63 +494,88 @@
                             <!-- Name Row -->
                             <div class="form-row">
                                 <div class="form-group">
+                                    <input type="text" id="firstName" name="firstName" class="form-input" placeholder=" " required>
                                     <label for="firstName" class="form-label">First name*</label>
-                                    <input type="text" id="firstName" name="firstName" class="form-input" required>
                                 </div>
                                 <div class="form-group">
+                                    <input type="text" id="lastName" name="lastName" class="form-input" placeholder=" " required>
                                     <label for="lastName" class="form-label">Last name*</label>
-                                    <input type="text" id="lastName" name="lastName" class="form-input" required>
                                 </div>
                             </div>
                             
                             <!-- Email Field -->
                             <div class="form-group full-width">
+                                <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
                                 <label for="email" class="form-label">Work email*</label>
-                                <input type="email" id="email" name="email" class="form-input" required>
                             </div>
                             
                             <!-- Phone and Company Row -->
                             <div class="form-row">
                                 <div class="form-group">
+                                    <input type="tel" id="phone" name="phone" class="form-input" placeholder=" ">
                                     <label for="phone" class="form-label">Phone number</label>
-                                    <input type="tel" id="phone" name="phone" class="form-input">
                                 </div>
                                 <div class="form-group">
+                                    <input type="text" id="company" name="company" class="form-input" placeholder=" " required>
                                     <label for="company" class="form-label">Company name*</label>
-                                    <input type="text" id="company" name="company" class="form-input" required>
                                 </div>
                             </div>
                             
                             <!-- Job Title and Country Row -->
                             <div class="form-row">
                                 <div class="form-group">
+                                    <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder=" " required>
                                     <label for="jobTitle" class="form-label">Job title*</label>
-                                    <input type="text" id="jobTitle" name="jobTitle" class="form-input" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="country" class="form-label">Country</label>
                                     <select id="country" name="country" class="form-select">
                                         <option value=""></option>
-                                        <option value="us">United States</option>
-                                        <option value="uk">United Kingdom</option>
-                                        <option value="ca">Canada</option>
-                                        <option value="de">Germany</option>
-                                        <option value="fr">France</option>
-                                        <option value="other">Other</option>
+                                        <option value="US">United States</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="FR">France</option>
+                                        <option value="" disabled>──────────</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="CN">China</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="IN">India</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="KR">South Korea</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="OTHER">Other</option>
                                     </select>
+                                    <label for="country" class="form-label">Country</label>
                                 </div>
                             </div>
                             
                             <!-- How can we help -->
                             <div class="form-group full-width">
+                                <textarea id="message" name="message" class="form-textarea" rows="3" placeholder=" "></textarea>
                                 <label for="message" class="form-label">How can our team help you?</label>
-                                <textarea id="message" name="message" class="form-textarea" rows="3"></textarea>
                             </div>
                             
                             <!-- Footer with Privacy and Submit -->
                             <div class="form-footer">
                                 <p class="form-privacy">
-                                    I acknowledge and accept the terms of the <a href="/privacy">privacy<br>policy</a>.
+                                    I acknowledge and accept the terms of the <a href="/privacy">privacy policy</a>.
                                 </p>
                                 <button type="submit" class="form-submit-btn">
                                     SUBMIT
@@ -604,6 +654,17 @@
     
     <!-- Contact Form Handler -->
     <script>
+        // Handle select dropdown label
+        document.getElementById('country').addEventListener('change', function() {
+            if (this.value) {
+                this.nextElementSibling.style.opacity = '0';
+                this.nextElementSibling.style.transform = 'translateY(-1.5rem) scale(0.75)';
+            } else {
+                this.nextElementSibling.style.opacity = '';
+                this.nextElementSibling.style.transform = '';
+            }
+        });
+        
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -619,6 +680,9 @@
             
             // Reset form
             this.reset();
+            // Reset select label
+            document.getElementById('country').nextElementSibling.style.opacity = '';
+            document.getElementById('country').nextElementSibling.style.transform = '';
         });
     </script>
 </body>
