@@ -31,25 +31,24 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             min-height: calc(100vh - var(--nav-height));
-            max-width: var(--container-width);
-            margin-inline: auto;
-            padding-inline: var(--container-padding);
+            width: 100%;
         }
         
         .contact-hero__left {
             background: white;
-            margin-inline-start: calc(-1 * var(--container-padding));
-            margin-inline-end: 0;
-            padding-inline-start: var(--container-padding);
+            position: relative;
         }
         
         .contact-hero__right {
             background: var(--gradient-spectrum-90);
             position: relative;
             overflow: hidden;
-            margin-inline-end: calc(-1 * var(--container-padding));
-            margin-inline-start: 0;
-            padding-inline-end: var(--container-padding);
+        }
+        
+        /* Extend backgrounds to viewport edges */
+        .contact-hero__wrapper {
+            margin-inline: calc(-1 * var(--container-padding));
+            padding-inline: var(--container-padding);
         }
         
         /* Left column - content */
@@ -197,12 +196,11 @@
             transform: translateY(-1.5rem) scale(0.75);
         }
         
-        /* Special handling for select - always show label */
-        .form-select + .form-label {
-            transform: translateY(-2.2rem) scale(0.75);
-            color: #6b7280;
-            background: #FEFEFE;
-            padding-inline: 0.2rem;
+        /* Special handling for select - keep label like floating labels */
+        .form-select:not(:placeholder-shown) + .form-label,
+        .form-select:valid + .form-label {
+            opacity: 0;
+            transform: translateY(-1.5rem) scale(0.75);
         }
         
         .form-select:focus + .form-label {
@@ -227,11 +225,6 @@
             transition: border-color 0.2s;
             background: transparent;
             width: 100%;
-        }
-        
-        /* Special padding for select to accommodate label */
-        .form-select {
-            padding-top: 1.2rem;
         }
         
         .form-input:focus,
@@ -349,10 +342,6 @@
             .contact-hero__wrapper {
                 grid-template-columns: 1fr;
                 min-height: auto;
-            }
-            
-            .contact-hero__left,
-            .contact-hero__right {
                 margin-inline: 0;
                 padding-inline: 0;
             }
@@ -431,11 +420,12 @@
 
     <!-- ===== TWO-COLUMN HERO SECTION ===== -->
     <section class="contact-hero">
-        <div class="contact-hero__wrapper">
-            <div class="contact-hero__left">
-                <div class="contact-hero__content">
-                    <div class="contact-hero__content-inner">
-                    <h1 class="contact-hero__title">Building the Future<br>of Health & Longevity AI</h1>
+        <div class="container">
+            <div class="contact-hero__wrapper">
+                <div class="contact-hero__left">
+                    <div class="contact-hero__content">
+                        <div class="contact-hero__content-inner">
+                    <h1 class="contact-hero__title">Let's Talk Brand Presence<br>Within AI Representation in AI</h1>
                     <p class="contact-hero__subtitle">
                         Control your brand's AI presence across every platform where customers discover health & longevity solutions.
                     </p>
@@ -483,7 +473,7 @@
             <div class="contact-hero__right">
                 <div class="contact-hero__form">
                     <div class="form-container">
-                    <h2 class="form-title">Request a custom demo</h2>
+                    <h2 class="form-title">Request a free consultation</h2>
                     
                     <form class="contact-form" id="contactForm">
                         <div class="form-grid">
@@ -585,6 +575,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -754,10 +745,19 @@
             left: 0;
             right: 0;
             top: 0;
-            bottom: 0;
+            height: calc(100% - 1px);
             cursor: pointer;
+            border-bottom: 1px solid #d1d5db;
         `;
         countryGroup.appendChild(clickArea);
+        
+        // Add hover effect
+        clickArea.addEventListener('mouseenter', () => {
+            clickArea.style.borderBottomColor = 'var(--color-accent)';
+        });
+        clickArea.addEventListener('mouseleave', () => {
+            clickArea.style.borderBottomColor = '#d1d5db';
+        });
         
         // Toggle dropdown
         clickArea.addEventListener('click', (e) => {
@@ -767,6 +767,9 @@
                 searchInput.focus();
                 searchInput.value = '';
                 filterOptions('');
+                clickArea.style.borderBottomColor = 'var(--color-accent)';
+            } else {
+                clickArea.style.borderBottomColor = '#d1d5db';
             }
         });
         
@@ -787,6 +790,7 @@
         document.addEventListener('click', (e) => {
             if (!countryGroup.contains(e.target)) {
                 customDropdown.style.display = 'none';
+                clickArea.style.borderBottomColor = '#d1d5db';
             }
         });
         
