@@ -181,7 +181,7 @@
             transform: translateY(-1.5rem) scale(0.75);
         }
         
-        /* Special handling for select - always show label as placeholder */
+        /* Special handling for select - show label only when no value selected */
         .form-group:has(.form-select) .form-label {
             transform: none;
             color: #6b7280;
@@ -189,6 +189,12 @@
             font-size: 1.6rem;
             top: 0.4rem;
             left: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        /* Hide label when country is selected */
+        .form-group:has(.form-select.has-value) .form-label {
+            opacity: 0;
         }
         
         .form-select:focus + .form-label {
@@ -722,6 +728,10 @@
                 countrySelect.dispatchEvent(new Event('change'));
                 customDropdown.style.display = 'none';
                 updateDisplayValue();
+                // Add has-value class when country is selected
+                if (opt.value) {
+                    countrySelect.classList.add('has-value');
+                }
             });
             optionsContainer.appendChild(optionDiv);
         });
@@ -786,8 +796,10 @@
                 searchInput.value = '';
                 filterOptions('');
                 clickArea.style.borderBottomColor = 'var(--color-accent)';
+                countryGroup.classList.add('focused');
             } else {
                 clickArea.style.borderBottomColor = '#d1d5db';
+                countryGroup.classList.remove('focused');
             }
         });
         
@@ -809,6 +821,7 @@
             if (!countryGroup.contains(e.target)) {
                 customDropdown.style.display = 'none';
                 clickArea.style.borderBottomColor = '#d1d5db';
+                countryGroup.classList.remove('focused');
             }
         });
         
