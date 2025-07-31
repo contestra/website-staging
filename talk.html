@@ -779,12 +779,16 @@
         `;
         countryGroup.appendChild(clickArea);
         
-        // Add hover effect
+        // Add hover effect only when dropdown is closed
         clickArea.addEventListener('mouseenter', () => {
-            clickArea.style.borderBottomColor = 'var(--color-accent)';
+            if (customDropdown.style.display === 'none') {
+                clickArea.style.borderBottomColor = 'var(--color-accent)';
+            }
         });
         clickArea.addEventListener('mouseleave', () => {
-            clickArea.style.borderBottomColor = '#d1d5db';
+            if (customDropdown.style.display === 'none') {
+                clickArea.style.borderBottomColor = '#d1d5db';
+            }
         });
         
         // Toggle dropdown
