@@ -317,28 +317,23 @@
             opacity: 0.8;
         }
         
-        /* Mobile adjustments */
+        /* Tablet adjustments */
         @media (width <= 1024px) {
-            .contact-hero__grid {
+            /* Keep two columns on tablet */
+        }
+        
+        /* Mobile adjustments - only stack on mobile */
+        @media (width <= 768px) {
+            .contact-hero__wrapper {
                 grid-template-columns: 1fr;
                 min-height: auto;
             }
             
-            .contact-hero__content,
-            .contact-hero__form {
-                padding: 6rem 3rem;
+            .contact-hero__left,
+            .contact-hero__right {
+                margin-inline: 0;
+                padding-inline: 0;
             }
-            
-            .contact-hero__form {
-                background-attachment: scroll;
-            }
-            
-            .form-container {
-                padding: 2.5rem;
-            }
-        }
-        
-        @media (width <= 768px) {
             .contact-hero__content,
             .contact-hero__form {
                 padding: 4rem 2rem;
@@ -457,6 +452,7 @@
                         <div class="partner-logos">
                             <img src="images/logos/chatgpt-logo.svg" alt="Partner" class="partner-logo">
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
