@@ -24,30 +24,40 @@
             position: relative;
             padding-block-start: var(--nav-height);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin-bottom: -1px; /* Fix gradient gap */
         }
         
-        .contact-hero .container {
+        .contact-hero__wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: calc(100vh - var(--nav-height));
             max-width: var(--container-width);
             margin-inline: auto;
             padding-inline: var(--container-padding);
-            height: 100%;
         }
         
-        .contact-hero__grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            width: 100%;
-            min-height: calc(100vh - var(--nav-height));
-            margin-inline: calc(-1 * var(--container-padding));
+        .contact-hero__left {
+            background: white;
+            margin-inline-start: calc(-1 * var(--container-padding));
+            margin-inline-end: 0;
+            padding-inline-start: var(--container-padding);
+        }
+        
+        .contact-hero__right {
+            background: var(--gradient-spectrum-90);
+            position: relative;
+            overflow: hidden;
+            margin-inline-end: calc(-1 * var(--container-padding));
+            margin-inline-start: 0;
+            padding-inline-end: var(--container-padding);
         }
         
         /* Left column - content */
         .contact-hero__content {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 6rem 3rem;
-            background: white;
+            min-height: calc(100vh - var(--nav-height));
+            padding-block: 6rem;
         }
         
         .contact-hero__content-inner {
@@ -55,15 +65,12 @@
             width: 100%;
         }
         
-        /* Right column - form with gradient */
+        /* Right column - form */
         .contact-hero__form {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 6rem 4rem;
-            background: var(--gradient-spectrum-90); /* 90% white mix for subtle gradient */
-            position: relative;
-            overflow: hidden;
+            min-height: calc(100vh - var(--nav-height));
+            padding-block: 6rem;
         }
         
         .contact-hero__title {
@@ -278,37 +285,6 @@
             font-weight: 600;
         }
         
-        .form-submit-btn {
-            background: #1f2937;
-            color: white;
-            padding: 1.2rem 2.4rem;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.4rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            white-space: nowrap;
-        }
-        
-        .form-submit-btn:hover {
-            background: #000;
-            transform: translateX(2px);
-        }
-        
-        .form-submit-btn svg {
-            width: 1.6rem;
-            height: 1.6rem;
-            transition: transform 0.2s;
-        }
-        
-        .form-submit-btn:hover svg {
-            transform: translateX(4px);
-        }
         
         /* Trusted partners section */
         .trusted-partners {
@@ -436,11 +412,11 @@
 
     <!-- ===== TWO-COLUMN HERO SECTION ===== -->
     <section class="contact-hero">
-        <div class="container">
-            <div class="contact-hero__grid">
-                <!-- Left Column - Content -->
-                <div class="contact-hero__content">
-                    <div class="contact-hero__content-inner">
+        <div class="contact-hero__wrapper">
+            <div class="contact-hero__left">
+                <div class="container">
+                    <div class="contact-hero__content">
+                        <div class="contact-hero__content-inner">
                     <h1 class="contact-hero__title">Building the Future<br>of Health & Longevity AI</h1>
                     <p class="contact-hero__subtitle">
                         Control your brand's AI presence across every platform where customers discover health & longevity solutions.
@@ -480,13 +456,16 @@
                         <div class="partner-logos">
                             <img src="images/logos/chatgpt-logo.svg" alt="Partner" class="partner-logo">
                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <!-- Right Column - Form -->
-            <div class="contact-hero__form">
-                <div class="form-container">
+            <div class="contact-hero__right">
+                <div class="container">
+                    <div class="contact-hero__form">
+                        <div class="form-container">
                     <h2 class="form-title">Request a custom demo</h2>
                     
                     <form class="contact-form" id="contactForm">
@@ -577,18 +556,19 @@
                                 <p class="form-privacy">
                                     I acknowledge and accept the terms of the <a href="/privacy">privacy policy</a>.
                                 </p>
-                                <button type="submit" class="form-submit-btn">
-                                    SUBMIT
-                                    <svg viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                <button type="submit" class="btn btn--primary-black btn-arrow">
+                                    Submit
+                                    <svg class="btn-arrow-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                        <polyline points="3 3 9 6 3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
                                     </svg>
                                 </button>
                             </div>
                         </div>
                     </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 
