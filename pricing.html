@@ -4,159 +4,244 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing - Contestra</title>
+    
+    <!-- Font Preloads for Performance -->
+    <link rel="preload" href="fonts/SuisseScreen-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SuisseScreen-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SuisseIntl-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SuisseIntl-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="main.css">
+    
     <style>
         /* Pricing Page Specific Styles */
-        .site-main {
-            padding-top: 80px; /* Account for fixed header */
-            min-height: 100vh;
-            background: #fcfbf8;
-        }
-        
-        .pricing-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-        
-        .pricing-header {
+        .pricing-hero {
+            padding: 160px 0 80px;
             text-align: center;
-            margin-bottom: 50px;
+            background: #fcfbf8;
+            position: relative;
+            overflow: hidden;
         }
         
-        .pricing-header h1 {
-            font-size: 4.8rem;
+        .pricing-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -25%;
+            width: 150%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 182, 193, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+        
+        .pricing-hero h1 {
+            font-size: 6.4rem;
             font-weight: 500;
-            margin-bottom: 1.6rem;
+            line-height: 1.1;
+            margin-bottom: 2.4rem;
             color: var(--color-text-primary);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+            position: relative;
+            z-index: 1;
         }
         
-        .pricing-header p {
-            font-size: 1.8rem;
+        .pricing-hero p {
+            font-size: 2rem;
             color: var(--color-text-meta);
-            font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
         
         /* Billing Toggle */
-        .billing-toggle {
+        .billing-toggle-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
+            gap: 2rem;
+            margin-bottom: 6rem;
+            position: relative;
+            z-index: 1;
         }
         
-        .billing-toggle label {
-            font-size: 1.6rem;
+        .billing-toggle-wrapper label {
+            font-size: 1.8rem;
             color: var(--color-text-meta);
             cursor: pointer;
-            font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+            transition: color 0.3s ease;
+        }
+        
+        .billing-toggle-wrapper label.active {
+            color: var(--color-text-primary);
+            font-weight: 500;
         }
         
         .toggle-switch {
             position: relative;
-            width: 60px;
-            height: 30px;
-            background-color: #e0e0e0;
-            border-radius: 15px;
+            width: 80px;
+            height: 40px;
+            background: #e8e8e8;
+            border-radius: 40px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .toggle-switch.active {
-            background: linear-gradient(135deg, #2D8A2D 0%, #236f23 100%);
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
         }
         
         .toggle-slider {
             position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background-color: white;
+            top: 4px;
+            left: 4px;
+            width: 32px;
+            height: 32px;
+            background: white;
             border-radius: 50%;
-            transition: transform 0.3s;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         
         .toggle-switch.active .toggle-slider {
-            transform: translateX(30px);
+            transform: translateX(40px);
         }
         
-        /* Pricing Cards */
-        .pricing-cards {
+        .savings-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+        
+        /* Pricing Grid */
+        .pricing-section {
+            padding: 0 0 120px;
+            background: #fcfbf8;
+        }
+        
+        .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            align-items: start;
         }
         
         .pricing-card {
             background: white;
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 12px;
-            padding: 40px 30px;
-            text-align: center;
+            border-radius: 24px;
+            padding: 4rem;
             position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.05) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border-color: transparent;
+        }
+        
+        .pricing-card:hover::before {
+            opacity: 1;
         }
         
         .pricing-card.featured {
-            border-color: #2D8A2D;
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%) 1;
             transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
         }
         
-        .pricing-card.featured::before {
-            content: "MOST POPULAR";
+        .pricing-card.featured::after {
+            content: 'MOST POPULAR';
             position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #2D8A2D;
+            top: 2rem;
+            right: -30px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
             color: white;
-            padding: 4px 20px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
+            padding: 0.5rem 4rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+            box-shadow: 0 4px 12px rgba(255, 154, 158, 0.3);
+        }
+        
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
         }
         
         .plan-name {
-            font-size: 2.4rem;
+            font-size: 3.2rem;
             font-weight: 500;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             color: var(--color-text-primary);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         .plan-description {
+            font-size: 1.6rem;
             color: var(--color-text-meta);
-            margin-bottom: 2.4rem;
-            font-size: 1.4rem;
             line-height: 1.6;
+            margin-bottom: 3.2rem;
+        }
+        
+        .price-wrapper {
+            margin-bottom: 3.2rem;
         }
         
         .plan-price {
-            font-size: 4.8rem;
-            font-weight: 500;
-            color: var(--color-text-primary);
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
             margin-bottom: 0.8rem;
-            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         .plan-price .currency {
-            font-size: 2.4rem;
-            vertical-align: super;
+            font-size: 3.2rem;
             font-weight: 400;
+            color: var(--color-text-meta);
+        }
+        
+        .plan-price .amount {
+            font-size: 5.6rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1;
         }
         
         .plan-price .period {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             color: var(--color-text-meta);
             font-weight: 400;
         }
@@ -165,72 +250,139 @@
             display: none;
         }
         
-        .pricing-features {
+        .features-list {
             list-style: none;
             padding: 0;
-            margin: 30px 0;
-            text-align: left;
+            margin: 0 0 4rem;
         }
         
-        .pricing-features li {
-            padding: 1.2rem 0;
-            color: var(--color-text-meta);
+        .features-list li {
             display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            font-size: 1.5rem;
+            align-items: flex-start;
+            gap: 1.6rem;
+            padding: 1.2rem 0;
+            font-size: 1.6rem;
+            color: var(--color-text-primary);
             line-height: 1.6;
         }
         
-        .pricing-features li::before {
-            content: "✓";
-            color: #2D8A2D;
+        .features-list li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            border-radius: 50%;
+            margin-top: 2px;
+            position: relative;
+        }
+        
+        .features-list li::after {
+            content: '✓';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            color: white;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 14px;
         }
         
         .cta-button {
-            display: inline-block;
+            display: block;
             width: 100%;
-            padding: 1.6rem 3rem;
-            background: linear-gradient(135deg, #2D8A2D 0%, #236f23 100%);
+            padding: 1.8rem 3.2rem;
+            background: var(--color-text-primary);
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 500;
-            font-size: 1.6rem;
-            transition: all 0.3s ease;
-            font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;
-            border: none;
-            cursor: pointer;
+            font-size: 1.8rem;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
         
         .cta-button:hover {
-            background: linear-gradient(135deg, #236f23 0%, #1a5a1a 100%);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(45, 138, 45, 0.2);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .pricing-card.featured .cta-button {
-            background: #2D8A2D;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
         }
         
         .pricing-card:not(.featured) .cta-button {
-            background: white;
-            color: #2D8A2D;
-            border: 2px solid #2D8A2D;
-            font-weight: 500;
+            background: transparent;
+            color: var(--color-text-primary);
+            border: 2px solid var(--color-text-primary);
         }
         
         .pricing-card:not(.featured) .cta-button:hover {
-            background: linear-gradient(135deg, #2D8A2D 0%, #236f23 100%);
+            background: var(--color-text-primary);
             color: white;
-            border-color: transparent;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+        
+        .faq-header h2 {
+            font-size: 4.8rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pricing-hero h1 {
+                font-size: 4rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .pricing-card.featured {
+                transform: none;
+            }
+            
+            .pricing-card {
+                padding: 3rem 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- ===== SITE HEADER - POSITION AWARE NAVIGATION   ===== -->
+    <!-- ===== SITE HEADER ===== -->
     <header id="site-header" class="">
         <div class="header-bg"></div>
         <div class="container">
@@ -244,104 +396,170 @@
                             <li><a href="index.html#products">Products</a></li>
                             <li><a href="index.html#developers">Developers</a></li>
                             <li><a href="index.html#solutions">Solutions</a></li>
-                            <li><a href="pricing.html" class="active">Pricing</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
                             <li><a href="index.html#company">Company</a></li>
                         </ul>
                     </div>
                     <div class="header__options">
-                        <a href="talk.html" class="header__cta btn-primary">Contact Us</a>
+                        <a href="talk.html" class="btn btn--primary-black btn-arrow">
+                            Let's Talk
+                            <svg class="btn-arrow-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                <polyline points="3 3 9 6 3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
+                            </svg>
+                        </a>
                     </div>
+                    <button class="mobile-menu-btn" id="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
                 </nav>
             </div>
         </div>
     </header>
 
-    <main class="site-main">
-        <div class="pricing-container">
-        <div class="pricing-header">
-            <h1>Simple, Transparent Pricing</h1>
-            <p>Choose the plan that's right for your business</p>
-        </div>
-
-        <div class="billing-toggle">
-            <label for="billing-toggle">Monthly</label>
-            <div class="toggle-switch" id="billing-toggle">
-                <div class="toggle-slider"></div>
+    <!-- ===== PRICING HERO ===== -->
+    <section class="pricing-hero">
+        <div class="container">
+            <h1>Simple, transparent pricing</h1>
+            <p>Choose the perfect plan to dominate your AI presence across every platform</p>
+            
+            <div class="billing-toggle-wrapper">
+                <label for="billing-toggle" class="monthly-label active">Monthly billing</label>
+                <div class="toggle-switch" id="billing-toggle">
+                    <div class="toggle-slider"></div>
+                </div>
+                <label for="billing-toggle" class="annual-label">
+                    Annual billing
+                    <span class="savings-badge">Save 20%</span>
+                </label>
             </div>
-            <label for="billing-toggle">Annual <span style="color: #2D8A2D; font-size: 0.9rem;">(Save 20%)</span></label>
         </div>
+    </section>
 
-        <div class="pricing-cards">
+    <!-- ===== PRICING CARDS ===== -->
+    <section class="pricing-section">
+        <div class="pricing-grid">
+            <!-- Starter Plan -->
             <div class="pricing-card">
                 <h3 class="plan-name">Starter</h3>
-                <p class="plan-description">Perfect for small teams getting started</p>
-                <div class="plan-price monthly-price">
-                    <span class="currency">$</span>19<span class="period">/month</span>
+                <p class="plan-description">Perfect for brands just beginning their AI journey</p>
+                
+                <div class="price-wrapper">
+                    <div class="plan-price monthly-price">
+                        <span class="currency">$</span>
+                        <span class="amount">299</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <div class="plan-price annual-price">
+                        <span class="currency">$</span>
+                        <span class="amount">239</span>
+                        <span class="period">/month</span>
+                    </div>
                 </div>
-                <div class="plan-price annual-price">
-                    <span class="currency">$</span>15<span class="period">/month</span>
-                </div>
-                <ul class="pricing-features">
-                    <li>Up to 5 team members</li>
-                    <li>10 GB storage</li>
-                    <li>Basic analytics</li>
+                
+                <ul class="features-list">
+                    <li>AI presence monitoring across 5 platforms</li>
+                    <li>Monthly performance reports</li>
+                    <li>Basic brand optimization</li>
                     <li>Email support</li>
-                    <li>API access</li>
+                    <li>Competitor tracking (3 brands)</li>
                 </ul>
+                
                 <a href="talk.html" class="cta-button">Get Started</a>
             </div>
 
+            <!-- Professional Plan -->
             <div class="pricing-card featured">
                 <h3 class="plan-name">Professional</h3>
-                <p class="plan-description">Most popular for growing businesses</p>
-                <div class="plan-price monthly-price">
-                    <span class="currency">$</span>49<span class="period">/month</span>
+                <p class="plan-description">Most popular for growing health & wellness brands</p>
+                
+                <div class="price-wrapper">
+                    <div class="plan-price monthly-price">
+                        <span class="currency">$</span>
+                        <span class="amount">799</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <div class="plan-price annual-price">
+                        <span class="currency">$</span>
+                        <span class="amount">639</span>
+                        <span class="period">/month</span>
+                    </div>
                 </div>
-                <div class="plan-price annual-price">
-                    <span class="currency">$</span>39<span class="period">/month</span>
-                </div>
-                <ul class="pricing-features">
-                    <li>Up to 20 team members</li>
-                    <li>100 GB storage</li>
-                    <li>Advanced analytics</li>
-                    <li>Priority email support</li>
-                    <li>API access</li>
-                    <li>Custom integrations</li>
-                    <li>Team collaboration tools</li>
+                
+                <ul class="features-list">
+                    <li>AI presence monitoring across 15+ platforms</li>
+                    <li>Weekly performance reports & insights</li>
+                    <li>Advanced brand optimization & content strategy</li>
+                    <li>Priority support with dedicated manager</li>
+                    <li>Competitor tracking (10 brands)</li>
+                    <li>Custom AI response templates</li>
+                    <li>Quarterly strategy sessions</li>
                 </ul>
+                
                 <a href="talk.html" class="cta-button">Get Started</a>
             </div>
 
+            <!-- Enterprise Plan -->
             <div class="pricing-card">
                 <h3 class="plan-name">Enterprise</h3>
-                <p class="plan-description">For large organizations with custom needs</p>
-                <div class="plan-price monthly-price">
-                    <span class="currency">$</span>99<span class="period">/month</span>
+                <p class="plan-description">For market leaders requiring comprehensive AI dominance</p>
+                
+                <div class="price-wrapper">
+                    <div class="plan-price monthly-price">
+                        <span class="currency">$</span>
+                        <span class="amount">1599</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <div class="plan-price annual-price">
+                        <span class="currency">$</span>
+                        <span class="amount">1279</span>
+                        <span class="period">/month</span>
+                    </div>
                 </div>
-                <div class="plan-price annual-price">
-                    <span class="currency">$</span>79<span class="period">/month</span>
-                </div>
-                <ul class="pricing-features">
-                    <li>Unlimited team members</li>
-                    <li>Unlimited storage</li>
-                    <li>Advanced analytics & reporting</li>
-                    <li>24/7 phone & email support</li>
-                    <li>API access</li>
-                    <li>Custom integrations</li>
-                    <li>Dedicated account manager</li>
-                    <li>SLA guarantee</li>
+                
+                <ul class="features-list">
+                    <li>AI presence across ALL major platforms</li>
+                    <li>Real-time monitoring & instant alerts</li>
+                    <li>White-glove optimization service</li>
+                    <li>24/7 dedicated support team</li>
+                    <li>Unlimited competitor tracking</li>
+                    <li>Custom AI training for your brand</li>
+                    <li>Monthly executive briefings</li>
+                    <li>API access & custom integrations</li>
                 </ul>
+                
                 <a href="talk.html" class="cta-button">Contact Sales</a>
             </div>
         </div>
-        </div>
-    </main>
+    </section>
 
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p class="footer-copyright">© 2025 Contestra. All Rights Reserved.</p>
+
+            <div class="footer-system-status">
+                <span class="status-indicator"></span><span class="status-text">All systems normal</span>
+            </div>
+
+            <div class="footer-socials">
+                <a href="https://x.com/contestra_ai" target="_blank" rel="noopener"><img src="images/icons/x-logo-black.svg" alt="X (Twitter)"></a>
+                <a href="https://www.linkedin.com/company/contestra/" target="_blank" rel="noopener"><img src="images/icons/linkedin-logo-black.svg" alt="LinkedIn"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="js/utilities.js"></script>
+    <script src="js/navigation.js"></script>
     <script>
         // Annual/Monthly toggle functionality
         const toggleSwitch = document.getElementById('billing-toggle');
         const monthlyPrices = document.querySelectorAll('.monthly-price');
         const annualPrices = document.querySelectorAll('.annual-price');
+        const monthlyLabel = document.querySelector('.monthly-label');
+        const annualLabel = document.querySelector('.annual-label');
 
         toggleSwitch.addEventListener('click', function() {
             this.classList.toggle('active');
@@ -349,24 +567,17 @@
             if (this.classList.contains('active')) {
                 // Show annual prices
                 monthlyPrices.forEach(price => price.style.display = 'none');
-                annualPrices.forEach(price => price.style.display = 'block');
+                annualPrices.forEach(price => price.style.display = 'flex');
+                monthlyLabel.classList.remove('active');
+                annualLabel.classList.add('active');
             } else {
                 // Show monthly prices
-                monthlyPrices.forEach(price => price.style.display = 'block');
+                monthlyPrices.forEach(price => price.style.display = 'flex');
                 annualPrices.forEach(price => price.style.display = 'none');
+                monthlyLabel.classList.add('active');
+                annualLabel.classList.remove('active');
             }
         });
     </script>
-
-    <!-- Simple Footer -->
-    <footer style="background: #1a1a1a; color: #999; padding: 40px 20px; text-align: center; font-family: 'Suisse Intl', -apple-system, BlinkMacSystemFont, sans-serif;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <p style="margin: 0; font-size: 1.4rem;">&copy; 2024 Contestra. All rights reserved.</p>
-            <div style="margin-top: 20px;">
-                <a href="privacy.html" style="color: #999; text-decoration: none; margin: 0 15px; font-size: 1.4rem;">Privacy Policy</a>
-                <a href="talk.html" style="color: #999; text-decoration: none; margin: 0 15px; font-size: 1.4rem;">Contact</a>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>
