@@ -189,12 +189,13 @@
             font-size: 1.6rem;
             top: 0.4rem;
             left: 0;
-            transition: opacity 0.2s ease;
+            transition: all 0.2s ease;
         }
         
-        /* Hide label when country is selected */
+        /* Fly away effect when country is selected */
         .form-group:has(.form-select.has-value) .form-label {
             opacity: 0;
+            transform: translateY(-1.5rem) scale(0.75);
         }
         
         .form-select:focus + .form-label {
