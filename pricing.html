@@ -73,12 +73,7 @@
         
         .toggle-container {
             position: relative;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f5f5f5;
-            border-radius: 100px;
-            padding: 4px;
+            display: inline-block;
         }
         
         .toggle-switch {
@@ -119,18 +114,22 @@
             font-size: 14px;
             font-weight: 500;
             display: none;
+            margin-left: 12px;
         }
         
-        .toggle-container.annual .savings-tag {
-            display: block;
+        .toggle-section.show-annual .savings-tag {
+            display: inline-block;
         }
         
         /* Pricing Cards Grid */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
             margin-bottom: 64px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .pricing-card {
@@ -377,71 +376,19 @@
             </div>
 
             <!-- Toggle -->
-            <div class="toggle-section">
+            <div class="toggle-section" id="toggle-section">
                 <span class="toggle-label active" id="monthly-label">Monthly</span>
                 <div class="toggle-container" id="toggle-container">
                     <div class="toggle-switch" id="billing-toggle">
                         <div class="toggle-knob"></div>
                     </div>
-                    <span class="savings-tag">Save 20%</span>
                 </div>
                 <span class="toggle-label" id="annual-label">Annual</span>
+                <span class="savings-tag">Save 20%</span>
             </div>
 
             <!-- Pricing Cards -->
             <div class="pricing-grid">
-                <!-- Free Plan -->
-                <div class="pricing-card">
-                    <h3 class="plan-name">Free</h3>
-                    <p class="plan-description">For individuals exploring AI</p>
-                    
-                    <div class="price-display">
-                        <div class="monthly-price">
-                            <div class="price-amount">
-                                <span class="price-currency">$</span>
-                                <span class="price-number">0</span>
-                            </div>
-                            <div class="price-period">/month</div>
-                        </div>
-                        <div class="annual-price">
-                            <div class="price-amount">
-                                <span class="price-currency">$</span>
-                                <span class="price-number">0</span>
-                            </div>
-                            <div class="price-period">/month</div>
-                        </div>
-                    </div>
-                    
-                    <a href="talk.html" class="cta-button secondary">Get Started</a>
-                    
-                    <ul class="features-list">
-                        <li class="feature-item">
-                            <span class="feature-icon">
-                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.5 4.5L6 12L2.5 8.5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                            <span class="feature-text">5 daily credits (up to 30/month)</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon">
-                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.5 4.5L6 12L2.5 8.5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                            <span class="feature-text">Public projects</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon">
-                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.5 4.5L6 12L2.5 8.5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                            <span class="feature-text">Up to 20 collaborators</span>
-                        </li>
-                    </ul>
-                </div>
-
                 <!-- Pro Plan -->
                 <div class="pricing-card popular">
                     <span class="popular-badge">POPULAR</span>
@@ -605,17 +552,22 @@
                     <div class="price-display">
                         <div class="monthly-price">
                             <div class="price-amount">
-                                <span class="price-number" style="font-size: 32px;">Flexible billing</span>
+                                <span class="price-currency">$</span>
+                                <span class="price-number">99</span>
                             </div>
+                            <div class="price-period">/month</div>
                         </div>
                         <div class="annual-price">
                             <div class="price-amount">
-                                <span class="price-number" style="font-size: 32px;">Flexible billing</span>
+                                <span class="price-currency">$</span>
+                                <span class="price-number">79</span>
                             </div>
+                            <div class="price-period">/month</div>
+                            <div class="price-detail">$948 billed annually</div>
                         </div>
                     </div>
                     
-                    <a href="talk.html" class="cta-button secondary">Contact Sales</a>
+                    <a href="talk.html" class="cta-button">Get Started</a>
                     
                     <ul class="features-list">
                         <li class="feature-item">
@@ -694,7 +646,7 @@
     <script>
         // Annual/Monthly toggle functionality
         const toggleSwitch = document.getElementById('billing-toggle');
-        const toggleContainer = document.getElementById('toggle-container');
+        const toggleSection = document.getElementById('toggle-section');
         const monthlyLabel = document.getElementById('monthly-label');
         const annualLabel = document.getElementById('annual-label');
         const pricingCards = document.querySelectorAll('.pricing-card');
@@ -704,13 +656,13 @@
             
             if (this.classList.contains('active')) {
                 // Show annual
-                toggleContainer.classList.add('annual');
+                toggleSection.classList.add('show-annual');
                 monthlyLabel.classList.remove('active');
                 annualLabel.classList.add('active');
                 pricingCards.forEach(card => card.classList.add('show-annual'));
             } else {
                 // Show monthly
-                toggleContainer.classList.remove('annual');
+                toggleSection.classList.remove('show-annual');
                 monthlyLabel.classList.add('active');
                 annualLabel.classList.remove('active');
                 pricingCards.forEach(card => card.classList.remove('show-annual'));
