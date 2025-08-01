@@ -346,8 +346,8 @@
             margin: 0 auto;
             padding: 0 var(--container-padding);
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
+            grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr);
+            gap: 8rem; /* Increased gap to prevent overlap */
             min-height: 100%;
             align-items: stretch;
             padding-bottom: 4rem; /* Add some padding before footer */
@@ -361,6 +361,7 @@
             justify-content: center;
             position: relative;
             z-index: 1;
+            min-width: 350px; /* Prevent text from getting too narrow */
         }
         
         /* Right side - form area */
@@ -722,7 +723,7 @@
         
         .partner-logos {
             display: flex;
-            align-items: center;
+            align-items: flex-end;  /* Align logos by their bottom edge */
             gap: 2rem;
             max-width: 100%;
             flex-wrap: wrap;
@@ -734,6 +735,7 @@
             height: auto;
             opacity: 0.85;
             transition: opacity 0.2s;
+            filter: brightness(0) saturate(100%) invert(75%) sepia(9%) saturate(193%) hue-rotate(169deg) brightness(92%) contrast(87%);  /* Converts to #ADB5BD */
         }
         
         .partner-logo:hover {
