@@ -58,8 +58,65 @@
     
     <!-- Contact Page Specific Styles -->
     <style>
-        /* Full-page gradient background */
+        /* Remove body gradient - page should have normal background */
         body {
+            background: #ffffff;
+            min-height: 100vh;
+        }
+        
+        /* Two-column layout */
+        .contact-hero {
+            min-height: 100vh;
+            padding-top: var(--nav-height);
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden; /* Only prevent horizontal overflow */
+            margin-bottom: 0; /* Remove any gap with footer */
+            position: relative;
+        }
+        
+        /* Container with standard padding */
+        .contact-hero__wrapper {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            min-height: calc(100vh - var(--nav-height));
+            align-items: stretch;
+            padding-bottom: 0; /* Remove bottom padding to let gradient reach footer */
+        }
+        
+        /* Left side - content */
+        .contact-hero__left {
+            padding-right: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Right side - form area */
+        .contact-hero__right {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            min-height: calc(100vh - var(--nav-height));
+            align-self: stretch;
+        }
+        
+        /* Gradient background using pseudo-element that extends full height */
+        .contact-hero__right::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vh;
+            z-index: -1;
+            
+            /* Gradient background */
             background: 
                 /* Top half: smooth gradient */
                 linear-gradient(to right, 
@@ -82,49 +139,6 @@
                     #ff0088 71.5% 85.8%,
                     #ff0044 85.8% 100%
                 ) 0 50% / 100% 50% no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-        
-        /* Two-column layout */
-        .contact-hero {
-            min-height: 100vh;
-            padding-top: var(--nav-height);
-            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
-            overflow-x: hidden; /* Only prevent horizontal overflow */
-            margin-bottom: 0; /* Remove any gap with footer */
-        }
-        
-        /* Container with standard padding */
-        .contact-hero__wrapper {
-            max-width: var(--container-max);
-            margin: 0 auto;
-            padding: 0 var(--container-padding);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            min-height: calc(100vh - var(--nav-height));
-            align-items: stretch;
-            padding-bottom: 4rem; /* Add padding to ensure content doesn't touch footer */
-        }
-        
-        /* Left side - content */
-        .contact-hero__left {
-            padding-right: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        /* Right side - form area */
-        .contact-hero__right {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem;
-            min-height: calc(100vh - var(--nav-height));
-            align-self: stretch;
         }
         
         .contact-hero__title {
@@ -186,7 +200,7 @@
         /* Form container styling */
         .form-container {
             position: relative;
-            z-index: 1;
+            z-index: 10; /* Ensure it's above the gradient */
             max-inline-size: 48rem;
             width: 100%;
             background: #FEFEFE;
@@ -440,6 +454,13 @@
             
             .contact-hero__right {
                 padding: 3rem var(--container-padding-mobile);
+            }
+            
+            /* Adjust gradient for mobile - full width */
+            .contact-hero__right::before {
+                width: 100vw;
+                left: 0;
+                right: auto;
             }
             
             .contact-hero__title {
