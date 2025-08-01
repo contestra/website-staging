@@ -213,52 +213,16 @@
         }
         
         .pricing-card.popular {
-            position: relative;
-            background: white;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            overflow: hidden;
-        }
-        
-        /* Animated gradient background */
-        .pricing-card.popular::before {
-            content: '';
-            position: absolute;
-            inset: -50%;
-            background: linear-gradient(45deg, 
+            border-width: 2px;
+            border-image: linear-gradient(to right, 
                 #00ffff 0%,       /* Pure cyan */
-                #00ff7f 14%,      /* Pure green-cyan */
-                #7fff00 28%,      /* Pure green */
-                #ffff00 42%,      /* Pure yellow */
-                #ff7f00 56%,      /* Pure orange */
-                #ff007f 70%,      /* Pure pink */
-                #ff0040 84%,      /* Pure deep pink */
-                #00ffff 100%      /* Back to cyan for seamless loop */
-            );
-            z-index: -1;
-            animation: rotateGradientBackground 1.5s ease-in-out;
-        }
-        
-        @keyframes rotateGradientBackground {
-            0% {
-                transform: rotate(0deg);
-            }
-            50% {
-                transform: rotate(10deg);
-            }
-            100% {
-                transform: rotate(0deg);
-            }
-        }
-        
-        /* Create the visible border effect */
-        .pricing-card.popular::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            background: white;
-            border-radius: 14px;
-            z-index: -1;
+                #00ff7f 20%,      /* Pure green-cyan */
+                #7fff00 35%,      /* Pure green */
+                #ffff00 50%,      /* Pure yellow */
+                #ff7f00 65%,      /* Pure orange */
+                #ff007f 80%,      /* Pure pink */
+                #ff0040 100%      /* Pure deep pink */
+            ) 1;
         }
         
         /* Enterprise card should match Pro card styling - no gradient background */
