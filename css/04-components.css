@@ -621,6 +621,7 @@
     /* Marquee track with animation */
     .marquee__track {
         display: flex;
+        align-items: center;                    /* Ensure all logos align vertically */
         animation: marquee var(--marquee-duration) linear infinite;
         will-change: transform;
         transform: translateZ(0);               /* Hardware acceleration */
