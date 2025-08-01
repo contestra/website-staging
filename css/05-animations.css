@@ -333,19 +333,21 @@
         position: relative;                     /* For gradient overlay positioning */
         pointer-events: none; /* Disable all pointer interactions */
         z-index: 1; /* Above the gradient background */
-        /* FADE-OUT EFFECT: Professional mask gradient - ADDED 2025-08-01 */
+        /* FADE-OUT EFFECT: Professional mask gradient at top and bottom - ADDED 2025-08-01 */
         /* TO ROLLBACK: Simply remove or comment out this entire mask block */
         mask-image: linear-gradient(
             to bottom,
             transparent 0%,
             black 15%,
-            black 100%
+            black 85%,
+            transparent 100%
         );
         -webkit-mask-image: linear-gradient(
             to bottom,
             transparent 0%,
             black 15%,
-            black 100%
+            black 85%,
+            transparent 100%
         );
         mask-size: 100% 100%;
         -webkit-mask-size: 100% 100%;
