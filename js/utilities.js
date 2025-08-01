@@ -49,10 +49,8 @@ function fixMarquee() {
             console.log(`Logo ${i + 1}: width=${itemRect.width}px, margin-right=${marginRight}px`);
             
             firstSetWidth += itemRect.width;
-            // Add margin for all items except the last one in the set
-            if (i < 5) {  // Don't add margin for the 6th item (index 5)
-                firstSetWidth += marginRight;
-            }
+            // Add margin for all items (all 6 items have margin)
+            firstSetWidth += marginRight;
         }
         
         console.log(`First set total width: ${firstSetWidth}px`);
