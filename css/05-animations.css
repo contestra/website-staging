@@ -233,7 +233,7 @@
         box-shadow: none; /* Remove shadow to simplify */
         overflow: hidden; /* Clip content to border */
         position: relative;
-        background: #DEE2E6; /* Gray frame color */
+        background: rgba(255, 255, 255, 0.6); /* White frame with 60% opacity */
     }
     
     /* Create inner gradient container with proper rounded corners */
