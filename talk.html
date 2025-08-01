@@ -710,6 +710,8 @@
         /* Trusted partners section */
         .trusted-partners {
             margin-block-start: 4rem;
+            max-width: 100%;
+            overflow: hidden;
         }
         
         .trusted-partners-title {
@@ -721,12 +723,15 @@
         .partner-logos {
             display: flex;
             align-items: center;
-            gap: 3.2rem;
+            gap: 2rem;
+            max-width: 100%;
+            flex-wrap: wrap;
         }
         
         .partner-logo {
-            height: 3.2rem;
+            max-width: 8rem;
             width: auto;
+            height: auto;
             opacity: 0.85;
             transition: opacity 0.2s;
         }
