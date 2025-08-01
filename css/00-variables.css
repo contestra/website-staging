@@ -134,8 +134,8 @@
     --gap-7: 5.6rem;                           /* 56px */
     
     /* ===== MARQUEE ANIMATION VARIABLES ===== */
-    --logo-gap: var(--gap-4);                  /* Space between logos */
-    --logos-per-set: 4;                        /* Number of logos in repeating set */
+    --logo-gap: var(--gap-7);                  /* Space between logos - doubled from gap-4 to gap-7 */
+    --logos-per-set: 6;                        /* Number of logos in repeating set - updated from 4 to 6 */
     --logo-height: 4.8rem;                     /* Logo height */
     --marquee-duration: 60s;                   /* Full cycle duration */
     
@@ -157,13 +157,13 @@
 @media (width <= 768px) {
     :root {
         --logo-height: 4rem;                    /* Smaller logos on mobile */
-        --logo-gap: var(--gap-3);              /* Tighter spacing on mobile */
+        --logo-gap: var(--gap-5);              /* Doubled spacing on mobile - was gap-3 */
     }
 }
 
 @media (width <= 576px) {
     :root {
         --logo-height: 3.6rem;                  /* Even smaller logos on small mobile */
-        --logo-gap: var(--gap-2);              /* Minimal spacing on small screens */
+        --logo-gap: var(--gap-4);              /* Doubled spacing on small screens - was gap-2 */
     }
 }
