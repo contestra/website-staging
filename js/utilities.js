@@ -38,14 +38,25 @@ function fixMarquee() {
     try {
         // Measure the exact width of the first 6 items (one complete set)
         let firstSetWidth = 0;
+        const trackWidth = track.getBoundingClientRect().width;
+        console.log(`Track total width: ${trackWidth}px`);
+        
         for (let i = 0; i < 6; i++) {
             const itemRect = items[i].getBoundingClientRect();
-            firstSetWidth += itemRect.width;
-            
-            // Add margin for all items (since we removed the nth-of-type rule)
             const computedStyle = getComputedStyle(items[i]);
-            firstSetWidth += parseFloat(computedStyle.marginRight);
+            const marginRight = parseFloat(computedStyle.marginRight);
+            
+            console.log(`Logo ${i + 1}: width=${itemRect.width}px, margin-right=${marginRight}px`);
+            
+            firstSetWidth += itemRect.width;
+            // Add margin for all items except the last one in the set
+            if (i < 5) {  // Don't add margin for the 6th item (index 5)
+                firstSetWidth += marginRight;
+            }
         }
+        
+        console.log(`First set total width: ${firstSetWidth}px`);
+        console.log(`Track width / 2 = ${trackWidth / 2}px (for 50% movement)`);
         
         // Remove existing marquee keyframes if they exist
         const existingStyle = document.getElementById('marquee-keyframes');

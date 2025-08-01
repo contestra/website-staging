@@ -324,7 +324,7 @@
         overflow: hidden;
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
-        padding: 20px 20px 20px 20px;           /* Even padding */
+        padding: 20px 40px 20px 20px;           /* Increased right padding to align AI messages with nav CTA */
         justify-content: flex-end;              /* Push messages to bottom */
         /* REMOVED: Smooth scrolling since we're disabling scrolling */
         box-sizing: border-box;

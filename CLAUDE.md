@@ -178,3 +178,41 @@ If message text changes and causes clipping:
 - Don't increase container padding excessively
 
 Remember: The solution is about proper flexbox layout with `justify-content: flex-end`, not about adding massive padding.
+
+### Device Frame Removal - Alignment Adjustment
+When the device frame is removed:
+- The chat messages container has `padding: 20px 40px 20px 20px` (increased right padding)
+- This aligns the AI chat bubbles with the nav CTA gutter position
+- Without the frame's 20px padding, we need extra right padding to maintain visual alignment
+
+## Device Frame Removal Test (2025-08-01)
+
+### What Was Changed
+Temporarily disabled the device frame on the homepage animated chatbot hero for testing. All changes are easily reversible.
+
+### Files Modified
+
+#### 1. CSS: `05-animations.css`
+- **Device frame styles** (lines 227-260): Commented out `.chatbot-container.device-frame` block
+  - Removed 20px padding
+  - Removed white frame background (rgba(255, 255, 255, 0.6))
+  - Removed inner gradient positioning
+- **Chat message padding** (lines 338-360): Commented out device frame message padding adjustments
+- **Mobile padding** (lines 748-757): Commented out mobile device frame adjustments
+
+#### 2. CSS: `04-components.css`  
+- **Shadow system** (lines 715-721): Commented out multi-layer shadow on `.animation-placeholder`
+- **Hover state** (lines 759-766): Disabled hover transform and shadow effects
+- **Active state** (lines 768-775): Disabled active transform effects
+
+### How to Rollback
+To restore the device frame, uncomment the blocks marked with:
+- `/* TO ROLLBACK: Uncomment this block when restoring device frame */`
+- `/* TO ROLLBACK: Uncomment the box-shadow below to restore */`
+- `/* TO ROLLBACK: Uncomment to restore hover effect */`
+- `/* TO ROLLBACK: Uncomment to restore active state */`
+
+### Important Notes
+- Chat bubbles remain in exact same position - only visual frame removed
+- No structural changes to positioning or animation timing
+- All changes clearly marked for easy identification
