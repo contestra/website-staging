@@ -333,6 +333,25 @@
         position: relative;                     /* For gradient overlay positioning */
         pointer-events: none; /* Disable all pointer interactions */
         z-index: 1; /* Above the gradient background */
+        /* FADE-OUT EFFECT: Professional mask gradient - ADDED 2025-08-01 */
+        /* TO ROLLBACK: Simply remove or comment out this entire mask block */
+        mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 15%,
+            black 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 15%,
+            black 100%
+        );
+        mask-size: 100% 100%;
+        -webkit-mask-size: 100% 100%;
+        mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+        /* END FADE-OUT EFFECT */
     }
     
     /* Adjust padding when device frame is active - DISABLED FOR TESTING */
@@ -746,7 +765,7 @@
         
         .chat-messages {
             gap: 16px;
-            padding: 30px 15px 40px 15px;        /* Increased top/bottom padding to prevent clipping */
+            padding: 30px 15px 50px 15px;        /* Extra bottom padding to prevent clipping */
             overflow-y: auto;                     /* Enable scrolling on mobile */
             justify-content: flex-start;          /* Start from top on mobile */
         }
