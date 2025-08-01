@@ -488,13 +488,14 @@
         /* Mobile adjustments */
         @media (width <= 768px) {
             .contact-hero {
-                padding-top: calc(var(--nav-height) + 4rem); /* Add more space from nav */
+                padding-top: calc(var(--nav-height) + 2rem); /* Reduce top space */
             }
             
             .contact-hero__wrapper {
                 grid-template-columns: 1fr;
-                gap: 4rem;
+                gap: 3rem; /* Tighter gap */
                 padding: 0 var(--container-padding-mobile); /* Use mobile padding: 15px */
+                padding-bottom: 3rem; /* Reduce bottom padding */
             }
             
             .contact-hero__left {
@@ -502,7 +503,8 @@
             }
             
             .contact-hero__right {
-                padding: 3rem var(--container-padding-mobile);
+                padding: 2rem var(--container-padding-mobile);
+                min-height: auto; /* Remove fixed height on mobile */
             }
             
             /* Adjust gradient for mobile - full width */
@@ -516,33 +518,46 @@
                 left: 0;
                 right: 0;
                 max-width: 100%;
-                height: 250px; /* Proportionally smaller on mobile */
+                height: 60vh; /* Much taller on mobile to extend behind form */
+                min-height: 450px; /* Ensure minimum height */
             }
             
             .contact-hero__title {
-                font-size: 3.5rem;
+                font-size: 2.8rem;
                 text-align: left;
+                margin-block-end: 1.5rem;
             }
             
             .contact-hero__subtitle {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
                 text-align: left;
+                margin-block-end: 2rem;
             }
             
             .value-props {
                 align-items: flex-start;
+                gap: 1.8rem; /* Tighter spacing */
+                margin-block-end: 2rem;
             }
             
             .value-prop {
                 max-width: none;
+                gap: 1.2rem;
             }
             
             .value-prop__text {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
+                line-height: 1.5;
             }
             
             .trusted-partners {
                 text-align: left;
+                margin-block-start: 2.5rem;
+            }
+            
+            .trusted-partners-title {
+                font-size: 1.3rem;
+                margin-block-end: 1.5rem;
             }
             
             .partner-logos {
@@ -550,9 +565,12 @@
             }
             
             .form-container {
-                padding: 2.5rem 2rem;
-                border-radius: 8px;
+                padding: 3rem 2.5rem;
+                border-radius: 16px;
                 max-width: 100%;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                background: rgba(254, 254, 254, 0.98);
+                backdrop-filter: blur(10px);
             }
             
             .form-title {
