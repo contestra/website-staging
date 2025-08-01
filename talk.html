@@ -59,9 +59,16 @@
     <!-- Contact Page Specific Styles -->
     <style>
         /* Remove body gradient - page should have normal background */
+        html, body {
+            min-height: 100%;
+            height: 100%;
+        }
+        
         body {
             background: #ffffff;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
         }
         
         /* Two-column layout */
@@ -111,8 +118,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh; /* Use dynamic viewport height for better mobile support */
             z-index: -1;
             pointer-events: none;
         }
@@ -124,20 +132,20 @@
             top: 0;
             left: calc(50% - 3rem); /* Align with middle of page minus half gap */
             right: 0;
-            bottom: 0;
+            height: 100%;
             max-width: calc(50vw + 3rem - var(--container-padding)); /* Respect container padding */
             
             /* Gradient background */
             background: 
-                /* Top half: smooth gradient */
+                /* Top half: smooth gradient with pastel colors (mixed with white) */
                 linear-gradient(to right, 
-                    #7fffff 0%, 
-                    #7fffc3 16.66%, 
-                    #c3ff7f 33.33%, 
-                    #ffff7f 50%, 
-                    #ffc37f 66.66%, 
-                    #ff7fc3 83.33%, 
-                    #ff7fa1 100%
+                    #bfffff 0%,      /* Pastel cyan - was #7fffff */
+                    #bfffe1 16.66%,  /* Pastel turquoise - was #7fffc3 */
+                    #e1ffbf 33.33%,  /* Pastel lime - was #c3ff7f */
+                    #ffffbf 50%,     /* Pastel yellow - was #ffff7f */
+                    #ffe1bf 66.66%,  /* Pastel orange - was #ffc37f */
+                    #ffbfe1 83.33%,  /* Pastel pink - was #ff7fc3 */
+                    #ffbfd0 100%     /* Pastel rose - was #ff7fa1 */
                 ) 0 0 / 100% 50% no-repeat,
                 
                 /* Bottom half: 7 equal color bars */
@@ -542,6 +550,7 @@
         footer {
             background: transparent !important;
             position: relative;
+            margin-top: 0 !important;
         }
         
         /* Keep the spectrum gradient border at top of footer */
