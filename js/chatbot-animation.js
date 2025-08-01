@@ -324,7 +324,18 @@ class ChatbotAnimation {
                 
                 // Wait before next message (except for last message)
                 if (i < this.elements.messages.length - 1) {
-                    await this.delay(this.config.messageDelay);
+                    // Shorter delay between user message and AI response
+                    const nextMessage = this.elements.messages[i + 1];
+                    const isNextAI = nextMessage.classList.contains('from-ai');
+                    const isCurrentUser = this.elements.messages[i].classList.contains('from-user');
+                    
+                    if (isCurrentUser && isNextAI) {
+                        // Quick 500ms delay before AI starts thinking
+                        await this.delay(500);
+                    } else {
+                        // Normal delay between other messages
+                        await this.delay(this.config.messageDelay);
+                    }
                 }
                 
                 this.currentMessageIndex = i + 1;
