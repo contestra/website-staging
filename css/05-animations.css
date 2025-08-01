@@ -321,10 +321,11 @@
         display: flex;
         flex-direction: column;
         gap: 15px;  /* Reduced gap to save vertical space */
-        overflow: hidden;
+        overflow: visible;                      /* Allow glow to extend past boundaries */
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
         padding: 20px;                          /* Even padding all around */
+        padding-right: 30px;                    /* Extra right padding for glow overflow */
         justify-content: flex-end;              /* Push messages to bottom */
         /* REMOVED: Smooth scrolling since we're disabling scrolling */
         box-sizing: border-box;
@@ -333,7 +334,7 @@
         position: relative;                     /* For gradient overlay positioning */
         pointer-events: none; /* Disable all pointer interactions */
         z-index: 1; /* Above the gradient background */
-        max-inline-size: calc(100% - 60px);     /* Constrain width to align with nav edge */
+        max-inline-size: calc(100% - 30px);     /* Align AI bubble edge with nav CTA, glow extends past */
         margin-inline-start: auto;              /* Push container to the right */
         inline-size: 100%;
     }
@@ -572,7 +573,6 @@
     }
     
     /* RESTORED: Initial glow that fades for AI messages */
-    /* To revert: Remove this entire block */
     .chat-message.from-ai.visible p {
         animation: aiGlowFade 1.5s ease-out forwards;
         animation-delay: 0.2s;  /* Small delay so glow appears after message slides in */
@@ -589,7 +589,6 @@
                 0 2px 4px rgba(0, 0, 0, 0.1);  /* End with just the base shadow */
         }
     }
-    /* END RESTORED: Initial glow that fades */
     
     /* Hide empty message bubbles */
     .chat-message p:empty {

@@ -36,25 +36,20 @@ function fixMarquee() {
     }
     
     try {
+        // Force a reflow to ensure accurate measurements
+        track.offsetHeight;
+        
         // Measure the exact width of the first 6 items (one complete set)
         let firstSetWidth = 0;
-        const trackWidth = track.getBoundingClientRect().width;
-        console.log(`Track total width: ${trackWidth}px`);
         
         for (let i = 0; i < 6; i++) {
-            const itemRect = items[i].getBoundingClientRect();
-            const computedStyle = getComputedStyle(items[i]);
-            const marginRight = parseFloat(computedStyle.marginRight);
+            const item = items[i];
+            const itemRect = item.getBoundingClientRect();
+            const computedStyle = getComputedStyle(item);
+            const marginRight = parseFloat(computedStyle.marginRight) || 0;
             
-            console.log(`Logo ${i + 1}: width=${itemRect.width}px, margin-right=${marginRight}px`);
-            
-            firstSetWidth += itemRect.width;
-            // Add margin for all items (all 6 items have margin)
-            firstSetWidth += marginRight;
+            firstSetWidth += itemRect.width + marginRight;
         }
-        
-        console.log(`First set total width: ${firstSetWidth}px`);
-        console.log(`Track width / 2 = ${trackWidth / 2}px (for 50% movement)`);
         
         // Remove existing marquee keyframes if they exist
         const existingStyle = document.getElementById('marquee-keyframes');
@@ -64,10 +59,12 @@ function fixMarquee() {
         const keyframeName = 'marquee-precise';
         const style = document.createElement('style');
         style.id = 'marquee-keyframes';
+        
+        // Use exact pixel value for precise looping
         style.textContent = `
             @keyframes ${keyframeName} {
                 0% { transform: translateX(0); }
-                100% { transform: translateX(-${firstSetWidth}px); }
+                100% { transform: translateX(-${Math.round(firstSetWidth)}px); }
             }
         `;
         document.head.appendChild(style);
@@ -235,10 +232,15 @@ function initUtilities() {
     // Fix marquee after images load for accurate measurements
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-            window.addEventListener('load', fixMarquee);
+            window.addEventListener('load', () => {
+                // Add a small delay to ensure all images are rendered
+                setTimeout(fixMarquee, 100);
+            });
         });
     } else {
-        window.addEventListener('load', fixMarquee);
+        window.addEventListener('load', () => {
+            setTimeout(fixMarquee, 100);
+        });
     }
     
     // Re-fix marquee on resize (debounced for performance)
