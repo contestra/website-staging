@@ -94,7 +94,28 @@
             align-items: center;
             justify-content: center;
             padding: 4rem;
-            background: var(--gradient-spectrum-90);
+            background: 
+                /* Top half: smooth gradient */
+                linear-gradient(to right, 
+                    #7fffff 0%, 
+                    #7fffc3 16.66%, 
+                    #c3ff7f 33.33%, 
+                    #ffff7f 50%, 
+                    #ffc37f 66.66%, 
+                    #ff7fc3 83.33%, 
+                    #ff7fa1 100%
+                ) 0 0 / 100% 50% no-repeat,
+                
+                /* Bottom half: 7 equal color bars */
+                linear-gradient(to right,
+                    #00ffff 0% 14.3%,
+                    #00ff88 14.3% 28.6%,
+                    #88ff00 28.6% 42.9%,
+                    #ffff00 42.9% 57.2%,
+                    #ff8800 57.2% 71.5%,
+                    #ff0088 71.5% 85.8%,
+                    #ff0044 85.8% 100%
+                ) 0 50% / 100% 50% no-repeat;
             min-height: calc(100vh - var(--nav-height));
             align-self: stretch;
         }
