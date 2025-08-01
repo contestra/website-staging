@@ -729,13 +729,10 @@
             flex-wrap: wrap;
         }
         
-        /* Individual logo styling - Fixed sizing issue 2025-08-01 */
+        /* Individual logo styling - Fixed sizing issue 2025-08-01 v2 */
         .partner-logo {
-            max-height: 3rem;  /* Maximum height constraint */
-            max-width: 10rem;  /* Prevent overly wide logos */
-            height: auto;      /* Maintain aspect ratio */
-            width: auto;       /* Maintain aspect ratio */
-            object-fit: contain;  /* Ensure logo fits within constraints */
+            height: 4rem;      /* Fixed height for consistent sizing */
+            width: auto;       /* Let width scale naturally */
             filter: brightness(0) saturate(100%) invert(33%) sepia(6%) saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%); /* #495057 color */
             transition: filter 0.3s ease;
         }
@@ -827,8 +824,7 @@
             
             /* Smaller logos on mobile */
             .partner-logo {
-                max-height: 2.5rem;
-                max-width: 8rem;
+                height: 3rem;  /* Slightly smaller on mobile */
             }
             
             .form-container {
