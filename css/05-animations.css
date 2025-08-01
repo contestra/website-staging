@@ -746,12 +746,14 @@
         
         .chat-messages {
             gap: 16px;
-            padding: 20px 15px 150px 15px;       /* Keep original mobile padding */
+            padding: 20px 15px 30px 15px;        /* Reduced bottom padding on mobile */
+            overflow-y: auto;                     /* Enable scrolling on mobile */
+            justify-content: flex-start;          /* Start from top on mobile */
         }
         
         .chat-message.from-user,
         .chat-message.from-ai {
-            padding-inline-start: 0;             /* Reset message padding on mobile */
+            padding-left: 0 !important;          /* Reset message padding on mobile - override desktop !important */
         }
         
         /* Maintain device frame adjustments on mobile - DISABLED FOR TESTING */
