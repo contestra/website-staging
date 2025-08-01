@@ -347,7 +347,7 @@
             padding: 0 var(--container-padding);
             display: grid;
             grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr);
-            gap: 8rem; /* Increased gap to prevent overlap */
+            gap: 8rem; /* FIXED 2025-08-01: Proper gap between content and gradient sections */
             min-height: 100%;
             align-items: stretch;
             padding-bottom: 4rem; /* Add some padding before footer */
@@ -729,18 +729,20 @@
             flex-wrap: wrap;
         }
         
+        /* Individual logo styling - Fixed sizing issue 2025-08-01 */
         .partner-logo {
-            width: auto;
-            height: auto;
-            opacity: 0.85;
-            transition: opacity 0.2s;
-            filter: brightness(0) saturate(100%) invert(31%) sepia(8%) saturate(388%) hue-rotate(175deg) brightness(95%) contrast(87%);  /* Converts to #495057 */
-            transform: scale(0.4);  /* Reduce all logos to 40% of their original size */
-            transform-origin: bottom center;  /* Scale from bottom to maintain alignment */
+            max-height: 3rem;  /* Maximum height constraint */
+            max-width: 10rem;  /* Prevent overly wide logos */
+            height: auto;      /* Maintain aspect ratio */
+            width: auto;       /* Maintain aspect ratio */
+            object-fit: contain;  /* Ensure logo fits within constraints */
+            filter: brightness(0) saturate(100%) invert(33%) sepia(6%) saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%); /* #495057 color */
+            transition: filter 0.3s ease;
         }
         
+        /* Hover effect */
         .partner-logo:hover {
-            opacity: 1;
+            filter: brightness(0) saturate(100%) invert(19%) sepia(8%) saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%); /* Darker on hover */
         }
         
         /* Mobile adjustments */
@@ -820,6 +822,13 @@
             
             .partner-logos {
                 justify-content: flex-start;
+                gap: 1.5rem; /* Smaller gap on mobile */
+            }
+            
+            /* Smaller logos on mobile */
+            .partner-logo {
+                max-height: 2.5rem;
+                max-width: 8rem;
             }
             
             .form-container {
@@ -1027,7 +1036,7 @@
                         </div>
                     </div>
                     
-                    <!-- Trusted Partners -->
+                    <!-- Trusted Partners - Updated 2025-08-01 with proper logo sizing -->
                     <div class="trusted-partners">
                         <p class="trusted-partners-title">Some of the tools we use to deliver:</p>
                         <div class="partner-logos">
