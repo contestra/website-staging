@@ -79,7 +79,7 @@
     .hero-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 6rem;
+        gap: 8rem; /* Increased from 6rem for more breathing room between text and animation */
         align-items: start; /* Change from center to start for consistent positioning */
         min-block-size: 50vh;
         position: relative;
