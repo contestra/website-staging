@@ -224,23 +224,23 @@
         pointer-events: none;
     }
     
-    /* DEVICE FRAME EFFECT - Easily reversible by commenting out this block */
+    /* DEVICE FRAME EFFECT - TEMPORARILY DISABLED FOR TESTING */
+    /* TO ROLLBACK: Uncomment the entire block below to restore device frame */
+    /*
     .chatbot-container.device-frame {
-        /* Apply gradient with padding to create frame effect */
-        padding: 20px; /* This creates the frame width */
+        padding: 20px;
         border: none;
         border-radius: 24px;
-        box-shadow: none; /* Remove shadow to simplify */
-        overflow: hidden; /* Clip content to border */
+        box-shadow: none;
+        overflow: hidden;
         position: relative;
-        background: rgba(255, 255, 255, 0.6); /* White frame with 60% opacity */
+        background: rgba(255, 255, 255, 0.6);
     }
     
-    /* Create inner gradient container with proper rounded corners */
     .chatbot-container.device-frame::after {
         content: '';
         position: absolute;
-        inset: 20px; /* Matches padding to create inner area */
+        inset: 20px;
         background: linear-gradient(
             135deg,
             #FFFCF9 0%,
@@ -252,12 +252,12 @@
         background-size: 200% 200%;
         background-position: 0% 0%;
         animation: chatbotGradientShift 20s ease-in-out infinite;
-        border-radius: 10px; /* Visible rounded corners */
+        border-radius: 10px;
         z-index: 0;
         pointer-events: none;
     }
-    
-    /* END DEVICE FRAME EFFECT */
+    */
+    /* END DEVICE FRAME EFFECT - DISABLED */
     
     /* RESTORED: Glass morphism effects */
     /* To revert: Change display back to 'none' in both pseudo-elements */
@@ -335,28 +335,27 @@
         z-index: 1; /* Above the gradient background */
     }
     
-    /* Adjust padding when device frame is active */
+    /* Adjust padding when device frame is active - DISABLED FOR TESTING */
+    /* TO ROLLBACK: Uncomment this block when restoring device frame */
+    /*
     .chatbot-container.device-frame .chat-messages {
-        padding: 30px 20px 30px 20px; /* Balanced padding all around */
+        padding: 30px 20px 30px 20px;
         margin: 0;
-        /* Messages should not have their own border radius */
-        border-radius: 10px; /* Match gradient radius */
-        overflow-y: auto; /* Allow scrolling if needed */
+        border-radius: 10px;
+        overflow-y: auto;
         overflow-x: hidden;
-        /* Ensure messages don't get clipped */
         height: 100%;
         box-sizing: border-box;
-        /* Ensure messages stay within the gradient area */
         position: relative;
         z-index: 1;
-        background: transparent; /* Ensure no background */
-        border: none; /* Ensure no border */
-        box-shadow: none; /* Ensure no shadow */
-        /* Use flexbox to push content down */
+        background: transparent;
+        border: none;
+        box-shadow: none;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* Push messages to bottom */
+        justify-content: flex-end;
     }
+    */
     
     /* Re-enable pointer events for child elements */
     .chat-messages > * {
@@ -744,12 +743,15 @@
             padding: 20px 15px 150px 15px;       /* Extra bottom padding for mobile */
         }
         
-        /* Maintain device frame adjustments on mobile */
+        /* Maintain device frame adjustments on mobile - DISABLED FOR TESTING */
+        /* TO ROLLBACK: Uncomment when restoring device frame */
+        /*
         .chatbot-container.device-frame .chat-messages {
-            padding: 20px 20px 30px 20px; /* Balanced padding on mobile too */
+            padding: 20px 20px 30px 20px;
             margin: 0;
-            justify-content: flex-end; /* Keep messages at bottom on mobile */
+            justify-content: flex-end;
         }
+        */
         
         /* Reduce gradient overlay height on mobile */
         .chat-messages::after {

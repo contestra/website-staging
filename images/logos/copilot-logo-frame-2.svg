@@ -1,15 +1,15 @@
 <svg width="263" height="75" viewBox="0 0 263 75" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_2185_1061)">
 <mask id="mask0_2185_1061" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="-2" y="33" width="37" height="32">
-<path d="M-1.40002 33.096H34.6V64.9407H-1.40002V33.096Z" fill="white"/>
+<path d="M-1.40002 33.0961H34.6V64.9408H-1.40002V33.0961Z" fill="white"/>
 </mask>
 <g mask="url(#mask0_2185_1061)">
 <mask id="mask1_2185_1061" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="-12" y="33" width="58" height="32">
-<rect x="-11.6499" y="33.096" width="56.7692" height="31.8462" fill="url(#pattern0_2185_1061)"/>
+<rect x="-11.6499" y="33.0961" width="56.7692" height="31.8462" fill="url(#pattern0_2185_1061)"/>
 </mask>
 <g mask="url(#mask1_2185_1061)">
 <g filter="url(#filter0_d_2185_1061)">
-<rect x="-11.6499" y="33.096" width="56.7692" height="31.8462" fill="url(#pattern1_2185_1061)" shape-rendering="crispEdges"/>
+<rect x="-11.6499" y="33.0961" width="56.7692" height="31.8462" fill="url(#pattern1_2185_1061)" shape-rendering="crispEdges"/>
 </g>
 </g>
 </g>
@@ -19,7 +19,7 @@
 <pattern id="pattern0_2185_1061" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_2185_1061" transform="scale(0.000372024 0.000661376)"/>
 </pattern>
-<filter id="filter0_d_2185_1061" x="-15.6499" y="33.096" width="64.7693" height="39.8462" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_2185_1061" x="-15.6499" y="33.0961" width="64.7693" height="39.8462" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="4"/>
