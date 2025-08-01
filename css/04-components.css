@@ -636,8 +636,7 @@
         transition: opacity var(--transition-base);
     }
     
-    /* Remove margin from the 6th item in each set for seamless loop */
-    .marquee__item:nth-child(6),
+    /* Remove margin from the last item (12th) to prevent extra gap at the end */
     .marquee__item:nth-child(12) {
         margin-inline-end: 0;
     }

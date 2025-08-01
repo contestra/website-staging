@@ -324,7 +324,7 @@
         overflow: hidden;
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
-        padding: 20px 40px 20px 20px;           /* Increased right padding to align AI messages with nav CTA */
+        padding: 20px 80px 20px 20px;           /* Increased right padding to align AI messages with nav CTA */
         justify-content: flex-end;              /* Push messages to bottom */
         /* REMOVED: Smooth scrolling since we're disabling scrolling */
         box-sizing: border-box;
@@ -740,7 +740,7 @@
         
         .chat-messages {
             gap: 16px;
-            padding: 20px 15px 150px 15px;       /* Extra bottom padding for mobile */
+            padding: 20px 15px 150px 15px;       /* Keep original mobile padding */
         }
         
         /* Maintain device frame adjustments on mobile - DISABLED FOR TESTING */
