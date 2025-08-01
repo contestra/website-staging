@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "WebFetch(domain:www.ai21.com)",
@@ -7,7 +8,10 @@
       "Bash(find:*)",
       "Bash(cp:*)",
       "WebFetch(domain:lovable.dev)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(powershell:*)",
+      "Bash(start http://localhost:8000/talk.html)",
+      "Bash(cmd /c start http://localhost:8000/talk.html)"
     ],
     "deny": []
   }

@@ -65,12 +65,19 @@
         
         body {
             background: #ffffff;
-            min-height: 100%;
+            min-height: 100vh;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
+        }
+        
+        /* Page wrapper to contain gradient and content */
+        .page-wrapper {
+            flex: 1;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         /* Two-column layout */
@@ -119,10 +126,11 @@
         
         /* Create gradient wrapper */
         .gradient-background {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
+            min-height: 100vh;
             height: 100%;
             z-index: 0;
             pointer-events: none;
@@ -135,7 +143,7 @@
             top: 0;
             left: calc(50% - 3rem); /* Align with middle of page minus half gap */
             right: 0;
-            height: 100%;
+            bottom: 0;
             max-width: calc(50vw + 3rem - var(--container-padding)); /* Respect container padding */
             
             /* Gradient background */
@@ -553,7 +561,7 @@
         footer {
             background: #212529; /* Use color-gray-900 value */
             position: relative;
-            margin-top: 0;
+            margin-top: auto; /* Push footer to bottom */
             z-index: 1; /* Ensure footer is above gradient */
         }
         
@@ -587,8 +595,9 @@
     </style>
 </head>
 <body>
-    <!-- Gradient background element -->
-    <div class="gradient-background"></div>
+    <!-- Content wrapper with gradient -->
+    <div class="page-wrapper">
+        <div class="gradient-background"></div>
     
     <!-- ===== SITE HEADER ===== -->
     <header id="site-header" class="">
@@ -776,6 +785,7 @@
                 </div>
         </div>
     </section>
+    </div><!-- End page-wrapper -->
 
     <!-- ===== FOOTER ===== -->
     <footer>
