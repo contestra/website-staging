@@ -66,7 +66,7 @@
         
         /* Two-column layout */
         .contact-hero {
-            min-height: 100vh;
+            min-height: calc(100vh - 6rem); /* Subtract footer height */
             padding-top: var(--nav-height);
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow-x: hidden; /* Only prevent horizontal overflow */
@@ -106,15 +106,26 @@
             align-self: stretch;
         }
         
-        /* Gradient background using pseudo-element that extends full height */
-        .contact-hero__right::before {
-            content: '';
+        /* Create gradient wrapper */
+        .gradient-background {
             position: fixed;
             top: 0;
+            left: 0;
             right: 0;
-            width: 50vw;
-            height: 100vh;
+            bottom: 0;
             z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Gradient element that respects container boundaries */
+        .gradient-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: calc(50% - 3rem); /* Align with middle of page minus half gap */
+            right: 0;
+            bottom: 0;
+            max-width: calc(50vw + 3rem - var(--container-padding)); /* Respect container padding */
             
             /* Gradient background */
             background: 
@@ -139,6 +150,14 @@
                     #ff0088 71.5% 85.8%,
                     #ff0044 85.8% 100%
                 ) 0 50% / 100% 50% no-repeat;
+        }
+        
+        /* Adjust positioning for larger screens */
+        @media (min-width: 1540px) {
+            .gradient-background::after {
+                left: calc(50% - 3rem);
+                max-width: calc((var(--container-max) / 2) + 3rem);
+            }
         }
         
         .contact-hero__title {
@@ -457,10 +476,10 @@
             }
             
             /* Adjust gradient for mobile - full width */
-            .contact-hero__right::before {
-                width: 100vw;
+            .gradient-background::after {
                 left: 0;
-                right: auto;
+                right: 0;
+                max-width: 100%;
             }
             
             .contact-hero__title {
@@ -542,6 +561,9 @@
     </style>
 </head>
 <body>
+    <!-- Gradient background element -->
+    <div class="gradient-background"></div>
+    
     <!-- ===== SITE HEADER ===== -->
     <header id="site-header" class="">
         <div class="header-bg"></div>
