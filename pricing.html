@@ -213,8 +213,18 @@
         }
         
         .pricing-card.popular {
-            border-width: 2px;
-            border-image: linear-gradient(to right, 
+            position: relative;
+            border: none;
+            background: white;
+            overflow: hidden;
+        }
+        
+        /* Animated gradient border using pseudo-element */
+        .pricing-card.popular::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, 
                 #00ffff 0%,       /* Pure cyan */
                 #00ff7f 20%,      /* Pure green-cyan */
                 #7fff00 35%,      /* Pure green */
@@ -222,7 +232,32 @@
                 #ff7f00 65%,      /* Pure orange */
                 #ff007f 80%,      /* Pure pink */
                 #ff0040 100%      /* Pure deep pink */
-            ) 1;
+            );
+            border-radius: 16px;
+            z-index: -1;
+            animation: rotateGradient 1.5s ease-in-out;
+        }
+        
+        @keyframes rotateGradient {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+        
+        /* Inner white background */
+        .pricing-card.popular::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: white;
+            border-radius: 14px;
+            z-index: -1;
         }
         
         /* Enterprise card should match Pro card styling - no gradient background */
