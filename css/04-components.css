@@ -636,10 +636,6 @@
         transition: opacity var(--transition-base);
     }
     
-    .marquee__item:nth-of-type(4n) {
-        margin-inline-end: 0;                   /* No margin after every 4th item */
-    }
-    
     .marquee__item:hover {
         opacity: 1;
     }
