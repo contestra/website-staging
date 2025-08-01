@@ -30,23 +30,21 @@ function fixMarquee() {
     const items = document.querySelectorAll('.marquee__item');
     
     // Early return if elements don't exist
-    if (!track || items.length < 4) {
+    if (!track || items.length < 6) {
         console.warn('Marquee elements not found or insufficient items');
         return;
     }
     
     try {
-        // Measure the exact width of the first 4 items (one complete set)
+        // Measure the exact width of the first 6 items (one complete set)
         let firstSetWidth = 0;
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 6; i++) {
             const itemRect = items[i].getBoundingClientRect();
             firstSetWidth += itemRect.width;
             
-            // Add margin except for the 4th item (following CSS pattern)
-            if (i < 3) {
-                const computedStyle = getComputedStyle(items[i]);
-                firstSetWidth += parseFloat(computedStyle.marginRight);
-            }
+            // Add margin for all items (since we removed the nth-of-type rule)
+            const computedStyle = getComputedStyle(items[i]);
+            firstSetWidth += parseFloat(computedStyle.marginRight);
         }
         
         // Remove existing marquee keyframes if they exist
