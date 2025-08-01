@@ -38,19 +38,19 @@ class ChatbotAnimation {
         // Enhanced animation configuration
         this.config = {
             typingSpeed: 35,                    // Even faster base milliseconds per character
-            messageDelay: 3000,                 // Delay between messages (3 seconds to read)
+            messageDelay: 2500,                 // Reduced delay between messages (2.5 seconds to read)
             initialDelay: 1000,                 // Standard delay before starting first loop
             loopDelay: 3000,                    // Good delay before restarting loop
             speedVariation: 10,                 // Minimal variation in typing speed
-            typingIndicatorDuration: 1000,      // Base typing indicator duration
+            typingIndicatorDuration: 700,       // Reduced base typing indicator duration
             enableTypingIndicator: true,        // Show typing indicator for AI messages
             enableMicroInteractions: true,      // Enable hover effects
             // NEW: Complexity-based timing configuration
             complexityTiming: {
-                simple: 800,                    // Short messages (< 50 chars)
-                medium: 1200,                   // Medium messages (50-100 chars)
-                complex: 1800,                  // Long messages (> 100 chars)
-                variation: 300                  // ±150ms random variation
+                simple: 500,                    // Reduced: Short messages (< 50 chars)
+                medium: 800,                    // Reduced: Medium messages (50-100 chars)
+                complex: 1200,                  // Reduced: Long messages (> 100 chars)
+                variation: 200                  // Reduced: ±100ms random variation
             },
             // ENHANCED2: Message pop animation timing
             messagePopTiming: {
