@@ -730,12 +730,14 @@
         }
         
         .partner-logo {
-            max-width: 8rem;
             width: auto;
             height: auto;
+            max-height: 3.5rem;  /* Constrain height to keep them reasonable */
             opacity: 0.85;
             transition: opacity 0.2s;
-            filter: brightness(0) saturate(100%) invert(75%) sepia(9%) saturate(193%) hue-rotate(169deg) brightness(92%) contrast(87%);  /* Converts to #ADB5BD */
+            filter: brightness(0) saturate(100%) invert(31%) sepia(8%) saturate(388%) hue-rotate(175deg) brightness(95%) contrast(87%);  /* Converts to #495057 */
+            transform: scale(0.6);  /* Reduce all logos to 60% of their original size */
+            transform-origin: bottom center;  /* Scale from bottom to maintain alignment */
         }
         
         .partner-logo:hover {
