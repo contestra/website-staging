@@ -321,11 +321,10 @@
         display: flex;
         flex-direction: column;
         gap: 15px;  /* Reduced gap to save vertical space */
-        overflow: visible;                      /* Allow glow to extend past boundaries */
+        overflow: hidden;
         scrollbar-width: none;                  /* Firefox - hide scrollbar */
         -ms-overflow-style: none;               /* IE and Edge - hide scrollbar */
         padding: 20px;                          /* Even padding all around */
-        padding-right: 30px;                    /* Extra right padding for glow overflow */
         justify-content: flex-end;              /* Push messages to bottom */
         /* REMOVED: Smooth scrolling since we're disabling scrolling */
         box-sizing: border-box;
@@ -334,9 +333,6 @@
         position: relative;                     /* For gradient overlay positioning */
         pointer-events: none; /* Disable all pointer interactions */
         z-index: 1; /* Above the gradient background */
-        max-inline-size: calc(100% - 30px);     /* Align AI bubble edge with nav CTA, glow extends past */
-        margin-inline-start: auto;              /* Push container to the right */
-        inline-size: 100%;
     }
     
     /* Adjust padding when device frame is active - DISABLED FOR TESTING */
@@ -511,7 +507,8 @@
     
     .chat-message.from-ai {
         justify-content: flex-end;
-        padding-inline-start: 0;                /* No extra padding - uses container padding */
+        padding-inline-start: 60px;             /* Push AI messages to align with nav CTA */
+        padding-inline-end: 0;
     }
     
     /* Removed visible class - not needed */
@@ -743,8 +740,10 @@
         .chat-messages {
             gap: 16px;
             padding: 20px 15px 150px 15px;       /* Keep original mobile padding */
-            max-inline-size: 100%;                /* Full width on mobile */
-            margin-inline-start: 0;               /* No margin on mobile */
+        }
+        
+        .chat-message.from-ai {
+            padding-inline-start: 0;             /* Reset AI message padding on mobile */
         }
         
         /* Maintain device frame adjustments on mobile - DISABLED FOR TESTING */
