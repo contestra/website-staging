@@ -54,6 +54,140 @@
         .header__options {
             margin-left: 0;
         }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            position: relative;
+            width: 24px;
+            height: 24px;
+            z-index: 1002;
+        }
+        
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #111827;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            position: absolute;
+            left: 0;
+        }
+        
+        .mobile-menu-btn span:nth-child(1) {
+            top: 0;
+        }
+        
+        .mobile-menu-btn span:nth-child(2) {
+            top: 11px;
+        }
+        
+        .mobile-menu-btn span:nth-child(3) {
+            top: 22px;
+        }
+        
+        /* Hamburger animation when active */
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 11px;
+        }
+        
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 11px;
+        }
+        
+        /* Mobile menu dropdown */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mobile-menu-inner {
+            padding: 2rem 1.5rem 3rem;
+        }
+        
+        .mobile-menu-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-menu-nav li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mobile-menu-nav a {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #111827;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.2s ease;
+        }
+        
+        .mobile-menu-nav a:hover {
+            color: var(--color-accent);
+        }
+        
+        .mobile-menu-cta {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .mobile-menu-cta .btn {
+            width: 100%;
+            justify-content: center;
+            font-size: 1.6rem;
+            padding: 1.2rem 2rem;
+        }
+        
+        /* Mobile responsive styles */
+        @media (width <= 768px) {
+            .main-menu-wrap,
+            .header__options {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                margin-left: auto;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            /* Ensure header stays on top */
+            #site-header {
+                z-index: 1001;
+            }
+        }
     </style>
     
     <!-- Contact Page Specific Styles -->
@@ -488,7 +622,7 @@
         /* Mobile adjustments */
         @media (width <= 768px) {
             .contact-hero {
-                padding-top: calc(var(--nav-height) + 2rem); /* Reduce top space */
+                padding-top: calc(var(--nav-height) + 4rem); /* Match privacy page spacing */
             }
             
             .contact-hero__wrapper {
@@ -674,6 +808,23 @@
             </div>
         </div>
     </header>
+    
+    <!-- Mobile Menu Dropdown -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-inner">
+            <ul class="mobile-menu-nav">
+                <li><a href="pricing.html">Pricing</a></li>
+            </ul>
+            <div class="mobile-menu-cta">
+                <a href="talk.html" class="btn btn--primary-black btn-arrow">
+                    Let's Talk
+                    <svg class="btn-arrow-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                        <polyline points="3 3 9 6 3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- ===== TWO-COLUMN HERO SECTION ===== -->
     <section class="contact-hero">
@@ -850,6 +1001,55 @@
     <!-- ===== JAVASCRIPT FILES ===== -->
     <script src="js/utilities.js"></script>
     <script src="js/navigation.js"></script>
+    
+    <!-- Mobile Menu Handler -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const body = document.body;
+            
+            // Toggle mobile menu
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileMenuBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                body.classList.toggle('menu-open');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    body.classList.remove('menu-open');
+                }
+            });
+            
+            // Close menu when clicking on a link
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    body.classList.remove('menu-open');
+                });
+            });
+            
+            // Handle resize events
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    if (window.innerWidth > 768) {
+                        mobileMenuBtn.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    }
+                }, 250);
+            });
+        });
+    </script>
     
     <!-- Contact Form Handler -->
     <script>
