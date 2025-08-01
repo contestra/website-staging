@@ -729,38 +729,14 @@
             flex-wrap: wrap;
         }
         
-        /* Individual logo styling - Fixed sizing issue 2025-08-01 v3 */
+        /* Individual logo styling - Fixed with width-based approach */
         .partner-logo {
-            display: inline-block;
-            vertical-align: bottom;  /* Align by bottom edge */
+            width: 10rem;  /* Fixed width for all logos */
+            height: auto;  /* Maintain aspect ratio */
+            max-height: 4rem;  /* Prevent tall logos from being too big */
+            object-fit: contain;  /* Ensure logo fits within bounds */
             filter: brightness(0) saturate(100%) invert(33%) sepia(6%) saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%); /* #495057 color */
             transition: filter 0.3s ease;
-        }
-        
-        /* Size each logo individually based on visual appearance */
-        .partner-logo[alt="PyTorch"] {
-            height: 3rem;
-            width: auto;
-        }
-        
-        .partner-logo[alt="NLTK"] {
-            height: 3rem;
-            width: auto;
-        }
-        
-        .partner-logo[alt="TensorFlow"] {
-            height: 4.5rem;  /* Taller due to square aspect ratio */
-            width: auto;
-        }
-        
-        .partner-logo[alt="spaCy"] {
-            height: 3rem;
-            width: auto;
-        }
-        
-        .partner-logo[alt="Gemma"] {
-            height: 4.5rem;  /* Taller due to vertical aspect ratio */
-            width: auto;
         }
         
         /* Hover effect */
@@ -849,15 +825,9 @@
             }
             
             /* Smaller logos on mobile */
-            .partner-logo[alt="PyTorch"],
-            .partner-logo[alt="NLTK"],
-            .partner-logo[alt="spaCy"] {
-                height: 2.5rem;
-            }
-            
-            .partner-logo[alt="TensorFlow"],
-            .partner-logo[alt="Gemma"] {
-                height: 3.5rem;
+            .partner-logo {
+                width: 8rem;
+                max-height: 3rem;
             }
             
             .form-container {
