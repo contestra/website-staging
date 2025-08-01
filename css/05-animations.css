@@ -500,14 +500,16 @@
     }
     
     /* Message positioning and entry animations */
+    /* Updated 2025-08-01: Added 60px padding to align with nav CTA - v2 */
     .chat-message.from-user {
         justify-content: flex-start;
+        padding-left: 60px !important;          /* Push user messages same amount as AI - using padding-left for specificity */
         padding-inline-end: 0;                  /* No extra padding - uses container padding */
     }
     
     .chat-message.from-ai {
         justify-content: flex-end;
-        padding-inline-start: 60px;             /* Push AI messages to align with nav CTA */
+        padding-left: 60px !important;          /* Push AI messages to align with nav CTA - using padding-left for specificity */
         padding-inline-end: 0;
     }
     
@@ -571,7 +573,7 @@
     
     /* RESTORED: Initial glow that fades for AI messages */
     .chat-message.from-ai.visible p {
-        animation: aiGlowFade 1.5s ease-out forwards;
+        animation: aiGlowFade 2.5s ease-out forwards;
         animation-delay: 0.2s;  /* Small delay so glow appears after message slides in */
     }
     
@@ -580,6 +582,11 @@
             box-shadow: 
                 0 2px 4px rgba(0, 0, 0, 0.1),
                 0 0 30px rgba(255, 0, 136, 0.3);  /* Start with pink glow */
+        }
+        60% {
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                0 0 30px rgba(255, 0, 136, 0.3);  /* Hold the glow longer */
         }
         100% {
             box-shadow: 
@@ -742,8 +749,9 @@
             padding: 20px 15px 150px 15px;       /* Keep original mobile padding */
         }
         
+        .chat-message.from-user,
         .chat-message.from-ai {
-            padding-inline-start: 0;             /* Reset AI message padding on mobile */
+            padding-inline-start: 0;             /* Reset message padding on mobile */
         }
         
         /* Maintain device frame adjustments on mobile - DISABLED FOR TESTING */
