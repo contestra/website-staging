@@ -583,15 +583,9 @@
             z-index: 1; /* Ensure footer is above gradient */
         }
         
-        /* Keep the spectrum gradient border at top of footer */
+        /* Remove the spectrum gradient border at top of footer */
         footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-spectrum);
+            display: none;
         }
         
         /* Ensure header background works with gradient */
