@@ -734,7 +734,7 @@
     /* ===== CHATBOT RESPONSIVE ADJUSTMENTS ===== */
     @media (width <= 768px) {
         .chatbot-container {
-            padding: 2rem;
+            padding: 0;                          /* Remove padding to prevent clipping */
             min-block-size: 100%;               /* Ensure fixed height on mobile */
         }
         
@@ -746,7 +746,7 @@
         
         .chat-messages {
             gap: 16px;
-            padding: 20px 15px 30px 15px;        /* Reduced bottom padding on mobile */
+            padding: 30px 15px 40px 15px;        /* Increased top/bottom padding to prevent clipping */
             overflow-y: auto;                     /* Enable scrolling on mobile */
             justify-content: flex-start;          /* Start from top on mobile */
         }
