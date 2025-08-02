@@ -515,7 +515,7 @@
     /* Backdrop overlay element for mobile menu */
     .mobile-menu-backdrop {
         position: fixed;
-        top: 0;
+        top: var(--nav-height); /* Start below header */
         left: 0;
         right: 0;
         bottom: 0;
@@ -524,7 +524,7 @@
         -webkit-backdrop-filter: blur(8px);
         z-index: 998; /* Just below mobile menu */
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease, top var(--transition-slow);
         pointer-events: none;
     }
     
@@ -698,5 +698,14 @@
     #site-header.scrolling-up ~ .mobile-menu.active {
         top: var(--nav-height);
         max-height: calc(100vh - var(--nav-height));
+    }
+    
+    /* Adjust backdrop position when header is scrolled */
+    #site-header.scrolled ~ .mobile-menu-backdrop {
+        top: var(--nav-height-scrolled);
+    }
+    
+    #site-header.scrolling-up ~ .mobile-menu-backdrop {
+        top: var(--nav-height);
     }
 }
