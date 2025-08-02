@@ -186,8 +186,8 @@ class ScaleAICarousel {
             card.parentNode.replaceChild(newCard, card);
             
             // Initialize gradient visibility on mobile
-            if (isMobile && !newCard.classList.contains('flipped')) {
-                newCard.classList.add('show-gradient');
+            if (isMobile) {
+                newCard.setAttribute('data-gradient', 'show');
             }
             
             // Handle clicks on the entire card
@@ -231,9 +231,7 @@ class ScaleAICarousel {
             
             // Explicitly show gradient bar on mobile when flipping back
             if (isMobile) {
-                card.classList.add('show-gradient');
-                // Force a reflow to ensure the class is applied
-                card.offsetHeight;
+                card.setAttribute('data-gradient', 'show');
             }
             
             console.log(`Card ${index + 1} flipped to front`);
@@ -245,7 +243,7 @@ class ScaleAICarousel {
             
             // Explicitly hide gradient bar on mobile when flipping
             if (isMobile) {
-                card.classList.remove('show-gradient');
+                card.setAttribute('data-gradient', 'hide');
             }
             
             console.log(`Card ${index + 1} flipped to back`);

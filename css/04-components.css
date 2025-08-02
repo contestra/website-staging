@@ -502,21 +502,21 @@
             background: var(--gradient-spectrum-97-5) !important;
         }
         
-        /* Gradient strip default state on mobile */
+        /* Gradient strip default state on mobile - visible */
         .b-section[data-id="scale-ai"] .b-link::before {
             transform: translateX(0) !important;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.3s ease-out;
         }
         
-        /* Show gradient strip when explicitly marked */
-        .b-section[data-id="scale-ai"] .b-link.show-gradient::before {
-            opacity: 1 !important;
+        /* Hide gradient when data attribute says so */
+        .b-section[data-id="scale-ai"] .b-link[data-gradient="hide"]::before {
+            opacity: 0 !important;
         }
         
-        /* Ensure gradient is hidden when flipped */
-        .b-section[data-id="scale-ai"] .b-link.flipped::before {
-            opacity: 0 !important;
+        /* Show gradient when data attribute says so */
+        .b-section[data-id="scale-ai"] .b-link[data-gradient="show"]::before {
+            opacity: 1 !important;
         }
         
         /* Left align mobile text */
