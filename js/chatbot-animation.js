@@ -109,6 +109,7 @@ class ChatbotAnimation {
         if (this.elements.container) {
             console.log('Enhanced chatbot animation initializing...');
             this.init();
+            this.setupIntersectionObserver();
         } else {
             console.log('Chatbot container not found - animation disabled');
         }
@@ -625,6 +626,41 @@ class ChatbotAnimation {
         if (!this.isAnimating) {
             console.log('Resuming chatbot animation');
             this.resetAnimation();
+        }
+    }
+    
+    /**
+     * Set up intersection observer to pause animation when out of view
+     */
+    setupIntersectionObserver() {
+        // Create observer with threshold
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Element is in view - resume if was paused by observer
+                    if (this.pausedByObserver) {
+                        console.log('Chatbot entering viewport - resuming animation');
+                        this.pausedByObserver = false;
+                        this.resume();
+                    }
+                } else {
+                    // Element is out of view - pause
+                    if (this.isAnimating && !this.pausedByObserver) {
+                        console.log('Chatbot leaving viewport - pausing animation');
+                        this.pausedByObserver = true;
+                        this.pause();
+                    }
+                }
+            });
+        }, {
+            // Trigger when element is 10% visible
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+        
+        // Start observing the chatbot container
+        if (this.elements.container) {
+            observer.observe(this.elements.container);
         }
     }
     
