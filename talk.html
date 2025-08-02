@@ -370,7 +370,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem; /* Reduced padding for better centering */
+            padding: 0; /* Remove padding - let form container handle spacing */
             min-height: calc(100vh - var(--nav-height));
             align-self: stretch;
             z-index: 1;
@@ -394,9 +394,9 @@
             position: absolute;
             top: 0;
             left: 50%; /* Start from center */
-            right: var(--container-padding); /* Respect right gutter */
+            right: 0;
             bottom: 0;
-            max-width: calc(50vw - var(--container-padding)); /* Half viewport minus gutter */
+            width: calc(50vw - var(--container-padding)); /* Fixed width instead of max-width */
             
             /* Only the smooth gradient */
             background: linear-gradient(to right, 
@@ -415,9 +415,9 @@
             position: absolute;
             bottom: 0;
             left: 50%;
-            right: var(--container-padding); /* Respect right gutter */
+            right: 0;
             height: 400px; /* Increased from 150px to reach higher */
-            max-width: calc(50vw - var(--container-padding));
+            width: calc(50vw - var(--container-padding));
             background: linear-gradient(to right,
                 #00ffff 0% 14.3%,
                 #00ff88 14.3% 28.6%,
@@ -433,12 +433,14 @@
         /* Adjust positioning for larger screens */
         @media (min-width: 1540px) {
             .gradient-background::after {
-                left: 50%;
-                max-width: calc(var(--container-max) / 2);
+                left: auto;
+                right: var(--container-padding);
+                width: calc((var(--container-max) / 2) - var(--container-padding));
             }
             .gradient-bars {
-                left: 50%;
-                max-width: calc(var(--container-max) / 2);
+                left: auto;
+                right: var(--container-padding);
+                width: calc((var(--container-max) / 2) - var(--container-padding));
             }
         }
         
