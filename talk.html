@@ -748,12 +748,20 @@
             }
             
             .contact-hero__left {
-                padding: 0 2rem; /* Add padding to content only */
+                padding: 2rem 1.5rem; /* Match container mobile padding */
+                position: relative; /* Ensure it's above gradient */
+                z-index: 1;
             }
             
             .contact-hero__right {
                 padding: 2rem 0; /* Remove horizontal padding for full bleed */
                 min-height: auto; /* Remove fixed height on mobile */
+                position: fixed; /* Fix to viewport */
+                top: 0; /* Start from top of viewport */
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1; /* Behind content */
             }
             
             /* On mobile, gradient bars only show in lower portion */
@@ -818,11 +826,13 @@
             .form-container {
                 padding: 3rem 2.5rem;
                 border-radius: 16px;
-                max-width: calc(100% - 4rem); /* Account for parent's lack of padding */
-                margin: 0 2rem; /* Add horizontal margin to maintain gutters */
+                max-width: calc(100% - 3rem); /* Account for parent's lack of padding */
+                margin: 2rem 1.5rem; /* Match container mobile padding */
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
                 background: rgba(254, 254, 254, 0.98);
                 backdrop-filter: blur(10px);
+                position: relative; /* Ensure it's above gradient */
+                z-index: 2;
             }
             
             .form-title {
@@ -1007,7 +1017,7 @@
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="value-prop__text">Deliver measurable, auditable results with<br>monthly performance reporting.</div>
+                            <div class="value-prop__text">More engineered approach to how your<br>value is communicated</div>
                         </div>
                         <div class="value-prop">
                             <div class="value-prop__icon">
