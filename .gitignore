@@ -1,0 +1,31 @@
+# Environment and config files
+config.php
+.env
+.env.local
+
+# Stripe PHP SDK (if you want to exclude it from git)
+stripe-php/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*~
+
+# Logs
+*.log
+
+# Node modules (if you add any JS tooling later)
+node_modules/
+
+# Temporary files
+*.tmp
+*.temp

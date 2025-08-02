@@ -3,7 +3,7 @@
 // This file handles secure server-side creation of Stripe checkout sessions
 
 // Enable CORS for your domain
-header('Access-Control-Allow-Origin: https://yourdomain.com'); // Replace with your actual domain
+header('Access-Control-Allow-Origin: https://contestra.com'); // Replace with your actual domain
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
@@ -16,8 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // Include Stripe PHP library
 require_once 'stripe-php/init.php';
 
-// Set your secret key (use environment variable in production)
-\Stripe\Stripe::setApiKey('sk_test_YOUR_SECRET_KEY_HERE'); // TODO: Replace with your actual secret key
+// Include configuration file (contains secret key)
+require_once 'config.php';
+
+// Set your secret key from config
+\Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
 try {
     // Get the JSON input
@@ -37,8 +40,8 @@ try {
             'price' => $priceId,
             'quantity' => 1,
         ]],
-        'success_url' => 'https://yourdomain.com/success.html?session_id={CHECKOUT_SESSION_ID}',
-        'cancel_url' => 'https://yourdomain.com/pricing.html',
+        'success_url' => 'https://contestra.com/success.html?session_id={CHECKOUT_SESSION_ID}',
+        'cancel_url' => 'https://contestra.com/pricing.html',
         // Optional: collect billing address
         'billing_address_collection' => 'required',
         // Optional: allow promotion codes

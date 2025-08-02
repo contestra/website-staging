@@ -12,18 +12,24 @@ This guide will help you complete the Stripe integration for your Contestra webs
 
 ### 1. Install Stripe PHP Library
 
-Download the Stripe PHP SDK from: https://github.com/stripe/stripe-php
+**IMPORTANT: The stripe-php library is NOT included in this repository for security reasons.**
 
-Extract the ZIP file and upload the `stripe-php` folder to your website root directory.
+Download the Stripe PHP SDK from: https://github.com/stripe/stripe-php/releases
+
+1. Download the latest release ZIP file
+2. Extract the ZIP file
+3. Upload ONLY the `stripe-php` folder to your website root directory
+4. The `stripe-php` folder is already in `.gitignore` - DO NOT commit it to Git
 
 Your directory structure should look like:
 ```
 /
-├── stripe-php/
+├── stripe-php/              # This folder is gitignored
 │   ├── init.php
 │   ├── lib/
 │   └── ...
 ├── create-checkout-session.php
+├── config.php               # This file is also gitignored
 ├── pricing.html
 └── success.html
 ```
@@ -36,14 +42,15 @@ Your directory structure should look like:
    - **Publishable key** (starts with `pk_test_`)
    - **Secret key** (starts with `sk_test_`)
 
-### 3. Update the PHP File
+### 3. Configure Your Secret Key
 
-Edit `create-checkout-session.php`:
-- Replace `sk_test_YOUR_SECRET_KEY_HERE` with your actual secret key
-- Replace `https://yourdomain.com` with your actual domain in:
-  - CORS header
-  - success_url
-  - cancel_url
+1. The `config.php` file already contains your live secret key
+2. This file is in `.gitignore` and should NEVER be committed to Git
+3. Update `create-checkout-session.php` to ensure your domain is correct:
+   - Replace `https://contestra.com` with your actual domain in:
+     - CORS header (line 6)
+     - success_url (line 43)
+     - cancel_url (line 44)
 
 ### 4. Create Stripe Products and Prices
 
