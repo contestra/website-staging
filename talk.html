@@ -370,35 +370,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0; /* Remove padding - let form container handle spacing */
+            padding: 4rem;
             min-height: calc(100vh - var(--nav-height));
             align-self: stretch;
-            z-index: 1;
-        }
-        
-        /* Create gradient wrapper */
-        .gradient-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            min-height: 100vh;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        
-        /* Gradient element that respects container boundaries */
-        .gradient-background::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%; /* Start from center */
-            right: 0;
-            bottom: 0;
-            width: calc(50vw - var(--container-padding)); /* Fixed width instead of max-width */
-            
-            /* Only the smooth gradient */
+            /* Gradient background directly on this element */
             background: linear-gradient(to right, 
                 #bfffff 0%,      /* Pastel cyan */
                 #bfffe1 16.66%,  /* Pastel turquoise */
@@ -410,14 +385,15 @@
             );
         }
         
-        /* Colored bars at the bottom */
-        .gradient-bars {
+        
+        /* Colored bars at the bottom - positioned inside right column */
+        .contact-hero__right::after {
+            content: '';
             position: absolute;
             bottom: 0;
-            left: 50%;
+            left: 0;
             right: 0;
             height: 400px; /* Increased from 150px to reach higher */
-            width: calc(50vw - var(--container-padding));
             background: linear-gradient(to right,
                 #00ffff 0% 14.3%,
                 #00ff88 14.3% 28.6%,
@@ -430,19 +406,6 @@
             z-index: 0;
         }
         
-        /* Adjust positioning for larger screens */
-        @media (min-width: 1540px) {
-            .gradient-background::after {
-                left: auto;
-                right: var(--container-padding);
-                width: calc((var(--container-max) / 2) - var(--container-padding));
-            }
-            .gradient-bars {
-                left: auto;
-                right: var(--container-padding);
-                width: calc((var(--container-max) / 2) - var(--container-padding));
-            }
-        }
         
         .contact-hero__title {
             font-size: clamp(3.5rem, 5vw, 6rem);
@@ -794,22 +757,10 @@
                 min-height: auto; /* Remove fixed height on mobile */
             }
             
-            /* Adjust gradient for mobile - full width */
-            .gradient-background::after {
-                left: 0;
-                right: 0;
-                max-width: 100%;
-            }
-            
-            .gradient-bars {
-                left: 0;
-                right: 0;
-                max-width: 100%;
-                height: auto; /* Let it extend naturally */
-                top: auto; /* Reset top positioning */
-                bottom: 0; /* Start from bottom */
-                min-height: 35vh; /* About 1/3 of viewport from bottom */
-                max-height: 40vh; /* Don't go too high */
+            /* On mobile, gradient bars only show in lower portion */
+            .contact-hero__right::after {
+                height: 35vh; /* About 1/3 of viewport from bottom */
+                max-height: 300px; /* Don't go too high */
             }
             
             .contact-hero__title {
@@ -950,8 +901,6 @@
 <body>
     <!-- Content wrapper with gradient -->
     <div class="page-wrapper">
-        <div class="gradient-background"></div>
-        <div class="gradient-bars"></div>
     
     <!-- ===== SITE HEADER ===== -->
     <header id="site-header" class="">
