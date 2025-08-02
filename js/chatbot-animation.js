@@ -594,9 +594,7 @@ class ChatbotAnimation {
      * Pause animation (useful for when element is not visible)
      */
     pause() {
-        console.log(`Pause called - isAnimating: ${this.isAnimating}, currentMessageIndex: ${this.currentMessageIndex}`);
         if (this.isAnimating) {
-            console.log('Pausing chatbot animation - clearing all timeouts');
             this.isAnimating = false;
             
             if (this.typingTimeout) {
@@ -619,10 +617,6 @@ class ChatbotAnimation {
                 this.popTimeout = null;
             }
             
-            // Add visual indicator that animation is paused
-            if (this.elements.placeholder) {
-                this.elements.placeholder.classList.add('animation-paused');
-            }
         }
     }
     
@@ -630,15 +624,7 @@ class ChatbotAnimation {
      * Resume animation
      */
     resume() {
-        console.log(`Resume called - isAnimating: ${this.isAnimating}, pausedByObserver: ${this.pausedByObserver}`);
         if (!this.isAnimating) {
-            console.log('Resuming chatbot animation - restarting from beginning');
-            
-            // Remove visual indicator
-            if (this.elements.placeholder) {
-                this.elements.placeholder.classList.remove('animation-paused');
-            }
-            
             this.resetAnimation();
         }
     }
@@ -653,8 +639,6 @@ class ChatbotAnimation {
         // Create observer with threshold
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // Debug logging to understand visibility state
-                console.log(`Chatbot visibility changed: intersecting=${entry.isIntersecting}, ratio=${entry.intersectionRatio.toFixed(2)}, viewport=${window.innerWidth}x${window.innerHeight}`);
                 
                 if (entry.isIntersecting) {
                     // Element is in view - resume if was paused by observer
@@ -685,7 +669,6 @@ class ChatbotAnimation {
         
         if (elementToObserve) {
             observer.observe(elementToObserve);
-            console.log(`Intersection Observer initialized for chatbot animation (observing: ${elementToObserve.className || elementToObserve.id})`);
         } else {
             console.warn('No suitable element found for Intersection Observer');
         }

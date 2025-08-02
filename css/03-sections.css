@@ -681,7 +681,7 @@
         font-size: 2.4rem;
         line-height: 1.3; /* Match standard body text line-height */
         max-inline-size: 60ch;
-        font-weight: 700 !important; /* Using Bold weight for better visual prominence */
+        font-weight: 600 !important; /* SemiBold weight for better prominence on all devices */
         font-style: normal !important; /* Ensure normal style to match font-face declaration */
         -webkit-font-smoothing: antialiased; /* Better rendering on webkit browsers */
         -moz-osx-font-smoothing: grayscale; /* Better rendering on Firefox */
