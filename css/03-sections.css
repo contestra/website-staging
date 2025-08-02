@@ -397,7 +397,7 @@
     /* Feature titles */
     .col-title h3 {
         font-size: 2.8rem;
-        font-weight: 600;                       /* Match weight with first H2 section */
+        font-weight: 500;                       /* Medium weight for H3s */
         color: var(--color-text-primary);
         text-align: left;                        /* Keep feature titles left-aligned */
     }
@@ -677,18 +677,18 @@
     
     /* Testimonial text */
     .testimonial-quote {
-        font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
         font-size: 2.4rem;
         line-height: 1.3; /* Match standard body text line-height */
         max-inline-size: 60ch;
-        font-weight: 600 !important; /* SemiBold weight for better prominence on all devices */
-        font-style: normal !important; /* Ensure normal style to match font-face declaration */
+        font-weight: 600; /* SemiBold weight (600) for better prominence on all devices */
+        font-style: normal; /* Ensure normal style to match font-face declaration */
         -webkit-font-smoothing: antialiased; /* Better rendering on webkit browsers */
         -moz-osx-font-smoothing: grayscale; /* Better rendering on Firefox */
     }
     
     .testimonial-quote strong {
-        font-family: inherit !important;
+        font-family: inherit;
         color: var(--color-accent);
         font-weight: 700; /* Use Bold weight for emphasis */
     }
