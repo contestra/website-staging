@@ -753,7 +753,7 @@
             }
             
             .contact-hero__right {
-                padding: 2rem;
+                padding: 2rem 0; /* Remove horizontal padding for full bleed */
                 min-height: auto; /* Remove fixed height on mobile */
             }
             
@@ -819,7 +819,8 @@
             .form-container {
                 padding: 3rem 2.5rem;
                 border-radius: 16px;
-                max-width: 100%;
+                max-width: calc(100% - 4rem); /* Account for parent's lack of padding */
+                margin: 0 2rem; /* Add horizontal margin to maintain gutters */
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
                 background: rgba(254, 254, 254, 0.98);
                 backdrop-filter: blur(10px);
