@@ -742,9 +742,11 @@
             
             .contact-hero__wrapper {
                 grid-template-columns: 1fr;
-                gap: 3rem; /* Tighter gap */
+                gap: 0; /* No gap - sections flow naturally */
                 padding: 0; /* Remove all padding for full bleed */
                 padding-bottom: 0; /* Remove padding to let gradient bars touch footer */
+                display: flex; /* Change to flex for better mobile flow */
+                flex-direction: column;
             }
             
             .contact-hero__left {
@@ -756,12 +758,10 @@
             .contact-hero__right {
                 padding: 2rem 0; /* Remove horizontal padding for full bleed */
                 min-height: auto; /* Remove fixed height on mobile */
-                position: fixed; /* Fix to viewport */
-                top: 0; /* Start from top of viewport */
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: -1; /* Behind content */
+                position: relative; /* Changed from fixed to relative */
+                margin: 0 -1.5rem; /* Negative margins for full bleed */
+                width: calc(100% + 3rem); /* Account for negative margins */
+                z-index: 0; /* Normal stacking */
             }
             
             /* On mobile, gradient bars only show in lower portion */
@@ -826,8 +826,8 @@
             .form-container {
                 padding: 3rem 2.5rem;
                 border-radius: 16px;
-                max-width: calc(100% - 3rem); /* Account for parent's lack of padding */
-                margin: 2rem 1.5rem; /* Match container mobile padding */
+                max-width: 100%; /* Full width within parent */
+                margin: 2rem 1.5rem; /* Horizontal margins for gutters */
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
                 background: rgba(254, 254, 254, 0.98);
                 backdrop-filter: blur(10px);
@@ -1017,7 +1017,7 @@
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="value-prop__text">More engineered approach to how your<br>value is communicated</div>
+                            <div class="value-prop__text">A more engineered approach to how your<br>value is communicated</div>
                         </div>
                         <div class="value-prop">
                             <div class="value-prop__icon">
@@ -1025,7 +1025,7 @@
                                     <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="value-prop__text">Purpose-built strategies that scale with<br>your health brand's growth.</div>
+                            <div class="value-prop__text">Four problems every health brand faces over<br>the next 12 months.</div>
                         </div>
                     </div>
                     
