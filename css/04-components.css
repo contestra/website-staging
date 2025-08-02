@@ -530,43 +530,34 @@
             font-weight: 700;
         }
         
-        /* Make CTA more prominent on mobile with tap indicator */
-        .b-section[data-id="scale-ai"] .card__cta {
-            position: relative;
-            padding-right: 3rem;
-        }
-        
-        /* Replace desktop arrow with mobile tap indicator */
-        .b-section[data-id="scale-ai"] .card__cta::after {
-            content: "Tap to read more";
+        /* Add elegant flip icon on mobile */
+        .b-section[data-id="scale-ai"] .card-front::after {
+            content: "⟳";
             position: absolute;
-            top: -2rem;
-            left: 0;
-            font-size: 1.2rem;
-            color: var(--color-text-primary);
-            opacity: 0.5;
-            font-weight: 400;
-            white-space: nowrap;
-        }
-        
-        /* Add pulsing dot to indicate interactivity */
-        .b-section[data-id="scale-ai"] .card__cta::before {
-            content: "";
-            position: absolute;
-            right: 0.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
+            bottom: 2rem;
+            right: 2rem;
+            width: 32px;
+            height: 32px;
             background: var(--color-accent);
+            color: white;
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(255, 0, 136, 0.3);
+            transition: transform 0.3s ease;
         }
         
-        @keyframes pulse {
-            0% { opacity: 1; transform: translateY(-50%) scale(1); }
-            50% { opacity: 0.6; transform: translateY(-50%) scale(1.2); }
-            100% { opacity: 1; transform: translateY(-50%) scale(1); }
+        /* Subtle animation on the flip icon */
+        .b-section[data-id="scale-ai"] .b-link:active .card-front::after {
+            transform: rotate(180deg);
+        }
+        
+        /* Remove desktop arrow on mobile */
+        .b-section[data-id="scale-ai"] .card__cta::after {
+            display: none;
         }
         
         /* Disable ALL hover effects on mobile */
