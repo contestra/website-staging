@@ -497,21 +497,25 @@
             background: var(--gradient-spectrum-97-5) !important;
         }
         
-        /* Gradient strip base state on mobile */
-        .b-section[data-id="scale-ai"] .b-link::before {
+        /* Gradient strip base state on mobile - show by default on unflipped cards */
+        .b-section[data-id="scale-ai"] .b-link:not(.flipped)::before {
             transform: translateX(0) !important;
-            opacity: 0; /* Default hidden to prevent flashing */
+            opacity: 1 !important;
             transition: opacity 0.3s ease-out;
         }
         
-        /* Show gradient only when explicitly marked */
-        .b-section[data-id="scale-ai"] .b-link[data-gradient="show"]::before {
-            opacity: 1 !important;
+        /* Hide gradient on flipped cards */
+        .b-section[data-id="scale-ai"] .b-link.flipped::before {
+            opacity: 0 !important;
         }
         
-        /* Hide gradient when marked or when flipped */
+        /* Override with data attribute if present */
         .b-section[data-id="scale-ai"] .b-link[data-gradient="hide"]::before {
             opacity: 0 !important;
+        }
+        
+        .b-section[data-id="scale-ai"] .b-link[data-gradient="show"]::before {
+            opacity: 1 !important;
         }
         
         /* Left align mobile text */
