@@ -797,8 +797,14 @@
             /* On mobile, gradient bars only show in lower portion */
             .contact-hero__right::after {
                 height: 250px; /* Fixed height instead of viewport-based */
-                bottom: 0; /* Ensure it's anchored to bottom */
-                position: absolute; /* Ensure proper positioning */
+                position: fixed; /* Fixed to viewport to prevent resize on scroll */
+                bottom: 0; /* Anchored to bottom of viewport */
+                left: 0;
+                right: 0;
+                z-index: -1; /* Behind content */
+                will-change: transform; /* Prevent repaints */
+                -webkit-transform: translateZ(0); /* Force hardware acceleration */
+                transform: translateZ(0);
             }
             
             .contact-hero__title {
@@ -887,6 +893,11 @@
             
             .form-label {
                 font-size: 1.4rem;
+            }
+            
+            /* Ensure country display value matches other inputs on mobile */
+            .country-display-value {
+                font-size: 1.4rem !important;
             }
             
             .form-row {
@@ -1461,13 +1472,14 @@
         
         // Create display value div
         const displayValue = document.createElement('div');
+        displayValue.className = 'country-display-value';
         displayValue.style.cssText = `
             position: absolute;
             left: 0;
             top: 0.4rem;
             right: 2rem;
             pointer-events: none;
-            font-size: ${window.innerWidth <= 768 ? '1.4rem' : '1.6rem'};
+            font-size: 1.6rem;
             color: #111827;
         `;
         countryGroup.appendChild(displayValue);
