@@ -64,6 +64,7 @@ class ChatbotAnimation {
         this.elements = {
             container: document.getElementById('chatMessages'),
             placeholder: document.querySelector('.animation-placeholder'),
+            chatbotContainer: document.querySelector('.chatbot-container'),
             messages: []
         };
         
@@ -593,8 +594,9 @@ class ChatbotAnimation {
      * Pause animation (useful for when element is not visible)
      */
     pause() {
+        console.log(`Pause called - isAnimating: ${this.isAnimating}, currentMessageIndex: ${this.currentMessageIndex}`);
         if (this.isAnimating) {
-            console.log('Pausing chatbot animation');
+            console.log('Pausing chatbot animation - clearing all timeouts');
             this.isAnimating = false;
             
             if (this.typingTimeout) {
@@ -616,6 +618,11 @@ class ChatbotAnimation {
                 clearTimeout(this.popTimeout);
                 this.popTimeout = null;
             }
+            
+            // Add visual indicator that animation is paused
+            if (this.elements.placeholder) {
+                this.elements.placeholder.classList.add('animation-paused');
+            }
         }
     }
     
@@ -623,8 +630,15 @@ class ChatbotAnimation {
      * Resume animation
      */
     resume() {
+        console.log(`Resume called - isAnimating: ${this.isAnimating}, pausedByObserver: ${this.pausedByObserver}`);
         if (!this.isAnimating) {
-            console.log('Resuming chatbot animation');
+            console.log('Resuming chatbot animation - restarting from beginning');
+            
+            // Remove visual indicator
+            if (this.elements.placeholder) {
+                this.elements.placeholder.classList.remove('animation-paused');
+            }
+            
             this.resetAnimation();
         }
     }
@@ -633,9 +647,15 @@ class ChatbotAnimation {
      * Set up intersection observer to pause animation when out of view
      */
     setupIntersectionObserver() {
+        // Initialize pausedByObserver flag
+        this.pausedByObserver = false;
+        
         // Create observer with threshold
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                // Debug logging to understand visibility state
+                console.log(`Chatbot visibility changed: intersecting=${entry.isIntersecting}, ratio=${entry.intersectionRatio.toFixed(2)}, viewport=${window.innerWidth}x${window.innerHeight}`);
+                
                 if (entry.isIntersecting) {
                     // Element is in view - resume if was paused by observer
                     if (this.pausedByObserver) {
@@ -653,14 +673,21 @@ class ChatbotAnimation {
                 }
             });
         }, {
-            // Trigger when element is 10% visible
-            threshold: 0.1,
-            rootMargin: '50px'
+            // Use multiple thresholds to ensure proper detection
+            threshold: [0, 0.1, 0.5, 0.9, 1.0],
+            // Negative margin to trigger pause earlier when scrolling away
+            rootMargin: '-100px 0px -100px 0px'
         });
         
-        // Start observing the chatbot container
-        if (this.elements.container) {
-            observer.observe(this.elements.container);
+        // Start observing the outer placeholder container for better viewport detection
+        // Use placeholder first, fallback to chatbot container, then messages container
+        const elementToObserve = this.elements.placeholder || this.elements.chatbotContainer || this.elements.container;
+        
+        if (elementToObserve) {
+            observer.observe(elementToObserve);
+            console.log(`Intersection Observer initialized for chatbot animation (observing: ${elementToObserve.className || elementToObserve.id})`);
+        } else {
+            console.warn('No suitable element found for Intersection Observer');
         }
     }
     

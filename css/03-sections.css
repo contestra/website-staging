@@ -681,22 +681,16 @@
         font-size: 2.4rem;
         line-height: 1.3; /* Match standard body text line-height */
         max-inline-size: 60ch;
-        font-weight: 400; /* Regular weight on desktop */
-    }
-    
-    /* Increase font weight on mobile for better readability 
-       Note: This increases the weight of all testimonial quotes on mobile devices
-       to improve readability on smaller screens */
-    @media (width <= 768px) {
-        .testimonial-quote {
-            font-weight: 500; /* Medium weight on mobile */
-        }
+        font-weight: 700 !important; /* Using Bold weight for better visual prominence */
+        font-style: normal !important; /* Ensure normal style to match font-face declaration */
+        -webkit-font-smoothing: antialiased; /* Better rendering on webkit browsers */
+        -moz-osx-font-smoothing: grayscale; /* Better rendering on Firefox */
     }
     
     .testimonial-quote strong {
         font-family: inherit !important;
         color: var(--color-accent);
-        font-weight: 600; /* Use 600 weight (Suisse Screen Light mapped to 600) */
+        font-weight: 700; /* Use Bold weight for emphasis */
     }
     
     .testimonial-author {

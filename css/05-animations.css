@@ -312,6 +312,12 @@
         /* Removed animations to prevent wobbling */
     }
     
+    /* Visual indicator when animation is paused (for debugging) */
+    .animation-placeholder.animation-paused {
+        opacity: 0.6;
+        filter: grayscale(0.3);
+    }
+    
     
     /* ===== CHAT MESSAGE ANIMATIONS ===== */
     
