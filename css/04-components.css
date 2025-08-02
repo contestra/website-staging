@@ -530,6 +530,45 @@
             font-weight: 700;
         }
         
+        /* Make CTA more prominent on mobile with tap indicator */
+        .b-section[data-id="scale-ai"] .card__cta {
+            position: relative;
+            padding-right: 3rem;
+        }
+        
+        /* Replace desktop arrow with mobile tap indicator */
+        .b-section[data-id="scale-ai"] .card__cta::after {
+            content: "Tap to read more";
+            position: absolute;
+            top: -2rem;
+            left: 0;
+            font-size: 1.2rem;
+            color: var(--color-text-primary);
+            opacity: 0.5;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+        
+        /* Add pulsing dot to indicate interactivity */
+        .b-section[data-id="scale-ai"] .card__cta::before {
+            content: "";
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; transform: translateY(-50%) scale(1); }
+            50% { opacity: 0.6; transform: translateY(-50%) scale(1.2); }
+            100% { opacity: 1; transform: translateY(-50%) scale(1); }
+        }
+        
         /* Disable ALL hover effects on mobile */
         .b-section[data-id="scale-ai"] .b-link:hover {
             background: var(--color-gray-100) !important; /* Stay gray */
