@@ -211,6 +211,9 @@ class NavigationController {
         this.mobileMenuBtn.setAttribute('aria-expanded', 'true');
         this.mobileMenuBtn.setAttribute('aria-label', 'Close menu');
         
+        // Create backdrop overlay
+        this.createBackdrop();
+        
         // Prevent body scroll when menu is open
         document.body.style.overflow = 'hidden';
         
@@ -235,10 +238,60 @@ class NavigationController {
         this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
         this.mobileMenuBtn.setAttribute('aria-label', 'Open menu');
         
+        // Remove backdrop overlay
+        this.removeBackdrop();
+        
         // Restore body scroll
         document.body.style.overflow = '';
         
         console.log('Mobile menu closed');
+    }
+    
+    /**
+     * Create backdrop overlay element
+     */
+    createBackdrop() {
+        // Check if backdrop already exists
+        if (this.backdrop) return;
+        
+        // Create backdrop element
+        this.backdrop = document.createElement('div');
+        this.backdrop.className = 'mobile-menu-backdrop';
+        this.backdrop.setAttribute('aria-hidden', 'true');
+        
+        // Insert before mobile menu
+        this.menuElement.parentNode.insertBefore(this.backdrop, this.menuElement);
+        
+        // Force reflow to enable transition
+        this.backdrop.offsetHeight;
+        
+        // Add active class for fade-in
+        requestAnimationFrame(() => {
+            this.backdrop.classList.add('active');
+        });
+        
+        // Add click handler to close menu
+        this.backdrop.addEventListener('click', () => {
+            this.closeMobileMenu();
+        });
+    }
+    
+    /**
+     * Remove backdrop overlay element
+     */
+    removeBackdrop() {
+        if (!this.backdrop) return;
+        
+        // Remove active class for fade-out
+        this.backdrop.classList.remove('active');
+        
+        // Remove element after transition
+        setTimeout(() => {
+            if (this.backdrop && this.backdrop.parentNode) {
+                this.backdrop.parentNode.removeChild(this.backdrop);
+                this.backdrop = null;
+            }
+        }, 300); // Match transition duration
     }
     
     /**

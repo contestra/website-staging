@@ -512,21 +512,25 @@
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     }
     
-    /* Backdrop overlay for mobile menu */
-    .mobile-menu::before {
-        content: '';
+    /* Backdrop overlay element for mobile menu */
+    .mobile-menu-backdrop {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        z-index: -1;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 998; /* Just below mobile menu */
         opacity: 0;
-        transition: opacity 0.25s ease;
+        transition: opacity 0.3s ease;
         pointer-events: none;
+    }
+    
+    .mobile-menu-backdrop.active {
+        opacity: 1;
+        pointer-events: auto;
     }
     
     .mobile-menu.active {
@@ -535,11 +539,6 @@
         transform: translateY(0);
     }
     
-    /* Show backdrop when menu is active */
-    .mobile-menu.active::before {
-        opacity: 1;
-        pointer-events: auto;
-    }
     
     .mobile-menu-inner {
         display: flex;
