@@ -729,10 +729,11 @@
             flex-wrap: wrap;
         }
         
-        /* Individual logo styling - Simple height-based sizing */
+        /* Individual logo styling - Width-based for visual balance */
         .partner-logo {
-            height: 3.5rem;  /* All logos same height */
-            width: auto;     /* Width scales proportionally */
+            width: 8rem;     /* All logos same width */
+            height: auto;    /* Height scales proportionally */
+            max-height: 5rem; /* Prevent tall logos from being too tall */
             filter: brightness(0) saturate(100%) invert(33%) sepia(6%) saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%); /* #495057 color */
             transition: filter 0.3s ease;
         }
@@ -824,7 +825,8 @@
             
             /* Smaller logos on mobile */
             .partner-logo {
-                height: 2.5rem;
+                width: 6rem;
+                max-height: 4rem;
             }
             
             .form-container {
