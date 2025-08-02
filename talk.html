@@ -721,28 +721,36 @@
             margin-block-end: 2.4rem;
         }
         
-        /* ——— Trusted-logo row ——— */
+        /* Logo row -------------------------------------------------------------- */
         .partner-logos {
             display: flex;
-            gap: var(--gap-3);        /* already 3 rem in your variables */
+            gap: var(--gap-3);            /* ≈3 rem */
             flex-wrap: wrap;
-            align-items: center;      /* centre vertically for optical balance */
+            align-items: center;
         }
         
-        /* Single source of truth for logo sizing */
-        .partner-logo {
-            inline-size: clamp(7rem, 10vw, 12rem);   /* same box for everyone */
-            block-size: 3.5rem;                       /* 56 px on desktop */
-            object-fit: contain;                      /* keep native aspect-ratio */
-            flex: 0 0 auto;                           /* prevent flex grow/shrink */
+        /* Equal-sized "cells" that centre whatever is inside */
+        .logo-cell {
+            inline-size: clamp(7rem, 10vw, 12rem); /* min → fluid → max */
+            block-size: 3.5rem;                     /* 56 px high on desktop */
+            display: flex;
+            place-content: center;                  /* horizontal & vertical */
+            flex: 0 0 auto;                         /* no flex stretching */
+        }
+        
+        /* The actual SVG/PNG */
+        .logo-cell img {
+            max-inline-size: 100%;
+            max-block-size: 100%;
+            object-fit: contain;                    /* keep aspect-ratio */
             filter: brightness(0) saturate(100%) invert(33%) sepia(6%)
-                    saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%);
+                   saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%);
             transition: filter .3s;
         }
         
-        .partner-logo:hover {
+        .logo-cell img:hover {
             filter: brightness(0) saturate(100%) invert(19%) sepia(8%)
-                    saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%);
+                   saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%);
         }
         
         /* Mobile adjustments */
@@ -826,7 +834,7 @@
             }
             
             /* Mobile logo sizing */
-            .partner-logo {
+            .logo-cell {
                 inline-size: clamp(5rem, 15vw, 8rem);
                 block-size: 2.5rem;                /* 40 px */
             }
@@ -1040,11 +1048,11 @@
                     <div class="trusted-partners">
                         <p class="trusted-partners-title">Some of the tools we use to deliver:</p>
                         <div class="partner-logos">
-                            <img src="images/logos/pytorch-ai-logo.svg" alt="PyTorch" class="partner-logo">
-                            <img src="images/logos/nltk-ai-logo.svg" alt="NLTK" class="partner-logo">
-                            <img src="images/logos/tensorflow-ai-logo.svg" alt="TensorFlow" class="partner-logo">
-                            <img src="images/logos/spacy-ai-logo.svg" alt="spaCy" class="partner-logo">
-                            <img src="images/logos/gemma-ai-logo.svg" alt="Gemma" class="partner-logo">
+                            <div class="logo-cell"><img src="images/logos/pytorch-ai-logo.svg" alt="PyTorch"></div>
+                            <div class="logo-cell"><img src="images/logos/nltk-ai-logo.svg" alt="NLTK"></div>
+                            <div class="logo-cell"><img src="images/logos/tensorflow-ai-logo.svg" alt="TensorFlow"></div>
+                            <div class="logo-cell"><img src="images/logos/spacy-ai-logo.svg" alt="spaCy"></div>
+                            <div class="logo-cell"><img src="images/logos/gemma-ai-logo.svg" alt="Gemma"></div>
                         </div>
                     </div>
                 </div>
