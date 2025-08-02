@@ -247,7 +247,8 @@
         block-size: 4px;
         background: var(--gradient-spectrum-90);
         transform: translateX(-100%);           /* Hidden by default */
-        transition: transform var(--transition-base);
+        transition: transform var(--transition-base), opacity var(--transition-base);
+        opacity: 1;
     }
     
     /* Desktop hover effects */
@@ -501,23 +502,23 @@
             background: var(--gradient-spectrum-97-5) !important;
         }
         
-        /* Gradient strip on mobile - always visible on unflipped cards */
-        .b-section[data-id="scale-ai"] .b-link:not(.flipped)::before {
-            transform: translateX(0);
-            opacity: 1;
-            transition: opacity 0.3s ease-out;
-        }
-        
-        /* Hide gradient strip on mobile when flipped */
-        .b-section[data-id="scale-ai"] .b-link.flipped::before {
-            opacity: 0;
-            transition: opacity 0.3s ease-out;
-        }
-        
-        /* Show gradient strip on mobile - initial state */
+        /* Show gradient strip on mobile by default */
         .b-section[data-id="scale-ai"] .b-link::before {
-            transform: translateX(0);
+            transform: translateX(0) !important;
             opacity: 1;
+            transition: opacity 0.3s ease-out;
+        }
+        
+        /* Ensure gradient strip is visible on unflipped cards */
+        .b-section[data-id="scale-ai"] .b-link:not(.flipped)::before {
+            transform: translateX(0) !important;
+            opacity: 1 !important;
+        }
+        
+        /* Hide gradient strip only when card is flipped */
+        .b-section[data-id="scale-ai"] .b-link.flipped::before {
+            opacity: 0 !important;
+            transform: translateX(0) !important;
         }
         
         /* Left align mobile text */
