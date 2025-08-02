@@ -269,9 +269,9 @@
             z-index: 1;
         }
         
-        /* No hover effect on gradient strip for touch devices */
+        /* Keep gradient visible on touch devices - no hover hiding */
         .b-section[data-id="scale-ai"] .b-link:hover::before {
-            transform: translateX(-100%); /* Keep hidden */
+            /* Inherit the default state - don't change on hover */
         }
         
         /* Subtle touch feedback */
@@ -499,23 +499,23 @@
         
         /* Gradient strip base state on mobile - show by default on unflipped cards */
         .b-section[data-id="scale-ai"] .b-link:not(.flipped)::before {
-            transform: translateX(0) !important;
-            opacity: 1 !important;
+            transform: translateX(0);
+            opacity: 1;
             transition: opacity 0.3s ease-out;
         }
         
         /* Hide gradient on flipped cards */
         .b-section[data-id="scale-ai"] .b-link.flipped::before {
-            opacity: 0 !important;
+            opacity: 0;
         }
         
         /* Override with data attribute if present */
         .b-section[data-id="scale-ai"] .b-link[data-gradient="hide"]::before {
-            opacity: 0 !important;
+            opacity: 0;
         }
         
         .b-section[data-id="scale-ai"] .b-link[data-gradient="show"]::before {
-            opacity: 1 !important;
+            opacity: 1;
         }
         
         /* Left align mobile text */
@@ -523,6 +523,11 @@
         .b-section[data-id="scale-ai"] .card-front .card__description,
         .b-section[data-id="scale-ai"] .card-front .card__cta {
             text-align: left;
+        }
+        
+        /* Make H3 titles heavier on mobile */
+        .b-section[data-id="scale-ai"] .card__title {
+            font-weight: 700;
         }
         
         /* Disable ALL hover effects on mobile */
@@ -533,9 +538,9 @@
             z-index: 1 !important;
         }
         
-        /* Ensure hover gradient strip stays hidden on mobile */
+        /* Keep gradient state consistent on hover */
         .b-section[data-id="scale-ai"] .b-link:hover::before {
-            transform: translateX(-100%) !important;
+            /* Don't change gradient on hover - maintain current state */
         }
         
         /* Ensure back face text is left aligned on mobile */
