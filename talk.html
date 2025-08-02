@@ -393,10 +393,10 @@
             content: '';
             position: absolute;
             top: 0;
-            left: calc(50% - 3rem); /* Align with middle of page minus half gap */
+            left: 50%; /* Start from center */
             right: 0;
             bottom: 0;
-            max-width: calc(50vw + 3rem - var(--container-padding)); /* Respect container padding */
+            max-width: 50vw; /* Half the viewport */
             
             /* Only the smooth gradient */
             background: linear-gradient(to right, 
@@ -414,10 +414,10 @@
         .gradient-bars {
             position: absolute;
             bottom: 0;
-            left: calc(50% - 3rem);
+            left: 50%;
             right: 0;
             height: 400px; /* Increased from 150px to reach higher */
-            max-width: calc(50vw + 3rem - var(--container-padding));
+            max-width: 50vw;
             background: linear-gradient(to right,
                 #00ffff 0% 14.3%,
                 #00ff88 14.3% 28.6%,
@@ -433,12 +433,12 @@
         /* Adjust positioning for larger screens */
         @media (min-width: 1540px) {
             .gradient-background::after {
-                left: calc(50% - 3rem);
-                max-width: calc((var(--container-max) / 2) + 3rem);
+                left: 50%;
+                max-width: calc(var(--container-max) / 2);
             }
             .gradient-bars {
-                left: calc(50% - 3rem);
-                max-width: calc((var(--container-max) / 2) + 3rem);
+                left: 50%;
+                max-width: calc(var(--container-max) / 2);
             }
         }
         
