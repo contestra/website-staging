@@ -370,7 +370,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem;
+            padding: 2rem; /* Reduced padding for better centering */
             min-height: calc(100vh - var(--nav-height));
             align-self: stretch;
             z-index: 1;
@@ -757,6 +757,18 @@
         /* Optical-balance helpers */
         .logo--wide img { transform: scale(.88); }   /* word-marks */
         .logo--icon img { transform: scale(1.08); }  /* tall icons */
+        
+        /* Transition zone - prevent form spillage at breakpoint */
+        @media (width > 768px) and (width <= 900px) {
+            .contact-hero__right {
+                padding: 1rem;
+            }
+            
+            .form-container {
+                max-inline-size: 40rem; /* Slightly smaller at this range */
+                padding: 3rem 3rem;
+            }
+        }
         
         /* Mobile adjustments */
         @media (width <= 768px) {
