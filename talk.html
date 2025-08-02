@@ -734,6 +734,21 @@
             }
         }
         
+        /* Mobile form wrapper - transparent on desktop */
+        .mobile-form-wrapper {
+            /* No styles on desktop - wrapper is transparent */
+        }
+        
+        /* Mobile form wrapper - only styled on mobile */
+        @media (width <= 768px) {
+            .mobile-form-wrapper {
+                padding: 0 1.5rem 2rem 1.5rem; /* Match container padding, extra bottom padding */
+                position: relative;
+                z-index: 1;
+                pointer-events: auto; /* Ensure content is interactive */
+            }
+        }
+        
         /* Mobile adjustments */
         @media (width <= 768px) {
             .contact-hero {
@@ -745,8 +760,8 @@
                 gap: 0; /* No gap - sections flow naturally */
                 padding: 0; /* Remove all padding for full bleed */
                 padding-bottom: 0; /* Remove padding to let gradient bars touch footer */
-                display: flex; /* Change to flex for better mobile flow */
-                flex-direction: column;
+                display: block; /* Change to block for mobile */
+                position: relative;
             }
             
             .contact-hero__left {
@@ -756,12 +771,15 @@
             }
             
             .contact-hero__right {
-                padding: 2rem 0; /* Remove horizontal padding for full bleed */
+                padding: 2rem 1.5rem; /* Add horizontal padding to match container */
                 min-height: auto; /* Remove fixed height on mobile */
-                position: relative; /* Changed from fixed to relative */
-                margin: 0 -1.5rem; /* Negative margins for full bleed */
-                width: calc(100% + 3rem); /* Account for negative margins */
-                z-index: 0; /* Normal stacking */
+                position: fixed; /* Fix to viewport for full height gradient */
+                top: 0; /* Start from top of viewport */
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1; /* Behind content */
+                pointer-events: none; /* Allow clicks to pass through */
             }
             
             /* On mobile, gradient bars only show in lower portion */
@@ -827,12 +845,13 @@
                 padding: 3rem 2.5rem;
                 border-radius: 16px;
                 max-width: 100%; /* Full width within parent */
-                margin: 2rem 1.5rem; /* Horizontal margins for gutters */
+                margin: 2rem 0; /* No horizontal margins - handled by wrapper */
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
                 background: rgba(254, 254, 254, 0.98);
                 backdrop-filter: blur(10px);
                 position: relative; /* Ensure it's above gradient */
                 z-index: 2;
+                pointer-events: auto; /* Ensure form is clickable */
             }
             
             .form-title {
@@ -1009,7 +1028,7 @@
                                     <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="value-prop__text">Monitor and control your brand's AI<br>representation across all major platforms.</div>
+                            <div class="value-prop__text">How we deliver the strongest AI presence<br>for the lowest investment.</div>
                         </div>
                         <div class="value-prop">
                             <div class="value-prop__icon">
@@ -1017,7 +1036,7 @@
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="value-prop__text">A more engineered approach to how your<br>value is communicated</div>
+                            <div class="value-prop__text">A more engineered approach to how your brand<br>value is communicated.</div>
                         </div>
                         <div class="value-prop">
                             <div class="value-prop__icon">
@@ -1025,7 +1044,7 @@
                                     <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="value-prop__text">Four problems every health brand faces over<br>the next 12 months.</div>
+                            <div class="value-prop__text">The four problems every health brand faces over<br>the next 12 months.</div>
                         </div>
                     </div>
                     
@@ -1044,6 +1063,8 @@
                 
                 <!-- Right column -->
                 <div class="contact-hero__right">
+                    <!-- Mobile form wrapper for proper padding on mobile -->
+                    <div class="mobile-form-wrapper">
                     <div class="form-container">
                     <h2 class="form-title">Request a free 30 minute chat</h2>
                     
@@ -1146,6 +1167,7 @@
                         </div>
                     </form>
                     </div>
+                    </div><!-- End mobile-form-wrapper -->
                 </div>
         </div>
     </section>
