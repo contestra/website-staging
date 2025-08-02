@@ -690,7 +690,7 @@
     .testimonial-quote strong {
         font-family: inherit;
         color: var(--color-accent);
-        font-weight: 700; /* Use Bold weight for emphasis */
+        font-weight: inherit; /* Inherit parent weight since entire quote is wrapped in strong */
     }
     
     .testimonial-author {
