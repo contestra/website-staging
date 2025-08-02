@@ -723,24 +723,24 @@
         
         .partner-logos {
             display: flex;
-            align-items: flex-end;  /* Align logos by their bottom edge */
-            gap: 3rem;
-            max-width: 100%;
+            gap: var(--gap-3);              /* Use existing gap variable */
             flex-wrap: wrap;
         }
         
-        /* Individual logo styling - Width-based for visual balance */
-        .partner-logo {
-            width: 8rem;     /* All logos same width */
-            height: auto;    /* Height scales proportionally */
-            max-height: 5rem; /* Prevent tall logos from being too tall */
-            filter: brightness(0) saturate(100%) invert(33%) sepia(6%) saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%); /* #495057 color */
-            transition: filter 0.3s ease;
+        /* Unified bounding box for all logos */
+        .partner-logos > img {
+            inline-size: clamp(7rem, 10vw, 12rem); /* min, fluid, max */
+            block-size: 3.5rem;                     /* Same visual height */
+            object-fit: contain;                    /* Keeps aspect-ratio */
+            flex: 0 0 auto;                         /* Prevent stretching */
+            filter: brightness(0) saturate(100%) invert(33%) sepia(6%) 
+                    saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%);
+            transition: filter 0.3s;
         }
         
-        /* Hover effect */
-        .partner-logo:hover {
-            filter: brightness(0) saturate(100%) invert(19%) sepia(8%) saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%); /* Darker on hover */
+        .partner-logos > img:hover {
+            filter: brightness(0) saturate(100%) invert(19%) sepia(8%) 
+                    saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%);
         }
         
         /* Mobile adjustments */
@@ -824,9 +824,9 @@
             }
             
             /* Smaller logos on mobile */
-            .partner-logo {
-                width: 6rem;
-                max-height: 4rem;
+            .partner-logos > img {
+                inline-size: clamp(5rem, 15vw, 8rem); /* Smaller on mobile */
+                block-size: 2.5rem;                    /* Reduced height */
             }
             
             .form-container {
