@@ -724,25 +724,25 @@
         /* Logo row -------------------------------------------------------------- */
         .partner-logos {
             display: flex;
-            gap: var(--gap-3);            /* ≈3 rem */
             flex-wrap: wrap;
+            gap: var(--gap-3);
             align-items: center;
         }
         
-        /* Equal-sized "cells" that centre whatever is inside */
+        /* Every logo gets the same *fluid* box ------------------------- */
         .logo-cell {
-            inline-size: clamp(7rem, 10vw, 12rem); /* min → fluid → max */
-            block-size: 3.5rem;                     /* 56 px high on desktop */
+            flex: 1 1 clamp(6rem, 8vw, 10rem);   /* ★ allow shrink, max ≤ 10 rem */
+            block-size: 3.5rem;
             display: flex;
-            place-content: center;                  /* horizontal & vertical */
-            flex: 0 0 auto;                         /* no flex stretching */
+            align-items: center;                   /* vertical centre */
+            justify-content: center;               /* horizontal centre */
         }
         
-        /* The actual SVG/PNG */
+        /* The real artwork --------------------------------------------- */
         .logo-cell img {
-            max-inline-size: 100%;
             max-block-size: 100%;
-            object-fit: contain;                    /* keep aspect-ratio */
+            max-inline-size: 85%;                  /* ★ leaves breathing room */
+            object-fit: contain;
             filter: brightness(0) saturate(100%) invert(33%) sepia(6%)
                    saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%);
             transition: filter .3s;
@@ -835,8 +835,8 @@
             
             /* Mobile logo sizing */
             .logo-cell {
-                inline-size: clamp(5rem, 15vw, 8rem);
-                block-size: 2.5rem;                /* 40 px */
+                flex: 1 1 clamp(5rem, 18vw, 7rem);
+                block-size: 2.5rem;
             }
             
             .form-container {
