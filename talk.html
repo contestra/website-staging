@@ -428,7 +428,7 @@
             display: flex;
             flex-direction: column;
             gap: 2.4rem;
-            margin-block-end: 3rem;
+            margin-block-end: 2.5rem; /* Reduced from 3rem */
         }
         
         .value-prop {
@@ -674,7 +674,7 @@
         
         /* Trusted partners section */
         .trusted-partners {
-            margin-block-start: 4rem;
+            margin-block-start: 0; /* Removed top margin - gap handled by value-props */
             max-width: 100%;
             overflow: hidden;
         }
@@ -734,18 +734,28 @@
             }
         }
         
-        /* Mobile form wrapper - transparent on desktop */
-        .mobile-form-wrapper {
-            /* No styles on desktop - wrapper is transparent */
+        /* Desktop form wrapper */
+        .desktop-form-wrapper {
+            /* Desktop form stays in right column */
         }
         
-        /* Mobile form wrapper - only styled on mobile */
+        /* Mobile form section - hidden on desktop */
+        .mobile-form-section {
+            display: none;
+        }
+        
+        /* Show/hide forms based on viewport */
         @media (width <= 768px) {
-            .mobile-form-wrapper {
-                padding: 0 1.5rem 2rem 1.5rem; /* Match container padding, extra bottom padding */
+            .desktop-form-wrapper {
+                display: none; /* Hide desktop form on mobile */
+            }
+            
+            .mobile-form-section {
+                display: block; /* Show mobile form */
+                padding: 2rem 1.5rem; /* Match container padding */
                 position: relative;
                 z-index: 1;
-                pointer-events: auto; /* Ensure content is interactive */
+                background: transparent; /* Form sits on page background */
             }
         }
         
@@ -803,7 +813,7 @@
             .value-props {
                 align-items: flex-start;
                 gap: 1.8rem; /* Tighter spacing */
-                margin-block-end: 2rem;
+                margin-block-end: 1.5rem; /* Reduced from 2rem */
             }
             
             .value-prop {
@@ -818,7 +828,7 @@
             
             .trusted-partners {
                 text-align: left;
-                margin-block-start: 2.5rem;
+                margin-block-start: 0; /* No top margin on mobile either */
             }
             
             .trusted-partners-title {
@@ -1025,10 +1035,10 @@
                         <div class="value-prop">
                             <div class="value-prop__icon">
                                 <svg viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="value-prop__text">How we deliver the strongest AI presence<br>for the lowest investment.</div>
+                            <div class="value-prop__text">The four problems every health brand faces over<br>the next 12 months.</div>
                         </div>
                         <div class="value-prop">
                             <div class="value-prop__icon">
@@ -1041,10 +1051,10 @@
                         <div class="value-prop">
                             <div class="value-prop__icon">
                                 <svg viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd" />
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="value-prop__text">The four problems every health brand faces over<br>the next 12 months.</div>
+                            <div class="value-prop__text">How we deliver the strongest AI presence<br>for the lowest investment.</div>
                         </div>
                     </div>
                     
@@ -1061,10 +1071,10 @@
                     </div>
                 </div>
                 
-                <!-- Right column -->
+                <!-- Right column - gradient background only -->
                 <div class="contact-hero__right">
-                    <!-- Mobile form wrapper for proper padding on mobile -->
-                    <div class="mobile-form-wrapper">
+                    <!-- Desktop form container -->
+                    <div class="desktop-form-wrapper">
                     <div class="form-container">
                     <h2 class="form-title">Request a free 30 minute chat</h2>
                     
@@ -1167,7 +1177,113 @@
                         </div>
                     </form>
                     </div>
-                    </div><!-- End mobile-form-wrapper -->
+                    </div><!-- End desktop-form-wrapper -->
+                </div>
+                
+                <!-- Mobile form section - appears after left content on mobile -->
+                <div class="mobile-form-section">
+                    <div class="form-container">
+                    <h2 class="form-title">Request a free 30 minute chat</h2>
+                    
+                    <form class="contact-form" id="contactForm-mobile">
+                        <div class="form-grid">
+                            <!-- Name Row -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="firstName-mobile" name="firstName" class="form-input" placeholder=" " required>
+                                    <label for="firstName-mobile" class="form-label">First name*</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="lastName-mobile" name="lastName" class="form-input" placeholder=" " required>
+                                    <label for="lastName-mobile" class="form-label">Last name*</label>
+                                </div>
+                            </div>
+                            
+                            <!-- Email Field -->
+                            <div class="form-group full-width">
+                                <input type="email" id="email-mobile" name="email" class="form-input" placeholder=" " required>
+                                <label for="email-mobile" class="form-label">Work email*</label>
+                                <div class="email-error-message" id="email-error-message-mobile"></div>
+                            </div>
+                            
+                            <!-- Phone and Company Row -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="tel" id="phone-mobile" name="phone" class="form-input" placeholder=" ">
+                                    <label for="phone-mobile" class="form-label">Phone number</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="company-mobile" name="company" class="form-input" placeholder=" " required>
+                                    <label for="company-mobile" class="form-label">Company name*</label>
+                                </div>
+                            </div>
+                            
+                            <!-- Job Title and Country Row -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="jobTitle-mobile" name="jobTitle" class="form-input" placeholder=" " required>
+                                    <label for="jobTitle-mobile" class="form-label">Job title*</label>
+                                </div>
+                                <div class="form-group">
+                                    <select id="country-mobile" name="country" class="form-select">
+                                        <option value=""></option>
+                                        <option value="US">United States</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="FR">France</option>
+                                        <option value="" disabled>──────────</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="CN">China</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="IN">India</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="KR">South Korea</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="AE">United Arab Emirates</option>
+                                        <option value="OTHER">Other</option>
+                                    </select>
+                                    <label for="country-mobile" class="form-label">Country</label>
+                                </div>
+                            </div>
+                            
+                            <!-- How can we help -->
+                            <div class="form-group full-width">
+                                <textarea id="message-mobile" name="message" class="form-textarea" rows="3" placeholder=" "></textarea>
+                                <label for="message-mobile" class="form-label">How can our team help you?</label>
+                            </div>
+                            
+                            <!-- Footer with Privacy and Submit -->
+                            <div class="form-footer">
+                                <p class="form-privacy">
+                                    I acknowledge and accept the terms of the <a href="privacy.html">privacy policy</a>.
+                                </p>
+                                <button type="submit" class="btn btn--primary-black btn-arrow">
+                                    Submit
+                                    <svg class="btn-arrow-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                        <polyline points="3 3 9 6 3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
                 </div>
         </div>
     </section>
@@ -1253,8 +1369,9 @@
     
     <!-- Contact Form Handler -->
     <script>
-        // Custom searchable dropdown functionality
-        const countrySelect = document.getElementById('country');
+        // Custom searchable dropdown functionality - handle both desktop and mobile
+        function setupCountryDropdown(selectId, isMobile = false) {
+        const countrySelect = document.getElementById(selectId);
         const countryGroup = countrySelect.closest('.form-group');
         
         // Create custom dropdown
@@ -1435,6 +1552,11 @@
         searchInput.addEventListener('click', (e) => {
             e.stopPropagation();
         });
+        }
+        
+        // Setup dropdowns for both forms
+        setupCountryDropdown('country', false);
+        setupCountryDropdown('country-mobile', true);
         
         // Personal email domains list
         const personalEmailDomains = [
@@ -1444,9 +1566,9 @@
         ];
         
         // Email validation function
-        function validateEmail() {
-            const emailInput = document.getElementById('email');
-            const errorMessage = document.getElementById('email-error-message');
+        function validateEmail(formId = '') {
+            const emailInput = document.getElementById('email' + (formId ? '-' + formId : ''));
+            const errorMessage = document.getElementById('email-error-message' + (formId ? '-' + formId : ''));
             const email = emailInput.value.trim();
             const emailDomain = email.substring(email.lastIndexOf('@') + 1).toLowerCase();
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -1477,7 +1599,8 @@
         }
         
         // Add blur event to validate email as user types
-        document.getElementById('email').addEventListener('blur', validateEmail);
+        document.getElementById('email').addEventListener('blur', () => validateEmail());
+        document.getElementById('email-mobile').addEventListener('blur', () => validateEmail('mobile'));
         
         // Add blur event to all other form inputs to show success state
         const formInputs = document.querySelectorAll('.form-input:not(#email), .form-textarea');
@@ -1509,18 +1632,19 @@
             });
         });
         
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Form submission handler function
+        function handleFormSubmit(e, formType = '') {
             e.preventDefault();
             
             // Validate email before submission
-            if (!validateEmail()) {
-                document.getElementById('email').focus();
+            if (!validateEmail(formType)) {
+                document.getElementById('email' + (formType ? '-' + formType : '')).focus();
                 return;
             }
             
             // Validate first and last name length
-            const firstName = document.getElementById('firstName');
-            const lastName = document.getElementById('lastName');
+            const firstName = document.getElementById('firstName' + (formType ? '-' + formType : ''));
+            const lastName = document.getElementById('lastName' + (formType ? '-' + formType : ''));
             
             if (firstName.value.trim().length < 2) {
                 firstName.classList.remove('input-success');
