@@ -684,7 +684,9 @@
         font-weight: 400; /* Regular weight on desktop */
     }
     
-    /* Increase font weight on mobile for better readability */
+    /* Increase font weight on mobile for better readability 
+       Note: This increases the weight of all testimonial quotes on mobile devices
+       to improve readability on smaller screens */
     @media (width <= 768px) {
         .testimonial-quote {
             font-weight: 500; /* Medium weight on mobile */
