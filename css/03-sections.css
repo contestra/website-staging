@@ -294,12 +294,12 @@
     @media (width <= 768px) {
         .section-title {
             font-size: 3.5rem;
-            text-align: left !important;         /* Keep section titles left-aligned on mobile */
+            text-align: center;         /* Center section titles on mobile */
         }
         
-        /* Ensure deployment section title is specifically left-aligned */
-        .b-section[data-id="deployment"] .section-title {
-            text-align: left !important;
+        /* Center all section titles on mobile */
+        .b-section .section-title {
+            text-align: center;
         }
     }
     
@@ -463,9 +463,12 @@
             text-align: left;
         }
         
-        .testimonial-header h2,
+        .testimonial-header h2 {
+            text-align: center;
+        }
+        
         .testimonial-header p {
-            text-align: left !important;
+            text-align: center;
         }
         
         /* Hide desktop navigation on mobile */
@@ -516,7 +519,7 @@
     
     @media (width <= 768px) {
         .testimonial-header h2 {
-            text-align: left !important;         /* Keep testimonial titles left-aligned on mobile */
+            text-align: center;         /* Center testimonial titles on mobile */
         }
     }
     
