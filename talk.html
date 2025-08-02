@@ -373,6 +373,8 @@
             padding: 4rem;
             min-height: calc(100vh - var(--nav-height));
             align-self: stretch;
+            overflow-y: auto; /* Allow vertical scroll if needed */
+            overflow-x: hidden; /* Prevent horizontal overflow */
             /* Gradient background directly on this element */
             background: linear-gradient(to right, 
                 #bfffff 0%,      /* Pastel cyan */
@@ -744,12 +746,12 @@
             .contact-hero__wrapper {
                 grid-template-columns: 1fr;
                 gap: 3rem; /* Tighter gap */
-                padding: 0 2rem; /* Match standard mobile container padding */
+                padding: 0; /* Remove all padding for full bleed */
                 padding-bottom: 0; /* Remove padding to let gradient bars touch footer */
             }
             
             .contact-hero__left {
-                padding-right: 0;
+                padding: 0 2rem; /* Add padding to content only */
             }
             
             .contact-hero__right {
@@ -1022,7 +1024,7 @@
                     
                     <!-- Trusted Partners - Updated 2025-08-01 with proper logo sizing -->
                     <div class="trusted-partners">
-                        <p class="trusted-partners-title">Some of the tools we use to deliver:</p>
+                        <p class="trusted-partners-title">Some of the leading tools we use to deliver:</p>
                         <div class="partner-logos">
                             <div class="logo-cell logo--icon"><img src="images/logos/pytorch-ai-logo.svg" alt="PyTorch"></div>
                             <div class="logo-cell logo--wide"><img src="images/logos/nltk-ai-logo.svg" alt="NLTK"></div>
