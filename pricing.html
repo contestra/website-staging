@@ -1080,7 +1080,18 @@
                             this.textContent = 'Loading...';
                             this.disabled = true;
                             
-                            // Create checkout session
+                            // Check if we're on GitHub Pages (no PHP support)
+                            const isGitHubPages = window.location.hostname.includes('github.io');
+                            
+                            if (isGitHubPages) {
+                                // For development/testing on GitHub Pages
+                                alert(`Demo Mode: Would subscribe to ${planType} plan (${billingPeriod})\n\nPrice ID: ${priceId}\n\nThis will work with full Stripe checkout when deployed to your server.`);
+                                this.textContent = originalText;
+                                this.disabled = false;
+                                return;
+                            }
+                            
+                            // Production mode - use PHP backend
                             const response = await fetch('/create-checkout-session.php', {
                                 method: 'POST',
                                 headers: {
