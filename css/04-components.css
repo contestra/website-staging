@@ -569,6 +569,8 @@
         /* Ensure back face text is left aligned on mobile */
         .b-section[data-id="scale-ai"] .card-back .card__description {
             text-align: left;
+            font-size: 1.5rem; /* 2px smaller than 1.7rem */
+            line-height: 1.5; /* Proper line spacing for readability */
         }
     }
 }

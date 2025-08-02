@@ -681,7 +681,7 @@
         font-size: 2.4rem;
         line-height: 1.3; /* Match standard body text line-height */
         max-inline-size: 60ch;
-        font-weight: 400; /* Regular weight */
+        font-weight: 500; /* Medium weight for better prominence */
     }
     
     .testimonial-quote strong {
