@@ -229,22 +229,29 @@ function safeEventListener(element, event, handler, options = {}) {
  * Sets up initial marquee fix and resize handlers
  */
 function initUtilities() {
-    // Fix marquee after images load for accurate measurements
+    // Fix marquee after images load for accurate measurements - only if marquee exists
+    const checkAndFixMarquee = () => {
+        const marqueeTrack = document.querySelector('.marquee__track');
+        if (marqueeTrack) {
+            setTimeout(fixMarquee, 100);
+        }
+    };
+    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-            window.addEventListener('load', () => {
-                // Add a small delay to ensure all images are rendered
-                setTimeout(fixMarquee, 100);
-            });
+            window.addEventListener('load', checkAndFixMarquee);
         });
     } else {
-        window.addEventListener('load', () => {
-            setTimeout(fixMarquee, 100);
-        });
+        window.addEventListener('load', checkAndFixMarquee);
     }
     
-    // Re-fix marquee on resize (debounced for performance)
-    const debouncedMarqueeFix = debounce(fixMarquee, 250);
+    // Re-fix marquee on resize (debounced for performance) - only if marquee exists
+    const debouncedMarqueeFix = debounce(() => {
+        const marqueeTrack = document.querySelector('.marquee__track');
+        if (marqueeTrack) {
+            fixMarquee();
+        }
+    }, 250);
     safeEventListener(window, 'resize', debouncedMarqueeFix, { passive: true });
     
     // Set up smooth scroll for all anchor links
