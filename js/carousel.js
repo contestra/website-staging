@@ -365,7 +365,7 @@ class ScaleAICarousel {
      * Reset carousel for mobile view
      */
     resetToMobile() {
-        // Remove all flip states
+        // Remove all flip states and set gradient visibility
         const cards = this.carousel.querySelectorAll('.b-link');
         cards.forEach((card) => {
             card.classList.remove('flipped');
@@ -373,6 +373,8 @@ class ScaleAICarousel {
             card.removeAttribute('tabindex');
             card.removeAttribute('aria-pressed');
             card.removeAttribute('aria-label');
+            // Ensure gradient is visible on mobile reset
+            card.setAttribute('data-gradient', 'show');
         });
         
         console.log('Carousel reset for mobile view');
