@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's Talk - Spectrum AI</title>
     <!-- Updated: Mobile menu redesigned to match AI21 dropdown style -->
-    <!-- Version: 2025-08-01 - Mobile improvements:
-         - Gradient bars extended to 75vh on mobile
+    <!-- Version: 2025-08-02 - Mobile improvements:
+         - Fixed gradient bars resizing on scroll (changed from position:fixed to absolute)
          - Form fields maintain 2-column layout on mobile
          - Submit button right-aligned on mobile
          - Professional dropdown menu with CTA section
@@ -623,31 +623,26 @@
             }
             
             .contact-hero__right {
-                padding: 2rem 1.5rem; /* Add horizontal padding to match container */
-                min-height: auto; /* Remove fixed height on mobile */
-                position: fixed; /* Fix to viewport for full height gradient */
-                top: 0; /* Start from top of viewport */
+                padding: 0; /* Remove padding - gradient should be full bleed */
+                min-height: 100vh; /* Full viewport height */
+                position: absolute; /* Absolute positioning */
+                top: 0; /* Start from top */
                 left: 0;
                 right: 0;
                 bottom: 0;
                 z-index: -1; /* Behind content */
                 pointer-events: none; /* Allow clicks to pass through */
-                will-change: transform; /* Prevent repaints during scroll */
-                -webkit-transform: translateZ(0); /* Force hardware acceleration */
-                transform: translateZ(0);
             }
             
             /* On mobile, gradient bars only show in lower portion */
             .contact-hero__right::after {
-                height: 250px; /* Fixed height instead of viewport-based */
-                position: fixed; /* Fixed to viewport to prevent resize on scroll */
-                bottom: 0; /* Anchored to bottom of viewport */
+                height: 400px; /* Fixed height to reach higher up the page */
+                position: absolute; /* Absolute positioning within parent */
+                bottom: 0; /* Anchored to bottom of parent */
                 left: 0;
                 right: 0;
                 z-index: -1; /* Behind content */
-                will-change: transform; /* Prevent repaints */
-                -webkit-transform: translateZ(0); /* Force hardware acceleration */
-                transform: translateZ(0);
+                pointer-events: none; /* Allow clicks to pass through */
             }
             
             .contact-hero__title {
