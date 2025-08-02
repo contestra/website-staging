@@ -982,7 +982,7 @@
                             </svg>
                         </a>
                     </div>
-                    <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -1328,7 +1328,7 @@
     <script src="js/utilities.js"></script>
     <script src="js/navigation.js"></script>
     
-    <!-- Mobile Menu Handler -->
+    <!-- Mobile Menu Handler - v2025.08.02.fix1 - Fixed menu conflicts with navigation.js -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');

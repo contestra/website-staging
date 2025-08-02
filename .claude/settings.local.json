@@ -11,7 +11,9 @@
       "Bash(grep:*)",
       "Bash(powershell:*)",
       "Bash(start http://localhost:8000/talk.html)",
-      "Bash(cmd /c start http://localhost:8000/talk.html)"
+      "Bash(cmd /c start http://localhost:8000/talk.html)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }

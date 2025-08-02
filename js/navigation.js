@@ -29,7 +29,11 @@ class NavigationController {
         // Core elements
         this.header = document.getElementById('site-header');
         this.mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        
+        // Check if we have a custom mobile menu (talk.html) or standard menu
+        this.mobileMenu = document.getElementById('mobile-menu');
         this.mainMenu = document.getElementById('main-menu');
+        this.menuElement = this.mobileMenu || this.mainMenu; // Use whichever exists
         
         // Scroll tracking
         this.lastScrollY = window.scrollY;
@@ -147,8 +151,14 @@ class NavigationController {
      * Bind mobile menu event listeners
      */
     bindMobileMenuEvents() {
-        if (!this.mobileMenuBtn || !this.mainMenu) {
+        if (!this.mobileMenuBtn || !this.menuElement) {
             console.log('Mobile menu elements not found - skipping mobile menu setup');
+            return;
+        }
+        
+        // Skip if talk.html already has its own mobile menu handler
+        if (this.mobileMenu && window.location.pathname.includes('talk.html')) {
+            console.log('Talk page has custom mobile menu - skipping navigation.js mobile menu setup');
             return;
         }
         
@@ -159,7 +169,7 @@ class NavigationController {
         });
         
         // Close mobile menu when clicking menu links
-        this.mainMenu.addEventListener('click', (e) => {
+        this.menuElement.addEventListener('click', (e) => {
             if (e.target.tagName === 'A') {
                 this.closeMobileMenu();
             }
@@ -168,7 +178,7 @@ class NavigationController {
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
             if (this.isMobileMenuOpen && 
-                !this.mainMenu.contains(e.target) && 
+                !this.menuElement.contains(e.target) && 
                 !this.mobileMenuBtn.contains(e.target)) {
                 this.closeMobileMenu();
             }
@@ -198,7 +208,7 @@ class NavigationController {
      * Open mobile menu with proper accessibility
      */
     openMobileMenu() {
-        this.mainMenu.classList.add('active');
+        this.menuElement.classList.add('active');
         this.isMobileMenuOpen = true;
         
         // Update button attributes for screen readers
@@ -209,7 +219,7 @@ class NavigationController {
         document.body.style.overflow = 'hidden';
         
         // Focus management
-        const firstLink = this.mainMenu.querySelector('a');
+        const firstLink = this.menuElement.querySelector('a');
         if (firstLink) {
             setTimeout(() => firstLink.focus(), 100);
         }
@@ -221,7 +231,7 @@ class NavigationController {
      * Close mobile menu
      */
     closeMobileMenu() {
-        this.mainMenu.classList.remove('active');
+        this.menuElement.classList.remove('active');
         this.isMobileMenuOpen = false;
         
         // Update button attributes for screen readers
@@ -261,13 +271,13 @@ class NavigationController {
      */
     bindAccessibilityEvents() {
         // Handle focus within mobile menu
-        if (this.mainMenu) {
-            this.mainMenu.addEventListener('keydown', (e) => {
+        if (this.menuElement) {
+            this.menuElement.addEventListener('keydown', (e) => {
                 if (!this.isMobileMenuOpen) return;
                 
                 // Tab navigation within menu
                 if (e.key === 'Tab') {
-                    const focusableElements = this.mainMenu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+                    const focusableElements = this.menuElement.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
                     const firstElement = focusableElements[0];
                     const lastElement = focusableElements[focusableElements.length - 1];
                     
