@@ -445,55 +445,47 @@
             position: relative;
             transform: none !important; /* Prevent any rotation */
             transform-style: flat !important; /* Disable 3D transforms */
+            /* Ensure container maintains height */
+            min-height: 200px; /* Adjust based on content */
         }
         
         /* Show both faces on mobile, toggle visibility */
         .b-section[data-id="scale-ai"] .card-face {
-            position: static; /* Changed from relative to prevent height issues */
+            position: absolute; /* Keep absolute for proper stacking */
             transform: none !important; /* Ensure no rotation */
             backface-visibility: visible;
-            height: auto;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
         }
         
         .b-section[data-id="scale-ai"] .card-front {
-            display: block;
-            transition: opacity 0.3s ease-out;
-        }
-        
-        /* Fade out front when flipping */
-        .b-section[data-id="scale-ai"] .b-link.flipped .card-front {
-            opacity: 0;
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
         }
         
         .b-section[data-id="scale-ai"] .card-back {
-            display: none;
+            visibility: hidden;
+            opacity: 0;
             background: transparent;
             transform: none !important; /* Fix backwards text */
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
         }
         
-        /* When flipped on mobile */
+        /* When flipped on mobile - hide front, show back */
         .b-section[data-id="scale-ai"] .b-link.flipped .card-front {
-            display: none;
+            visibility: hidden;
+            opacity: 0;
         }
         
         .b-section[data-id="scale-ai"] .b-link.flipped .card-back {
-            display: block;
-            animation: fadeIn 0.4s ease-out;
-            animation-delay: 0.2s; /* Slight delay for smoother transition */
-            animation-fill-mode: both; /* Keep initial and final states */
+            visibility: visible;
+            opacity: 1;
         }
         
-        /* Fade in animation for mobile flip */
-        @keyframes fadeIn {
-            from { 
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        /* Animation removed - using visibility transitions instead */
         
         /* Add gradient background to ALL flipped cards on mobile */
         .b-section[data-id="scale-ai"] .b-link.flipped {
@@ -505,20 +497,20 @@
             background: var(--gradient-spectrum-97-5) !important;
         }
         
-        /* Gradient strip - completely remove transitions to prevent interference */
+        /* Gradient strip base state on mobile */
         .b-section[data-id="scale-ai"] .b-link::before {
             transform: translateX(0) !important;
-            transition: none !important; /* Remove all transitions */
+            opacity: 1; /* Default visible */
         }
         
-        /* Control gradient visibility with data attribute only */
+        /* Control gradient visibility per card individually */
+        .b-section[data-id="scale-ai"] .b-link[data-gradient="hide"]::before {
+            opacity: 0 !important;
+        }
+        
+        /* Ensure gradient shows when specified */
         .b-section[data-id="scale-ai"] .b-link[data-gradient="show"]::before {
             opacity: 1 !important;
-        }
-        
-        .b-section[data-id="scale-ai"] .b-link[data-gradient="hide"]::before,
-        .b-section[data-id="scale-ai"] .b-link.flipped::before {
-            opacity: 0 !important;
         }
         
         /* Left align mobile text */
