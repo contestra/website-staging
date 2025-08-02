@@ -721,25 +721,27 @@
             margin-block-end: 2.4rem;
         }
         
+        /* ——— Trusted-logo row ——— */
         .partner-logos {
             display: flex;
-            gap: var(--gap-3);              /* Use existing gap variable */
+            gap: var(--gap-3);        /* already 3 rem in your variables */
             flex-wrap: wrap;
+            align-items: center;      /* centre vertically for optical balance */
         }
         
-        /* Unified bounding box for all logos */
-        .partner-logos > img {
-            inline-size: clamp(7rem, 10vw, 12rem); /* min, fluid, max */
-            block-size: 3.5rem;                     /* Same visual height */
-            object-fit: contain;                    /* Keeps aspect-ratio */
-            flex: 0 0 auto;                         /* Prevent stretching */
-            filter: brightness(0) saturate(100%) invert(33%) sepia(6%) 
+        /* Single source of truth for logo sizing */
+        .partner-logo {
+            inline-size: clamp(7rem, 10vw, 12rem);   /* same box for everyone */
+            block-size: 3.5rem;                       /* 56 px on desktop */
+            object-fit: contain;                      /* keep native aspect-ratio */
+            flex: 0 0 auto;                           /* prevent flex grow/shrink */
+            filter: brightness(0) saturate(100%) invert(33%) sepia(6%)
                     saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%);
-            transition: filter 0.3s;
+            transition: filter .3s;
         }
         
-        .partner-logos > img:hover {
-            filter: brightness(0) saturate(100%) invert(19%) sepia(8%) 
+        .partner-logo:hover {
+            filter: brightness(0) saturate(100%) invert(19%) sepia(8%)
                     saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%);
         }
         
@@ -823,10 +825,10 @@
                 gap: 1.5rem; /* Smaller gap on mobile */
             }
             
-            /* Smaller logos on mobile */
-            .partner-logos > img {
-                inline-size: clamp(5rem, 15vw, 8rem); /* Smaller on mobile */
-                block-size: 2.5rem;                    /* Reduced height */
+            /* Mobile logo sizing */
+            .partner-logo {
+                inline-size: clamp(5rem, 15vw, 8rem);
+                block-size: 2.5rem;                /* 40 px */
             }
             
             .form-container {
