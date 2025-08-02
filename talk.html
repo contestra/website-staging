@@ -754,6 +754,10 @@
                    saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%);
         }
         
+        /* Optical-balance helpers */
+        .logo--wide img { transform: scale(.88); }   /* word-marks */
+        .logo--icon img { transform: scale(1.08); }  /* tall icons */
+        
         /* Mobile adjustments */
         @media (width <= 768px) {
             .contact-hero {
@@ -1053,11 +1057,11 @@
                     <div class="trusted-partners">
                         <p class="trusted-partners-title">Some of the tools we use to deliver:</p>
                         <div class="partner-logos">
-                            <div class="logo-cell"><img src="images/logos/pytorch-ai-logo.svg" alt="PyTorch"></div>
-                            <div class="logo-cell"><img src="images/logos/nltk-ai-logo.svg" alt="NLTK"></div>
-                            <div class="logo-cell"><img src="images/logos/tensorflow-ai-logo.svg" alt="TensorFlow"></div>
-                            <div class="logo-cell"><img src="images/logos/spacy-ai-logo.svg" alt="spaCy"></div>
-                            <div class="logo-cell"><img src="images/logos/gemma-ai-logo.svg" alt="Gemma"></div>
+                            <div class="logo-cell logo--icon"><img src="images/logos/pytorch-ai-logo.svg" alt="PyTorch"></div>
+                            <div class="logo-cell logo--wide"><img src="images/logos/nltk-ai-logo.svg" alt="NLTK"></div>
+                            <div class="logo-cell logo--icon"><img src="images/logos/tensorflow-ai-logo.svg" alt="TensorFlow"></div>
+                            <div class="logo-cell logo--wide"><img src="images/logos/spacy-ai-logo.svg" alt="spaCy"></div>
+                            <div class="logo-cell logo--icon"><img src="images/logos/gemma-ai-logo.svg" alt="Gemma"></div>
                         </div>
                     </div>
                 </div>
