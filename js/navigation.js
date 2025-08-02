@@ -156,11 +156,6 @@ class NavigationController {
             return;
         }
         
-        // Skip if talk.html already has its own mobile menu handler
-        if (this.mobileMenu && window.location.pathname.includes('talk.html')) {
-            console.log('Talk page has custom mobile menu - skipping navigation.js mobile menu setup');
-            return;
-        }
         
         // Mobile menu button click
         this.mobileMenuBtn.addEventListener('click', (e) => {
