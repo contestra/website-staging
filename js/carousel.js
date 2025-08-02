@@ -178,11 +178,17 @@ class ScaleAICarousel {
      */
     initCardFlips() {
         const cards = this.carousel.querySelectorAll('.b-link');
+        const isMobile = window.innerWidth <= 768;
         
         cards.forEach((card, index) => {
             // Remove any existing listeners to prevent duplicates
             const newCard = card.cloneNode(true);
             card.parentNode.replaceChild(newCard, card);
+            
+            // Initialize gradient visibility on mobile
+            if (isMobile && !newCard.classList.contains('flipped')) {
+                newCard.classList.add('show-gradient');
+            }
             
             // Handle clicks on the entire card
             newCard.addEventListener('click', (e) => {
@@ -215,18 +221,33 @@ class ScaleAICarousel {
      */
     toggleCardFlip(card, index) {
         const isFlipped = card.classList.contains('flipped');
+        const isMobile = window.innerWidth <= 768;
         
         if (isFlipped) {
             // Flip back to front
             card.classList.remove('flipped');
             card.setAttribute('aria-pressed', 'false');
             card.setAttribute('aria-label', `Card ${index + 1}: Click to flip and see more details`);
+            
+            // Explicitly show gradient bar on mobile when flipping back
+            if (isMobile) {
+                card.classList.add('show-gradient');
+                // Force a reflow to ensure the class is applied
+                card.offsetHeight;
+            }
+            
             console.log(`Card ${index + 1} flipped to front`);
         } else {
             // Flip to back
             card.classList.add('flipped');
             card.setAttribute('aria-pressed', 'true');
             card.setAttribute('aria-label', `Card ${index + 1}: Click to flip back to summary`);
+            
+            // Explicitly hide gradient bar on mobile when flipping
+            if (isMobile) {
+                card.classList.remove('show-gradient');
+            }
+            
             console.log(`Card ${index + 1} flipped to back`);
         }
         

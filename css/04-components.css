@@ -502,23 +502,21 @@
             background: var(--gradient-spectrum-97-5) !important;
         }
         
-        /* Show gradient strip on mobile by default */
+        /* Gradient strip default state on mobile */
         .b-section[data-id="scale-ai"] .b-link::before {
             transform: translateX(0) !important;
-            opacity: 1;
+            opacity: 0;
             transition: opacity 0.3s ease-out;
         }
         
-        /* Ensure gradient strip is visible on unflipped cards */
-        .b-section[data-id="scale-ai"] .b-link:not(.flipped)::before {
-            transform: translateX(0) !important;
+        /* Show gradient strip when explicitly marked */
+        .b-section[data-id="scale-ai"] .b-link.show-gradient::before {
             opacity: 1 !important;
         }
         
-        /* Hide gradient strip only when card is flipped */
+        /* Ensure gradient is hidden when flipped */
         .b-section[data-id="scale-ai"] .b-link.flipped::before {
             opacity: 0 !important;
-            transform: translateX(0) !important;
         }
         
         /* Left align mobile text */
