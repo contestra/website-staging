@@ -500,17 +500,18 @@
         /* Gradient strip base state on mobile */
         .b-section[data-id="scale-ai"] .b-link::before {
             transform: translateX(0) !important;
-            opacity: 1; /* Default visible */
+            opacity: 0; /* Default hidden to prevent flashing */
+            transition: opacity 0.3s ease-out;
         }
         
-        /* Control gradient visibility per card individually */
-        .b-section[data-id="scale-ai"] .b-link[data-gradient="hide"]::before {
-            opacity: 0 !important;
-        }
-        
-        /* Ensure gradient shows when specified */
+        /* Show gradient only when explicitly marked */
         .b-section[data-id="scale-ai"] .b-link[data-gradient="show"]::before {
             opacity: 1 !important;
+        }
+        
+        /* Hide gradient when marked or when flipped */
+        .b-section[data-id="scale-ai"] .b-link[data-gradient="hide"]::before {
+            opacity: 0 !important;
         }
         
         /* Left align mobile text */
