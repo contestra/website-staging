@@ -726,7 +726,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: var(--gap-2);                     /* 2 rem (32 px) not 3 rem */
-            align-items: center;
+            align-items: flex-end;                 /* ⬅️ bottom-edge alignment */
         }
         
         /* Cell: can shrink to 4.5 rem, grow to 9 rem ------------------------ */
@@ -735,7 +735,7 @@
             block-size: 3.5rem;                    /* same visual height */
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-end;                 /* ⬅️ push img to the bottom */
         }
         
         /* The real artwork --------------------------------------------- */
