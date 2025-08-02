@@ -204,6 +204,7 @@ class NavigationController {
      */
     openMobileMenu() {
         this.menuElement.classList.add('active');
+        this.mobileMenuBtn.classList.add('active'); // Add active class for animation
         this.isMobileMenuOpen = true;
         
         // Update button attributes for screen readers
@@ -227,6 +228,7 @@ class NavigationController {
      */
     closeMobileMenu() {
         this.menuElement.classList.remove('active');
+        this.mobileMenuBtn.classList.remove('active'); // Remove active class
         this.isMobileMenuOpen = false;
         
         // Update button attributes for screen readers
