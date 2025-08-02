@@ -712,7 +712,7 @@
                         </div>
                     </div>
                     
-                    <a href="talk.html" class="cta-button">Get Started</a>
+                    <a href="talk.html" class="cta-button">Subscribe</a>
                     
                     <ul class="features-list">
                         <li class="feature-item">
@@ -797,7 +797,7 @@
                         </div>
                     </div>
                     
-                    <a href="talk.html" class="cta-button">Get Started</a>
+                    <a href="talk.html" class="cta-button">Subscribe</a>
                     
                     <ul class="features-list">
                         <li class="feature-item">
@@ -866,7 +866,7 @@
                         </div>
                     </div>
                     
-                    <a href="talk.html" class="cta-button">Get Started</a>
+                    <a href="talk.html" class="cta-button">Subscribe</a>
                     
                     <ul class="features-list">
                         <li class="feature-item">
@@ -1023,6 +1023,98 @@
                 
                 // Toggle current item
                 item.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!-- Stripe Integration -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Initialize Stripe with your publishable key
+        const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY_HERE'); // TODO: Replace with your actual publishable key
+        
+        // Stripe price IDs (you'll get these from your Stripe dashboard)
+        const stripePrices = {
+            essential: {
+                monthly: 'price_essential_monthly', // TODO: Replace with actual price ID
+                annual: 'price_essential_annual'     // TODO: Replace with actual price ID
+            },
+            business: {
+                monthly: 'price_business_monthly',   // TODO: Replace with actual price ID
+                annual: 'price_business_annual'      // TODO: Replace with actual price ID
+            },
+            enterprise: {
+                monthly: 'price_enterprise_monthly', // TODO: Replace with actual price ID
+                annual: 'price_enterprise_annual'    // TODO: Replace with actual price ID
+            }
+        };
+        
+        // Add click handlers to all CTA buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all pricing cards
+            const pricingCards = document.querySelectorAll('.pricing-card');
+            
+            pricingCards.forEach((card, index) => {
+                const ctaButton = card.querySelector('.cta-button');
+                if (ctaButton) {
+                    // Determine which plan this is
+                    let planType = '';
+                    if (index === 0) planType = 'essential';
+                    else if (index === 1) planType = 'business';
+                    else if (index === 2) planType = 'enterprise';
+                    
+                    // Update button to handle click
+                    ctaButton.addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        
+                        // Check if annual billing is selected
+                        const isAnnual = document.getElementById('toggle-section').classList.contains('show-annual');
+                        const billingPeriod = isAnnual ? 'annual' : 'monthly';
+                        
+                        // Get the appropriate price ID
+                        const priceId = stripePrices[planType][billingPeriod];
+                        
+                        try {
+                            // Show loading state
+                            const originalText = this.textContent;
+                            this.textContent = 'Loading...';
+                            this.disabled = true;
+                            
+                            // Create checkout session
+                            const response = await fetch('/create-checkout-session.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    priceId: priceId,
+                                    mode: 'subscription'
+                                })
+                            });
+                            
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            
+                            const { sessionId } = await response.json();
+                            
+                            // Redirect to Stripe Checkout
+                            const { error } = await stripe.redirectToCheckout({ sessionId });
+                            
+                            if (error) {
+                                console.error('Stripe error:', error);
+                                alert('Something went wrong. Please try again.');
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                            alert('Unable to process payment. Please try again later.');
+                        } finally {
+                            // Restore button state
+                            this.textContent = originalText;
+                            this.disabled = false;
+                        }
+                    });
+                }
             });
         });
     </script>

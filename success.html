@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Successful - Contestra</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        .success-container {
+            text-align: center;
+            padding: 10rem 2rem;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: white;
+            stroke-width: 3;
+        }
+        
+        .success-title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            color: var(--color-text-primary);
+        }
+        
+        .success-message {
+            font-size: 2rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 4rem;
+            max-width: 60ch;
+        }
+        
+        .success-actions {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (width <= 768px) {
+            .success-title {
+                font-size: 3rem;
+            }
+            
+            .success-message {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="site-header">
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="header__in">
+                <nav class="main-navigation">
+                    <a href="index.html" class="site-logo">
+                        <img src="images/logos/contestra-logo-wordmark-color.svg" alt="Contestra">
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Success Content -->
+    <main>
+        <div class="container">
+            <div class="success-container">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                
+                <h1 class="success-title">Welcome to Contestra!</h1>
+                
+                <p class="success-message">
+                    Your subscription has been activated successfully. We've sent a confirmation email with your account details and next steps.
+                </p>
+                
+                <div class="success-actions">
+                    <a href="index.html" class="btn btn--primary">Go to Dashboard</a>
+                    <a href="mailto:support@contestra.com" class="btn btn--secondary">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-copyright">&copy; 2025 Contestra. All rights reserved.</p>
+            <div class="footer-system-status">
+                <span class="status-indicator"></span>
+                <span class="status-text">system-online</span>
+            </div>
+            <div class="footer-socials">
+                <a href="https://x.com/contestra_ai" target="_blank" rel="noopener">
+                    <img src="images/icons/x-logo.svg" alt="X (Twitter)">
+                </a>
+                <a href="https://www.linkedin.com/company/contestra/" target="_blank" rel="noopener">
+                    <img src="images/icons/linkedin-logo.svg" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check if we have a session ID from Stripe
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        
+        if (sessionId) {
+            console.log('Stripe session completed:', sessionId);
+            // You could fetch session details from your backend here if needed
+        }
+    </script>
+</body>
+</html>
