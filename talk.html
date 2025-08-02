@@ -16,9 +16,7 @@
     <!-- Font Preloads for Performance -->
     <link rel="preload" href="fonts/SuisseScreen-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/SuisseScreen-Medium.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/SuisseIntl-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/SuisseIntl-Medium.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/suisse-intl-mono.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/SuisseScreen-Light.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/SuisseIntl-Bold.woff2" as="font" type="font/woff2" crossorigin>
     
     <!-- Main Stylesheet -->
@@ -538,7 +536,8 @@
         }
         
         /* Fly away effect when country is selected */
-        .form-group:has(.form-select.has-value) .form-label {
+        .form-group:has(.form-select.has-value) .form-label,
+        .form-group.has-value .form-label {
             opacity: 0;
             transform: translateY(-1.5rem) scale(0.75);
         }
@@ -1446,6 +1445,7 @@
                 // Add has-value class when country is selected
                 if (opt.value) {
                     countrySelect.classList.add('has-value');
+                    countryGroup.classList.add('has-value'); // Add to form-group for better browser support
                     // Add success state to country field
                     countrySelect.classList.add('input-success');
                     clickArea.style.borderBottomColor = '#2D8A2D';
@@ -1681,16 +1681,40 @@
             
             // Reset form
             this.reset();
-            updateDisplayValue();
+            
+            // Reset country dropdowns
+            const countryDesktop = document.getElementById('country');
+            const countryMobile = document.getElementById('country-mobile');
+            if (countryDesktop) {
+                countryDesktop.classList.remove('has-value', 'input-success');
+                countryDesktop.closest('.form-group').classList.remove('has-value');
+                const displayValueDesktop = countryDesktop.parentElement.querySelector('div[style*="pointer-events: none"]');
+                if (displayValueDesktop) displayValueDesktop.textContent = '';
+            }
+            if (countryMobile) {
+                countryMobile.classList.remove('has-value', 'input-success');
+                countryMobile.closest('.form-group').classList.remove('has-value');
+                const displayValueMobile = countryMobile.parentElement.querySelector('div[style*="pointer-events: none"]');
+                if (displayValueMobile) displayValueMobile.textContent = '';
+            }
             
             // Clear all validation states
             document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
                 input.classList.remove('input-error', 'input-success');
             });
-            document.getElementById('email-error-message').textContent = '';
-            countrySelect.classList.remove('has-value', 'input-success');
-            clickArea.style.borderBottomColor = '#d1d5db';
-        });
+            document.getElementById('email-error-message' + (formType ? '-' + formType : '')).textContent = '';
+            
+            // Reset click areas for country dropdowns
+            document.querySelectorAll('[style*="border-bottom: 1px solid"]').forEach(clickArea => {
+                if (clickArea.style.borderBottomColor) {
+                    clickArea.style.borderBottomColor = '#d1d5db';
+                }
+            });
+        }
+        
+        // Add event listeners for both forms
+        document.getElementById('contactForm').addEventListener('submit', (e) => handleFormSubmit(e, ''));
+        document.getElementById('contactForm-mobile').addEventListener('submit', (e) => handleFormSubmit(e, 'mobile'));
     </script>
 </body>
 </html>

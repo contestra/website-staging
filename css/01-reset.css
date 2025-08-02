@@ -147,7 +147,7 @@
     
     @font-face {
         font-family: 'Suisse Intl Mono';
-        src: url('/fonts/suisse-intl-mono.woff2') format('woff2');
+        src: url('../fonts/suisse-intl-mono.woff2') format('woff2');
         font-weight: 400;
         font-style: normal;
         font-display: swap;
