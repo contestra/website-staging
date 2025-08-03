@@ -900,8 +900,7 @@
         margin-block-start: -1px;  /* Slight negative margin to overlap any gap */
     }
     
-    /* Spectrum gradient top border - TEMPORARILY DISABLED FOR DEBUGGING */
-    /*
+    /* Spectrum gradient top border */
     footer::before {
         content: '';
         position: absolute;
@@ -910,7 +909,6 @@
         block-size: 4px;
         background: var(--gradient-spectrum);
     }
-    */
     
     /* Footer container layout */
     footer .container {
