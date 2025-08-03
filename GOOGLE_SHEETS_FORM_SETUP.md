@@ -49,6 +49,37 @@ function doPost(e) {
       data.message || ''
     ]);
     
+    // Send email notification
+    // CHANGE THIS EMAIL ADDRESS TO YOUR EMAIL
+    const recipientEmail = 'your-email@example.com';
+    
+    // Create email body
+    const emailBody = `
+New contact form submission received:
+
+Name: ${data.firstName} ${data.lastName}
+Email: ${data.email}
+Phone: ${data.phone || 'Not provided'}
+Company: ${data.company}
+Website: ${data.website || 'Not provided'}
+Job Title: ${data.jobTitle || 'Not provided'}
+Country: ${data.country}
+
+Message:
+${data.message || 'No message provided'}
+
+---
+Submitted on: ${timestamp}
+    `;
+    
+    // Send the email
+    MailApp.sendEmail({
+      to: recipientEmail,
+      subject: `New Contact Form: ${data.firstName} ${data.lastName} from ${data.company}`,
+      body: emailBody,
+      replyTo: data.email // This allows you to reply directly to the submitter
+    });
+    
     // Return success
     return ContentService
       .createTextOutput(JSON.stringify({status: 'success'}))
@@ -120,7 +151,7 @@ To also get email notifications, add this to your Apps Script before the `return
 ```javascript
 // Send email notification
 MailApp.sendEmail({
-  to: 'your-email@example.com',
+  to: 'l@contestra.com',
   subject: 'New Contact Form Submission',
   body: `New submission from ${data.firstName} ${data.lastName}\n\n` +
         `Email: ${data.email}\n` +
