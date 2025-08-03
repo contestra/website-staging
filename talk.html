@@ -807,7 +807,7 @@
             <div class="header__in">
                 <nav class="main-navigation">
                     <a href="index.html" aria-label="Contestra homepage" class="site-logo">
-                        <img src="images/logos/contestra-logo-flat-v2.svg" alt="Contestra">
+                        <img src="images/logos/contestra-logo-flat.svg" alt="Contestra">
                     </a>
                     <div class="main-menu-wrap">
                         <ul class="main-menu" id="main-menu">
@@ -1244,6 +1244,12 @@
                     // Add success state to country field
                     countrySelect.classList.add('input-success');
                     clickArea.style.borderBottomColor = '#2D8A2D';
+                    // Force label to hide
+                    const label = countryGroup.querySelector('.form-label');
+                    if (label) {
+                        label.style.opacity = '0';
+                        label.style.transform = 'translateY(-1.5rem) scale(0.75)';
+                    }
                 }
             });
             optionsContainer.appendChild(optionDiv);
@@ -1272,6 +1278,10 @@
         function updateDisplayValue() {
             const selected = countrySelect.options[countrySelect.selectedIndex];
             displayValue.textContent = selected && selected.value ? selected.textContent : '';
+            // Ensure display value is visible when country is selected
+            if (selected && selected.value) {
+                displayValue.style.opacity = '1';
+            }
         }
         
         // Hide actual select but keep it functional
@@ -1438,7 +1448,7 @@
         });
         
         // Form submission handler function
-        function handleFormSubmit(e, formType = '') {
+        async function handleFormSubmit(e, formType = '') {
             e.preventDefault();
             
             // Validate email before submission
