@@ -406,7 +406,7 @@
     @media (width <= 768px) {
         .b-section[data-id="enterprise-ai"] .col-title h3 {
             text-align: left;                    /* Ensure feature titles stay left-aligned on mobile */
-            margin-block-end: 0.5rem;            /* Tighter spacing on mobile */
+            margin-block-end: 1.2rem;            /* Balanced spacing on mobile */
         }
     }
     
@@ -897,18 +897,10 @@
         color: white;
         padding-block: 4rem;
         position: relative;
-        margin-block-start: -1px;  /* Slight negative margin to overlap any gap */
+        margin-block-start: 0;  /* Ensure no gap above footer */
     }
     
-    /* Spectrum gradient top border */
-    footer::before {
-        content: '';
-        position: absolute;
-        inset-block-start: 0;
-        inset-inline: 0;
-        block-size: 4px;
-        background: var(--gradient-spectrum);
-    }
+    /* Gradient border removed per user request */
     
     /* Footer container layout */
     footer .container {

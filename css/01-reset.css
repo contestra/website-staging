@@ -41,11 +41,6 @@
         margin: 0;
         padding: 0;
     }
-    
-    /* Set body background to match footer to prevent gaps */
-    body {
-        background: var(--color-gray-900);
-    }
 }
 
 /* ===== FONT-FACE DECLARATIONS ===== */
