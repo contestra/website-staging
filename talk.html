@@ -697,7 +697,7 @@
                 display: block; /* Show mobile form */
                 padding: 2rem 1.5rem; /* Match container padding */
                 position: relative;
-                z-index: 1;
+                z-index: 10; /* Higher than gradient bars */
                 background: transparent; /* Form sits on page background */
                 max-width: 100vw; /* Prevent overflow */
                 overflow-x: hidden; /* Prevent horizontal scroll */
@@ -755,13 +755,16 @@
                 position: relative;
             }
             
-            .mobile-form-section::before {
+            /* Remove gradient from mobile-form-section */
+            
+            /* Add gradient bars as body pseudo-element instead */
+            body::after {
                 content: '';
-                position: absolute;
+                position: fixed; /* Fixed to viewport */
                 top: 0;
                 left: 0;
                 right: 0;
-                bottom: -100vh; /* Extend beyond the section */
+                bottom: 0;
                 background: linear-gradient(to right,
                     #00ffff 0% 14.3%,
                     #00ff88 14.3% 28.6%,
@@ -771,7 +774,7 @@
                     #ff0088 71.5% 85.8%,
                     #ff0044 85.8% 100%
                 );
-                z-index: -1;
+                z-index: -2; /* Behind everything */
                 pointer-events: none;
             }
             
