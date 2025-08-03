@@ -527,7 +527,7 @@
         
         /* Make H3 titles heavier on mobile */
         .b-section[data-id="scale-ai"] .card__title {
-            font-weight: 600;
+            font-weight: 500;
         }
         
         /* Add subtle flip arrow on mobile */
@@ -735,7 +735,7 @@
     
     .deployment-card h3 {
         font-size: 2.4rem;
-        font-weight: 400;
+        font-weight: 500;
         margin-block-end: 1.5rem;
         color: var(--color-text-primary);
     }
