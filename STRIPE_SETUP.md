@@ -121,6 +121,48 @@ When ready to accept real payments:
 
 **Stripe errors**: Check the browser console and Stripe Dashboard logs
 
+## Digital Ocean Droplet Configuration
+
+### Server Details
+- **Host**: DigitalOcean Droplet ($4/mo)
+- **OS**: Ubuntu 22.04 LTS
+- **Domain**: `api.contestra.com`
+- **DNS**: Cloudflare (DNS-only mode)
+- **Web Server**: Nginx
+- **PHP Version**: 8.4
+
+### Security Configuration
+- **UFW Firewall**: Open ports 22, 80, 443
+- **SSH**: ed25519 key authentication
+- **SSL**: Let's Encrypt via certbot (auto-renews)
+- **HTTPS**: Enforced
+
+### File Structure
+```
+/var/www/html/
+├── create-checkout-session.php
+├── config.php
+└── stripe-php/             # Stripe SDK
+```
+
+### Permissions
+```bash
+chown -R www-data:www-data stripe-php
+chmod -R 755 stripe-php
+chmod 640 config.php
+```
+
+## Deployment Status
+
+✅ SSL working  
+✅ PHP-FPM connected  
+✅ Stripe SDK accessible  
+✅ File permissions secured  
+✅ Endpoint tested successfully:
+```
+https://api.contestra.com/create-checkout-session.php
+```
+
 ## Next Steps
 
 Consider implementing:

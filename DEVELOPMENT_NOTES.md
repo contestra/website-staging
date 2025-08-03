@@ -41,11 +41,11 @@ const isProduction = window.location.hostname === 'contestra.com' || window.loca
 
 ## Production Architecture
 
-The production setup will use a distributed architecture:
+The production setup uses a distributed architecture:
 
 - **Main Website**: Hosted on Cloudflare Pages (contestra.com)
-- **API Server**: Digital Ocean Droplet (api.contestra.com)
-- **Payment Processing**: PHP backend on the API server
+- **API Server**: Digital Ocean Droplet (api.contestra.com) - ✅ DEPLOYED
+- **Payment Processing**: PHP backend on the API server - ✅ WORKING
 
 ## Deployment Checklist
 
@@ -55,39 +55,31 @@ The production setup will use a distributed architecture:
 2. ✅ No PHP files needed here
 3. ✅ JavaScript will automatically detect production domain
 
-### Digital Ocean Droplet Setup (api.contestra.com)
+### Digital Ocean Droplet Setup (api.contestra.com) - ✅ COMPLETED
 
 1. ✅ Configure subdomain `api.contestra.com` to point to your droplet
-2. ✅ Install PHP and required extensions:
+2. ✅ Install PHP 8.4 and required extensions:
    ```bash
    sudo apt update
-   sudo apt install php php-curl php-json
+   sudo apt install php8.4 php8.4-curl php8.4-json php8.4-fpm
    ```
-3. ✅ Create directory structure:
-   ```bash
-   sudo mkdir -p /var/www/api.contestra.com
-   sudo chown -R www-data:www-data /var/www/api.contestra.com
-   ```
-4. ✅ Upload these files to `/var/www/api.contestra.com/`:
+3. ✅ Files uploaded to `/var/www/html/`:
    - `create-checkout-session.php`
    - `config.php` (with your Stripe secret key)
    - `stripe-php/` library folder
-5. ✅ Configure NGINX:
-   ```nginx
-   server {
-       listen 80;
-       server_name api.contestra.com;
-       root /var/www/api.contestra.com;
-       
-       location ~ \.php$ {
-           include snippets/fastcgi-php.conf;
-           fastcgi_pass unix:/var/run/php/php-fpm.sock;
-       }
-   }
-   ```
-6. ✅ Install SSL certificate:
+4. ✅ Configure NGINX:
+   - Server block for api.contestra.com configured
+   - PHP-FPM socket: `/var/run/php/php8.4-fpm.sock`
+   - Root directory: `/var/www/html`
+5. ✅ Install SSL certificate:
    ```bash
    sudo certbot --nginx -d api.contestra.com
+   ```
+6. ✅ Set proper permissions:
+   ```bash
+   sudo chown -R www-data:www-data /var/www/html/stripe-php
+   sudo chmod -R 755 /var/www/html/stripe-php
+   sudo chmod 640 /var/www/html/config.php
    ```
 
 ## Testing
