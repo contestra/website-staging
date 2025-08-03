@@ -2,10 +2,26 @@
 // Stripe Checkout Session Creator
 // This file handles secure server-side creation of Stripe checkout sessions
 
-// Enable CORS for your domain
-header('Access-Control-Allow-Origin: https://contestra.com'); // Replace with your actual domain
-header('Access-Control-Allow-Methods: POST');
+// Enable CORS for your domains
+$allowed_origins = [
+    'https://contestra.com',
+    'https://www.contestra.com',
+    'http://localhost:8000', // For local testing
+    'http://127.0.0.1:8000'  // For local testing
+];
+
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+if (in_array($origin, $allowed_origins)) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+} else {
+    // Default to contestra.com if origin not in list
+    header('Access-Control-Allow-Origin: https://contestra.com');
+}
+
+header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Credentials: true');
 header('Content-Type: application/json');
 
 // Handle preflight requests

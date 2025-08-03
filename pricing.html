@@ -1080,8 +1080,9 @@
                             this.textContent = 'Loading...';
                             this.disabled = true;
                             
-                            // Check if we're on GitHub Pages (no PHP support)
+                            // Check environment and set API endpoint
                             const isGitHubPages = window.location.hostname.includes('github.io');
+                            const isProduction = window.location.hostname === 'contestra.com' || window.location.hostname === 'www.contestra.com';
                             
                             if (isGitHubPages) {
                                 // For development/testing on GitHub Pages
@@ -1091,8 +1092,13 @@
                                 return;
                             }
                             
-                            // Production mode - use PHP backend
-                            const response = await fetch('/create-checkout-session.php', {
+                            // Set API endpoint based on environment
+                            const apiEndpoint = isProduction 
+                                ? 'https://api.contestra.com/create-checkout-session.php'
+                                : '/create-checkout-session.php'; // For local testing
+                            
+                            // Create checkout session via API
+                            const response = await fetch(apiEndpoint, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',

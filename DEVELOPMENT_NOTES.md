@@ -18,24 +18,77 @@ The pricing page has been configured to work in two modes:
 
 ## How It Works
 
-The JavaScript checks the hostname:
+The JavaScript automatically detects the environment and adjusts behavior:
+
 ```javascript
 const isGitHubPages = window.location.hostname.includes('github.io');
+const isProduction = window.location.hostname === 'contestra.com' || window.location.hostname === 'www.contestra.com';
 ```
 
-- **On GitHub Pages**: Shows a demo alert
-- **On Your Server**: Makes a request to `/create-checkout-session.php`
+### Environment Detection:
+
+1. **GitHub Pages** (`*.github.io`): 
+   - Shows demo alerts
+   - No API calls made
+
+2. **Production** (`contestra.com`):
+   - Calls API at `https://api.contestra.com/create-checkout-session.php`
+   - Full Stripe checkout functionality
+
+3. **Local Development** (any other domain):
+   - Calls local PHP at `/create-checkout-session.php`
+   - For testing with XAMPP/MAMP/etc
+
+## Production Architecture
+
+The production setup will use a distributed architecture:
+
+- **Main Website**: Hosted on Cloudflare Pages (contestra.com)
+- **API Server**: Digital Ocean Droplet (api.contestra.com)
+- **Payment Processing**: PHP backend on the API server
 
 ## Deployment Checklist
 
-When moving to your production server:
+### Cloudflare Pages Setup (contestra.com)
 
-1. ✅ PHP support is required
-2. ✅ Upload `stripe-php/` library (download separately, not in Git)
-3. ✅ Upload `config.php` with your Stripe secret key (not in Git)
-4. ✅ Ensure `create-checkout-session.php` is accessible
-5. ✅ Update CORS header in PHP file if needed
-6. ✅ The JavaScript will automatically use production mode
+1. ✅ Deploy all static files (HTML, CSS, JS, images)
+2. ✅ No PHP files needed here
+3. ✅ JavaScript will automatically detect production domain
+
+### Digital Ocean Droplet Setup (api.contestra.com)
+
+1. ✅ Configure subdomain `api.contestra.com` to point to your droplet
+2. ✅ Install PHP and required extensions:
+   ```bash
+   sudo apt update
+   sudo apt install php php-curl php-json
+   ```
+3. ✅ Create directory structure:
+   ```bash
+   sudo mkdir -p /var/www/api.contestra.com
+   sudo chown -R www-data:www-data /var/www/api.contestra.com
+   ```
+4. ✅ Upload these files to `/var/www/api.contestra.com/`:
+   - `create-checkout-session.php`
+   - `config.php` (with your Stripe secret key)
+   - `stripe-php/` library folder
+5. ✅ Configure NGINX:
+   ```nginx
+   server {
+       listen 80;
+       server_name api.contestra.com;
+       root /var/www/api.contestra.com;
+       
+       location ~ \.php$ {
+           include snippets/fastcgi-php.conf;
+           fastcgi_pass unix:/var/run/php/php-fpm.sock;
+       }
+   }
+   ```
+6. ✅ Install SSL certificate:
+   ```bash
+   sudo certbot --nginx -d api.contestra.com
+   ```
 
 ## Testing
 
