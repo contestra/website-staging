@@ -554,13 +554,8 @@
             object-fit: contain;
             filter: brightness(0) saturate(100%) invert(33%) sepia(6%)
                    saturate(509%) hue-rotate(201deg) brightness(96%) contrast(89%);
-            transition: filter .3s;
         }
         
-        .logo-cell img:hover {
-            filter: brightness(0) saturate(100%) invert(19%) sepia(8%)
-                   saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%);
-        }
         
         
         /* Transition zone - prevent form spillage at breakpoint */
@@ -694,12 +689,12 @@
             
             /* Mobile logo sizing */
             .logo-cell {
-                flex: 0 1 clamp(4rem, 15vw, 6rem);
-                block-size: 2.5rem;
+                flex: 0 1 clamp(4.6rem, 17.25vw, 6.9rem);  /* 15% larger */
+                block-size: 2.875rem;                        /* 15% larger (was 2.5rem) */
             }
             
             .logo-cell img {
-                min-inline-size: 2rem;  /* Smaller minimum on mobile */
+                min-inline-size: 2.3rem;  /* 15% larger (was 2rem) */
             }
             
             .form-container {
