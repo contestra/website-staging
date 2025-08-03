@@ -528,7 +528,7 @@
         .partner-logos {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;                           /* Reduced gap between logos */
+            gap: 1rem;                             /* Tighter gap between logos */
             align-items: flex-end;                 /* ⬅️ bottom-edge alignment */
         }
         
@@ -537,8 +537,13 @@
             flex: 0 1 clamp(4.5rem, 7vw, 9rem);
             block-size: 3.5rem;                    /* same visual height */
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;           /* Left align logos */
             align-items: flex-end;                 /* ⬅️ push img to the bottom */
+        }
+        
+        /* First logo cell needs no offset to align with "Core" text */
+        .logo-cell:first-child {
+            margin-left: 0;
         }
         
         /* The real artwork --------------------------------------------- */
@@ -684,7 +689,7 @@
             
             .partner-logos {
                 justify-content: flex-start;
-                gap: 1.5rem; /* Smaller gap on mobile */
+                gap: 0.75rem; /* Tighter gap on mobile */
             }
             
             /* Mobile logo sizing */
