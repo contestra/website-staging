@@ -679,13 +679,19 @@
         
         /* Prevent logo wrapping at narrow desktop widths */
         @media (width > 768px) and (width <= 1200px) {
+            .partner-logos {
+                gap: 0.75rem; /* Slightly reduce gap to create more space */
+            }
+            
             .logo-cell {
-                flex: 0 1 clamp(4rem, 6vw, 7rem); /* Smaller minimum to prevent wrap */
+                flex: 0 0 auto; /* Don't allow shrinking */
+                width: calc((100% - 3rem) / 5); /* Divide available space by 5 logos, accounting for gaps */
+                min-width: 3.5rem; /* Absolute minimum */
             }
             
             .logo-cell img {
                 max-inline-size: 100%; /* Allow logos to use full cell width */
-                min-inline-size: 2.5rem; /* Smaller minimum */
+                min-inline-size: 2rem; /* Smaller minimum */
             }
         }
         
