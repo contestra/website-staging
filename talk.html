@@ -679,10 +679,6 @@
         
         /* Prevent logo wrapping at narrow desktop widths */
         @media (width > 768px) and (width <= 1200px) {
-            .partner-logos {
-                gap: 0.5rem; /* Reduce gap to fit all logos */
-            }
-            
             .logo-cell {
                 flex: 0 1 clamp(4rem, 6vw, 7rem); /* Smaller minimum to prevent wrap */
             }
