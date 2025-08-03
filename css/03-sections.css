@@ -397,7 +397,7 @@
     /* Feature titles */
     .col-title h3 {
         font-size: 2.8rem;
-        font-weight: 500;                       /* Medium weight for H3s */
+        font-weight: 400;                       /* Regular weight for H3s */
         color: var(--color-text-primary);
         text-align: left;                        /* Keep feature titles left-aligned */
     }

@@ -750,14 +750,18 @@
                 pointer-events: none;
             }
             
-            /* Mobile gradient bars at bottom */
-            body::after {
+            /* Mobile gradient bars - extend from form to footer */
+            .mobile-form-section {
+                position: relative;
+            }
+            
+            .mobile-form-section::before {
                 content: '';
                 position: absolute;
-                bottom: 0;
+                top: 0;
                 left: 0;
                 right: 0;
-                height: 150px; /* Fixed height for the colored bars */
+                bottom: -100vh; /* Extend beyond the section */
                 background: linear-gradient(to right,
                     #00ffff 0% 14.3%,
                     #00ff88 14.3% 28.6%,
