@@ -352,6 +352,7 @@
             left: 0;
             top: 0.4rem;
             font-size: 1.6rem;
+            font-family: 'SuisseScreen-Regular', Arial, sans-serif;
             font-weight: 400;
             color: #6b7280;
             pointer-events: none;
@@ -372,6 +373,8 @@
             color: #6b7280;
             opacity: 1;
             font-size: 1.6rem;
+            font-family: 'SuisseScreen-Regular', Arial, sans-serif;
+            font-weight: 400;
             top: 0.4rem;
             left: 0;
             transition: all 0.2s ease;
@@ -1466,11 +1469,27 @@
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
-            // Here you would normally send the data to your server
-            console.log('Form submitted:', data);
+            // Submit to Google Sheets via Google Apps Script Web App
+            // You'll need to replace this URL with your own Google Apps Script URL
+            const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
             
-            // Show success message
-            alert('Thank you! We\'ll be in touch soon.');
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Google Apps Script doesn't support CORS
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                // Show success message
+                alert('Thank you! We\'ll be in touch soon.');
+                
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('There was an error submitting the form. Please try again or contact us directly.');
+            }
             
             // Reset form
             this.reset();
