@@ -558,18 +558,6 @@
                    saturate(569%) hue-rotate(201deg) brightness(93%) contrast(89%);
         }
         
-        /* Optical-balance helpers */
-        .logo--wide img { transform: scale(.88); }   /* word-marks */
-        .logo--icon img { transform: scale(1.08); }  /* tall icons */
-        
-        /* Fix baseline alignment with transform-origin */
-        .logo-cell img {
-            transform-origin: center bottom;  /* baseline anchor */
-        }
-        
-        /* Re-tune optical helpers so baseline stays fixed */
-        .logo--wide img { transform: scale(.82); }  /* word-marks (NLTK, spaCy) */
-        .logo--icon img { transform: scale(1.06); } /* icons (all the others) */
         
         /* Transition zone - prevent form spillage at breakpoint */
         @media (width > 768px) and (width <= 900px) {
@@ -928,11 +916,11 @@
                     <div class="trusted-partners">
                         <p class="trusted-partners-title">Core technologies we build upon:</p>
                         <div class="partner-logos">
-                            <div class="logo-cell logo--icon"><img src="images/logos/pytorch-ai-logo.svg" alt="PyTorch"></div>
-                            <div class="logo-cell logo--wide"><img src="images/logos/nltk-ai-logo.svg" alt="NLTK"></div>
-                            <div class="logo-cell logo--icon"><img src="images/logos/tensorflow-ai-logo.svg" alt="TensorFlow"></div>
-                            <div class="logo-cell logo--wide"><img src="images/logos/spacy-ai-logo.svg" alt="spaCy"></div>
-                            <div class="logo-cell logo--icon"><img src="images/logos/gemma-ai-logo.svg" alt="Gemma"></div>
+                            <div class="logo-cell"><img src="images/logos/pytorch-ai-boxed-logo.svg" alt="PyTorch"></div>
+                            <div class="logo-cell"><img src="images/logos/nltk-ai-boxed-logo.svg" alt="NLTK"></div>
+                            <div class="logo-cell"><img src="images/logos/tensorflow-ai-boxed-logo.svg" alt="TensorFlow"></div>
+                            <div class="logo-cell"><img src="images/logos/spacy-ai-boxed-logo.svg" alt="spaCy"></div>
+                            <div class="logo-cell"><img src="images/logos/gemma-ai-boxed-logo.svg" alt="Gemma"></div>
                         </div>
                     </div>
                 </div>
