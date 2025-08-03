@@ -730,6 +730,7 @@
             
             .form-label {
                 font-size: 1.4rem;
+                font-family: 'SuisseScreen-Regular', Arial, sans-serif !important;
             }
             
             /* Ensure country display value matches other inputs on mobile */
@@ -1510,12 +1511,24 @@
                 countryDesktop.closest('.form-group').classList.remove('has-value');
                 const displayValueDesktop = countryDesktop.parentElement.querySelector('div[style*="pointer-events: none"]');
                 if (displayValueDesktop) displayValueDesktop.textContent = '';
+                // Reset label visibility
+                const labelDesktop = countryDesktop.closest('.form-group').querySelector('.form-label');
+                if (labelDesktop) {
+                    labelDesktop.style.opacity = '';
+                    labelDesktop.style.transform = '';
+                }
             }
             if (countryMobile) {
                 countryMobile.classList.remove('has-value', 'input-success');
                 countryMobile.closest('.form-group').classList.remove('has-value');
                 const displayValueMobile = countryMobile.parentElement.querySelector('div[style*="pointer-events: none"]');
                 if (displayValueMobile) displayValueMobile.textContent = '';
+                // Reset label visibility
+                const labelMobile = countryMobile.closest('.form-group').querySelector('.form-label');
+                if (labelMobile) {
+                    labelMobile.style.opacity = '';
+                    labelMobile.style.transform = '';
+                }
             }
             
             // Clear all validation states

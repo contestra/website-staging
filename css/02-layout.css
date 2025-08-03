@@ -165,6 +165,7 @@
         position: relative;
         z-index: 10;
         transition: all var(--transition-slow);
+        padding-block: 1rem;                    /* Increase vertical clickable area */
     }
     
     .site-logo img {
@@ -399,6 +400,7 @@
         .site-logo {
             margin-inline-end: auto;
             font-size: 2rem;
+            padding-block: 0.5rem;              /* Smaller padding on mobile */
         }
         
         .site-logo img {
