@@ -349,7 +349,7 @@
             left: 0;
             top: 0.4rem;
             font-size: 1.6rem;
-            font-family: 'SuisseScreen-Regular', Arial, sans-serif;
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 400;
             color: #6b7280;
             pointer-events: none;
@@ -370,7 +370,7 @@
             color: #6b7280;
             opacity: 1;
             font-size: 1.6rem;
-            font-family: 'SuisseScreen-Regular', Arial, sans-serif;
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 400;
             top: 0.4rem;
             left: 0;
@@ -739,9 +739,9 @@
             
             /* On mobile, gradient bars only show in lower portion */
             .contact-hero__right::after {
-                height: 400px; /* Fixed height to reach higher up the page */
-                position: absolute; /* Absolute positioning within parent */
-                bottom: 0; /* Anchored to bottom of parent */
+                height: 33.33%; /* 1/3 of viewport height */
+                position: fixed; /* Fixed positioning like parent */
+                bottom: 0; /* Anchored to bottom of viewport */
                 left: 0;
                 right: 0;
                 z-index: -1; /* Behind content */
@@ -837,7 +837,7 @@
             
             .form-label {
                 font-size: 1.4rem;
-                font-family: 'SuisseScreen-Regular', Arial, sans-serif !important;
+                font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
             }
             
             /* Ensure country display value matches other inputs on mobile */
