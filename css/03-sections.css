@@ -758,6 +758,7 @@
         background: var(--gradient-spectrum-90); /* 90% white mix for subtle color presence */
         position: relative;
         z-index: 2;
+        margin-block-end: 0;  /* Ensure no gap after pre-footer */
     }
     
     @media (width <= 768px) {
