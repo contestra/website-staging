@@ -896,6 +896,7 @@
         color: white;
         padding-block: 4rem;
         position: relative;
+        margin-block-start: 0;  /* Ensure no gap above footer */
     }
     
     /* Spectrum gradient top border */
