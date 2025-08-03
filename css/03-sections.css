@@ -900,7 +900,15 @@
         margin-block-start: 0;  /* Ensure no gap above footer */
     }
     
-    /* Gradient border removed per user request */
+    /* Spectrum gradient top border */
+    footer::before {
+        content: '';
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline: 0;
+        block-size: 4px;
+        background: var(--gradient-spectrum);
+    }
     
     /* Footer container layout */
     footer .container {
