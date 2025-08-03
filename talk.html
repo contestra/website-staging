@@ -402,7 +402,7 @@
             border-bottom: 1px solid #d1d5db;
             border-radius: 0;
             font-size: 1.6rem;
-            font-family: inherit;
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
             transition: border-color 0.2s;
             background: transparent;
             width: 100%;
@@ -726,26 +726,49 @@
             }
             
             .contact-hero__right {
-                padding: 0; /* Remove padding - gradient should be full bleed */
-                min-height: 100vh; /* Full viewport height */
-                position: fixed; /* Fixed positioning to stay in place while scrolling */
-                top: 0; /* Start from top */
+                display: none; /* Hide the desktop gradient container on mobile */
+            }
+            
+            /* Create a new fixed gradient background for mobile */
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
-                z-index: -1; /* Behind content */
-                pointer-events: none; /* Allow clicks to pass through */
+                background: linear-gradient(to right, 
+                    #bfffff 0%,      /* Pastel cyan */
+                    #bfffe1 16.66%,  /* Pastel turquoise */
+                    #e1ffbf 33.33%,  /* Pastel lime */
+                    #ffffbf 50%,     /* Pastel yellow */
+                    #ffe1bf 66.66%,  /* Pastel orange */
+                    #ffbfe1 83.33%,  /* Pastel pink */
+                    #ffbfbf 100%     /* Pastel red */
+                );
+                z-index: -2;
+                pointer-events: none;
             }
             
-            /* On mobile, gradient bars only show in lower portion */
-            .contact-hero__right::after {
-                height: 33.33%; /* 1/3 of viewport height */
-                position: fixed; /* Fixed positioning like parent */
-                bottom: 0; /* Anchored to bottom of viewport */
+            /* Mobile gradient bars at bottom */
+            body::after {
+                content: '';
+                position: fixed;
+                bottom: 0;
                 left: 0;
                 right: 0;
-                z-index: -1; /* Behind content */
-                pointer-events: none; /* Allow clicks to pass through */
+                height: 150px; /* Fixed height for the colored bars */
+                background: linear-gradient(to right,
+                    #00ffff 0% 14.3%,
+                    #00ff88 14.3% 28.6%,
+                    #88ff00 28.6% 42.9%,
+                    #ffff00 42.9% 57.2%,
+                    #ff8800 57.2% 71.5%,
+                    #ff0088 71.5% 85.8%,
+                    #ff0044 85.8% 100%
+                );
+                z-index: -1;
+                pointer-events: none;
             }
             
             .contact-hero__title {
