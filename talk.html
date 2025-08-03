@@ -562,6 +562,15 @@
         .logo--wide img { transform: scale(.88); }   /* word-marks */
         .logo--icon img { transform: scale(1.08); }  /* tall icons */
         
+        /* Fix baseline alignment with transform-origin */
+        .logo-cell img {
+            transform-origin: center bottom;  /* baseline anchor */
+        }
+        
+        /* Re-tune optical helpers so baseline stays fixed */
+        .logo--wide img { transform: scale(.82); }  /* word-marks (NLTK, spaCy) */
+        .logo--icon img { transform: scale(1.06); } /* icons (all the others) */
+        
         /* Transition zone - prevent form spillage at breakpoint */
         @media (width > 768px) and (width <= 900px) {
             .contact-hero__right {
