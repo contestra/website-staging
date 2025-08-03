@@ -510,6 +510,113 @@
             border-bottom-color: #2D8A2D;
         }
         
+        /* Form submission states */
+        .form-loading,
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .form-container.is-loading .contact-form,
+        .form-container.is-loading .form-title {
+            display: none;
+        }
+        
+        .form-container.is-loading .form-loading {
+            display: block;
+        }
+        
+        .form-container.is-success .contact-form,
+        .form-container.is-success .form-title,
+        .form-container.is-success .form-loading {
+            display: none;
+        }
+        
+        .form-container.is-success .form-success {
+            display: block;
+        }
+        
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--color-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.8rem;
+            color: #6b7280;
+        }
+        
+        /* Success checkmark */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .success-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #2D8A2D;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        
+        .success-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke: #2D8A2D;
+            fill: none;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+        }
+        
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        .success-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+        
+        .success-message {
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: #6b7280;
+            max-width: 40rem;
+            margin: 0 auto;
+        }
+        
+        .success-message a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .success-message a:hover {
+            text-decoration: underline;
+        }
+        
         
         /* Trusted partners section */
         .trusted-partners {
@@ -932,8 +1039,29 @@
                 <div class="contact-hero__right">
                     <!-- Desktop form container -->
                     <div class="desktop-form-wrapper">
-                    <div class="form-container">
+                    <div class="form-container" id="form-container-desktop">
                     <h2 class="form-title">Request a free 30 minute chat</h2>
+                    
+                    <!-- Loading state -->
+                    <div class="form-loading">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">Submitting your request...</div>
+                    </div>
+                    
+                    <!-- Success state -->
+                    <div class="form-success">
+                        <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="success-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="success-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <h3 class="success-title">Thank you!</h3>
+                        <p class="success-message">
+                            We will be back in touch within the next 24 hours to arrange a Zoom call. 
+                            In the meantime, feel free to contact us at 
+                            <a href="mailto:hi@contestra.com">hi@contestra.com</a> 
+                            if you have any questions.
+                        </p>
+                    </div>
                     
                     <form class="contact-form" id="contactForm">
                         <div class="form-grid">
@@ -1039,8 +1167,29 @@
                 
                 <!-- Mobile form section - appears after left content on mobile -->
                 <div class="mobile-form-section">
-                    <div class="form-container">
+                    <div class="form-container" id="form-container-mobile">
                     <h2 class="form-title">Request a free 30 minute chat</h2>
+                    
+                    <!-- Loading state -->
+                    <div class="form-loading">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">Submitting your request...</div>
+                    </div>
+                    
+                    <!-- Success state -->
+                    <div class="form-success">
+                        <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="success-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="success-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <h3 class="success-title">Thank you!</h3>
+                        <p class="success-message">
+                            We will be back in touch within the next 24 hours to arrange a Zoom call. 
+                            In the meantime, feel free to contact us at 
+                            <a href="mailto:hi@contestra.com">hi@contestra.com</a> 
+                            if you have any questions.
+                        </p>
+                    </div>
                     
                     <form class="contact-form" id="contactForm-mobile">
                         <div class="form-grid">
@@ -1478,6 +1627,12 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData);
             
+            // Get the form container
+            const formContainer = document.getElementById('form-container-' + (formType || 'desktop'));
+            
+            // Show loading state
+            formContainer.classList.add('is-loading');
+            
             // Submit to Google Sheets via Google Apps Script Web App
             // You'll need to replace this URL with your own Google Apps Script URL
             const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwAyPs8KXfN_lMqt1ytRZK9g4W_1qX8qSacQkA-KZq1-w924L7Xlyo580qD_jgUWewA/exec';
@@ -1492,14 +1647,25 @@
                     body: JSON.stringify(data)
                 });
                 
-                // Show success message
-                alert('Thank you! We\'ll be in touch soon.');
+                // Simulate a small delay to show the loading state
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Show success state
+                formContainer.classList.remove('is-loading');
+                formContainer.classList.add('is-success');
                 
             } catch (error) {
                 console.error('Error submitting form:', error);
-                alert('There was an error submitting the form. Please try again or contact us directly.');
+                // Remove loading state
+                formContainer.classList.remove('is-loading');
+                // Show error (you could create a separate error state)
+                alert('There was an error submitting the form. Please try again or contact us directly at hi@contestra.com');
             }
             
+            // Don't reset form when showing success state
+            return;
+            
+            /* Old reset code - kept for reference
             // Reset form
             form.reset();
             
@@ -1543,6 +1709,7 @@
                     clickArea.style.borderBottomColor = '#d1d5db';
                 }
             });
+            */
         }
         
         // Add event listeners for both forms
