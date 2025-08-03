@@ -691,12 +691,13 @@
             /* Mobile logo sizing */
             .logo-cell {
                 flex: 0 0 auto;  /* Don't shrink to prevent unwanted wrapping */
-                width: clamp(4.2rem, 18vw, 5.5rem);  /* Slightly smaller to fit 5 on iPhone 12 Pro */
-                block-size: 2.875rem;                        /* 15% larger (was 2.5rem) */
+                width: clamp(4.62rem, 19.8vw, 6.05rem);  /* 25% larger total (was 2.5rem base) */
+                block-size: 3.125rem;                      /* 25% larger total (was 2.5rem) */
             }
             
             .logo-cell img {
-                min-inline-size: 2.3rem;  /* 15% larger (was 2rem) */
+                min-inline-size: 2.5rem;  /* 25% larger total (was 2rem) */
+                max-inline-size: 100%;    /* Ensure logos fill their containers */
             }
             
             .form-container {
@@ -812,7 +813,7 @@
                     </div>
                     <div class="header__options">
                         <a href="talk.html" class="btn btn--primary-black btn-arrow">
-                            Let's Talk
+                            Consult an AI Expert
                             <svg class="btn-arrow-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                                 <polyline points="3 3 9 6 3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
                             </svg>
@@ -853,7 +854,7 @@
                     <h2 class="mobile-menu-cta-title">Ready to control your brand's AI presence?</h2>
                     <p class="mobile-menu-cta-subtitle">Schedule a personalized demo to see Contestra in action.</p>
                     <a href="talk.html" class="btn btn--primary-black btn-arrow">
-                        Schedule Demo
+                        Consult an AI Expert
                         <svg class="btn-arrow-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                             <polyline points="3 3 9 6 3 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></polyline>
                         </svg>
