@@ -185,7 +185,7 @@ class ScaleAICarousel {
             const newCard = card.cloneNode(true);
             card.parentNode.replaceChild(newCard, card);
             
-            // No need to initialize gradient - CSS handles it based on flipped state
+            // Gradient visibility is controlled via CSS using data-gradient attribute and flipped state
             
             // Handle clicks on the entire card
             newCard.addEventListener('click', (e) => {
@@ -218,7 +218,6 @@ class ScaleAICarousel {
      */
     toggleCardFlip(card, index) {
         const isFlipped = card.classList.contains('flipped');
-        const isMobile = window.innerWidth <= 768;
         
         if (isFlipped) {
             // Flip back to front
@@ -226,7 +225,7 @@ class ScaleAICarousel {
             card.setAttribute('aria-pressed', 'false');
             card.setAttribute('aria-label', `Card ${index + 1}: Click to flip and see more details`);
             
-            // Gradient will show automatically via CSS when not flipped
+            // Gradient visibility controlled by CSS based on flipped state and data-gradient attribute
             
             console.log(`Card ${index + 1} flipped to front`);
         } else {
@@ -364,7 +363,8 @@ class ScaleAICarousel {
             card.removeAttribute('tabindex');
             card.removeAttribute('aria-pressed');
             card.removeAttribute('aria-label');
-            // Ensure gradient is visible on mobile reset
+            // Set data attribute to ensure gradient is visible on mobile
+            // CSS uses [data-gradient="show"] to control opacity
             card.setAttribute('data-gradient', 'show');
         });
         
