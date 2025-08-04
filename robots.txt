@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# Reason: Site is under development and should not be indexed by search engines.
+# Remove or change this file before public launch.
