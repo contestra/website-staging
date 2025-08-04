@@ -25,6 +25,10 @@
  * Manages carousel navigation and card flip functionality
  */
 class ScaleAICarousel {
+    // WeakMaps to track event handlers for proper cleanup
+    cardClickHandlers = new WeakMap();
+    cardKeydownHandlers = new WeakMap();
+    
     constructor() {
         // Find carousel container
         this.carousel = document.querySelector('.scale-ai-carousel');
@@ -181,31 +185,43 @@ class ScaleAICarousel {
         const isMobile = window.innerWidth <= 768;
         
         cards.forEach((card, index) => {
-            // Remove any existing listeners to prevent duplicates
-            const newCard = card.cloneNode(true);
-            card.parentNode.replaceChild(newCard, card);
+            // Remove existing listeners if any
+            const existingClickHandler = this.cardClickHandlers.get(card);
+            const existingKeydownHandler = this.cardKeydownHandlers.get(card);
+            
+            if (existingClickHandler) {
+                card.removeEventListener('click', existingClickHandler);
+            }
+            if (existingKeydownHandler) {
+                card.removeEventListener('keydown', existingKeydownHandler);
+            }
             
             // Gradient visibility is controlled via CSS using data-gradient attribute and flipped state
             
-            // Handle clicks on the entire card
-            newCard.addEventListener('click', (e) => {
+            // Create new handlers
+            const clickHandler = (e) => {
                 e.preventDefault(); // Prevent default link behavior
-                this.toggleCardFlip(newCard, index);
-            });
+                this.toggleCardFlip(card, index);
+            };
             
-            // Handle keyboard navigation for card flips
-            newCard.addEventListener('keydown', (e) => {
+            const keydownHandler = (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    this.toggleCardFlip(newCard, index);
+                    this.toggleCardFlip(card, index);
                 }
-            });
+            };
+            
+            // Store and add handlers
+            this.cardClickHandlers.set(card, clickHandler);
+            this.cardKeydownHandlers.set(card, keydownHandler);
+            card.addEventListener('click', clickHandler);
+            card.addEventListener('keydown', keydownHandler);
             
             // Add proper accessibility attributes
-            newCard.setAttribute('role', 'button');
-            newCard.setAttribute('tabindex', '0');
-            newCard.setAttribute('aria-pressed', 'false');
-            newCard.setAttribute('aria-label', `Card ${index + 1}: Click to flip and see more details`);
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-pressed', 'false');
+            card.setAttribute('aria-label', `Card ${index + 1}: Click to flip and see more details`);
         });
         
         console.log(`Card flip functionality initialized for ${cards.length} cards`);
@@ -358,6 +374,19 @@ class ScaleAICarousel {
         // Remove all flip states and set gradient visibility
         const cards = this.carousel.querySelectorAll('.b-link');
         cards.forEach((card) => {
+            // Remove event listeners
+            const clickHandler = this.cardClickHandlers.get(card);
+            const keydownHandler = this.cardKeydownHandlers.get(card);
+            
+            if (clickHandler) {
+                card.removeEventListener('click', clickHandler);
+                this.cardClickHandlers.delete(card);
+            }
+            if (keydownHandler) {
+                card.removeEventListener('keydown', keydownHandler);
+                this.cardKeydownHandlers.delete(card);
+            }
+            
             card.classList.remove('flipped');
             card.removeAttribute('role');
             card.removeAttribute('tabindex');
@@ -428,6 +457,19 @@ class ScaleAICarousel {
         // Reset all card states
         const cards = this.carousel.querySelectorAll('.b-link');
         cards.forEach((card) => {
+            // Remove event listeners
+            const clickHandler = this.cardClickHandlers.get(card);
+            const keydownHandler = this.cardKeydownHandlers.get(card);
+            
+            if (clickHandler) {
+                card.removeEventListener('click', clickHandler);
+                this.cardClickHandlers.delete(card);
+            }
+            if (keydownHandler) {
+                card.removeEventListener('keydown', keydownHandler);
+                this.cardKeydownHandlers.delete(card);
+            }
+            
             card.classList.remove('flipped');
             card.removeAttribute('role');
             card.removeAttribute('tabindex');
