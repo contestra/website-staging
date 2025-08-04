@@ -407,7 +407,7 @@
                     
                     <br><br>This creates a dynamic semantic network where high similarity scores (0.83 between your brand and "mitochondrial health") reveal strong associations to leverage, while low scores (0.11 for "senotherapy") expose gaps to fill through targeted content and optimization. For instance, if a wellness brand scores low on proximity to "spermidine for autophagy," we recommend targeted content creation or optimizations to close that gap, strengthening associations over time and boosting visibility in queries about anti-aging protocols.
                     
-                    <br><br>We continuously re-run this analysis to track how your semantic positioning shifts over time in the embedding space—did that peer-reviewed study on cellular energy pull you closer to the "longevity science" cluster? Has a competitor begun encroaching on your territory? Unlike tools that chase lagging citations from grounded searches, we attack foundational semantics, aiming for native LLM recognition that persists across model updates. Most importantly, we correlate these vector space changes with concrete actions—publishing research, optimizing schema markup, securing citations—giving you data-backed proof that each marketing investment is literally rewiring how AI models understand your brand at the foundational level. This results in measurable outcomes, such as 30-50% boosts in LLM citation rates for clients in wellness sectors, by aligning content with how AI systems process and retrieve information on topics like resveratrol benefits or epigenetic aging, ultimately driving long-term growth in both ungrounded and grounded responses.</div>
+                    <br><br>We continuously re-run this analysis to track how your semantic positioning shifts over time in the embedding space—did that peer-reviewed study on cellular energy pull you closer to the "longevity science" cluster? Has a competitor begun encroaching on your territory? Unlike tools that chase lagging citations from grounded searches, we attack foundational semantics, aiming for native LLM recognition that persists across model updates. Most importantly, we correlate these vector space changes with concrete actions—publishing research, optimizing schema markup, securing citations—giving you data-backed proof that each marketing investment is literally rewiring how AI models understand your brand at the foundational level. This results in measurable outcomes, such as 300-7,000% boosts in LLM citation rates for clients in wellness sectors, by aligning content with how AI systems process and retrieve information on topics like resveratrol benefits or epigenetic aging, ultimately driving long-term growth in both ungrounded and grounded responses.</div>
                 </div>
                 
                 <div class="faq-item">
@@ -713,6 +713,33 @@
                 } else {
                     item.classList.add('active');
                     question.setAttribute('aria-expanded', 'true');
+                    
+                    // Scroll to position the expanded FAQ in view
+                    // Wait for CSS transition to start
+                    setTimeout(() => {
+                        const rect = item.getBoundingClientRect();
+                        const headerHeight = document.querySelector('#site-header').offsetHeight || 80;
+                        const scrollOffset = 20; // Additional padding
+                        
+                        // Check if FAQ is above viewport or would benefit from repositioning
+                        if (rect.top < headerHeight + scrollOffset) {
+                            // Scroll to put FAQ question at comfortable reading position
+                            const targetScroll = window.scrollY + rect.top - headerHeight - scrollOffset;
+                            window.scrollTo({
+                                top: targetScroll,
+                                behavior: 'smooth'
+                            });
+                        }
+                        // Also check if answer extends below viewport
+                        else if (rect.bottom > window.innerHeight - 100) {
+                            // Scroll to show as much of the answer as possible
+                            const targetScroll = window.scrollY + rect.top - headerHeight - scrollOffset;
+                            window.scrollTo({
+                                top: targetScroll,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 50); // Small delay to let CSS transition begin
                 }
             }
         });
