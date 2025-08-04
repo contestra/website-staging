@@ -60,7 +60,41 @@
             margin-left: 0;
         }
         
-        /* Mobile Menu Styles */
+        /* Mobile Menu Styles - REMOVED to avoid duplication with css/02-layout.css */
+        /* 
+         * ROLLBACK NOTES - Talk Page Mobile Menu Customizations
+         * =====================================================
+         * 
+         * The mobile menu button styles were removed because they duplicate styles
+         * already defined in css/02-layout.css (lines 283-327).
+         * 
+         * However, this page had some specific differences that may have been intentional:
+         * 
+         * 1. FIXED SIZE: Talk page used fixed 24px width/height
+         *    Main CSS uses: no fixed size, relies on padding
+         *    
+         * 2. Z-INDEX: Talk page used z-index: 1002
+         *    Main CSS uses: no z-index on button itself
+         *    
+         * 3. SPAN POSITIONING: Talk page used absolute positioning with specific top values
+         *    Main CSS uses: relative positioning with margins
+         *    
+         * 4. BORDER: Talk page had border: none
+         *    Main CSS has: border: 1px solid rgba(0,0,0,0.06)
+         * 
+         * TO RESTORE TALK-SPECIFIC STYLES:
+         * ================================
+         * Option 1: Add a modifier class in THIS file:
+         * 
+         * .talk-page .mobile-menu-btn {
+         *     width: 24px;
+         *     height: 24px;
+         *     z-index: 1002;
+         *     border: none;
+         * }
+         * 
+         * Option 2: Restore the full block below:
+         * 
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -96,7 +130,6 @@
             top: 22px;
         }
         
-        /* Hamburger animation when active */
         .mobile-menu-btn.active span:nth-child(1) {
             transform: rotate(45deg);
             top: 11px;
@@ -110,6 +143,7 @@
             transform: rotate(-45deg);
             top: 11px;
         }
+        */
         
         /* Mobile menu CSS moved to 02-layout.css */
         
