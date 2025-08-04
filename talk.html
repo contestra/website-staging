@@ -1526,9 +1526,12 @@
         const countrySelect = document.getElementById(selectId);
         const countryGroup = countrySelect.closest('.form-group');
         
-        // Create custom dropdown
+        // Create custom dropdown with ARIA attributes
         const customDropdown = document.createElement('div');
         customDropdown.className = 'custom-dropdown';
+        customDropdown.id = `${selectId}-listbox`;
+        customDropdown.setAttribute('role', 'listbox');
+        customDropdown.setAttribute('aria-label', 'Country selection');
         customDropdown.style.cssText = `
             position: absolute;
             top: 100%;
@@ -1544,10 +1547,16 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         `;
         
-        // Create search input
+        // Create search input with ARIA attributes
         const searchInput = document.createElement('input');
         searchInput.type = 'text';
+        searchInput.id = `${selectId}-search`;
         searchInput.placeholder = 'Search countries...';
+        searchInput.setAttribute('role', 'combobox');
+        searchInput.setAttribute('aria-expanded', 'false');
+        searchInput.setAttribute('aria-controls', customDropdown.id);
+        searchInput.setAttribute('aria-autocomplete', 'list');
+        searchInput.setAttribute('aria-label', 'Search countries');
         searchInput.style.cssText = `
             width: 100%;
             padding: 0.8rem 1rem;
@@ -1564,11 +1573,16 @@
         // Get all options from select
         const options = Array.from(countrySelect.options).filter(opt => opt.value && !opt.disabled);
         
-        // Create option elements
-        options.forEach(opt => {
+        // Create option elements with ARIA
+        let currentFocusIndex = -1;
+        options.forEach((opt, index) => {
             const optionDiv = document.createElement('div');
             optionDiv.textContent = opt.textContent;
             optionDiv.dataset.value = opt.value;
+            optionDiv.dataset.index = index;
+            optionDiv.id = `${selectId}-option-${index}`;
+            optionDiv.setAttribute('role', 'option');
+            optionDiv.setAttribute('aria-selected', 'false');
             optionDiv.style.cssText = `
                 padding: 0.8rem 1rem;
                 cursor: pointer;
@@ -1671,12 +1685,15 @@
             e.stopPropagation();
             customDropdown.style.display = customDropdown.style.display === 'none' ? 'block' : 'none';
             if (customDropdown.style.display === 'block') {
+                searchInput.setAttribute('aria-expanded', 'true');
                 searchInput.focus();
                 searchInput.value = '';
                 filterOptions('');
                 clickArea.style.borderBottomColor = 'var(--color-accent)';
                 countryGroup.classList.add('focused');
+                currentFocusIndex = -1; // Reset focus index
             } else {
+                searchInput.setAttribute('aria-expanded', 'false');
                 // Keep green if a country is selected
                 if (countrySelect.classList.contains('has-value')) {
                     clickArea.style.borderBottomColor = '#2D8A2D';
@@ -1691,6 +1708,54 @@
         searchInput.addEventListener('input', (e) => {
             filterOptions(e.target.value.toLowerCase());
         });
+        
+        // Keyboard navigation
+        searchInput.addEventListener('keydown', (e) => {
+            const visibleOptions = Array.from(optionsContainer.querySelectorAll('div[role="option"]'))
+                .filter(opt => opt.style.display !== 'none');
+            
+            switch(e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    currentFocusIndex = Math.min(currentFocusIndex + 1, visibleOptions.length - 1);
+                    updateFocus(visibleOptions, currentFocusIndex);
+                    break;
+                    
+                case 'ArrowUp':
+                    e.preventDefault();
+                    currentFocusIndex = Math.max(currentFocusIndex - 1, -1);
+                    updateFocus(visibleOptions, currentFocusIndex);
+                    break;
+                    
+                case 'Enter':
+                    e.preventDefault();
+                    if (currentFocusIndex >= 0 && visibleOptions[currentFocusIndex]) {
+                        visibleOptions[currentFocusIndex].click();
+                    }
+                    break;
+                    
+                case 'Escape':
+                    e.preventDefault();
+                    customDropdown.style.display = 'none';
+                    searchInput.setAttribute('aria-expanded', 'false');
+                    clickArea.focus();
+                    break;
+            }
+        });
+        
+        // Update focus and ARIA attributes
+        function updateFocus(visibleOptions, index) {
+            visibleOptions.forEach((opt, i) => {
+                if (i === index) {
+                    opt.style.background = '#f3f4f6';
+                    opt.setAttribute('aria-selected', 'true');
+                    searchInput.setAttribute('aria-activedescendant', opt.id);
+                } else {
+                    opt.style.background = 'white';
+                    opt.setAttribute('aria-selected', 'false');
+                }
+            });
+        }
         
         function filterOptions(searchTerm) {
             const allOptions = optionsContainer.querySelectorAll('div');
