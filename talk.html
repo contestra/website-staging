@@ -1606,7 +1606,9 @@
             top: 0.4rem;
             right: 2rem;
             pointer-events: none;
-            font-size: 1.6rem;
+            font-size: ${isMobile ? '1.4rem' : '1.6rem'};
+            font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
             color: #111827;
         `;
         countryGroup.appendChild(displayValue);
