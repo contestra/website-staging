@@ -356,6 +356,30 @@
         /* END FADE-OUT EFFECT */
     }
     
+    /* Fallback for browsers without mask support - using box-shadow inset */
+    @supports not (mask-image: linear-gradient(black, transparent)) {
+        .chat-messages {
+            position: relative;
+            /* Create fade effect using inset box-shadows */
+            box-shadow: 
+                inset 0 30px 30px -20px rgba(252, 251, 248, 1),
+                inset 0 -30px 30px -20px rgba(252, 251, 248, 1);
+        }
+        
+        /* Alternative: use ::before for top fade only (::after is used for spacer) */
+        .chat-messages::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 15%;
+            pointer-events: none;
+            z-index: 2;
+            background: linear-gradient(to bottom, rgba(252, 251, 248, 1) 0%, rgba(252, 251, 248, 0.8) 30%, transparent 100%);
+        }
+    }
+    
     /* Adjust padding when device frame is active - DISABLED FOR TESTING */
     /* TO ROLLBACK: Uncomment this block when restoring device frame */
     /*
@@ -522,15 +546,15 @@
     
     /* Message positioning and entry animations */
     /* Updated 2025-08-01: Added 60px padding to align with nav CTA - v2 */
-    .chat-message.from-user {
+    .chatbot-container .chat-messages .chat-message.from-user {
         justify-content: flex-start;
-        padding-left: 60px !important;          /* Push user messages same amount as AI - using padding-left for specificity */
+        padding-left: 60px;                     /* Push user messages same amount as AI */
         padding-inline-end: 0;                  /* No extra padding - uses container padding */
     }
     
-    .chat-message.from-ai {
+    .chatbot-container .chat-messages .chat-message.from-ai {
         justify-content: flex-end;
-        padding-left: 60px !important;          /* Push AI messages to align with nav CTA - using padding-left for specificity */
+        padding-left: 60px;                     /* Push AI messages to align with nav CTA */
         padding-inline-end: 0;
     }
     
@@ -772,9 +796,9 @@
             justify-content: flex-start;          /* Start from top on mobile */
         }
         
-        .chat-message.from-user,
-        .chat-message.from-ai {
-            padding-left: 0 !important;          /* Reset message padding on mobile - override desktop !important */
+        .chatbot-container .chat-messages .chat-message.from-user,
+        .chatbot-container .chat-messages .chat-message.from-ai {
+            padding-left: 0;                      /* Reset message padding on mobile */
         }
         
         /* Maintain device frame adjustments on mobile - DISABLED FOR TESTING */
