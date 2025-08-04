@@ -44,3 +44,7 @@
 
 /* Effects: Animations, transitions, keyframes - LAST (ENHANCED2 VERSION) */
 @import url('css/05-animations.css');
+
+/* Page-specific: Pricing page styles - OPTIONAL (loaded on pricing page only) */
+/* Note: This is also directly linked in pricing.html for better performance */
+/* @import url('css/06-pricing.css'); */
