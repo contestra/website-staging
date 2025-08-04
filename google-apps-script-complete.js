@@ -2,6 +2,11 @@
 // Replace the entire contents of your Apps Script with this code
 
 function doPost(e) {
+  // Handle CORS preflight
+  if (e.parameter._method === 'OPTIONS') {
+    return handleCors();
+  }
+  
   try {
     // Parse the JSON data from the request
     const data = JSON.parse(e.postData.contents);
@@ -57,31 +62,39 @@ Submitted on: ${timestamp}
       replyTo: data.email // This allows you to reply directly to the submitter
     });
     
-    // Return success response with CORS headers
-    const output = ContentService
-      .createTextOutput(JSON.stringify({
-        status: 'success',
-        message: 'Form submitted successfully'
-      }))
-      .setMimeType(ContentService.MimeType.JSON);
-    
-    // Add CORS headers to allow cross-origin requests
-    return output;
+    // Return success response with proper CORS headers
+    return createCorsResponse({
+      status: 'success',
+      message: 'Form submitted successfully'
+    });
       
   } catch (error) {
     // Log the error for debugging
     console.error('Error processing form submission:', error);
     
-    // Return error response with CORS headers
-    const output = ContentService
-      .createTextOutput(JSON.stringify({
-        status: 'error',
-        message: error.toString()
-      }))
-      .setMimeType(ContentService.MimeType.JSON);
-    
-    return output;
+    // Return error response with proper CORS headers
+    return createCorsResponse({
+      status: 'error',
+      message: error.toString()
+    });
   }
+}
+
+// Helper function to create response with CORS headers
+function createCorsResponse(data) {
+  const output = ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+  
+  // These headers are set automatically by Google Apps Script when deployed as "Anyone"
+  return output;
+}
+
+// Handle CORS preflight requests
+function handleCors() {
+  return ContentService
+    .createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT);
 }
 
 // Handle preflight OPTIONS requests for CORS
