@@ -1197,5 +1197,74 @@
             });
         });
     </script>
+    
+    <!-- FAQ Accordion Script with Keyboard Navigation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                // Add keyboard support
+                question.setAttribute('tabindex', '0');
+                question.setAttribute('role', 'button');
+                question.setAttribute('aria-expanded', 'false');
+                question.setAttribute('aria-controls', 'faq-answer-' + Array.from(faqItems).indexOf(item));
+                
+                // Add ID to answer for ARIA
+                const answer = item.querySelector('.faq-answer');
+                answer.setAttribute('id', 'faq-answer-' + Array.from(faqItems).indexOf(item));
+                
+                question.addEventListener('click', function() {
+                    toggleFAQ(item, faqItems);
+                });
+                
+                question.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleFAQ(item, faqItems);
+                    }
+                    // Arrow key navigation
+                    else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextItem = item.nextElementSibling;
+                        if (nextItem && nextItem.classList.contains('faq-item')) {
+                            nextItem.querySelector('.faq-question').focus();
+                        }
+                    }
+                    else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevItem = item.previousElementSibling;
+                        if (prevItem && prevItem.classList.contains('faq-item')) {
+                            prevItem.querySelector('.faq-question').focus();
+                        }
+                    }
+                });
+            });
+            
+            function toggleFAQ(item, allItems) {
+                const question = item.querySelector('.faq-question');
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                allItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                    }
+                });
+                
+                // Toggle current item
+                if (isActive) {
+                    item.classList.remove('active');
+                    question.setAttribute('aria-expanded', 'false');
+                } else {
+                    item.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
