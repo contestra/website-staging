@@ -543,22 +543,22 @@
     <!-- Stripe Integration -->
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        // Initialize Stripe with your publishable key
-        const stripe = Stripe('uemm-ptbv-lisa-lkhr-fnnv'); // TODO: Replace with your actual publishable key
         
-        // Stripe price IDs (you'll get these from your Stripe dashboard)
+        const stripe = Stripe('pk_live_51JIaXwLAGMDUPM90P3OGCFtdO7AwVZSDdWofMkkfMbDSuwdbMJyfH2AA4ymH2rAHKMhMei6V14G57uhaLm1Fxuaf00th3u7KNZ'); 
+        
+        
         const stripePrices = {
             essential: {
-                monthly: 'price_1Rrk11LAGMDUPM90Xjxj0lG8', // TODO: Replace with actual price ID
-                annual: 'price_1Rrk11LAGMDUPM90zJs8tyyT'     // TODO: Replace with actual price ID
+                monthly: 'price_1Rrk11LAGMDUPM90Xjxj0lG8', 
+                annual: 'price_1Rrk11LAGMDUPM90zJs8tyyT'     
             },
             business: {
-                monthly: 'price_1Rrk2wLAGMDUPM90GtFCrZmo',   // TODO: Replace with actual price ID
-                annual: 'price_1Rrk4pLAGMDUPM90vlpElHaO'      // TODO: Replace with actual price ID
+                monthly: 'price_1Rrk2wLAGMDUPM90GtFCrZmo',   
+                annual: 'price_1Rrk4pLAGMDUPM90vlpElHaO'      
             },
             enterprise: {
-                monthly: 'price_1Rrk6hLAGMDUPM90gPrIr2qt', // TODO: Replace with actual price ID
-                annual: 'price_1Rrk8ALAGMDUPM90E76UynRk'    // TODO: Replace with actual price ID
+                monthly: 'price_1Rrk6hLAGMDUPM90gPrIr2qt', 
+                annual: 'price_1Rrk8ALAGMDUPM90E76UynRk'    
             }
         };
         
