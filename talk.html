@@ -650,6 +650,83 @@
         .success-message a:hover {
             text-decoration: underline;
         }
+
+        /* Error state styles */
+        .form-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+        
+        .form-container.is-error .form-error {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .error-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 2rem;
+        }
+        
+        .error-circle {
+            stroke: #ef4444;
+            stroke-width: 2;
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            fill: none;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        
+        .error-x {
+            stroke: #ef4444;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            fill: none;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
+        }
+        
+        .error-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+        
+        .error-message {
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: #6b7280;
+            max-width: 40rem;
+            margin: 0 auto;
+        }
+        
+        .error-message a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .error-message a:hover {
+            text-decoration: underline;
+        }
         
         
         /* Trusted partners section */
@@ -1146,6 +1223,21 @@
                         </p>
                     </div>
                     
+                    <!-- Error state -->
+                    <div class="form-error">
+                        <svg class="error-icon" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="error-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="error-x" fill="none" d="M16,16 L36,36 M36,16 L16,36"/>
+                        </svg>
+                        <h3 class="error-title">Oops!</h3>
+                        <p class="error-message">
+                            An error occurred while submitting your form. 
+                            Please email us directly at 
+                            <a href="mailto:hi@contestra.com">hi@contestra.com</a> 
+                            and we'll get back to you within 24 hours.
+                        </p>
+                    </div>
+                    
                     <form class="contact-form" id="contactForm">
                         <div class="form-grid">
                             <!-- Name Row -->
@@ -1271,6 +1363,21 @@
                             In the meantime, feel free to contact us at 
                             <a href="mailto:hi@contestra.com">hi@contestra.com</a> 
                             if you have any questions.
+                        </p>
+                    </div>
+                    
+                    <!-- Error state -->
+                    <div class="form-error">
+                        <svg class="error-icon" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="error-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="error-x" fill="none" d="M16,16 L36,36 M36,16 L16,36"/>
+                        </svg>
+                        <h3 class="error-title">Oops!</h3>
+                        <p class="error-message">
+                            An error occurred while submitting your form. 
+                            Please email us directly at 
+                            <a href="mailto:hi@contestra.com">hi@contestra.com</a> 
+                            and we'll get back to you within 24 hours.
                         </p>
                     </div>
                     
@@ -1723,7 +1830,6 @@
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Google Apps Script doesn't support CORS
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -1739,10 +1845,9 @@
                 
             } catch (error) {
                 console.error('Error submitting form:', error);
-                // Remove loading state
+                // Remove loading state and show error animation
                 formContainer.classList.remove('is-loading');
-                // Show error (you could create a separate error state)
-                alert('There was an error submitting the form. Please try again or contact us directly at hi@contestra.com');
+                formContainer.classList.add('is-error');
             }
             
             // Don't reset form when showing success state
