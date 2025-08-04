@@ -26,59 +26,21 @@
  * Called on: page load, window resize
  */
 function fixMarquee() {
+    // DISABLED: Using pure CSS animation for better performance
+    // The JavaScript calculation was causing gaps and stutter
+    // CSS handles the 50% transform seamlessly
+    
     const track = document.querySelector('.marquee__track');
-    const items = document.querySelectorAll('.marquee__item');
-    
-    // Early return if elements don't exist
-    if (!track || items.length < 6) {
-        console.warn('Marquee elements not found or insufficient items');
-        return;
-    }
-    
-    try {
-        // Force a reflow to ensure accurate measurements
-        track.offsetHeight;
+    if (track) {
+        // Remove any existing inline styles
+        track.style.animation = '';
         
-        // Measure the exact width of the first 6 items (one complete set)
-        let firstSetWidth = 0;
-        
-        for (let i = 0; i < 6; i++) {
-            const item = items[i];
-            const itemRect = item.getBoundingClientRect();
-            const computedStyle = getComputedStyle(item);
-            const marginRight = parseFloat(computedStyle.marginRight) || 0;
-            
-            firstSetWidth += itemRect.width + marginRight;
-        }
-        
-        // Remove existing marquee keyframes if they exist
+        // Remove any dynamically created keyframes
         const existingStyle = document.getElementById('marquee-keyframes');
         if (existingStyle) existingStyle.remove();
-        
-        // Create precise keyframe animation
-        const keyframeName = 'marquee-precise';
-        const style = document.createElement('style');
-        style.id = 'marquee-keyframes';
-        
-        // Use exact pixel value for precise looping
-        style.textContent = `
-            @keyframes ${keyframeName} {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-${Math.round(firstSetWidth)}px); }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Apply the animation with 60-second duration
-        track.style.animation = `${keyframeName} 60s linear infinite`;
-        
-        console.log(`Marquee fixed: ${firstSetWidth}px width, ${keyframeName} animation applied`);
-        
-    } catch (error) {
-        console.error('Error fixing marquee:', error);
-        // Fallback to CSS-only animation if JavaScript fails
-        track.style.animation = 'marquee 60s linear infinite';
     }
+    
+    return; // Exit early - let CSS handle the animation
 }
 
 /**
