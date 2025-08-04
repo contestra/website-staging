@@ -16,7 +16,8 @@ This guide will help you connect your talk.html contact form to Google Sheets.
    - F1: Company
    - G1: Website
    - H1: Country
-   - I1: Message
+   - I1: Job Title
+   - J1: Message
 
 ## Step 2: Create Google Apps Script
 

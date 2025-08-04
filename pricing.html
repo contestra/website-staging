@@ -137,6 +137,28 @@
             border-radius: 100px;
             cursor: pointer;
             transition: background-color 0.3s;
+            border: none;
+            padding: 0;
+            outline: none;
+        }
+        
+        /* Focus styles for accessibility */
+        .toggle-switch:focus-visible {
+            outline: 2px solid #0284c7;
+            outline-offset: 2px;
+        }
+        
+        /* Screen reader only text */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
         
         .toggle-switch.active {
@@ -678,9 +700,15 @@
                 <div class="toggle-controls">
                     <span class="toggle-label" id="monthly-label">Monthly</span>
                     <div class="toggle-container" id="toggle-container">
-                        <div class="toggle-switch" id="billing-toggle">
-                            <div class="toggle-knob"></div>
-                        </div>
+                        <button class="toggle-switch" 
+                                id="billing-toggle"
+                                role="switch"
+                                aria-checked="false"
+                                aria-label="Toggle between monthly and annual billing"
+                                aria-describedby="annual-label savings-tag">
+                            <span class="toggle-knob"></span>
+                            <span class="sr-only">Currently showing monthly prices</span>
+                        </button>
                     </div>
                     <span class="toggle-label" id="annual-label">Annual</span>
                     <span class="savings-tag">Save 20%</span>
@@ -1009,25 +1037,45 @@
         const monthlyLabel = document.getElementById('monthly-label');
         const annualLabel = document.getElementById('annual-label');
         const pricingCards = document.querySelectorAll('.pricing-card');
+        const srText = toggleSwitch.querySelector('.sr-only');
 
         // Set initial state (monthly active)
         monthlyLabel.classList.add('active');
 
-        toggleSwitch.addEventListener('click', function() {
-            this.classList.toggle('active');
-            
-            if (this.classList.contains('active')) {
+        function toggleBilling(showAnnual) {
+            if (showAnnual) {
                 // Show annual
+                toggleSwitch.classList.add('active');
+                toggleSwitch.setAttribute('aria-checked', 'true');
+                srText.textContent = 'Currently showing annual prices';
                 toggleSection.classList.add('show-annual');
                 annualLabel.classList.add('active');
                 monthlyLabel.classList.remove('active');
                 pricingCards.forEach(card => card.classList.add('show-annual'));
             } else {
                 // Show monthly
+                toggleSwitch.classList.remove('active');
+                toggleSwitch.setAttribute('aria-checked', 'false');
+                srText.textContent = 'Currently showing monthly prices';
                 toggleSection.classList.remove('show-annual');
                 annualLabel.classList.remove('active');
                 monthlyLabel.classList.add('active');
                 pricingCards.forEach(card => card.classList.remove('show-annual'));
+            }
+        }
+
+        // Handle click events
+        toggleSwitch.addEventListener('click', function() {
+            const isAnnual = !this.classList.contains('active');
+            toggleBilling(isAnnual);
+        });
+
+        // Handle keyboard events (Space and Enter)
+        toggleSwitch.addEventListener('keydown', function(e) {
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                const isAnnual = !this.classList.contains('active');
+                toggleBilling(isAnnual);
             }
         });
         
