@@ -1341,6 +1341,18 @@
                 </div>
                 
                 <!-- Mobile form section - appears after left content on mobile -->
+                <!-- 
+                    FORM DUPLICATION NOTICE:
+                    ======================
+                    This form is intentionally duplicated for desktop/mobile to support:
+                    1. Different positioning (desktop: right column, mobile: below content)
+                    2. Different gradient bar implementations
+                    3. Separate form IDs for analytics tracking
+                    4. Mobile-specific styling (1.4rem fonts, tighter spacing)
+                    
+                    MAINTENANCE: When updating form fields, update BOTH forms.
+                    TODO: Consider refactoring to a single form with CSS-only responsive positioning.
+                -->
                 <div class="mobile-form-section">
                     <div class="form-container" id="form-container-mobile">
                     <h2 class="form-title">Request a free 30 minute chat</h2>

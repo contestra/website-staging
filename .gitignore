@@ -2,6 +2,7 @@
 config.php
 .env
 .env.local
+.claude/settings.local.json
 
 # Stripe PHP SDK (if you want to exclude it from git)
 stripe-php/
