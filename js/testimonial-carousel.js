@@ -56,7 +56,10 @@ class TestimonialCarousel {
         // Dot navigation
         this.dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
-                this.goToSlide(index);
+                // Account for multiple dot sets (e.g., desktop and mobile)
+                const dotsPerSet = this.slides.length;
+                const slideIndex = index % dotsPerSet;
+                this.goToSlide(slideIndex);
             });
         });
         
@@ -98,7 +101,7 @@ class TestimonialCarousel {
         
         // Add active to corresponding dots (handles both desktop and mobile)
         // Since we have 2 sets of dots (desktop and mobile), update both
-        const dotsPerSet = 4;
+        const dotsPerSet = this.slides.length;
         for (let i = this.currentSlide; i < this.dots.length; i += dotsPerSet) {
             this.dots[i].classList.add('active');
         }
