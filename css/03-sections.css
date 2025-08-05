@@ -432,9 +432,6 @@
         .b-section[data-id="testimonials"] {
             padding-block-start: 5rem;
             padding-block-end: 5rem;
-            min-height: 600px; /* Lock section height */
-            height: 600px; /* Force exact height */
-            overflow: hidden; /* Prevent content overflow */
         }
     }
     
@@ -461,7 +458,6 @@
         .b-testimonials {
             grid-template-columns: 1fr;
             gap: var(--gap-4);
-            min-height: 500px; /* Fixed height for testimonials container */
         }
         
         /* Left align text on mobile */
@@ -502,15 +498,18 @@
         /* Center the testimonial slider on mobile */
         .testimonial-slider {
             margin-inline: auto;
-            height: 360px; /* Fixed height to prevent jumping */
+            height: auto; /* Let content determine height */
+            min-height: 320px; /* Minimum to accommodate tallest testimonial */
+            max-height: 320px; /* Maximum to prevent expansion */
+            padding: var(--gap-3) var(--gap-4); /* Reduce top padding from gap-5 */
             overflow: hidden; /* Hide any overflow */
         }
         
         /* Fix testimonial slides container height on mobile */
         .testimonial-slides {
             position: relative; /* For absolute positioning of slides */
-            height: 260px; /* Fixed height instead of min-height */
-            min-height: 260px; /* Fallback */
+            height: 250px; /* Fixed height for all slides */
+            overflow: hidden; /* Prevent content overflow */
         }
         
         /* Ensure all slides take same space on mobile */
@@ -529,10 +528,15 @@
         
         /* Ensure consistent spacing for testimonial content on mobile */
         .testimonial-card {
-            min-height: 240px; /* Minimum height for card content */
+            height: 100%; /* Take full height of slide */
             display: flex;
             flex-direction: column;
-            height: 100%;
+            padding: 0; /* Remove any default padding */
+        }
+        
+        /* Reduce gap after quote icon on mobile */
+        .testimonial-card .quote-icon {
+            margin-block-end: var(--gap-2); /* Reduced from gap-3 */
         }
         
         .testimonial-quote {
@@ -563,11 +567,12 @@
     /* Extra adjustments for very small screens */
     @media (width <= 400px) {
         .testimonial-slider {
-            min-height: 400px; /* Slightly taller for narrow screens */
+            min-height: 350px; /* Slightly taller for narrow screens */
+            max-height: 350px; /* Keep it fixed */
         }
         
         .testimonial-slides {
-            min-height: 300px; /* More height for text wrapping */
+            height: 280px; /* More height for text wrapping */
         }
         
         .testimonial-quote {
