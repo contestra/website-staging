@@ -1,0 +1,31 @@
+Git History Cleanup Instructions
+================================
+
+A sensitive value was found in pricing-fixed.html (now deleted).
+
+To completely remove it from Git history:
+
+Option 1: Using BFG Repo-Cleaner (Recommended)
+----------------------------------------------
+1. Download BFG from: https://rtyley.github.io/bfg-repo-cleaner/
+2. Create a fresh clone: git clone --mirror https://github.com/yourusername/yourrepo.git
+3. Run: java -jar bfg.jar --delete-files pricing-fixed.html yourrepo.git
+4. cd yourrepo.git
+5. git reflog expire --expire=now --all && git gc --prune=now --aggressive
+6. git push --force
+
+Option 2: Using git filter-branch
+---------------------------------
+git filter-branch --force --index-filter \
+  "git rm --cached --ignore-unmatch pricing-fixed.html" \
+  --prune-empty --tag-name-filter cat -- --all
+
+Then:
+git push --force --all
+git push --force --tags
+
+IMPORTANT NOTES:
+- This will rewrite Git history
+- All collaborators need to re-clone the repository
+- Consider any exposed keys compromised and rotate them
+- Add secrets to .gitignore to prevent future commits
