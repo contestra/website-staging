@@ -301,6 +301,11 @@
         .b-section .section-title {
             text-align: center;
         }
+        
+        /* Reduce section header bottom margin on mobile */
+        .section-header {
+            margin-block-end: 3rem; /* Reduced from 6rem */
+        }
     }
     
     /* Two-column layout: 35% description, 65% carousel */
