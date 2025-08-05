@@ -413,14 +413,21 @@
     /* Feature descriptions */
     .col-text {
         font-size: 1.8rem;
-        line-height: 1.3; /* Match standard body text line-height */
+        line-height: 1.6; /* Comfortable line-height for desktop */
         color: var(--color-text-primary);
         opacity: 0.7;
     }
     
     /* Override global p line-height for feature descriptions */
     .col-text p {
-        line-height: inherit; /* Use parent's line-height of 1.3 */
+        line-height: inherit; /* Use parent's line-height */
+    }
+    
+    /* Tighter line-height on mobile only */
+    @media (width <= 768px) {
+        .col-text {
+            line-height: 1.3; /* Tighter spacing on mobile */
+        }
     }
 }
 

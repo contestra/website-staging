@@ -742,9 +742,16 @@
     
     .deployment-card p {
         font-size: 1.6rem;
-        line-height: 1.3; /* Match standard body text line-height */
+        line-height: 1.6; /* Comfortable line-height for desktop */
         color: var(--color-text-primary);
         opacity: 0.7;
+    }
+    
+    /* Tighter line-height on mobile for deployment cards */
+    @media (width <= 768px) {
+        .deployment-card p {
+            line-height: 1.3; /* Tighter spacing on mobile */
+        }
     }
 }
 
