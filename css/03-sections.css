@@ -500,8 +500,9 @@
             margin-inline: auto;
             min-height: 400px; /* Increased to accommodate longest testimonial */
             max-height: 400px; /* Keep it fixed */
-            padding: var(--gap-3) var(--gap-4); /* Reduced top padding */
+            padding: var(--gap-3) var(--gap-4) var(--gap-3) var(--gap-4); /* Equal padding all around */
             overflow: visible; /* Allow content to be visible */
+            box-sizing: border-box; /* Include padding in height calculation */
         }
         
         /* Fix testimonial slides container height on mobile */
@@ -531,6 +532,7 @@
             display: flex;
             flex-direction: column;
             padding: 0; /* Remove any default padding */
+            justify-content: space-between; /* Distribute space evenly */
         }
         
         /* Reduce gap after quote icon on mobile */
@@ -540,9 +542,14 @@
         
         .testimonial-quote {
             flex: 1; /* Take up available space */
-            margin-block-end: var(--gap-3); /* Consistent spacing before author */
+            margin-block-end: auto; /* Push author info to bottom */
             font-size: 2rem; /* Slightly smaller on mobile to fit better */
             line-height: 1.4; /* Slightly increased line height for readability */
+        }
+        
+        /* Add wrapper styling for author info on mobile */
+        .testimonial-author {
+            margin-block-start: var(--gap-3); /* Match top spacing */
         }
         
         .testimonial-nav--mobile {
