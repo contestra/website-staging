@@ -417,6 +417,11 @@
         color: var(--color-text-primary);
         opacity: 0.7;
     }
+    
+    /* Override global p line-height for feature descriptions */
+    .col-text p {
+        line-height: inherit; /* Use parent's line-height of 1.3 */
+    }
 }
 
 /* ===== TESTIMONIALS SECTION - FROSTED GLASS DESIGN ===== */
