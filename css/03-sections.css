@@ -498,8 +498,8 @@
         /* Center the testimonial slider on mobile */
         .testimonial-slider {
             margin-inline: auto;
-            min-height: 380px; /* Increased to accommodate content + padding */
-            max-height: 380px; /* Keep it fixed */
+            min-height: 400px; /* Increased to accommodate longest testimonial */
+            max-height: 400px; /* Keep it fixed */
             padding: var(--gap-3) var(--gap-4); /* Reduced top padding */
             overflow: visible; /* Allow content to be visible */
         }
@@ -507,7 +507,7 @@
         /* Fix testimonial slides container height on mobile */
         .testimonial-slides {
             position: relative; /* For absolute positioning of slides */
-            height: 300px; /* Increased height for content */
+            height: 320px; /* Increased to fit SiPhox testimonial */
             overflow: visible; /* Allow content to be visible */
         }
         
@@ -566,12 +566,12 @@
     /* Extra adjustments for very small screens */
     @media (width <= 400px) {
         .testimonial-slider {
-            min-height: 420px; /* Taller for narrow screens */
-            max-height: 420px; /* Keep it fixed */
+            min-height: 440px; /* Taller for narrow screens */
+            max-height: 440px; /* Keep it fixed */
         }
         
         .testimonial-slides {
-            height: 340px; /* More height for text wrapping */
+            height: 360px; /* More height for text wrapping */
         }
         
         .testimonial-quote {
