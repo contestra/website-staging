@@ -403,7 +403,7 @@
             transform: none;
             color: #6b7280;
             opacity: 1;
-            font-size: 1.6rem;
+            /* Remove hardcoded font-size to inherit from .form-label */
             font-family: 'Suisse Screen', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 400;
             top: 0.4rem;
@@ -841,6 +841,7 @@
                 min-height: auto; /* Don't force full viewport height on mobile */
                 height: auto;
             }
+            
             
             .contact-hero__wrapper {
                 grid-template-columns: 1fr;
