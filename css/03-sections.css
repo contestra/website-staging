@@ -498,6 +498,44 @@
         /* Center the testimonial slider on mobile */
         .testimonial-slider {
             margin-inline: auto;
+            min-height: 360px; /* Fixed minimum height to prevent jumping */
+        }
+        
+        /* Fix testimonial slides container height on mobile */
+        .testimonial-slides {
+            min-height: 260px; /* Accommodate tallest testimonial */
+            display: flex;
+            align-items: flex-start; /* Align content to top for consistency */
+            padding-top: var(--gap-3); /* Add consistent top padding */
+        }
+        
+        /* Ensure all slides take same space on mobile */
+        .testimonial-slide {
+            position: relative !important; /* Override absolute positioning */
+            opacity: 0;
+            visibility: hidden;
+            display: none;
+        }
+        
+        .testimonial-slide.active {
+            opacity: 1;
+            visibility: visible;
+            display: block;
+        }
+        
+        /* Ensure consistent spacing for testimonial content on mobile */
+        .testimonial-card {
+            min-height: 240px; /* Minimum height for card content */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .testimonial-quote {
+            flex: 1; /* Take up available space */
+            margin-block-end: var(--gap-3); /* Consistent spacing before author */
+            font-size: 2rem; /* Slightly smaller on mobile to fit better */
+            line-height: 1.4; /* Slightly increased line height for readability */
         }
         
         .testimonial-nav--mobile {
@@ -515,6 +553,21 @@
             display: flex;
             gap: var(--gap-2);
             align-items: center;
+        }
+    }
+    
+    /* Extra adjustments for very small screens */
+    @media (width <= 400px) {
+        .testimonial-slider {
+            min-height: 400px; /* Slightly taller for narrow screens */
+        }
+        
+        .testimonial-slides {
+            min-height: 300px; /* More height for text wrapping */
+        }
+        
+        .testimonial-quote {
+            font-size: 1.8rem; /* Even smaller font on very small screens */
         }
     }
     
