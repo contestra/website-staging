@@ -413,7 +413,7 @@
     /* Feature descriptions */
     .col-text {
         font-size: 1.8rem;
-        line-height: 1.6;
+        line-height: 1.3; /* Match standard body text line-height */
         color: var(--color-text-primary);
         opacity: 0.7;
     }
