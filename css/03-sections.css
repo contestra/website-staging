@@ -498,18 +498,17 @@
         /* Center the testimonial slider on mobile */
         .testimonial-slider {
             margin-inline: auto;
-            height: auto; /* Let content determine height */
-            min-height: 320px; /* Minimum to accommodate tallest testimonial */
-            max-height: 320px; /* Maximum to prevent expansion */
-            padding: var(--gap-3) var(--gap-4); /* Reduce top padding from gap-5 */
-            overflow: hidden; /* Hide any overflow */
+            min-height: 380px; /* Increased to accommodate content + padding */
+            max-height: 380px; /* Keep it fixed */
+            padding: var(--gap-3) var(--gap-4); /* Reduced top padding */
+            overflow: visible; /* Allow content to be visible */
         }
         
         /* Fix testimonial slides container height on mobile */
         .testimonial-slides {
             position: relative; /* For absolute positioning of slides */
-            height: 250px; /* Fixed height for all slides */
-            overflow: hidden; /* Prevent content overflow */
+            height: 300px; /* Increased height for content */
+            overflow: visible; /* Allow content to be visible */
         }
         
         /* Ensure all slides take same space on mobile */
@@ -567,12 +566,12 @@
     /* Extra adjustments for very small screens */
     @media (width <= 400px) {
         .testimonial-slider {
-            min-height: 350px; /* Slightly taller for narrow screens */
-            max-height: 350px; /* Keep it fixed */
+            min-height: 420px; /* Taller for narrow screens */
+            max-height: 420px; /* Keep it fixed */
         }
         
         .testimonial-slides {
-            height: 280px; /* More height for text wrapping */
+            height: 340px; /* More height for text wrapping */
         }
         
         .testimonial-quote {
